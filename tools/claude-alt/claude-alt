@@ -1,0 +1,140 @@
+#!/usr/bin/env bash
+# claude-alt – start Claude Code against a second, Anthropic-compatible provider.
+#
+#   claude-alt <profile> [claude args...]   start claude with that profile
+#   claude-alt check <profile>              send one tiny test request
+#   claude-alt list                         show available profiles
+#
+# The environment is set only for the started process. A plain `claude`
+# keeps using your normal Anthropic login.
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
+CONFIG_DIR="${CLAUDE_ALT_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/claude-alt}"
+PROFILE_DIRS=("$CONFIG_DIR/profiles" "$SCRIPT_DIR/profiles")
+
+die() { echo "claude-alt: $*" >&2; exit 1; }
+
+usage() {
+  sed -n '2,9p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'
+  exit "${1:-0}"
+}
+
+list_profiles() {
+  local dir f seen=" "
+  for dir in "${PROFILE_DIRS[@]}"; do
+    [[ -d "$dir" ]] || continue
+    for f in "$dir"/*.env; do
+      [[ -e "$f" ]] || continue
+      local name; name="$(basename "$f" .env)"
+      [[ "$seen" == *" $name "* ]] && continue
+      seen+="$name "
+      echo "$name  ($f)"
+    done
+  done
+}
+
+# Profiles are parsed, never sourced: only known keys, no shell evaluation.
+load_profile() {
+  local name="$1" dir file=""
+  [[ "$name" =~ ^[A-Za-z0-9_-]+$ ]] || die "invalid profile name: $name"
+  for dir in "${PROFILE_DIRS[@]}"; do
+    if [[ -f "$dir/$name.env" ]]; then file="$dir/$name.env"; break; fi
+  done
+  [[ -n "$file" ]] || die "profile '$name' not found. Available: $(list_profiles | cut -d' ' -f1 | tr '\n' ' ')"
+
+  BASE_URL="" MODEL="" FAST_MODEL="" KEY_VAR=""
+  local line key value
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    line="${line%%#*}"
+    line="${line#"${line%%[![:space:]]*}"}"
+    line="${line%"${line##*[![:space:]]}"}"
+    [[ -z "$line" ]] && continue
+    [[ "$line" == *=* ]] || die "$file: invalid line: $line"
+    key="${line%%=*}" value="${line#*=}"
+    case "$key" in
+      BASE_URL) BASE_URL="$value" ;;
+      MODEL) MODEL="$value" ;;
+      FAST_MODEL) FAST_MODEL="$value" ;;
+      KEY_VAR) KEY_VAR="$value" ;;
+      *) die "$file: unknown key: $key" ;;
+    esac
+  done < "$file"
+
+  [[ -n "$BASE_URL" && -n "$MODEL" && -n "$KEY_VAR" ]] || die "$file: BASE_URL, MODEL and KEY_VAR are required"
+  [[ "$BASE_URL" == https://* || "$BASE_URL" =~ ^http://(localhost|127\.0\.0\.1)(:[0-9]+)?(/|$) ]] \
+    || die "$file: BASE_URL must use https:// (plain http only for localhost)"
+  [[ "$BASE_URL" != */v1 && "$BASE_URL" != */v1/ ]] || die "$file: BASE_URL must not end in /v1 (Claude Code appends /v1/messages)"
+  [[ "$KEY_VAR" =~ ^[A-Z_][A-Z0-9_]*$ ]] || die "$file: invalid KEY_VAR: $KEY_VAR"
+  local m
+  for m in "$MODEL" "${FAST_MODEL:-$MODEL}"; do
+    [[ "$m" =~ ^[A-Za-z0-9._:/-]+$ ]] || die "$file: invalid model id: $m"
+  done
+  FAST_MODEL="${FAST_MODEL:-$MODEL}"
+  PROFILE_NAME="$name"
+}
+
+# Key source: environment variable first, then a key file readable only by you.
+load_key() {
+  API_KEY="${!KEY_VAR:-}"
+  [[ -n "$API_KEY" ]] && return
+  local key_file="$CONFIG_DIR/keys/$PROFILE_NAME"
+  [[ -f "$key_file" ]] || die "no API key. Set \$$KEY_VAR or create $key_file (chmod 600)"
+  local mode; mode="$(stat -c '%a' "$key_file" 2>/dev/null || stat -f '%Lp' "$key_file")"
+  [[ "$mode" == "600" || "$mode" == "400" ]] || die "$key_file has mode $mode – run: chmod 600 '$key_file'"
+  API_KEY="$(head -n1 "$key_file" | tr -d '[:space:]')"
+  [[ -n "$API_KEY" ]] || die "$key_file is empty"
+}
+
+check_profile() {
+  command -v curl >/dev/null || die "curl not found"
+  echo "Testing $PROFILE_NAME: $BASE_URL/v1/messages, model $MODEL"
+  local body status
+  body="$(mktemp)"; trap 'rm -f "$body"' RETURN
+  status="$(curl -sS -o "$body" -w '%{http_code}' --max-time 60 \
+    -H @<(printf 'Authorization: Bearer %s\nx-api-key: %s\n' "$API_KEY" "$API_KEY") \
+    -H "anthropic-version: 2023-06-01" \
+    -H "content-type: application/json" \
+    -d "{\"model\":\"$MODEL\",\"max_tokens\":16,\"messages\":[{\"role\":\"user\",\"content\":\"Reply with OK.\"}]}" \
+    "$BASE_URL/v1/messages")" || die "request failed"
+  if [[ "$status" == 200 ]]; then
+    echo "OK (HTTP 200)"
+  else
+    echo "Error: HTTP $status" >&2
+    head -c 500 "$body" >&2; echo >&2
+    return 1
+  fi
+}
+
+# Always runs in --bare mode. Tested with Claude Code 2.1.285: without --bare,
+# Claude Code can send your stored Anthropic OAuth token to ANTHROPIC_BASE_URL
+# even when ANTHROPIC_AUTH_TOKEN is set. --bare never reads OAuth or keychain,
+# so only the profile key leaves this machine. The key reaches Claude Code
+# through apiKeyHelper + an environment variable, never as a command argument.
+# --bare also skips hooks, plugins and CLAUDE.md discovery; --add-dir "$PWD"
+# loads the CLAUDE.md of the current project again.
+run_claude() {
+  command -v claude >/dev/null || die "claude not found in PATH"
+  exec env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u CLAUDE_CODE_OAUTH_TOKEN \
+    CLAUDE_ALT_KEY="$API_KEY" \
+    ANTHROPIC_BASE_URL="$BASE_URL" \
+    ANTHROPIC_MODEL="$MODEL" \
+    ANTHROPIC_DEFAULT_OPUS_MODEL="$MODEL" \
+    ANTHROPIC_DEFAULT_SONNET_MODEL="$MODEL" \
+    ANTHROPIC_DEFAULT_HAIKU_MODEL="$FAST_MODEL" \
+    CLAUDE_CODE_SUBAGENT_MODEL="$MODEL" \
+    CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1 \
+    claude --bare --add-dir "$PWD" \
+      --settings '{"apiKeyHelper":"printenv CLAUDE_ALT_KEY"}' \
+      "$@"
+}
+
+case "${1:-}" in
+  ""|-h|--help|help) usage ;;
+  list) list_profiles ;;
+  check)
+    [[ -n "${2:-}" ]] || usage 1
+    load_profile "$2"; load_key; check_profile ;;
+  *)
+    load_profile "$1"; shift; load_key; run_claude "$@" ;;
+esac
