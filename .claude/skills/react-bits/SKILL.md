@@ -126,6 +126,9 @@ const reduce = typeof window !== 'undefined' && window.matchMedia('(prefers-redu
 return reduce ? <h1 className="text-6xl">Hello</h1> : <SplitText text="Hello" tag="h1" />;
 ```
 
+13. **`ScrollReveal` kills every ScrollTrigger on the page.** Its cleanup runs `ScrollTrigger.getAll().forEach(trigger => trigger.kill())`. When it unmounts or its props change, your own pinned sections and scroll animations die too. Patch the effect: wrap the tweens in `const ctx = gsap.context(() => { ... }, el)` and return `() => ctx.revert()`. `SplitText` filters by its own element and is fine.
+14. **`CountUp` `duration` is not a duration.** It sets the stiffness and damping of a Motion spring. Tested with `duration={2}`: the final value shows after about 6 to 8 s. To show the final value at once (reduced motion), pass `from={to}`.
+
 ## Dependencies
 
 | Package | Components | Note |
