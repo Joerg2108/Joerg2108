@@ -37,3 +37,13 @@ Greift automatisch, sobald du einen animierten Hero- oder Abschnitts-Hintergrund
 - **Eigener Skill** – Vanta hat kein offizielles Skill-Repo. Inhalt abgeleitet aus README und Quellcode von [tengbao/vanta](https://github.com/tengbao/vanta) (MIT), Commit `f8b351906688b56f0fc744e53bde81fc3c56f150`, Version 0.5.24.
 - Getestet in Chromium (headless): alle 14 Effekte starten mit three.js r134 bzw. p5 1.1.9, `destroy()` räumt auf; npm-Import mit übergebenem `THREE` funktioniert. Ab three.js r159 bricht BIRDS.
 - Das Projekt wird seit Januar 2023 nicht mehr gepflegt – deshalb pinnt der Skill die Versionen.
+
+## react-bits
+
+214 kostenlose animierte React-Komponenten von [React Bits](https://reactbits.dev): Text-Animationen, Animationen, UI-Komponenten, Micro-Interactions und WebGL-Hintergründe.
+Greift automatisch, sobald du animierten Text, Hover-/Scroll-Effekte, eine animierte Navigation/Galerie oder einen Hero-Hintergrund in React oder Next.js willst.
+
+- **Eigener Skill** – React Bits hat kein offizielles Skill-Repo. Inhalt abgeleitet aus `public/llms.txt`, Registry-Dateien und Quellcode von [DavidHDev/react-bits](https://github.com/DavidHDev/react-bits) (MIT + Commons Clause), Commit `b2098591ad5b3489eff65ca9e5b9f9bdf2de29c3`.
+- `references/catalog.md`: alle 214 Komponenten mit Beschreibung, npm-Abhängigkeiten und Pflicht-Props – generiert aus dem Quellcode.
+- Getestet mit React 19, Vite 8, Tailwind 4 und Chromium (headless): alle TS-Tailwind-Komponenten bauen und rendern; `tsc --strict` über alle TS-Varianten. Gefundene Stolperfallen (Pflicht-Props, Named Export bei `GridScan`, fehlende `.glb`-Dateien, Versions-Pins, DSGVO-relevante Remote-Bilder/Google Fonts) stehen im Skill.
+- Die CLI-Installation (`shadcn` / `jsrepo`) ist nicht live getestet – `reactbits.dev` war aus der Sandbox nicht erreichbar. Befehle und Registry-Format stammen aus dem Repo-Quellcode.
