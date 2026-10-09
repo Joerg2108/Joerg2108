@@ -47,3 +47,12 @@ Greift automatisch, sobald du animierten Text, Hover-/Scroll-Effekte, eine animi
 - `references/catalog.md`: alle 214 Komponenten mit Beschreibung, npm-Abhängigkeiten und Pflicht-Props – generiert aus dem Quellcode.
 - Getestet mit React 19, Vite 8, Tailwind 4 und Chromium (headless): alle TS-Tailwind-Komponenten bauen und rendern; `tsc --strict` über alle TS-Varianten. Gefundene Stolperfallen (Pflicht-Props, Named Export bei `GridScan`, fehlende `.glb`-Dateien, Versions-Pins, DSGVO-relevante Remote-Bilder/Google Fonts) stehen im Skill.
 - Die CLI-Installation (`shadcn` / `jsrepo`) ist nicht live getestet – `reactbits.dev` war aus der Sandbox nicht erreichbar. Befehle und Registry-Format stammen aus dem Repo-Quellcode.
+
+## lenis
+
+Smooth Scroll mit [Lenis](https://github.com/darkroomengineering/lenis) für Vanilla JS, React/Next.js, Vue/Nuxt – inkl. GSAP-ScrollTrigger-Sync, Snap, Modals und verschachteltem Scroll.
+Greift automatisch, sobald du Smooth Scroll, Momentum-Scroll oder weiche Anker-Links willst.
+
+- **Eigener Skill** – Lenis hat kein offizielles Skill-Repo. Inhalt abgeleitet aus READMEs und Quellcode von [darkroomengineering/lenis](https://github.com/darkroomengineering/lenis) (MIT), Commit `bc152f90d7c9b04ef372718350e2f616f3c706b2`, Version 1.3.26.
+- Getestet in Chromium (headless) mit React 19 und GSAP 3.15: `autoRaf`, eigener Loop, GSAP-Ticker + ScrollTrigger (Vanilla und React), `ReactLenis root` + `useLenis`, `data-lenis-prevent`, `stop()` mit/ohne CSS, `scrollTo` mit `prefers-reduced-motion`, `lenis/snap` (`mandatory`).
+- Zwei Fehler in der offiziellen Doku gefunden und im Skill korrigiert: Das „Custom raf loop“-Beispiel im React-README läuft nur einen Frame (Seite scrollt nicht), und `direction` ist vertauscht (`1` = runter, nicht hoch).
