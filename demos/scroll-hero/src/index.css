@@ -16,4 +16,5 @@ html {
 /* Fixed header: native anchor jumps and Lenis scrollTo both respect this */
 html {
   scroll-padding-top: 5rem;
+  touch-action: manipulation;
 }

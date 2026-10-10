@@ -10,7 +10,7 @@ export default function Contact() {
       <button
         type="button"
         onClick={() => lenis?.scrollTo(0, { duration: 2 })}
-        className="mt-10 rounded-full border border-white/20 px-6 py-3 text-sm transition-colors hover:bg-white hover:text-black"
+        className="mt-10 rounded-full border border-white/20 px-6 py-3 text-sm transition-colors hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-2"
       >
         Nach oben
       </button>

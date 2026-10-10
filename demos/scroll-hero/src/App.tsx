@@ -9,9 +9,15 @@ import Stats from './sections/Stats';
 export default function App() {
   return (
     <>
+      <a
+        href="#inhalt"
+        className="sr-only z-[60] rounded-full bg-white text-sm text-black focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:px-4 focus:py-2"
+      >
+        Zum Inhalt springen
+      </a>
       <SmoothScroll />
       <Header />
-      <main>
+      <main id="inhalt">
         <Hero />
         <Intro />
         <Services />
