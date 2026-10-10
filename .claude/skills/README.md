@@ -56,3 +56,40 @@ Greift automatisch, sobald du Smooth Scroll, Momentum-Scroll oder weiche Anker-L
 - **Eigener Skill** – Lenis hat kein offizielles Skill-Repo. Inhalt abgeleitet aus READMEs und Quellcode von [darkroomengineering/lenis](https://github.com/darkroomengineering/lenis) (MIT), Commit `bc152f90d7c9b04ef372718350e2f616f3c706b2`, Version 1.3.26.
 - Getestet in Chromium (headless) mit React 19 und GSAP 3.15: `autoRaf`, eigener Loop, GSAP-Ticker + ScrollTrigger (Vanilla und React), `ReactLenis root` + `useLenis`, `data-lenis-prevent`, `stop()` mit/ohne CSS, `scrollTo` mit `prefers-reduced-motion`, `lenis/snap` (`mandatory`).
 - Zwei Fehler in der offiziellen Doku gefunden und im Skill korrigiert: Das „Custom raf loop“-Beispiel im React-README läuft nur einen Frame (Seite scrollt nicht), und `direction` ist vertauscht (`1` = runter, nicht hoch).
+
+## taste-skill (13 Skills)
+
+Design-Regeln gegen „AI-Slop“-Frontends: Layout, Typografie, Farbe, Motion und Bildführung. Dazu kommen Skills für Referenzbilder (Web, Mobile, Brand-Kit).
+
+- Quelle: [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill), Ordner `skills/`
+- Stand: Commit `717446e07a78d4e6d7918b1fde1a263378eebac9`
+- Lizenz: MIT, Kopie liegt in jedem Ordner als `LICENSE`
+- Unverändert übernommen. Die Ordner heißen wie das `name:`-Feld (Install-Name), nicht wie die Upstream-Ordner.
+
+| Skill (Ordner hier) | Upstream-Ordner | Wofür |
+|---|---|---|
+| `design-taste-frontend` | `taste-skill` | **Standard (v2, experimentell).** Landingpages, Portfolios, Redesigns. Liest das Briefing, setzt drei Regler (VARIANCE / MOTION / DENSITY) und hat einen langen Pre-Flight-Check |
+| `design-taste-frontend-v1` | `taste-skill-v1` | Alte v1, nur für exakt gleiches Verhalten |
+| `gpt-taste` | `gpt-tasteskill` | Strengere Variante für GPT/Codex, GSAP-lastig |
+| `redesign-existing-projects` | `redesign-skill` | Bestehende Seite erst prüfen, dann gezielt verbessern |
+| `high-end-visual-design` | `soft-skill` | Ruhiger „Agentur“-Look, weiche Schatten, Double-Bezel-Karten |
+| `minimalist-ui` | `minimalist-skill` | Editorial-Minimalismus (Notion/Linear) |
+| `industrial-brutalist-ui` | `brutalist-skill` | Swiss/Terminal-Brutalismus |
+| `stitch-design-taste` | `stitch-skill` | `DESIGN.md` für Google Stitch, Vorlage liegt bei |
+| `full-output-enforcement` | `output-skill` | Verbietet Platzhalter wie `// ...` und gekürzte Ausgaben |
+| `image-to-code` | `image-to-code-skill` | Erst Bilder generieren, dann analysieren, dann coden |
+| `imagegen-frontend-web` | `imagegen-frontend-web` | Website-Referenzbilder, je Sektion ein Bild |
+| `imagegen-frontend-mobile` | `imagegen-frontend-mobile` | App-Screens im Phone-Mockup |
+| `brandkit` | `brandkit` | Brand-Kit-Board: Logo, Farben, Schrift, Anwendungen |
+
+**Vorsicht beim Einsatz:**
+
+- **Bild-Generierung kostet Credits.** `design-taste-frontend` (Abschnitt 4.8) schreibt vor: Ist ein Bild-Tool verfügbar, *muss* es genutzt werden. `image-to-code` und `imagegen-*` erzeugen ein Bild pro Sektion, bei einer Landingpage standardmäßig 6–8. In diesem Account ist ein Higgsfield-Connector mit `generate_image` verbunden. Vor Bild-Jobs immer nach Anzahl und Budget fragen.
+- **DSGVO.** Mehrere Skills nehmen als Platzhalter `picsum.photos`, Logos von `cdn.simpleicons.org` oder Unsplash. Jede dieser Anfragen schickt die IP-Adresse der Besucher an Dritte. Für echte Seiten: Bilder und Logos selbst hosten, Schriften selbst hosten (das verlangt `design-taste-frontend` ohnehin).
+- **Widersprüche zwischen den Skills.**
+  - `stitch-design-taste` empfiehlt `Fraunces` und `Instrument Serif`. `design-taste-frontend` verbietet genau diese beiden als Standard.
+  - `high-end-visual-design` will über jeder Überschrift ein Eyebrow-Label. `design-taste-frontend` erlaubt höchstens eins pro drei Sektionen.
+  - Bei Konflikt gilt der Skill, den du ausdrücklich aufrufst (`/name`). Sonst gilt `design-taste-frontend`.
+- **Mehrere Stil-Skills greifen gleichzeitig.** v1, v2, `gpt-taste` und die drei Stil-Skills beschreiben sich alle als Frontend-Design-Skill. Für eine feste Richtung den Skill direkt aufrufen, z. B. `/minimalist-ui`.
+- **`full-output-enforcement` gegen `caveman`.** Der eine verlangt „nicht auf Kürze optimieren“. Er betrifft aber nur Code und Deliverables, nicht den Chat-Stil.
+- `design-taste-frontend` Abschnitt 12 verweist auf einen Ordner `blocks/`. Den gibt es upstream noch nicht.
