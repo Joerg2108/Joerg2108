@@ -93,3 +93,14 @@ Design-Regeln gegen „AI-Slop“-Frontends: Layout, Typografie, Farbe, Motion u
 - **Mehrere Stil-Skills greifen gleichzeitig.** v1, v2, `gpt-taste` und die drei Stil-Skills beschreiben sich alle als Frontend-Design-Skill. Für eine feste Richtung den Skill direkt aufrufen, z. B. `/minimalist-ui`.
 - **`full-output-enforcement` gegen `caveman`.** Der eine verlangt „nicht auf Kürze optimieren“. Er betrifft aber nur Code und Deliverables, nicht den Chat-Stil.
 - `design-taste-frontend` Abschnitt 12 verweist auf einen Ordner `blocks/`. Den gibt es upstream noch nicht.
+
+## web-design-guidelines
+
+Prüft UI-Code gegen die [Vercel Web Interface Guidelines](https://github.com/vercel-labs/web-interface-guidelines): Barrierefreiheit, Fokus, Formulare, Animation, Typografie, Performance, Dark Mode, i18n, Hydration. Die Ausgabe sind knappe Funde im Format `datei:zeile`.
+Greift bei „review my UI“, „check accessibility“, „audit design“. Direkt aufrufen mit `/web-design-guidelines src/**/*.tsx`.
+
+- Quelle: [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills), `skills/web-design-guidelines/SKILL.md`, Commit `063bee94c3f4df8453406c830b0a7df0f2860278`. `SKILL.md` ist unverändert übernommen.
+- Lizenz: MIT. Der Repo-README von agent-skills nennt MIT, dort liegt aber keine Lizenzdatei. `LICENSE` stammt aus dem Guidelines-Repo (Copyright Vercel Labs).
+- **Lädt die Regeln bei jedem Aufruf live** von `raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md`. Ändert Vercel die Datei, ändert sich das Verhalten des Skills, ohne Commit hier. Geprüft am 10.10.2026: erreichbar und unbedenklich.
+- `references/command.md` ist eine Kopie dieser Regeln vom Commit `434b7f91364665f2f733b310ec54809bf8f37937`. Ist die URL nicht erreichbar oder fragwürdig verändert, wird diese Kopie genommen. Mit `diff` gegen die Live-Version lässt sich prüfen, was sich geändert hat.
+- **Achtung bei deutschen Seiten:** Die Copy-Regeln sind auf Englisch ausgelegt („Title Case for headings“, Chicago Style, `…` am Ende von Platzhaltern). Für deutsche Texte gilt die normale deutsche Groß- und Kleinschreibung. Diese Funde ignorieren.
