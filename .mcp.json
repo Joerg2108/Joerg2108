@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "21st": {
+      "type": "http",
+      "url": "https://21st.dev/api/mcp",
+      "headers": {
+        "x-api-key": "${TWENTY_FIRST_API_KEY}"
+      }
+    },
+    "google-search-console": {
+      "type": "stdio",
+      "command": "bash",
+      "args": [
+        "-c",
+        "exec \"${CLAUDE_PROJECT_DIR:-.}/.claude/bin/gsc-mcp.sh\""
+      ],
+      "env": {
+        "GSC_SITE_URL": "${GSC_SITE_URL:-}"
+      }
+    }
+  }
+}
