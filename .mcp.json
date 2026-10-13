@@ -6,6 +6,17 @@
       "headers": {
         "x-api-key": "${TWENTY_FIRST_API_KEY}"
       }
+    },
+    "google-search-console": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["google-search-console-mcp@0.10.9"],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS:-}",
+        "GSC_SITE_URL": "${GSC_SITE_URL:-}",
+        "DO_NOT_TRACK": "1",
+        "GSC_MCP_TELEMETRY": "false"
+      }
     }
   }
 }
