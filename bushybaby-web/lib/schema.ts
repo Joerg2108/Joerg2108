@@ -63,7 +63,7 @@ export function buildBarSchema(site: Site, opts: { lang: string; description: st
     foundingDate: site.foundingYear ? String(site.foundingYear) : null,
     servesCuisine: ["Cocktails", "Tiki drinks"],
     acceptsReservations: true,
-    // Add `hasMenu: \`${url}/menu\`` once the /menu route exists — never point Google at a 404.
+    hasMenu: `${page}/menu`,
     sameAs: [site.instagram],
     address: hasAddress
       ? {

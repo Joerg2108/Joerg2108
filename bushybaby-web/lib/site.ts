@@ -54,6 +54,17 @@ export const site = {
   paymentAccepted: null as string | null, // e.g. "Cash, Credit Card, M-Pesa"
   foundingYear: null as number | null,
 
+  /** Legal operator (imprint + privacy). `null` shows a visible [placeholder] on the legal pages. */
+  operator: {
+    legalName: null as string | null, // registered business name
+    representative: null as string | null, // owner / managing director
+    street: null as string | null,
+    town: null as string | null,
+    businessRegNo: null as string | null, // Business Registration Service (BRS) number
+    kraPin: null as string | null, // Kenya Revenue Authority PIN
+    liquorLicence: null as string | null, // county liquor licence number
+  },
+
   reservation: {
     /** Earliest / latest bookable time slot on the reserve form. */
     slots: ["18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],

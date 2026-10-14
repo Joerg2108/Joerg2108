@@ -44,4 +44,5 @@ test("per-language schema shares one @id", () => {
   assert.equal(de.description, "Tiki-Bar");
   assert.ok(de.url.endsWith("/de"));
   assert.ok(de.potentialAction.target.urlTemplate.endsWith("/de/reserve"));
+  assert.ok(de.hasMenu.endsWith("/de/menu"), "menu link follows the page language");
 });
