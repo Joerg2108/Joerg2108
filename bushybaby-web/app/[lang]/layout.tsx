@@ -41,7 +41,9 @@ export async function generateMetadata({ params }: Omit<Props, "children">): Pro
       images: [{ url: "/images/bar-night.jpg", width: 1320, height: 738, alt: t.ogAlt }],
     },
     twitter: { card: "summary_large_image", title: site.name, description: t.description, images: ["/images/bar-night.jpg"] },
-    robots: { index: true, follow: true, googleBot: { "max-image-preview": "large" } },
+    robots: site.indexable
+      ? { index: true, follow: true, googleBot: { "max-image-preview": "large" } }
+      : { index: false, follow: false },
     formatDetection: { telephone: true, address: true },
   };
 }

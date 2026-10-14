@@ -1,0 +1,17 @@
+# Netlify build config. Next.js is deployed via the OpenNext adapter
+# (@netlify/plugin-nextjs), installed and updated automatically — don't pin it.
+# proxy.ts (language redirect) runs as an Edge Function.
+#
+# Environment variables are NOT set here (this file is committed) — set them in
+# Netlify: Project configuration → Environment variables. NEXT_PUBLIC_* values are
+# baked in at build time, so redeploy after changing them:
+#   NEXT_PUBLIC_SITE_URL         https://<your-site>.netlify.app (or your domain)
+#   NEXT_PUBLIC_WHATSAPP_NUMBER  2547XXXXXXXX
+#   NEXT_PUBLIC_ALLOW_INDEXING   true  (only once all [placeholders] are replaced)
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"

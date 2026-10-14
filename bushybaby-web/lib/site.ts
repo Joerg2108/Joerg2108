@@ -23,6 +23,12 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   locale: "en_KE",
 
+  /**
+   * Search engines may only index the site once real data replaced the [placeholders].
+   * Off by default — set NEXT_PUBLIC_ALLOW_INDEXING=true on the host and redeploy to go public in Google.
+   */
+  indexable: process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true",
+
   /** WhatsApp number in international format, digits only, e.g. "254712345678". */
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? null,
   /** Displayed phone number, e.g. "+254 712 345 678". */
