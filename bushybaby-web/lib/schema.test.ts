@@ -9,7 +9,7 @@ test("unknown values are omitted, not faked", () => {
   assert.equal(s.address, undefined);
   assert.equal(s.geo, undefined);
   assert.equal(s.openingHoursSpecification, undefined);
-  assert.equal(s.telephone, undefined);
+  assert.equal(s.telephone, "+254 740 022547"); // known value is included
   assert.deepEqual(s.sameAs, [site.instagram]);
 });
 

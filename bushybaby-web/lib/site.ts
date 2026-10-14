@@ -30,9 +30,9 @@ export const site = {
   indexable: process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true",
 
   /** WhatsApp number in international format, digits only, e.g. "254712345678". */
-  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? null,
-  /** Displayed phone number, e.g. "+254 712 345 678". */
-  phoneDisplay: null as string | null,
+  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "254740022547",
+  /** Displayed phone number (also sent to Google as `telephone`). */
+  phoneDisplay: "+254 740 022547" as string | null,
   email: null as string | null,
   instagram: "https://www.instagram.com/bushybaby_tikipub",
 
