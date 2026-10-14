@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+/* ── Design tokens · "Nocturne" (see canvas board 12) ───────────────────── */
+@theme {
+  --color-night: #0a0a0a;
+  --color-surface-1: #111111;
+  --color-surface-2: #171717;
+  --color-moon: #fafafa;
+  --color-mist: #a1a1a1;
+  --color-dim: #737373;
+  --color-ghost: #3a3a3a;
+  --color-amber: #ffaa40;
+  --color-ember: #ff7a3d;
+  --color-violet: #9c40ff;
+  --color-live: #4ade80;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --radius-tile: 20px;
+  --radius-card: 28px;
+  --radius-panel: 40px;
+
+  --ease-land: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-glide: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-breathe: cubic-bezier(0.37, 0, 0.63, 1);
+
+  --animate-float: float 8s var(--ease-breathe) infinite;
+  --animate-pulse-live: pulse-live 2.4s ease-in-out infinite;
+  --animate-marquee: marquee var(--duration, 40s) linear infinite;
+  --animate-aurora: aurora 8s ease-in-out infinite alternate;
+  --animate-shimmer-slide: shimmer-slide var(--speed, 3s) ease-in-out infinite alternate;
+  --animate-spin-around: spin-around calc(var(--speed, 3s) * 2) infinite linear;
+  --animate-border-beam: border-beam var(--beam-duration, 9s) linear infinite;
+  --animate-blink: blink 5s ease-in-out infinite;
+  --animate-word-rise: word-rise 0.9s var(--ease-land) both;
+
+  @keyframes float { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-14px) } }
+  @keyframes pulse-live { 0%, 100% { opacity: 1 } 50% { opacity: .35 } }
+  @keyframes marquee { from { transform: translateX(0) } to { transform: translateX(calc(-100% - var(--gap, 3rem))) } }
+  @keyframes aurora { 0% { background-position: 0% 50% } 100% { background-position: 100% 50% } }
+  @keyframes shimmer-slide { to { transform: translate(calc(100cqw - 100%), 0) } }
+  @keyframes spin-around {
+    0% { transform: translateZ(0) rotate(0) }
+    15%, 35% { transform: translateZ(0) rotate(90deg) }
+    65%, 85% { transform: translateZ(0) rotate(270deg) }
+    100% { transform: translateZ(0) rotate(360deg) }
+  }
+  @keyframes border-beam { 100% { offset-distance: 100% } }
+  @keyframes blink { 0%, 92%, 100% { transform: scaleY(1) } 95% { transform: scaleY(.08) } }
+  @keyframes word-rise { from { transform: translateY(105%) } to { transform: translateY(0) } }
+}
+
+@layer base {
+  html { color-scheme: dark; scroll-behavior: smooth; }
+  body { @apply bg-night text-moon font-sans antialiased; }
+  ::selection { background: var(--color-amber); color: var(--color-night); }
+  :focus-visible { outline: 2px solid var(--color-amber); outline-offset: 3px; border-radius: 8px; }
+  input::placeholder, textarea::placeholder { color: var(--color-dim); }
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-dim);
+}
+
+@utility display {
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 0.88;
+}
+
+@utility glass {
+  background: rgb(10 10 10 / 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgb(255 255 255 / 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
