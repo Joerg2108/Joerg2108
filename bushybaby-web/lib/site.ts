@@ -45,6 +45,8 @@ export const site = {
   },
   /** Exact coordinates help Google Maps a lot — copy from Google Maps → right-click → coordinates. */
   geo: null as { lat: number; lng: number } | null,
+  /** Google Maps share link of the pin (used for "Open in Maps" and schema.org hasMap). */
+  mapsUrl: "https://maps.app.goo.gl/ZZuSHwCG29qzmWNm8" as string | null,
 
   /** Leave empty until confirmed. Example: [{ days: ["Mo","Tu","We","Th"], opens: "17:00", closes: "00:00" }] */
   openingHours: [
@@ -54,7 +56,7 @@ export const site = {
 
   priceRange: "KES 200 – 1,000" as string | null, // drinks by the glass
   currency: "KES",
-  paymentAccepted: null as string | null, // e.g. "Cash, Credit Card, M-Pesa"
+  paymentAccepted: "Cash, Credit Card, M-Pesa" as string | null,
   foundingYear: null as number | null,
 
   /** Legal operator (imprint + privacy). `null` shows a visible [placeholder] on the legal pages. */

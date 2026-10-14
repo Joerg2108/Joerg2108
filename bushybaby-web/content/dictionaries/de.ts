@@ -135,7 +135,7 @@ export const de: Dictionary = {
         { q: "Gibt es einen Dresscode?", a: "Nein. Strandklamotten und Flip-Flops sind willkommen." },
         { q: "Können wir die ganze Bar mieten?", a: "Ja. Geburtstage, Crews, Afterpartys — sag uns Datum, Personenzahl und Stimmung, wir bauen die Nacht drumherum." },
         { q: "Sprecht ihr Deutsch?", a: "[Bitte bestätigen: z. B. „Karte und Website gibt es auf Deutsch — an der Bar sprechen wir Englisch und Swahili, mit einem Lächeln.“]" },
-        { q: "Wie kann ich bezahlen?", a: "[Bar, Karte und M-Pesa — akzeptierte Zahlungsarten bestätigen.]" },
+        { q: "Wie kann ich bezahlen?", a: "Bar (Kenia-Schilling), Karte und M-Pesa. Am einfachsten zahlst du direkt an der Bar." },
       ],
     },
     cta: {

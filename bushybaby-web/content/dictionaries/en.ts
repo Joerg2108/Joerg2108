@@ -134,7 +134,7 @@ export const en = {
         { q: "Is there a dress code?", a: "No. Beach clothes and flip-flops are welcome." },
         { q: "Can we book the whole pub?", a: "Yes. Birthdays, crews, after-parties — tell us the date, the headcount and the mood, we build the night around it." },
         { q: "Do you speak German?", a: "[Confirm: e.g. “Our menu and website are in German — at the bar we speak English and Swahili, with a smile.”]" },
-        { q: "How can I pay?", a: "[Cash, card and M-Pesa — confirm accepted methods.]" },
+        { q: "How can I pay?", a: "Cash (Kenyan shillings), card and M-Pesa. Easiest is to pay right at the bar." },
       ],
     },
     cta: {

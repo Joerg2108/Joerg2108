@@ -60,6 +60,7 @@ export function buildBarSchema(site: Site, opts: { lang: string; description: st
     priceRange: site.priceRange,
     currenciesAccepted: site.currency,
     paymentAccepted: site.paymentAccepted,
+    hasMap: site.mapsUrl,
     foundingDate: site.foundingYear ? String(site.foundingYear) : null,
     servesCuisine: ["Cocktails", "Tiki drinks"],
     acceptsReservations: true,

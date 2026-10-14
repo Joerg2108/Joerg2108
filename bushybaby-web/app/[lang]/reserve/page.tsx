@@ -31,9 +31,9 @@ export default async function ReservePage({ params }: Props) {
   const hours = site.openingHours.length
     ? site.openingHours.map((s) => `${days[s.days[0]]}${s.days.length > 1 ? ` — ${days[s.days[s.days.length - 1]]}` : ""} · ${s.opens} — ${s.closes}`)
     : t.hoursFallback;
-  const mapsHref = site.geo
+  const mapsHref = site.mapsUrl ?? (site.geo
     ? `https://www.google.com/maps/search/?api=1&query=${site.geo.lat},${site.geo.lng}`
-    : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent([site.name, a.street, a.town].filter(Boolean).join(", "))}`;
+    : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent([site.name, a.street, a.town].filter(Boolean).join(", "))}`);
 
   return (
     <section className="relative px-5 pb-28 pt-24 md:px-[clamp(20px,5vw,80px)]">
@@ -50,7 +50,7 @@ export default async function ReservePage({ params }: Props) {
             <Row k={t.rows.address}>
               <span className="block">{a.street ?? t.streetFallback}</span>
               <span className="block">{a.town ?? t.townFallback}, {dict.common.country}</span>
-              <a href={mapsHref} className="mt-2 inline-block text-amber underline-offset-4 hover:underline" rel="noopener">{t.openMaps}</a>
+              <a href={mapsHref} className="mt-2 inline-block text-amber underline-offset-4 hover:underline" target="_blank" rel="noopener">{t.openMaps}</a>
             </Row>
             <Row k={t.rows.contact}>
               <a href={whatsappUrl(site.whatsapp)} className="block hover:text-amber">{site.phoneDisplay ?? t.phoneFallback}</a>
