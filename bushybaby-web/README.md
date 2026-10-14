@@ -16,8 +16,31 @@ npm run dev                  # http://localhost:3000
 |---|---|
 | `npm run dev` | Dev server |
 | `npm run build && npm start` | Production build + server |
+| `npm run build:upload` | Static folder + zip for Netlify drag-and-drop |
 | `npm run typecheck` | TypeScript check |
 | `npm test` | Unit tests for language detection, WhatsApp message + JSON-LD (Node test runner, no deps) |
+
+## Upload folder for Netlify drag-and-drop (no Git, no CLI)
+
+```bash
+npm run build:upload        # → netlify-upload/  and  netlify-upload.zip
+```
+
+Unzip and drag the **netlify-upload** folder onto the project's *Deploys* page
+(https://app.netlify.com/projects/bushybaby-tikipub/deploys) — or onto https://app.netlify.com/drop.
+
+This is a fully static export (`STATIC_EXPORT=1`, see `scripts/build-upload.mjs`). Server-only
+features are replaced by Netlify rules written into the folder:
+
+| Server build | Upload folder |
+|---|---|
+| `proxy.ts` language redirect | `_redirects`: `Cookie=bb_lang_en/de` (EN \| DE switch) → `Language=de` → English |
+| `[...rest]` localized 404 | `_redirects`: `/de/*` → `/de/lost` (404), everything else → `/en/lost` (404) |
+| `next/image` optimizer | original images (`images.unoptimized`) |
+| — | `_headers`: security headers + long cache for `/_next/static` |
+
+The site URL is baked in at build time (`NEXT_PUBLIC_SITE_URL`, default `https://bushybaby-tikipub.netlify.app`).
+Rebuild the folder after every content change — it's a snapshot, not connected to Git.
 
 ## Before going live — fill in your data
 

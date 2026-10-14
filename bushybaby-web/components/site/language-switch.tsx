@@ -15,7 +15,13 @@ export function LanguageSwitch({ lang, label, className, onNavigate }: { lang: L
   const qs = search?.toString();
 
   const remember = (l: Locale) => {
-    document.cookie = `${LOCALE_COOKIE}=${l}; path=/; max-age=31536000; samesite=lax`;
+    const year = "path=/; max-age=31536000; samesite=lax";
+    // Value cookie for proxy.ts (server build) …
+    document.cookie = `${LOCALE_COOKIE}=${l}; ${year}`;
+    // … plus one presence cookie per language for static hosting: Netlify's _redirects
+    // can only test whether a cookie exists (Cookie=bb_lang_de), not its value.
+    for (const other of locales) document.cookie = `bb_lang_${other}=; path=/; max-age=0`;
+    document.cookie = `bb_lang_${l}=1; ${year}`;
     onNavigate?.();
   };
 
