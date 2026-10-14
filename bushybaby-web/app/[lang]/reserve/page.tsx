@@ -33,7 +33,7 @@ export default async function ReservePage({ params }: Props) {
     : t.hoursFallback;
   const mapsHref = site.geo
     ? `https://www.google.com/maps/search/?api=1&query=${site.geo.lat},${site.geo.lng}`
-    : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.name)}`;
+    : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent([site.name, a.street, a.town].filter(Boolean).join(", "))}`;
 
   return (
     <section className="relative px-5 pb-28 pt-24 md:px-[clamp(20px,5vw,80px)]">

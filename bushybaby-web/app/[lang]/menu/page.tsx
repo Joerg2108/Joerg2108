@@ -4,7 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MenuTabs } from "./menu-tabs";
 import { getDictionary } from "@/content/dictionaries";
-import { IMAGES, MENU_PRICES } from "@/content/shared";
+import { MENU } from "@/content/menu";
+import { IMAGES } from "@/content/shared";
 import { hasLocale, href } from "@/lib/i18n";
 import { jsonLdString } from "@/lib/schema";
 import { alternates } from "@/lib/seo";
@@ -31,15 +32,24 @@ export default async function MenuPage({ params }: Props) {
     "@id": `${site.url}/${lang}/menu#menu`,
     name: `${site.name} — ${t.metaTitle}`,
     inLanguage: lang,
-    hasMenuSection: t.sections.map((s) => ({
+    hasMenuSection: MENU.map((s) => ({
       "@type": "MenuSection",
-      name: s.label,
-      hasMenuItem: s.items.map((it) => ({
-        "@type": "MenuItem",
-        name: it.name,
-        ...(it.notes.includes("[") ? {} : { description: it.notes }),
-        ...(MENU_PRICES[it.id] != null ? { offers: { "@type": "Offer", price: MENU_PRICES[it.id], priceCurrency: site.currency } } : {}),
-      })),
+      name: s.label[lang],
+      hasMenuItem:
+        s.kind === "list"
+          ? s.items.map((it) => ({
+              "@type": "MenuItem",
+              name: it.name,
+              ...(it.notes ? { description: it.notes[lang] } : {}),
+              ...(it.price != null ? { offers: { "@type": "Offer", price: it.price, priceCurrency: site.currency } } : {}),
+            }))
+          : s.groups.flatMap((g) =>
+              g.rows.map((r) => ({
+                "@type": "MenuItem",
+                name: `${r.name} (${r.size})`,
+                offers: { "@type": "Offer", price: r.bottle, priceCurrency: site.currency },
+              })),
+            ),
     })),
   };
 
@@ -56,10 +66,14 @@ export default async function MenuPage({ params }: Props) {
             <svg viewBox="0 0 24 24" fill="none" stroke="#ffaa40" strokeWidth="1.75" strokeLinecap="round" aria-hidden className="mt-0.5 size-5 shrink-0"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" /></svg>
             {t.note}
           </p>
+          <p className="flex max-w-[520px] items-center gap-3 self-start rounded-full border border-amber/40 bg-amber/10 px-5 py-3 text-sm font-medium text-amber">
+            <span aria-hidden className="size-2 rounded-full bg-amber shadow-[0_0_12px_#ffaa40]" />
+            {t.deal}
+          </p>
         </div>
       </section>
 
-      <MenuTabs t={t} />
+      <MenuTabs t={t} lang={lang} />
 
       <section aria-labelledby="share-h" className="px-3 pb-8 md:px-[clamp(12px,2vw,32px)]">
         <div className="mx-auto grid max-w-[1376px] overflow-hidden rounded-panel border border-white/10 md:grid-cols-2">

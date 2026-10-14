@@ -33,7 +33,7 @@ export function ReserveForm({ lang, t }: Props) {
   // Days depend on the guest's clock, so they're computed after mount — the page itself is
   // prerendered at build time and must not bake in that day's date (hydration mismatch + stale days).
   const [days, setDays] = useState<ReturnType<typeof nextDays>>([]);
-  const [form, setForm] = useState<ReservationRequest>({ date: "", time: site.reservation.slots[2], guests: 2, name: "", phone: "", note: "" });
+  const [form, setForm] = useState<ReservationRequest>({ date: "", time: site.reservation.slots.includes("19:00") ? "19:00" : site.reservation.slots[0], guests: 2, name: "", phone: "", note: "" });
   const [errors, setErrors] = useState<ValidationErrors>({});
   useEffect(() => {
     const d = nextDays(site.reservation.daysAhead, lang, f.tonight);

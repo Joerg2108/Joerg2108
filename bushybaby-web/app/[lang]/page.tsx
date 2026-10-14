@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { FaqSection, FinalCta, FourActs, Hero, IngredientMarquee, Reviews, Signatures, TheSpace, WaysToStay } from "@/components/home/sections";
+import { FaqSection, FinalCta, FourActs, Hero, IngredientMarquee, Reviews, Signatures, TheSpace, WaysToStay, WeekSection } from "@/components/home/sections";
 import { getDictionary } from "@/content/dictionaries";
 import { hasLocale } from "@/lib/i18n";
 import { jsonLdString } from "@/lib/schema";
@@ -26,6 +26,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <IngredientMarquee t={t} />
       <Signatures lang={lang} t={t} />
       <FourActs t={t} />
+      <WeekSection t={t} />
       <TheSpace t={t} />
       <WaysToStay lang={lang} t={t} />
       <Reviews t={t} />

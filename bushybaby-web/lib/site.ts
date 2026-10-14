@@ -18,7 +18,7 @@ export const site = {
   shortName: "bushybaby",
   tagline: "Wide awake after dark.",
   description:
-    "Hand-built tiki pub under a thatched makuti roof in Kenya. Fresh-fruit cocktails, rum and long, fire-lit nights. Reserve a table on WhatsApp.",
+    "Tiki bar & grill on Tiki Way, Diani Beach (Ukunda), Kenya. Fresh-fruit cocktails, ice-cold Tusker and weekly parties — open daily from 11:00.",
   /** Production URL without trailing slash — set via env on the host. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   locale: "en_KE",
@@ -37,9 +37,9 @@ export const site = {
   instagram: "https://www.instagram.com/bushybaby_tikipub",
 
   address: {
-    street: null as string | null,
-    town: null as string | null, // e.g. "Diani Beach"
-    region: null as string | null, // e.g. "Kwale County"
+    street: "Tiki Way, Ukunda" as string | null,
+    town: "Diani Beach" as string | null,
+    region: "Kwale County" as string | null,
     postalCode: null as string | null,
     country: "KE",
   },
@@ -47,9 +47,12 @@ export const site = {
   geo: null as { lat: number; lng: number } | null,
 
   /** Leave empty until confirmed. Example: [{ days: ["Mo","Tu","We","Th"], opens: "17:00", closes: "00:00" }] */
-  openingHours: [] as OpeningSlot[],
+  openingHours: [
+    { days: ["Mo"], opens: "11:00", closes: "23:50" },
+    { days: ["Tu", "We", "Th", "Fr", "Sa", "Su"], opens: "11:00", closes: "23:00" },
+  ] as OpeningSlot[],
 
-  priceRange: null as string | null, // e.g. "KES 500–1500"
+  priceRange: "KES 200 – 1,000" as string | null, // drinks by the glass
   currency: "KES",
   paymentAccepted: null as string | null, // e.g. "Cash, Credit Card, M-Pesa"
   foundingYear: null as number | null,
@@ -67,7 +70,7 @@ export const site = {
 
   reservation: {
     /** Earliest / latest bookable time slot on the reserve form. */
-    slots: ["18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
+    slots: ["12:00", "14:00", "16:00", "18:00", "19:00", "20:00", "21:00", "22:00"],
     maxGuests: 20,
     daysAhead: 14,
   },

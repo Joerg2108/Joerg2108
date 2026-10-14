@@ -4,13 +4,21 @@ import { buildBarSchema, jsonLdString, prune } from "./schema.ts";
 import { site } from "./site.ts";
 
 test("unknown values are omitted, not faked", () => {
-  const s = buildBarSchema(site) as Record<string, unknown>;
+  const s = buildBarSchema({ ...site, address: { ...site.address, street: null, town: null, region: null }, openingHours: [] } as unknown as typeof site) as Record<string, unknown>;
   assert.equal(s["@type"], "BarOrPub");
-  assert.equal(s.address, undefined);
-  assert.equal(s.geo, undefined);
+  assert.equal(s.geo, undefined); // no coordinates yet
   assert.equal(s.openingHoursSpecification, undefined);
+  assert.equal(s.paymentAccepted, undefined);
   assert.equal(s.telephone, "+254 740 022547"); // known value is included
   assert.deepEqual(s.sameAs, [site.instagram]);
+});
+
+test("real business data is in the schema", () => {
+  const s = buildBarSchema(site) as any;
+  assert.equal(s.address.addressLocality, "Diani Beach");
+  assert.equal(s.address.streetAddress, "Tiki Way, Ukunda");
+  assert.equal(s.openingHoursSpecification.length, 2);
+  assert.equal(s.openingHoursSpecification[0].closes, "23:50");
 });
 
 test("filled data appears in full", () => {

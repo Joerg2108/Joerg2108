@@ -7,6 +7,8 @@ import { Icon } from "@/components/site/logo";
 import { Faq } from "./faq";
 import type { Dictionary } from "@/content/dictionaries";
 import { ACTS, IMAGES } from "@/content/shared";
+import { findItem, kes } from "@/content/menu";
+import { TodayChip } from "./today-chip";
 import { href, type Locale } from "@/lib/i18n";
 import { site } from "@/lib/site";
 import { whatsappUrl } from "@/lib/whatsapp";
@@ -26,7 +28,7 @@ export function Hero({ lang, t }: LT) {
   const h = t.home.hero;
   const town = site.address.town ?? "[Town]";
   const meta = [
-    [h.meta.hours, site.openingHours.length ? `${site.openingHours[0].opens} ${h.meta.hoursSuffix}` : h.meta.hoursFallback],
+    [h.meta.hours, hoursSummary(h.meta.daily)],
     [h.meta.findUs, `${town}, ${t.common.country}`],
     [h.meta.sayHi, "@bushybaby_tikipub"],
   ];
@@ -62,10 +64,7 @@ export function Hero({ lang, t }: LT) {
           <FloatCard className="left-[4%] top-[120px] h-[380px] w-[280px]" tilt="rotateY(18deg) rotateX(4deg)" src={IMAGES.melon} delay="0s" />
           <FloatCard className="right-[2%] top-0 z-10 h-[440px] w-[320px]" tilt="rotateY(-14deg) rotateX(2deg)" src={IMAGES.hurricane} delay="-3s" priority />
           <FloatCard className="bottom-0 left-[30%] z-20 h-[300px] w-[260px]" tilt="rotateY(8deg) rotateX(-6deg)" src={IMAGES.mango} delay="-6s" />
-          <div className="absolute bottom-[120px] right-0 z-30 flex flex-col gap-1 rounded-[18px] border border-white/15 bg-surface-2/55 px-[18px] py-3.5 backdrop-blur-xl">
-            <span className="label-mono text-[11px] text-mist">{h.tonight}</span>
-            <span className="text-[15px] font-semibold">{h.tonightValue}</span>
-          </div>
+          <TodayChip t={h} week={t.home.week} />
           <div className="absolute left-0 top-10 z-30 rounded-full border border-white/15 bg-surface-2/55 px-4 py-3 text-[13px] font-medium backdrop-blur-xl">{h.chip}</div>
         </div>
       </div>
@@ -80,6 +79,12 @@ export function Hero({ lang, t }: LT) {
       </dl>
     </section>
   );
+}
+
+/** "Daily · 11:00 — 23:00" from the opening-hours slot that covers the most days. */
+function hoursSummary(daily: string) {
+  const main = [...site.openingHours].sort((a, b) => b.days.length - a.days.length)[0];
+  return main ? `${daily} · ${main.opens} — ${main.closes}` : "—";
 }
 
 function FloatCard({ className, tilt, src, delay, priority }: { className: string; tilt: string; src: string; delay: string; priority?: boolean }) {
@@ -133,7 +138,7 @@ export function Signatures({ lang, t }: LT) {
                   <div className="flex flex-col gap-2.5 px-6 pb-7 pt-5">
                     <div className="flex items-baseline justify-between gap-4">
                       <h3 className="text-[26px] font-semibold tracking-[-0.03em]">{d.name}</h3>
-                      <span className="font-mono text-[13px] text-mist">{d.price ?? "[KES —]"}</span>
+                      <span className="font-mono text-[13px] text-mist">{signaturePrice(d.id, s.askBar)}</span>
                     </div>
                     <p className="text-[15px] leading-relaxed text-mist">{d.notes}</p>
                   </div>
@@ -145,6 +150,11 @@ export function Signatures({ lang, t }: LT) {
       </div>
     </section>
   );
+}
+
+function signaturePrice(id: string | null, ask: string) {
+  const price = id ? findItem(id)?.price : null;
+  return price != null ? `KES ${kes(price)}` : ask;
 }
 
 /* ── 03 FOUR ACTS ────────────────────────────────────────────────────────── */
@@ -165,7 +175,7 @@ export function FourActs({ t }: T) {
             <li key={act.roman} className="relative pb-12 pr-7 pt-10">
               <span aria-hidden className="absolute -top-1.5 left-0 size-[11px] rounded-full" style={{ background: act.dot, boxShadow: `0 0 24px ${act.dot}` }} />
               <Reveal delay={i * 0.1} className="flex flex-col gap-4">
-                <span className="font-mono text-[13px] text-mist">[{act.time}]</span>
+                <span className="font-mono text-[13px] text-mist">{act.time}</span>
                 <span aria-hidden className="text-[64px] font-light leading-none tracking-[-0.04em] text-[#3f3f3f]">{act.roman}</span>
                 <h3 className="text-2xl font-semibold tracking-[-0.02em]">{a.items[i].title}</h3>
                 <p className="max-w-[260px] text-[15px] leading-relaxed text-mist">{a.items[i].body}</p>
@@ -178,7 +188,35 @@ export function FourActs({ t }: T) {
   );
 }
 
-/* ── 04 THE SPACE ────────────────────────────────────────────────────────── */
+/* ── 04 EVERY WEEK ───────────────────────────────────────────────────────── */
+export function WeekSection({ t }: T) {
+  const w = t.home.week;
+  const glow = ["#ffaa40", "#c45cff", "#9c40ff"];
+  return (
+    <section aria-labelledby="week-h" className={clsx("pb-36", px)}>
+      <div className="mx-auto flex max-w-7xl flex-col gap-14">
+        <Reveal className="flex flex-col gap-5">
+          <Kicker>{w.kicker}</Kicker>
+          <h2 id="week-h" className={h2}>{w.title1}<br /><span className="text-dim">{w.title2}</span></h2>
+        </Reveal>
+        <ul className="grid gap-4 md:grid-cols-3">
+          {w.items.map((e, i) => (
+            <Reveal key={e.day} delay={i * 0.08}>
+              <li className="relative flex h-full min-h-[260px] flex-col gap-4 overflow-hidden rounded-card border border-white/10 bg-surface-1 p-8 transition-[transform,border-color] duration-500 ease-land hover:-translate-y-1.5 hover:border-white/20">
+                <div aria-hidden className="absolute -right-16 -top-16 size-48 rounded-full opacity-25 blur-[60px]" style={{ background: glow[i] }} />
+                <span className="label-mono relative" style={{ color: glow[i] }}>{e.day}</span>
+                <h3 className="relative mt-auto text-[clamp(28px,2.6vw,36px)] font-semibold leading-[1.05] tracking-[-0.035em]">{e.title}</h3>
+                <p className="relative text-[15px] leading-relaxed text-mist">{e.body}</p>
+              </li>
+            </Reveal>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+/* ── 05 THE SPACE ────────────────────────────────────────────────────────── */
 export function TheSpace({ t }: T) {
   const s = t.home.space;
   return (
