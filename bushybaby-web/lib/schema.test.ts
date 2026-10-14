@@ -26,7 +26,7 @@ test("filled data appears in full", () => {
   assert.equal(s.address.addressCountry, "KE");
   assert.equal(s.geo.latitude, -4.3);
   assert.deepEqual(s.openingHoursSpecification[0].dayOfWeek, ["https://schema.org/Friday", "https://schema.org/Saturday"]);
-  assert.equal(s.potentialAction.target.urlTemplate, "https://bushybaby.example/reserve");
+  assert.equal(s.potentialAction.target.urlTemplate, "https://bushybaby.example/en/reserve");
 });
 
 test("prune drops objects that only carry @type", () => {
@@ -35,4 +35,13 @@ test("prune drops objects that only carry @type", () => {
 
 test("json-ld string cannot break out of the script tag", () => {
   assert.ok(!jsonLdString({ x: "</script><script>alert(1)</script>" }).includes("</script>"));
+});
+
+test("per-language schema shares one @id", () => {
+  const en = buildBarSchema(site, { lang: "en", description: "Tiki pub" }) as any;
+  const de = buildBarSchema(site, { lang: "de", description: "Tiki-Bar" }) as any;
+  assert.equal(en["@id"], de["@id"]);
+  assert.equal(de.description, "Tiki-Bar");
+  assert.ok(de.url.endsWith("/de"));
+  assert.ok(de.potentialAction.target.urlTemplate.endsWith("/de/reserve"));
 });

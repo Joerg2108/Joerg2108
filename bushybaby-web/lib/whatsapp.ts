@@ -13,44 +13,56 @@ export interface ReservationRequest {
   note?: string;
 }
 
-export type ValidationErrors = Partial<Record<keyof ReservationRequest, string>>;
+/** Error *codes* — the UI translates them via the dictionary (dict.reserve.errors). */
+export type ValidationCode = "date" | "time" | "guestsMin" | "guestsMax" | "name" | "noteLength";
+export type ValidationErrors = Partial<Record<keyof ReservationRequest, ValidationCode>>;
 
 export function validateReservation(r: ReservationRequest, maxGuests = 20): ValidationErrors {
   const errors: ValidationErrors = {};
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(r.date)) errors.date = "Pick a day.";
-  if (!/^\d{2}:\d{2}$/.test(r.time)) errors.time = "Pick a time.";
-  if (!Number.isInteger(r.guests) || r.guests < 1) errors.guests = "At least one guest.";
-  else if (r.guests > maxGuests) errors.guests = `For more than ${maxGuests} guests, ask us about a private night.`;
-  if (r.name.trim().length < 2) errors.name = "Tell us your name.";
-  if (r.note && r.note.length > 500) errors.note = "Keep the note under 500 characters.";
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(r.date)) errors.date = "date";
+  if (!/^\d{2}:\d{2}$/.test(r.time)) errors.time = "time";
+  if (!Number.isInteger(r.guests) || r.guests < 1) errors.guests = "guestsMin";
+  else if (r.guests > maxGuests) errors.guests = "guestsMax";
+  if (r.name.trim().length < 2) errors.name = "name";
+  if (r.note && r.note.length > 500) errors.note = "noteLength";
   return errors;
 }
 
-const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const NAMES = {
+  en: { days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
+  de: { days: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"], months: ["Jan", "Feb", "März", "Apr", "Mai", "Juni", "Juli", "Aug", "Sep", "Okt", "Nov", "Dez"] },
+} as const;
 
 /**
- * "2026-10-16" → "Fri 16 Oct". Built by hand on purpose: Intl output differs
- * between engines (Chrome adds a comma, Node doesn't), which broke the day chips
- * and would cause server/client text mismatches.
+ * "2026-10-16" → "Fri 16 Oct" (en) / "Fr 16. Okt" (de). Built by hand on purpose:
+ * Intl output differs between engines (Chrome adds a comma, Node doesn't), which
+ * would break the day chips and cause server/client text mismatches.
  */
-export function formatDay(iso: string): string {
+export function formatDay(iso: string, lang: "en" | "de" = "en"): string {
   const [y, m, d] = iso.split("-").map(Number);
   const date = new Date(Date.UTC(y, m - 1, d));
-  return `${WEEKDAYS[date.getUTCDay()]} ${d} ${MONTHS[m - 1]}`;
+  const n = NAMES[lang];
+  return lang === "de" ? `${n.days[date.getUTCDay()]} ${d}. ${n.months[m - 1]}` : `${n.days[date.getUTCDay()]} ${d} ${n.months[m - 1]}`;
 }
 
-export function buildReservationMessage(r: ReservationRequest): string {
+const LANGUAGE_NAME = { en: "English", de: "German" } as const;
+
+/**
+ * The message goes to the bar crew, so it's always in English (the host's language).
+ * For non-English guests a "Guest language" line tells the crew how to reply.
+ */
+export function buildReservationMessage(r: ReservationRequest, guestLang: "en" | "de" = "en"): string {
   const lines = [
     "Hi BushyBaby! I'd like to reserve a table.",
     "",
-    `Day: ${formatDay(r.date)}`,
+    `Day: ${formatDay(r.date, "en")}`,
     `Time: ${r.time}`,
     `Guests: ${r.guests}`,
     `Name: ${r.name.trim()}`,
   ];
   if (r.phone?.trim()) lines.push(`Phone: ${r.phone.trim()}`);
   if (r.note?.trim()) lines.push(`Note: ${r.note.trim()}`);
+  if (guestLang !== "en") lines.push(`Guest language: ${LANGUAGE_NAME[guestLang]}`);
   return lines.join("\n");
 }
 

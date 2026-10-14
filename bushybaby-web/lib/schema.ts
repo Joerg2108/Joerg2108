@@ -32,8 +32,13 @@ export function prune<T extends Json | undefined>(value: T): T | undefined {
   return value;
 }
 
-export function buildBarSchema(site: Site) {
+/**
+ * One schema per language page. `@id` stays the same in every language, so
+ * Google treats /en and /de as the same pub, just described in two languages.
+ */
+export function buildBarSchema(site: Site, opts: { lang: string; description: string } = { lang: "en", description: site.description }) {
   const url = site.url.replace(/\/$/, "");
+  const page = `${url}/${opts.lang}`;
   const a = site.address;
   const hasAddress = Boolean(a.street || a.town);
 
@@ -42,8 +47,8 @@ export function buildBarSchema(site: Site) {
     "@type": "BarOrPub",
     "@id": `${url}/#pub`,
     name: site.name,
-    description: site.description,
-    url,
+    description: opts.description,
+    url: page,
     image: [
       `${url}/images/bar-night.jpg`,
       `${url}/images/bar-sign.jpg`,
@@ -79,7 +84,7 @@ export function buildBarSchema(site: Site) {
     })),
     potentialAction: {
       "@type": "ReserveAction",
-      target: { "@type": "EntryPoint", urlTemplate: `${url}/reserve`, actionPlatform: ["https://schema.org/DesktopWebPlatform", "https://schema.org/MobileWebPlatform"] },
+      target: { "@type": "EntryPoint", urlTemplate: `${page}/reserve`, actionPlatform: ["https://schema.org/DesktopWebPlatform", "https://schema.org/MobileWebPlatform"] },
       result: { "@type": "FoodEstablishmentReservation", name: "Table reservation" },
     },
   };

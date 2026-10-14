@@ -39,15 +39,13 @@ export function ShimmerButton({ shimmerColor = "#ffaa40", background = "#0a0a0a"
 /* ── AuroraText ──────────────────────────────────────────────────────────── */
 export function AuroraText({ children, colors = ["#ffaa40", "#ff7a3d", "#9c40ff", "#ffaa40"], className }: { children: ReactNode; colors?: string[]; className?: string }) {
   return (
-    <span className={clsx("relative inline-block", className)}>
-      <span className="sr-only">{children}</span>
-      <span
-        aria-hidden="true"
-        className="animate-aurora bg-clip-text text-transparent [-webkit-background-clip:text]"
-        style={{ backgroundImage: `linear-gradient(135deg, ${colors.join(", ")}, ${colors[0]})`, backgroundSize: "200% auto" }}
-      >
-        {children}
-      </span>
+    // Single copy of the text (the registry version adds an sr-only duplicate, which makes
+    // crawlers read headlines twice — "after dark. after dark."). Gradient text is still real text.
+    <span
+      className={clsx("relative inline-block animate-aurora bg-clip-text text-transparent [-webkit-background-clip:text]", className)}
+      style={{ backgroundImage: `linear-gradient(135deg, ${colors.join(", ")}, ${colors[0]})`, backgroundSize: "200% auto" }}
+    >
+      {children}
     </span>
   );
 }

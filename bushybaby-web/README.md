@@ -1,6 +1,6 @@
 # BushyBaby Tiki Pub — Website
 
-Next.js 16 (App Router) · React 19 · Tailwind CSS v4 · TypeScript · Motion.
+Next.js 16 (App Router) · React 19 · Tailwind CSS v4 · TypeScript · Motion · **English + German**.
 Design reference: the "BushyBaby Tiki Pub — Website Redesign" canvas (boards 01 Home, 05 Visit, 12 Design system, 13 Motion).
 
 ## Quick start
@@ -17,7 +17,7 @@ npm run dev                  # http://localhost:3000
 | `npm run dev` | Dev server |
 | `npm run build && npm start` | Production build + server |
 | `npm run typecheck` | TypeScript check |
-| `npm test` | Unit tests for WhatsApp message + JSON-LD (Node test runner, no deps) |
+| `npm test` | Unit tests for language detection, WhatsApp message + JSON-LD (Node test runner, no deps) |
 
 ## Before going live — fill in your data
 
@@ -28,8 +28,29 @@ Everything about the business lives in **`lib/site.ts`**. Fields that are `null`
 - `openingHours` — e.g. `{ days: ["Fr", "Sa"], opens: "17:00", closes: "02:00" }`
 - `phoneDisplay`, `email`, `priceRange`, `paymentAccepted`, `foundingYear`
 
-Copy (drinks, prices, FAQ, reviews) lives in **`content/home.ts`**. Text in `[brackets]` is a placeholder.
-The reviews section stays hidden until you add real reviews (with the guest's permission).
+All copy (drinks, prices, FAQ, reviews …) lives in **`content/dictionaries/en.ts`** and **`de.ts`**.
+Text in `[brackets]` is a placeholder. The reviews section stays hidden until you add real reviews (with the guest's permission).
+
+## Languages (EN / DE)
+
+| URL | What happens |
+|---|---|
+| `/en/…`, `/de/…` | Every page exists in both languages, both prerendered at build time. |
+| `/` or `/reserve` (no prefix) | `proxy.ts` redirects (307): **1)** language-switch cookie `NEXT_LOCALE`, **2)** browser `Accept-Language` (de-AT, de-CH → de), **3)** English. |
+| EN \| DE switch in the nav | Stays on the same page (`/de/reserve` ⇄ `/en/reserve`) and remembers the choice for a year. |
+
+- **Adding/changing text:** edit the key in `en.ts` *and* `de.ts`. `de.ts` is typed against `en.ts`, so a
+  missing or extra key fails `npm run typecheck` — no half-translated pages can ship.
+- **German is ~30 % longer than English.** Check big headlines in both languages after edits
+  (that's why the German hero reads "Hellwach / bei Nacht." instead of a literal translation).
+- **WhatsApp:** the reservation message to the bar is always **English** (the crew's language);
+  German guests get an extra line `Guest language: German` so the crew knows how to reply.
+- **SEO:** each page sends `<html lang>`, `canonical`, `hreflang` for en/de + `x-default` (→ en),
+  `og:locale`, a localized `BarOrPub` description (same `@id` in both languages) and a localized `FAQPage`.
+  The sitemap lists both languages with `xhtml:link` alternates.
+- **Adding a third language** (e.g. `fr`): add it to `locales` in `lib/i18n.ts`, create
+  `content/dictionaries/fr.ts` typed as `Dictionary`, register it in `content/dictionaries/index.ts`,
+  add `fr` names to `formatDay` in `lib/whatsapp.ts`.
 
 ## How reservations work (WhatsApp, no backend)
 
@@ -66,23 +87,26 @@ later WhatsApp Cloud API + the host dashboard from canvas board 08 if volume gro
 ## Structure
 
 ```
+proxy.ts                language redirect (Next 16's name for middleware)
 app/
-  layout.tsx            fonts, metadata, JSON-LD, nav/footer
-  page.tsx              homepage (+ FAQPage schema)
-  reserve/              reservation form → WhatsApp, thanks page
-  sitemap.ts robots.ts not-found.tsx icon.svg
+  [lang]/layout.tsx     <html lang>, fonts, metadata + hreflang, JSON-LD, nav/footer
+  [lang]/page.tsx       homepage (+ FAQPage schema)
+  [lang]/reserve/       reservation form → WhatsApp, thanks page
+  [lang]/not-found.tsx  localized 404 ([...rest] routes unknown paths here)
+  sitemap.ts robots.ts icon.svg
 components/
   home/                 homepage sections + FAQ accordion
   magicui/              lean ports of Magic UI (ShimmerButton, AuroraText, Marquee, MagicCard, BorderBeam, DotPattern)
   site/                 nav (incl. mobile sheet), footer, logo + icons
   reveal.tsx            scroll reveal + CSS word-rise, reduced-motion aware
-content/home.ts         all homepage copy
-lib/                    site data, WhatsApp + schema logic and tests
+content/dictionaries/  en.ts (reference) + de.ts — all copy
+content/shared.ts       language-independent data (image paths, act times)
+lib/                    site data, i18n, SEO, WhatsApp + schema logic and tests
 ```
 
 ## Not built yet
 
-`/menu`, `/nights`, `/story`, `/journal`, `/faq`, `/legal/*` are linked but not implemented yet
+`/[lang]/menu`, `/nights`, `/story`, `/journal`, `/faq`, `/legal/*` are linked but not implemented yet
 (canvas boards 02–07). Add each to `app/sitemap.ts` when it exists, and `hasMenu` in `lib/schema.ts` once `/menu` is live.
 
 ## Accessibility & performance notes
