@@ -201,14 +201,12 @@ export function WeekSection({ t }: T) {
         </Reveal>
         <ul className="grid gap-4 md:grid-cols-3">
           {w.items.map((e, i) => (
-            <Reveal key={e.day} delay={i * 0.08}>
-              <li className="relative flex h-full min-h-[260px] flex-col gap-4 overflow-hidden rounded-card border border-white/10 bg-surface-1 p-8 transition-[transform,border-color] duration-500 ease-land hover:-translate-y-1.5 hover:border-white/20">
+            <Reveal as="li" key={e.day} delay={i * 0.08} className="relative flex h-full min-h-[260px] flex-col gap-4 overflow-hidden rounded-card border border-white/10 bg-surface-1 p-8 transition-[transform,border-color] duration-500 ease-land hover:-translate-y-1.5 hover:border-white/20">
                 <div aria-hidden className="absolute -right-16 -top-16 size-48 rounded-full opacity-25 blur-[60px]" style={{ background: glow[i] }} />
                 <span className="label-mono relative" style={{ color: glow[i] }}>{e.day}</span>
                 <h3 className="relative mt-auto text-[clamp(28px,2.6vw,36px)] font-semibold leading-[1.05] tracking-[-0.035em]">{e.title}</h3>
                 <p className="relative text-[15px] leading-relaxed text-mist">{e.body}</p>
-              </li>
-            </Reveal>
+              </Reveal>
           ))}
         </ul>
       </div>

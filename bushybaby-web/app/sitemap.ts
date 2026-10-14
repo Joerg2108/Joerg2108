@@ -5,11 +5,12 @@ import { site } from "@/lib/site";
 // Generated once at build time (required for the static export, harmless for the server build).
 export const dynamic = "force-static";
 
-// Add /nights, /story, /journal here once those routes exist.
 const routes = [
   { path: "/", priority: 1, changeFrequency: "weekly" as const },
   { path: "/menu", priority: 0.9, changeFrequency: "weekly" as const },
   { path: "/reserve", priority: 0.9, changeFrequency: "monthly" as const },
+  { path: "/nights", priority: 0.8, changeFrequency: "weekly" as const },
+  { path: "/story", priority: 0.5, changeFrequency: "yearly" as const },
   { path: "/faq", priority: 0.6, changeFrequency: "monthly" as const },
   { path: "/legal/imprint", priority: 0.2, changeFrequency: "yearly" as const },
   { path: "/legal/privacy", priority: 0.2, changeFrequency: "yearly" as const },

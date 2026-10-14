@@ -16,9 +16,10 @@ export function MotionProvider({ children }: { children: ReactNode }) {
 }
 
 /** Section reveal: y 32→0, blur 8→0, 900ms out-expo (motion spec, canvas board 13). */
-export function Reveal({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
+export function Reveal({ children, delay = 0, className, as = "div" }: { children: ReactNode; delay?: number; className?: string; as?: "div" | "li" }) {
+  const Tag = as === "li" ? motion.li : motion.div;
   return (
-    <motion.div
+    <Tag
       className={className}
       initial={{ opacity: 0, y: 32, filter: "blur(8px)" }}
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -26,7 +27,7 @@ export function Reveal({ children, delay = 0, className }: { children: ReactNode
       transition={{ duration: 0.9, ease: land, delay }}
     >
       {children}
-    </motion.div>
+    </Tag>
   );
 }
 
