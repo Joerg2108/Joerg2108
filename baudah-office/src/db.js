@@ -324,6 +324,7 @@ const DEFAULTS = {
     },
   },
   backup: { keep: 30 },
+  demo: { active: false },
   datev: {
     consultant: '',
     client: '',

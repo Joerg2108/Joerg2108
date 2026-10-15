@@ -174,7 +174,7 @@ export async function customerDetailView(params, view) {
 
     <div class="grid kpis" style="margin-bottom:16px">
       <div class="card kpi"><div class="ic">${icon('trend')}</div><div class="label">Umsatz gesamt (netto)</div><div class="value">${money(c.stats.revenue)}</div></div>
-      <div class="card kpi ${c.stats.open ? 'alert' : 'good'}"><div class="ic">${icon('euro')}</div><div class="label">Offene Posten</div><div class="value">${money(c.stats.open)}</div></div>
+      <div class="card kpi ${c.stats.open ? 'is-alert' : 'good'}"><div class="ic">${icon('euro')}</div><div class="label">Offene Posten</div><div class="value">${money(c.stats.open)}</div></div>
       <div class="card kpi"><div class="ic">${icon('offer')}</div><div class="label">Angebote</div><div class="value">${c.stats.offers}</div><div class="hint">Auftragsquote ${rate === null ? '–' : rate + ' %'}</div></div>
     </div>
 

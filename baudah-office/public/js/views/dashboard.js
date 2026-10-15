@@ -1,4 +1,4 @@
-import { esc, icon, GET, money, date, statusBadge, state, emptyState, dateTime } from '../core.js';
+import { esc, icon, GET, POST, money, date, statusBadge, state, emptyState, dateTime, attempt, ok, confirmDialog } from '../core.js';
 
 const MONTHS = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
 
@@ -66,12 +66,27 @@ export async function dashboardView(params, view, year) {
       <a class="btn primary" href="#/neu/angebot">${icon('plus')} Neues Angebot</a>
     </div>
 
-    ${cfgWarn.length ? `<div class="alert warn" style="margin-bottom:16px">${icon('alert')}<div><b>Einrichtung unvollständig:</b> Bitte ergänzen Sie ${esc(cfgWarn.join(', '))} unter <a href="#/einstellungen/firma">Einstellungen</a> – sonst können Rechnungen nicht rechtssicher erstellt bzw. versendet werden.</div></div>` : ''}
+    ${d.empty ? `
+    <div class="card" style="margin-bottom:16px;overflow:hidden">
+      <div class="card-body" style="display:flex;gap:22px;align-items:center;flex-wrap:wrap;background:linear-gradient(120deg,var(--brand-50),#fff 70%)">
+        <div style="flex:1;min-width:280px">
+          <h2 style="font-size:19px">Willkommen bei BauDaH Office 👷</h2>
+          <p class="muted" style="margin:6px 0 0">Das System ist noch leer. Laden Sie Beispieldaten, um alle Funktionen auszuprobieren – oder legen Sie direkt Ihren ersten Kunden an. Die Demo-Daten lassen sich später mit einem Klick wieder entfernen.</p>
+        </div>
+        <div class="btn-row">
+          ${state.user.role === 'admin' ? `<button class="btn primary" id="demo">${icon('layers')} Demo-Daten laden</button>` : ''}
+          <a class="btn" href="#/kunden">${icon('user')} Ersten Kunden anlegen</a>
+        </div>
+      </div>
+    </div>` : ''}
+    ${d.demo ? `<div class="alert" style="margin-bottom:16px">${icon('layers')}<div><b>Demo-Modus:</b> Es sind Beispieldaten geladen. Vor dem Echtbetrieb unter <a href="#/einstellungen/sicherung">Einstellungen → Datensicherung → Neustart</a> alles entfernen, damit die Rechnungsnummern bei 0001 beginnen.</div></div>` : ''}
+
+    ${cfgWarn.length && !d.empty ? `<div class="alert warn" style="margin-bottom:16px">${icon('alert')}<div><b>Einrichtung unvollständig:</b> Bitte ergänzen Sie ${esc(cfgWarn.join(', '))} unter <a href="#/einstellungen/firma">Einstellungen</a> – sonst können Rechnungen nicht rechtssicher erstellt bzw. versendet werden.</div></div>` : ''}
 
     <div class="grid kpis">
       <div class="card kpi"><div class="ic">${icon('trend')}</div><div class="label">Umsatz ${d.year} (netto)</div><div class="value">${money(d.revenue.net)}</div><div class="hint">${money(d.revenue.gross)} brutto berechnet</div></div>
       <div class="card kpi"><div class="ic">${icon('euro')}</div><div class="label">Offene Forderungen</div><div class="value">${money(d.open.sum)}</div><div class="hint">${d.open.count} Rechnung(en) offen</div></div>
-      <div class="card kpi ${d.overdue.count ? 'alert' : 'good'}"><div class="ic">${icon(d.overdue.count ? 'alert' : 'check')}</div><div class="label">Überfällig</div><div class="value">${money(d.overdue.sum)}</div><div class="hint">${d.overdue.count ? `${d.overdue.count} Rechnung(en) – Mahnung prüfen` : 'Alles im grünen Bereich'}</div></div>
+      <div class="card kpi ${d.overdue.count ? 'is-alert' : 'good'}"><div class="ic">${icon(d.overdue.count ? 'alert' : 'check')}</div><div class="label">Überfällig</div><div class="value">${money(d.overdue.sum)}</div><div class="hint">${d.overdue.count ? `${d.overdue.count} Rechnung(en) – Mahnung prüfen` : 'Alles im grünen Bereich'}</div></div>
       <div class="card kpi"><div class="ic">${icon('offer')}</div><div class="label">Offene Angebote</div><div class="value">${money(d.offers.pending_sum)}</div><div class="hint">${d.offers.pending_count} Angebot(e) · Auftragsquote ${d.offers.rate === null ? '–' : Math.round(d.offers.rate) + ' %'}</div></div>
     </div>
 
@@ -113,6 +128,13 @@ export async function dashboardView(params, view, year) {
     </div>` : ''}
   </div>`;
 
+  view.querySelector('#demo')?.addEventListener('click', (e) => attempt(async () => {
+    if (!(await confirmDialog('Es werden 8 Beispielkunden sowie Angebote, Rechnungen, Zahlungen und eine Mahnung der letzten Monate angelegt.', { title: 'Demo-Daten laden?', okText: 'Laden' }))) return;
+    const r = await POST('/demo/load');
+    state.settings = await GET('/settings');
+    ok(`Demo geladen: ${r.customers} Kunden, ${r.documents} Belege.`);
+    dashboardView(params, view, year);
+  }, e.currentTarget));
   view.querySelector('#year').addEventListener('change', (e) => dashboardView(params, view, e.target.value));
   view.querySelectorAll('[data-href]').forEach((li) => li.addEventListener('click', () => (location.hash = li.dataset.href)));
 }

@@ -387,6 +387,34 @@ const PANES = {
           ${list.map((b) => `<tr><td class="mono">${esc(b.name)}</td><td>${new Date(b.created).toLocaleString('de-DE')}</td><td class="num">${size(b.size)}</td><td class="right"><a class="btn sm" href="/api/backups/${encodeURIComponent(b.name)}">${icon('download')}</a></td></tr>`).join('')}
         </tbody></table>` : emptyState('Noch keine Sicherungen', 'db')}
       </div>`;
+    pane.insertAdjacentHTML('beforeend', `
+      <div class="card"><div class="card-head"><h2>Demo &amp; Neustart</h2></div><div class="card-body" style="display:grid;gap:14px">
+        <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><div style="flex:1;min-width:260px"><b>Demo-Daten laden</b><div class="small muted">Füllt ein leeres System mit Beispielkunden, Angeboten, Rechnungen und Zahlungen – ideal zum Ausprobieren und Vorführen.</div></div>
+          <button class="btn" id="dload">${icon('layers')} Demo-Daten laden</button></div>
+        <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:14px"><div style="flex:1;min-width:260px"><b style="color:var(--danger)">Neustart für den Echtbetrieb</b><div class="small muted">Löscht <b>alle</b> Kunden, Angebote, Rechnungen, Zahlungen und Mahnungen und setzt die Nummernkreise zurück. Einstellungen, Leistungskatalog und Benutzer bleiben erhalten. Vorher wird automatisch eine Sicherung erstellt.</div></div>
+          <button class="btn danger" id="dreset">${icon('trash')} Alles zurücksetzen</button></div>
+      </div></div>`);
+    pane.querySelector('#dload').addEventListener('click', (e) => attempt(async () => {
+      const r = await POST('/demo/load');
+      ok(`Demo geladen: ${r.customers} Kunden, ${r.documents} Belege.`);
+      navigate('#/');
+    }, e.currentTarget));
+    pane.querySelector('#dreset').addEventListener('click', async () => {
+      const d = await formDialog({
+        title: 'System wirklich zurücksetzen?',
+        okText: 'Endgültig zurücksetzen',
+        body: `<div class="alert danger" style="margin-bottom:14px">${icon('alert')}<div>Alle Kunden, Angebote, Rechnungen, Zahlungen und Mahnungen werden gelöscht. Nur verwenden, um Test- oder Demo-Daten vor dem Echtbetrieb zu entfernen! Eine Sicherung wird vorher automatisch angelegt.</div></div>
+          ${field('Zur Bestätigung LÖSCHEN eintippen', input('confirm', '', 'autocomplete="off"'), 'c12')}`,
+        validate: (x) => (x.confirm !== 'LÖSCHEN' ? 'Bitte genau LÖSCHEN eintippen.' : null),
+      });
+      if (!d) return;
+      attempt(async () => {
+        const r = await POST('/demo/reset', { confirm: d.confirm });
+        state.settings = await GET('/settings');
+        ok(`System zurückgesetzt. Sicherung: ${r.backup}`);
+        PANES.sicherung(pane);
+      });
+    });
     pane.querySelector('#mk').addEventListener('click', (e) => attempt(async () => {
       await POST('/backups');
       ok('Sicherung erstellt.');

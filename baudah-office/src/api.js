@@ -12,6 +12,7 @@ const mail = require('./mail');
 const { buildXRechnung, checkXRechnung } = require('./xrechnung');
 const backup = require('./backup');
 const datev = require('./datev');
+const demo = require('./demo');
 
 const api = express.Router();
 api.use(express.json({ limit: '5mb' }));
@@ -517,6 +518,8 @@ api.get('/dashboard', (req, res) => {
     drafts: drafts.slice(0, 6),
     top_customers: topCustomers,
     customers: get('SELECT COUNT(*) AS n FROM customers WHERE archived = 0').n,
+    empty: demo.isEmpty(),
+    demo: getSetting('demo').active,
     activity: all(
       `SELECT a.*, u.name AS user_name FROM activity a LEFT JOIN users u ON u.id = a.user_id ORDER BY a.id DESC LIMIT 12`
     ),
@@ -629,6 +632,13 @@ api.delete('/users/:id', auth.requireAdmin, (req, res) => {
   run('UPDATE users SET active = 0 WHERE id = ?', req.params.id);
   run('DELETE FROM sessions WHERE user_id = ?', req.params.id);
   res.json({ ok: true });
+});
+
+/* ---------------- Demo & Neustart ---------------- */
+api.post('/demo/load', auth.requireAdmin, (req, res) => res.json(demo.loadDemo(req.user)));
+api.post('/demo/reset', auth.requireAdmin, (req, res) => {
+  if (req.body?.confirm !== 'LÖSCHEN') throw new HttpError(400, 'Zur Bestätigung bitte LÖSCHEN eingeben.');
+  res.json(demo.resetData(req.user));
 });
 
 /* ---------------- DATEV-Export ---------------- */

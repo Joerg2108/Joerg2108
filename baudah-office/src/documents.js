@@ -317,7 +317,7 @@ function deleteDocument(id, user) {
 }
 
 /* ---------------- Festschreiben ---------------- */
-function finalizeDocument(id, user) {
+function finalizeDocument(id, user, opts = {}) {
   return tx(() => {
     const doc = get('SELECT * FROM documents WHERE id = ?', id);
     if (!doc) throw new HttpError(404, 'Beleg nicht gefunden.');
@@ -328,7 +328,7 @@ function finalizeDocument(id, user) {
     if (!items.length) throw new HttpError(400, 'Die Rechnung enthält keine Positionen.');
     if (!doc.service_period) throw new HttpError(400, 'Bitte den Leistungszeitraum bzw. das Leistungsdatum angeben (Pflichtangabe § 14 UStG).');
     const company = getSetting('company');
-    if (!company.tax_number && !company.vat_id) {
+    if (!company.tax_number && !company.vat_id && !opts.demo) {
       throw new HttpError(400, 'In den Einstellungen fehlt die Steuernummer bzw. USt-IdNr. (Pflichtangabe § 14 UStG).');
     }
     if (doc.tax_mode === '13b') {

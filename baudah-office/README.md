@@ -81,6 +81,16 @@ Im GMX-Webmail unter *E-Mail → Einstellungen → POP3/IMAP Abruf* „**Zugriff
 
 ---
 
+## Demo-Modus (zum Testen und Vorführen)
+
+Im leeren System erscheint auf der Übersicht der Button **„Demo-Daten laden“** (auch unter *Einstellungen → Datensicherung*). Er legt an:
+- 8 Beispielkunden: privat, gewerblich mit § 13b, Stadt Naunhof als öffentlicher Auftraggeber mit Leitweg-ID
+- 10 Angebote in allen Status (Entwurf, versendet, angenommen, abgelehnt, abgerechnet)
+- 8 Rechnungen der letzten 5 Monate: bezahlt, teilbezahlt, offen, **überfällig mit Zahlungserinnerung**, Abschlag + Schlussrechnung
+- Zahlungseingänge, sodass Übersicht, Diagramm und Top-Kunden sofort gefüllt sind
+
+**Vor dem Echtbetrieb:** *Einstellungen → Datensicherung → „Alles zurücksetzen“* (Bestätigung durch Eintippen von `LÖSCHEN`). Das löscht alle Kunden und Belege und setzt die Nummernkreise zurück, die erste echte Rechnung ist dann wieder RE-…-0001. Einstellungen, Leistungskatalog und Benutzer bleiben erhalten, vorher wird automatisch gesichert.
+
 ## Typischer Ablauf
 
 1. **Kunde** anlegen (oder direkt im Angebot über „Neuen Kunden anlegen“)
@@ -126,6 +136,7 @@ baudah-office/
 │   ├── xrechnung.js     E-Rechnung
 │   ├── mail.js          E-Mail-Versand
 │   ├── datev.js         DATEV-Buchungsstapel
+│   ├── demo.js          Demo-Daten & Neustart
 │   ├── auth.js          Login, Sessions, Verschlüsselung
 │   ├── backup.js        Datensicherung
 │   └── api.js           REST-API
