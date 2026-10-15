@@ -106,6 +106,12 @@ Mit der Umgebungsvariable `BAUDAH_DEMO=1` läuft das Programm als **öffentliche
 
 Hinweis zum kostenlosen Tarif: Nach 15 Minuten ohne Besucher schläft der Server ein, der erste Aufruf danach dauert ca. 30–60 Sekunden. Für Verkaufsgespräche den Link kurz vorher einmal selbst öffnen.
 
+**Schneller Link direkt vom eigenen PC (Cloudflare-Tunnel, ohne Konto):**
+1. Einmalig in der Eingabeaufforderung: `winget install --id Cloudflare.cloudflared`
+2. `start-demo.bat` doppelklicken – startet eine **getrennte** Demo-Kopie (Ordner `demo-data`, Port 3001). Das echte System bleibt unberührt.
+3. `demo-link.bat` doppelklicken – nach einigen Sekunden erscheint ein Link `https://….trycloudflare.com`, den man verschicken kann.
+4. Der Link funktioniert, solange der PC läuft und beide Fenster offen sind. Bei jedem Neustart entsteht ein neuer Link.
+
 **Niemals echte Kundendaten in der Online-Demo verwenden** – sie ist öffentlich und wird regelmäßig gelöscht.
 
 ## Typischer Ablauf
