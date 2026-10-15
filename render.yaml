@@ -1,0 +1,19 @@
+# Render.com Blueprint – Online-Demo von BauDaH Office
+# Einrichtung: render.com → New → Blueprint → dieses Repository auswählen
+services:
+  - type: web
+    name: baudah-office-demo
+    runtime: node
+    plan: free
+    region: frankfurt
+    rootDir: baudah-office
+    buildCommand: npm install --omit=dev
+    startCommand: node server.js
+    healthCheckPath: /api/status
+    envVars:
+      - key: NODE_VERSION
+        value: 22.20.0
+      - key: BAUDAH_DEMO
+        value: "1"
+      - key: BAUDAH_DEMO_RESET_HOURS
+        value: "6"
