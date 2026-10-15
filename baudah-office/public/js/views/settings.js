@@ -12,6 +12,7 @@ const TABS = [
   ['email', 'mail', 'E-Mail-Versand'],
   ['mahnwesen', 'bell', 'Mahnwesen'],
   ['benutzer', 'users', 'Benutzer'],
+  ['datev', 'download', 'DATEV-Export'],
   ['sicherung', 'db', 'Datensicherung'],
   ['protokoll', 'clock', 'Protokoll'],
 ];
@@ -292,6 +293,82 @@ const PANES = {
     };
     pane.querySelector('#nu')?.addEventListener('click', () => dlg());
     pane.querySelectorAll('[data-u]').forEach((b) => b.addEventListener('click', () => dlg(users.find((u) => u.id === Number(b.dataset.u)))));
+  },
+
+  /* ---------------- DATEV ---------------- */
+  async datev(pane, s) {
+    const d = s.datev;
+    const presets = await GET('/datev/presets');
+    const y = new Date().getFullYear();
+    const m = new Date().getMonth();
+    const lastMonthStart = new Date(y, m - 1, 1);
+    const lastMonthEnd = new Date(y, m, 0);
+    const iso = (x) => `${x.getFullYear()}-${String(x.getMonth() + 1).padStart(2, '0')}-${String(x.getDate()).padStart(2, '0')}`;
+    const acc = (k, l, hint = '') => field(l, input(k, d[k], 'type="number"'), 'c3', hint);
+    pane.innerHTML = `
+    <div class="card"><div class="card-head"><h2>Export für den Steuerberater</h2></div><div class="card-body">
+      <p class="muted" style="margin-top:0">Erzeugt einen <b>DATEV-Buchungsstapel</b> (Format EXTF 700) mit allen festgeschriebenen Rechnungen und Zahlungseingängen. Den kann der Steuerberater direkt in DATEV Kanzlei-Rechnungswesen einlesen.</p>
+      <div class="form-grid" id="dx">
+        ${field('Von', input('from', iso(lastMonthStart), 'type="date"'), 'c3')}
+        ${field('Bis', input('to', iso(lastMonthEnd), 'type="date"'), 'c3')}
+        <div class="c6 btn-row" style="align-items:flex-end">
+          <button type="button" class="btn sm" data-r="month">Letzter Monat</button>
+          <button type="button" class="btn sm" data-r="quarter">Letztes Quartal</button>
+          <button type="button" class="btn sm" data-r="year">Dieses Jahr</button>
+        </div>
+        <div class="c12">${checkbox('payments', true, 'Zahlungseingänge mit exportieren (Bank/Kasse an Debitor)')}</div>
+      </div>
+      <div class="btn-row" style="margin-top:14px"><button class="btn" id="dprev">${icon('search')} Vorschau</button><button class="btn primary" id="dexp">${icon('download')} DATEV-Datei herunterladen</button></div>
+      <div id="dout" style="margin-top:14px"></div>
+    </div></div>
+    ${formCard('DATEV-Einstellungen', `
+      ${field('Beraternummer', input('consultant', d.consultant, 'inputmode="numeric" placeholder="vom Steuerberater"'), 'c3')}
+      ${field('Mandantennummer', input('client', d.client, 'inputmode="numeric"'), 'c3')}
+      ${field('Kontenrahmen', select('skr', { '03': 'SKR 03', '04': 'SKR 04' }, d.skr), 'c3')}
+      ${field('Sachkontenlänge', select('account_length', { 4: '4-stellig', 5: '5-stellig', 6: '6-stellig' }, d.account_length), 'c3')}
+      ${field('Wirtschaftsjahr beginnt (MM-TT)', input('fiscal_start', d.fiscal_start), 'c3')}
+      ${field('Debitoren', select('debitor_mode', { einzeln: 'Je Kunde (Kundennr. = Debitor)', sammel: 'Ein Sammeldebitor' }, d.debitor_mode), 'c5')}
+      ${field('Sammeldebitor', input('collective_debitor', d.collective_debitor, 'type="number"'), 'c4', 'auch für Kunden ohne passende Nummer')}
+      <div class="form-sep">Konten <button type="button" class="btn sm" id="preset" style="margin-left:10px">Standardkonten für gewählten Kontenrahmen</button></div>
+      ${acc('revenue_19', 'Erlöse 19 %')}${acc('revenue_7', 'Erlöse 7 %')}${acc('revenue_0', 'Erlöse steuerfrei')}${acc('revenue_13b', 'Erlöse § 13b UStG')}
+      ${acc('bank', 'Bank')}${acc('cash', 'Kasse')}${acc('skonto', 'Gewährte Skonti')}
+      <div class="c12 alert warn">${icon('alert')}<div>Kontenzuordnung bitte einmal mit dem Steuerberater abstimmen. Abschlagsrechnungen werden sofort als Erlös gebucht, Schlussrechnungen nur mit dem Restbetrag – die übliche Variante bei Ist-Versteuerung.</div></div>
+    `, { saveLabel: 'DATEV-Einstellungen speichern' })}`;
+    const nums = ['account_length', 'collective_debitor', 'revenue_19', 'revenue_7', 'revenue_0', 'revenue_13b', 'bank', 'cash', 'skonto'];
+    bindForm(pane, 'datev', d, (x) => {
+      for (const k of nums) x[k] = Number(x[k]);
+      return x;
+    });
+    pane.querySelector('#preset').addEventListener('click', () => {
+      const p = presets[pane.querySelector('[name=skr]').value];
+      for (const [k, v] of Object.entries(p)) pane.querySelector(`[name=${k}]`).value = v;
+      ok('Standardkonten eingetragen – bitte speichern.');
+    });
+    const dx = pane.querySelector('#dx');
+    dx.addEventListener('click', (e) => {
+      const r = e.target.closest('[data-r]')?.dataset.r;
+      if (!r) return;
+      let a;
+      let b;
+      if (r === 'month') { a = lastMonthStart; b = lastMonthEnd; }
+      if (r === 'quarter') { const qs = Math.floor(m / 3) * 3 - 3; a = new Date(y, qs, 1); b = new Date(y, qs + 3, 0); }
+      if (r === 'year') { a = new Date(y, 0, 1); b = new Date(y, 11, 31); }
+      dx.querySelector('[name=from]').value = iso(a);
+      dx.querySelector('[name=to]').value = iso(b);
+    });
+    const qs = () => { const f = readForm(dx); return `from=${f.from}&to=${f.to}&payments=${f.payments ? 1 : 0}`; };
+    pane.querySelector('#dprev').addEventListener('click', (e) => attempt(async () => {
+      const r = await GET(`/datev/preview?${qs()}`);
+      pane.querySelector('#dout').innerHTML = r.count ? `
+        <div class="table-wrap" style="max-height:360px;overflow:auto;border:1px solid var(--line);border-radius:9px"><table class="table compact">
+        <thead><tr><th>Datum</th><th>Beleg</th><th>Text</th><th class="num">Betrag</th><th>S/H</th><th>Konto</th><th>Gegenkonto</th></tr></thead>
+        <tbody>${r.rows.map((x) => `<tr><td>${x.date.split('-').reverse().join('.')}</td><td>${esc(x.doc)}</td><td>${esc(x.text)}</td><td class="num">${(Math.abs(x.amount) / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })} €</td><td>${x.sh}</td><td class="mono">${x.account}</td><td class="mono">${x.contra}</td></tr>`).join('')}</tbody></table></div>
+        <p class="small muted">${r.count} Buchung(en)</p>` : emptyState('Keine Buchungen im gewählten Zeitraum', 'invoice');
+    }, e.currentTarget));
+    pane.querySelector('#dexp').addEventListener('click', () => {
+      if (!state.settings.datev?.consultant || !state.settings.datev?.client) return attempt(async () => { throw new Error('Bitte zuerst Berater- und Mandantennummer eintragen und speichern.'); });
+      location.href = `/api/datev/export?${qs()}`;
+    });
   },
 
   /* ---------------- Sicherung ---------------- */

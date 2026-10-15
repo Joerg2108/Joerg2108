@@ -11,6 +11,7 @@ const pdf = require('./pdf');
 const mail = require('./mail');
 const { buildXRechnung, checkXRechnung } = require('./xrechnung');
 const backup = require('./backup');
+const datev = require('./datev');
 
 const api = express.Router();
 api.use(express.json({ limit: '5mb' }));
@@ -628,6 +629,28 @@ api.delete('/users/:id', auth.requireAdmin, (req, res) => {
   run('UPDATE users SET active = 0 WHERE id = ?', req.params.id);
   run('DELETE FROM sessions WHERE user_id = ?', req.params.id);
   res.json({ ok: true });
+});
+
+/* ---------------- DATEV-Export ---------------- */
+function datevRange(req) {
+  const y = new Date().getFullYear();
+  const from = /^\d{4}-\d{2}-\d{2}$/.test(req.query.from || '') ? req.query.from : `${y}-01-01`;
+  const to = /^\d{4}-\d{2}-\d{2}$/.test(req.query.to || '') ? req.query.to : `${y}-12-31`;
+  if (from > to) throw new HttpError(400, 'Das Startdatum liegt nach dem Enddatum.');
+  return { from, to, payments: req.query.payments !== '0' };
+}
+api.get('/datev/presets', (req, res) => res.json(datev.PRESETS));
+api.get('/datev/preview', (req, res) => {
+  const rows = datev.bookings(datevRange(req));
+  res.json({ count: rows.length, rows: rows.slice(0, 500) });
+});
+api.get('/datev/export', (req, res) => {
+  const r = datevRange(req);
+  const out = datev.buildBuchungsstapel(r);
+  logActivity(req.user.id, 'datev', null, 'DATEV-Export', `${r.from} bis ${r.to} (${out.count} Buchungen)`);
+  res.setHeader('Content-Type', 'text/csv; charset=windows-1252');
+  res.setHeader('Content-Disposition', `attachment; filename="EXTF_Buchungsstapel_${r.from}_${r.to}.csv"`);
+  res.send(out.buffer);
 });
 
 /* ---------------- Datensicherung ---------------- */

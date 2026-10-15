@@ -37,6 +37,14 @@ Angebote, Rechnungen, Kunden und Leistungskatalog in einem System – läuft lok
 - **Preisanpassung** um x % (alle oder je Gewerk) mit automatischer Sicherung
 - CSV-Import/-Export (Excel-kompatibel) für Kunden und Leistungen
 
+### DATEV-Export für den Steuerberater
+- **DATEV-Buchungsstapel** (Format EXTF 700) mit allen festgeschriebenen Rechnungen und optional den Zahlungseingängen
+- Je Steuersatz eine Buchungszeile, § 13b-Erlöse auf eigenem Konto, Storno als Gegenbuchung
+- Schlussrechnungen nur mit dem Restbetrag nach Abzug der Abschläge, damit nichts doppelt gebucht wird
+- Kontenrahmen SKR 03 / SKR 04 mit Standardkonten, Kundennummer = Debitorenkonto (oder Sammeldebitor)
+- Zeitraum frei wählbar (Schnellwahl letzter Monat / Quartal / Jahr) mit Vorschau vor dem Download
+- Einrichtung: *Einstellungen → DATEV-Export* → Berater- und Mandantennummer vom Steuerberater eintragen
+
 ### Übersicht & Sicherheit
 - Dashboard: Umsatz, offene/überfällige Forderungen, Angebotsquote, Monatsdiagramm, Top-Kunden, Aufgabenlisten
 - Globale Suche (**Strg + K**), **Strg + S** speichert im Editor
@@ -117,6 +125,7 @@ baudah-office/
 │   ├── pdf.js           PDF-Briefbogen
 │   ├── xrechnung.js     E-Rechnung
 │   ├── mail.js          E-Mail-Versand
+│   ├── datev.js         DATEV-Buchungsstapel
 │   ├── auth.js          Login, Sessions, Verschlüsselung
 │   ├── backup.js        Datensicherung
 │   └── api.js           REST-API

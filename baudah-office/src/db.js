@@ -324,6 +324,22 @@ const DEFAULTS = {
     },
   },
   backup: { keep: 30 },
+  datev: {
+    consultant: '',
+    client: '',
+    fiscal_start: '01-01',
+    account_length: 4,
+    skr: '03',
+    debitor_mode: 'einzeln',
+    collective_debitor: 10000,
+    revenue_19: 8400,
+    revenue_7: 8300,
+    revenue_0: 8100,
+    revenue_13b: 8337,
+    bank: 1200,
+    cash: 1000,
+    skonto: 8736,
+  },
 };
 
 function getSetting(key) {
