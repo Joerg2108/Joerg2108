@@ -10,8 +10,8 @@ const app = document.getElementById('app');
 
 /* ---------------- Routen ---------------- */
 route('/', dashboardView);
-route('/angebote', (p) => documentListView({ kind: 'angebote' }));
-route('/rechnungen', (p) => documentListView({ kind: 'rechnungen' }));
+route('/angebote', (p, v) => documentListView({ kind: 'angebote' }, v));
+route('/rechnungen', (p, v) => documentListView({ kind: 'rechnungen' }, v));
 route('/beleg/:id', editorView);
 route('/neu/:type', (p, v) => newDocument(p.type, v));
 route('/neu/:type/:customer', (p, v) => newDocument(p.type, v, p.customer));
@@ -48,9 +48,10 @@ function authLayout(inner, company) {
 function loginView(status) {
   app.innerHTML = authLayout(
     `<form id="login">
-      <div><h1>Willkommen zurück</h1><p class="muted" style="margin:6px 0 0">Bitte melden Sie sich an.</p></div>
-      <label class="f">Benutzername<input name="username" autocomplete="username" autofocus required></label>
-      <label class="f">Passwort<input name="password" type="password" autocomplete="current-password" required></label>
+      <div><h1>${status.demo ? 'BauDaH Office testen' : 'Willkommen zurück'}</h1><p class="muted" style="margin:6px 0 0">${status.demo ? 'Die Bürosoftware für Handwerksbetriebe – kostenlos und unverbindlich ausprobieren.' : 'Bitte melden Sie sich an.'}</p></div>
+      ${status.demo ? `<div class="alert ok">${icon('check')}<div><b>Online-Demo</b> – einfach auf „Anmelden“ klicken.<br>Benutzer <code>${esc(status.demo.user)}</code> · Passwort <code>${esc(status.demo.password)}</code></div></div>` : ''}
+      <label class="f">Benutzername<input name="username" autocomplete="username" autofocus required value="${esc(status.demo?.user || '')}"></label>
+      <label class="f">Passwort<input name="password" type="password" autocomplete="current-password" required value="${esc(status.demo?.password || '')}"></label>
       <button class="btn primary block" style="height:42px">Anmelden</button>
     </form>`,
     status.company
@@ -269,6 +270,7 @@ async function boot() {
     if (s.setup) return setupView();
     if (!s.user) return loginView(s);
     state.user = s.user;
+    state.demo = s.demo;
     state.settings = await GET('/settings');
     if (location.hash === '#/login' || !location.hash) location.hash = '#/';
     document.getElementById('view') ? render() : (renderShell(), render());

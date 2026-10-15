@@ -7,13 +7,15 @@ const path = require('node:path');
 const express = require('express');
 const api = require('./src/api');
 const backup = require('./src/backup');
+const publicDemo = require('./src/publicdemo');
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
 
 app.disable('x-powered-by');
-app.set('trust proxy', 'loopback');
+// Hinter einem Hosting-Proxy (Render, Railway …) die echte Besucher-IP verwenden
+app.set('trust proxy', publicDemo.ENABLED ? true : 'loopback');
 app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
@@ -30,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public'), { index: 'index.html', ma
 app.get(/^\/(?!api\/).*/, (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
 backup.schedule();
+publicDemo.start();
 
 app.listen(PORT, HOST, () => {
   console.log('');

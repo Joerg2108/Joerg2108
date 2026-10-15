@@ -182,8 +182,8 @@ function loadDemo(user) {
 }
 
 /** Löscht alle Kunden, Belege, Zahlungen, Mahnungen und setzt die Nummernkreise zurück */
-function resetData(user) {
-  const b = backup.create('vor-neustart');
+function resetData(user, { withBackup = true } = {}) {
+  const b = withBackup ? backup.create('vor-neustart') : { name: '-' };
   tx(() => {
     for (const t of ['payments', 'reminders', 'email_log', 'document_items']) run(`DELETE FROM ${t}`);
     run('UPDATE documents SET source_id = NULL, ref_id = NULL');

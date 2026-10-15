@@ -408,3 +408,4 @@ input[type=color] { padding: 2px; height: 38px; }
 .items input[data-f=qty] { min-width: 72px; }
 .items input[data-f=unit] { min-width: 64px; }
 .items input[data-f=price] { min-width: 96px; }
+.nav a .badge::before { display: none; }

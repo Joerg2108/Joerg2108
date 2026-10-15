@@ -13,11 +13,14 @@ const { buildXRechnung, checkXRechnung } = require('./xrechnung');
 const backup = require('./backup');
 const datev = require('./datev');
 const demo = require('./demo');
+const publicDemo = require('./publicdemo');
 
 const api = express.Router();
 api.use(express.json({ limit: '5mb' }));
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 3 * 1024 * 1024 } });
 const { HttpError } = D;
+
+api.use(publicDemo.guard);
 
 const needsSetup = () => get('SELECT COUNT(*) AS n FROM users').n === 0;
 
@@ -25,7 +28,7 @@ const needsSetup = () => get('SELECT COUNT(*) AS n FROM users').n === 0;
 /* Setup & Login                                                       */
 /* ================================================================== */
 api.get('/status', (req, res) => {
-  res.json({ setup: needsSetup(), user: auth.currentUser(req), company: getSetting('company').name });
+  res.json({ setup: needsSetup(), user: auth.currentUser(req), company: getSetting('company').name, demo: publicDemo.info() });
 });
 
 api.post('/setup', (req, res) => {

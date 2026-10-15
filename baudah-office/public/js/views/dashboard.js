@@ -54,7 +54,7 @@ export async function dashboardView(params, view, year) {
   const c = state.settings?.company || {};
   if (!c.tax_number && !c.vat_id) cfgWarn.push('Steuernummer / USt-IdNr.');
   if (!c.iban) cfgWarn.push('Bankverbindung (IBAN)');
-  if (!state.settings?.mail?.user) cfgWarn.push('E-Mail-Zugang (SMTP)');
+  if (!state.settings?.mail?.user && !state.demo) cfgWarn.push('E-Mail-Zugang (SMTP)');
 
   view.innerHTML = `
   <div class="page">
@@ -79,7 +79,7 @@ export async function dashboardView(params, view, year) {
         </div>
       </div>
     </div>` : ''}
-    ${d.demo ? `<div class="alert" style="margin-bottom:16px">${icon('layers')}<div><b>Demo-Modus:</b> Es sind Beispieldaten geladen. Vor dem Echtbetrieb unter <a href="#/einstellungen/sicherung">Einstellungen → Datensicherung → Neustart</a> alles entfernen, damit die Rechnungsnummern bei 0001 beginnen.</div></div>` : ''}
+    ${state.demo ? `<div class="alert ok" style="margin-bottom:16px">${icon('layers')}<div><b>Willkommen in der Online-Demo von BauDaH Office!</b> Probieren Sie alles aus: Angebote anlegen, in Rechnungen umwandeln, PDFs ansehen, Zahlungen buchen. E-Mails werden in der Demo nicht wirklich verschickt. Alle Daten werden alle ${state.demo.reset_hours} Stunden automatisch zurückgesetzt.</div></div>` : d.demo ? `<div class="alert" style="margin-bottom:16px">${icon('layers')}<div><b>Demo-Modus:</b> Es sind Beispieldaten geladen. Vor dem Echtbetrieb unter <a href="#/einstellungen/sicherung">Einstellungen → Datensicherung → Neustart</a> alles entfernen, damit die Rechnungsnummern bei 0001 beginnen.</div></div>` : ''}
 
     ${cfgWarn.length && !d.empty ? `<div class="alert warn" style="margin-bottom:16px">${icon('alert')}<div><b>Einrichtung unvollständig:</b> Bitte ergänzen Sie ${esc(cfgWarn.join(', '))} unter <a href="#/einstellungen/firma">Einstellungen</a> – sonst können Rechnungen nicht rechtssicher erstellt bzw. versendet werden.</div></div>` : ''}
 

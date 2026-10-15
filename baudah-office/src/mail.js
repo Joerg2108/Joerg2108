@@ -7,7 +7,7 @@ const { formatDate, letterSalutation, HttpError } = require('./documents');
 
 function transport() {
   const m = getSetting('mail');
-  if (process.env.BAUDAH_MAIL_TEST) return nodemailer.createTransport({ jsonTransport: true });
+  if (process.env.BAUDAH_MAIL_TEST || process.env.BAUDAH_DEMO === '1') return nodemailer.createTransport({ jsonTransport: true });
   if (!m.host || !m.user) throw new HttpError(400, 'E-Mail-Versand ist noch nicht eingerichtet (Einstellungen → E-Mail).');
   return nodemailer.createTransport({
     host: m.host,

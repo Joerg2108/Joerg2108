@@ -91,6 +91,23 @@ Im leeren System erscheint auf der Übersicht der Button **„Demo-Daten laden�
 
 **Vor dem Echtbetrieb:** *Einstellungen → Datensicherung → „Alles zurücksetzen“* (Bestätigung durch Eintippen von `LÖSCHEN`). Das löscht alle Kunden und Belege und setzt die Nummernkreise zurück, die erste echte Rechnung ist dann wieder RE-…-0001. Einstellungen, Leistungskatalog und Benutzer bleiben erhalten, vorher wird automatisch gesichert.
 
+## Online-Demo (Link zum Verschicken)
+
+Mit der Umgebungsvariable `BAUDAH_DEMO=1` läuft das Programm als **öffentliche Demo**, deren Link man Interessenten schicken kann:
+- Anmeldeseite mit vorausgefülltem Zugang `demo` / `demo1234`
+- Beispieldaten werden beim Start und danach alle 6 Stunden (`BAUDAH_DEMO_RESET_HOURS`) frisch geladen
+- **E-Mails werden nicht verschickt**, nur protokolliert, damit die Demo nicht für Spam missbraucht werden kann
+- Benutzer, Passwort, E-Mail-Zugang und Sicherungs-Downloads sind gesperrt
+
+**Kostenlos veröffentlichen mit Render.com** (die Datei `render.yaml` im Hauptordner ist schon vorbereitet):
+1. Auf <https://render.com> mit dem GitHub-Konto anmelden.
+2. **New → Blueprint** → Repository `Joerg2108` auswählen → **Apply**.
+3. Nach ca. 3 Minuten gibt es einen Link wie `https://baudah-office-demo.onrender.com`. Diesen Link kann man verschicken.
+
+Hinweis zum kostenlosen Tarif: Nach 15 Minuten ohne Besucher schläft der Server ein, der erste Aufruf danach dauert ca. 30–60 Sekunden. Für Verkaufsgespräche den Link kurz vorher einmal selbst öffnen.
+
+**Niemals echte Kundendaten in der Online-Demo verwenden** – sie ist öffentlich und wird regelmäßig gelöscht.
+
 ## Typischer Ablauf
 
 1. **Kunde** anlegen (oder direkt im Angebot über „Neuen Kunden anlegen“)
@@ -137,6 +154,7 @@ baudah-office/
 │   ├── mail.js          E-Mail-Versand
 │   ├── datev.js         DATEV-Buchungsstapel
 │   ├── demo.js          Demo-Daten & Neustart
+│   ├── publicdemo.js    Öffentlicher Demo-Betrieb (BAUDAH_DEMO=1)
 │   ├── auth.js          Login, Sessions, Verschlüsselung
 │   ├── backup.js        Datensicherung
 │   └── api.js           REST-API

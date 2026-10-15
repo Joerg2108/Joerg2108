@@ -1014,7 +1014,8 @@ async function mailDialog(E, reminderId) {
     size: 'wide',
     body: `
       ${isInvoiceDraft ? `<div class="alert warn" style="margin-bottom:14px">${icon('lock')}<div>Beim Versand wird die Rechnung <b>festgeschrieben</b> und erhält ihre fortlaufende Nummer. Das Wort „Entwurf“ in Betreff und Text wird dabei automatisch durch die Rechnungsnummer ersetzt.</div></div>` : ''}
-      ${!state.settings?.mail?.user ? `<div class="alert danger" style="margin-bottom:14px">${icon('alert')}<div>Der E-Mail-Versand ist noch nicht eingerichtet. <a href="#/einstellungen/email">Jetzt einrichten</a></div></div>` : ''}
+      ${state.demo ? `<div class="alert" style="margin-bottom:14px">${icon('bell')}<div><b>Online-Demo:</b> Die E-Mail wird nicht wirklich verschickt, nur im Protokoll vermerkt. Alles andere läuft wie in der Vollversion.</div></div>` : ''}
+      ${!state.settings?.mail?.user && !state.demo ? `<div class="alert danger" style="margin-bottom:14px">${icon('alert')}<div>Der E-Mail-Versand ist noch nicht eingerichtet. <a href="#/einstellungen/email">Jetzt einrichten</a></div></div>` : ''}
       <form class="form-grid" id="mf">
         ${field('An', input('to', draft.to, 'type="email" multiple required placeholder="kunde@example.de"'), 'c6')}
         ${field('CC', input('cc', draft.cc, 'placeholder="optional"'), 'c6')}
