@@ -5,6 +5,7 @@ services:
     name: baudah-office-demo
     runtime: node
     plan: free
+    region: frankfurt
     rootDir: baudah-office
     buildCommand: npm install --omit=dev
     startCommand: node server.js
