@@ -1,6 +1,7 @@
-# Netlify build config. Next.js is deployed via the OpenNext adapter
-# (@netlify/plugin-nextjs), installed and updated automatically — don't pin it.
-# proxy.ts (language redirect) runs as an Edge Function.
+# Netlify build config: the site is published as a static export (same output as
+# the drag-and-drop folder) — `npm run build:upload` writes netlify-upload/ with
+# _redirects (language detection, 404s) and _headers (security, caching).
+# The Next.js runtime plugin is skipped on purpose: no server functions needed.
 #
 # Environment variables are NOT set here (this file is committed) — set them in
 # Netlify: Project configuration → Environment variables. NEXT_PUBLIC_* values are
@@ -10,8 +11,9 @@
 #   NEXT_PUBLIC_ALLOW_INDEXING   true  (only once all [placeholders] are replaced)
 
 [build]
-  command = "npm run build"
-  publish = ".next"
+  command = "npm run build:upload"
+  publish = "netlify-upload"
 
 [build.environment]
   NODE_VERSION = "22"
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"

@@ -90,5 +90,6 @@ writeFileSync(
 );
 
 rmSync(ZIP, { force: true });
-execSync(`cd "${DEST}" && zip -qr "${ZIP}" .`);
-console.log(`\n✓ Upload folder: ${DEST}\n✓ Zip:           ${ZIP}\n  Site URL baked in: ${SITE_URL}`);
+// The zip is only for manual drag-and-drop; Netlify's own build publishes the folder.
+if (!process.env.NETLIFY) execSync(`cd "${DEST}" && zip -qr "${ZIP}" .`);
+console.log(`\n✓ Upload folder: ${DEST}${process.env.NETLIFY ? "" : `\n✓ Zip:           ${ZIP}`}\n  Site URL baked in: ${SITE_URL}`);
