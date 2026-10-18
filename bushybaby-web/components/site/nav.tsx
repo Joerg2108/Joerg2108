@@ -40,7 +40,7 @@ export function Nav({ lang, t }: Props) {
         aria-label="Main"
         className={clsx(
           "glass mx-auto flex max-w-7xl items-center gap-4 rounded-full pl-5 pr-2.5 transition-[height,background] duration-500 ease-land md:gap-6",
-          scrolled ? "h-14 bg-night/80" : "h-[60px]",
+          scrolled ? "h-14 bg-night/92" : "h-[60px]",
         )}
       >
         <Link href={href(lang, "/")} aria-label={`${site.name} ${t.nav.home}`}><Wordmark /></Link>

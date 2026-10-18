@@ -3,7 +3,8 @@
 import { useId, useState } from "react";
 import { clsx } from "clsx";
 
-export function Faq({ items }: { items: { q: string; a: string }[] }) {
+export function Faq({ items, level = 3 }: { items: { q: string; a: string }[]; level?: 2 | 3 }) {
+  const H = level === 2 ? "h2" : "h3";
   const [open, setOpen] = useState(0);
   const base = useId();
   return (
@@ -14,7 +15,7 @@ export function Faq({ items }: { items: { q: string; a: string }[] }) {
         const panel = `${base}-a${i}`;
         return (
           <div key={f.q} className="border-b border-white/10">
-            <h3>
+            <H>
               <button
                 id={btn}
                 type="button"
@@ -26,7 +27,7 @@ export function Faq({ items }: { items: { q: string; a: string }[] }) {
                 {f.q}
                 <span aria-hidden className={clsx("flex size-8 shrink-0 items-center justify-center rounded-full border border-white/15 text-mist transition-transform duration-500 ease-land", isOpen && "rotate-45")}>+</span>
               </button>
-            </h3>
+            </H>
             {/* grid-rows trick: animates height without measuring */}
             <div id={panel} role="region" aria-labelledby={btn} className={clsx("grid transition-[grid-template-rows] duration-500 ease-land", isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
               <div className="overflow-hidden" inert={!isOpen}>

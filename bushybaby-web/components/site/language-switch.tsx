@@ -26,7 +26,7 @@ export function LanguageSwitch({ lang, label, className, onNavigate }: { lang: L
   };
 
   return (
-    <nav aria-label={label} className={clsx("flex items-center rounded-full border border-white/12 p-1 font-mono text-xs", className)}>
+    <nav aria-label={label} className={clsx("flex items-center rounded-full border border-white/12 bg-night p-1 font-mono text-xs", className)}>
       {locales.map((l) => {
         const active = l === lang;
         return (

@@ -60,7 +60,7 @@ export default async function MenuPage({ params }: Props) {
         <div aria-hidden className="absolute -right-48 -top-48 size-[700px] rounded-full bg-amber opacity-10 blur-[140px]" />
         <div className="relative mx-auto flex max-w-7xl flex-col gap-7">
           <span className="label-mono">{t.kicker}</span>
-          <h1 id="menu-h" className="display text-[clamp(72px,14vw,220px)] leading-[0.8] tracking-[-0.065em]">{t.title1}<br /><span className="text-[#2e2e2e]">{t.title2}</span></h1>
+          <h1 id="menu-h" className="display text-[clamp(72px,14vw,220px)] leading-[0.8] tracking-[-0.065em]">{t.title1}<br /><span className="text-ghost">{t.title2}</span></h1>
           <p className="max-w-[520px] text-lg leading-relaxed text-mist">{t.lead}</p>
           <p className="flex max-w-[520px] items-start gap-3 rounded-tile border border-white/10 bg-surface-1 px-5 py-4 text-sm leading-relaxed text-mist">
             <svg viewBox="0 0 24 24" fill="none" stroke="#ffaa40" strokeWidth="1.75" strokeLinecap="round" aria-hidden className="mt-0.5 size-5 shrink-0"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" /></svg>

@@ -42,7 +42,7 @@ export default async function LegalPage({ params }: Props) {
               aria-current={d === doc ? "page" : undefined}
               className={d === doc ? "flex h-13 items-center justify-between rounded-[14px] border border-white/12 bg-surface-2 px-4 font-medium" : "flex h-13 items-center justify-between rounded-[14px] px-4 text-mist hover:text-moon"}
             >
-              {legal[d].title}<span className="font-mono text-[11px] opacity-60">0{i + 1}</span>
+              {legal[d].title}<span className="font-mono text-[11px] opacity-80">0{i + 1}</span>
             </Link>
           ))}
           <span className="mt-6 px-4 text-[13px] text-dim">{legal.updated}</span>

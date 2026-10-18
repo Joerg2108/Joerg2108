@@ -44,7 +44,7 @@ export function MenuTabs({ t, lang }: { t: Menu; lang: Locale }) {
               onKeyDown={(e) => onKey(e, i)}
               className={clsx("h-11 shrink-0 whitespace-nowrap rounded-full px-5 text-sm font-medium transition-colors duration-300", i === active ? "bg-moon text-night" : "text-mist hover:text-moon")}
             >
-              {s.label[lang]} <span className="ml-1 font-mono text-[11px] opacity-60">{String(count(s)).padStart(2, "0")}</span>
+              {s.label[lang]} <span className="ml-1 font-mono text-[11px] opacity-80">{String(count(s)).padStart(2, "0")}</span>
             </button>
           ))}
         </div>

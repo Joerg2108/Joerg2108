@@ -30,7 +30,7 @@ export default async function StoryPage({ params }: Props) {
         <div aria-hidden className="absolute -right-48 -top-48 size-[700px] rounded-full bg-amber opacity-10 blur-[140px]" />
         <div className="relative mx-auto flex max-w-7xl flex-col gap-7">
           <span className="label-mono">{t.kicker}</span>
-          <h1 id="story-h" className="display text-[clamp(56px,10vw,160px)] leading-[0.85] tracking-[-0.06em]">{t.title1}<br /><span className="text-[#2e2e2e]">{t.title2}</span></h1>
+          <h1 id="story-h" className="display text-[clamp(56px,10vw,160px)] leading-[0.85] tracking-[-0.06em]">{t.title1}<br /><span className="text-ghost">{t.title2}</span></h1>
           <p className="max-w-[560px] text-lg leading-relaxed text-mist">{t.lead}</p>
         </div>
       </section>

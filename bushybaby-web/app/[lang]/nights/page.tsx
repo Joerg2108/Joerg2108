@@ -14,6 +14,7 @@ type Props = { params: Promise<{ lang: string }> };
 
 const px = "px-5 md:px-[clamp(20px,5vw,80px)]";
 const glow = ["#ffaa40", "#c45cff", "#9c40ff"];
+const label = ["#ffaa40", "#d690ff", "#b98cff"]; // text-safe tints of the glows (AA contrast)
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang } = await params;
@@ -37,7 +38,7 @@ export default async function NightsPage({ params }: Props) {
         <div aria-hidden className="absolute -left-48 -top-48 size-[700px] rounded-full bg-violet opacity-[0.12] blur-[140px]" />
         <div className="relative mx-auto flex max-w-7xl flex-col gap-7">
           <span className="label-mono">{t.kicker}</span>
-          <h1 id="nights-h" className="display text-[clamp(56px,10vw,160px)] leading-[0.85] tracking-[-0.06em]">{t.title1}<br /><span className="text-[#2e2e2e]">{t.title2}</span></h1>
+          <h1 id="nights-h" className="display text-[clamp(56px,10vw,160px)] leading-[0.85] tracking-[-0.06em]">{t.title1}<br /><span className="text-ghost">{t.title2}</span></h1>
           <p className="max-w-[560px] text-lg leading-relaxed text-mist">{t.lead}</p>
         </div>
       </section>
@@ -49,7 +50,7 @@ export default async function NightsPage({ params }: Props) {
             {d.home.week.items.map((e, i) => (
               <Reveal as="li" key={e.day} delay={i * 0.08} className="relative flex h-full min-h-[300px] flex-col gap-4 overflow-hidden rounded-card border border-white/10 bg-surface-1 p-8">
                   <div aria-hidden className="absolute -right-16 -top-16 size-48 rounded-full opacity-25 blur-[60px]" style={{ background: glow[i] }} />
-                  <span className="label-mono relative" style={{ color: glow[i] }}>{e.day}</span>
+                  <span className="label-mono relative" style={{ color: label[i] }}>{e.day}</span>
                   <h3 className="relative mt-auto text-[clamp(30px,2.8vw,40px)] font-semibold leading-[1.05] tracking-[-0.035em]">{e.title}</h3>
                   <p className="relative text-[15px] leading-relaxed text-mist">{e.body}</p>
                 </Reveal>

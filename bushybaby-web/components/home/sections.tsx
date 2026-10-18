@@ -176,7 +176,7 @@ export function FourActs({ t }: T) {
               <span aria-hidden className="absolute -top-1.5 left-0 size-[11px] rounded-full" style={{ background: act.dot, boxShadow: `0 0 24px ${act.dot}` }} />
               <Reveal delay={i * 0.1} className="flex flex-col gap-4">
                 <span className="font-mono text-[13px] text-mist">{act.time}</span>
-                <span aria-hidden className="text-[64px] font-light leading-none tracking-[-0.04em] text-[#3f3f3f]">{act.roman}</span>
+                <span aria-hidden className="text-[64px] font-light leading-none tracking-[-0.04em] text-ghost">{act.roman}</span>
                 <h3 className="text-2xl font-semibold tracking-[-0.02em]">{a.items[i].title}</h3>
                 <p className="max-w-[260px] text-[15px] leading-relaxed text-mist">{a.items[i].body}</p>
               </Reveal>
@@ -192,6 +192,7 @@ export function FourActs({ t }: T) {
 export function WeekSection({ t }: T) {
   const w = t.home.week;
   const glow = ["#ffaa40", "#c45cff", "#9c40ff"];
+  const label = ["#ffaa40", "#d690ff", "#b98cff"]; // text-safe tints of the glows (AA contrast)
   return (
     <section aria-labelledby="week-h" className={clsx("pb-36", px)}>
       <div className="mx-auto flex max-w-7xl flex-col gap-14">
@@ -203,7 +204,7 @@ export function WeekSection({ t }: T) {
           {w.items.map((e, i) => (
             <Reveal as="li" key={e.day} delay={i * 0.08} className="relative flex h-full min-h-[260px] flex-col gap-4 overflow-hidden rounded-card border border-white/10 bg-surface-1 p-8 transition-[transform,border-color] duration-500 ease-land hover:-translate-y-1.5 hover:border-white/20">
                 <div aria-hidden className="absolute -right-16 -top-16 size-48 rounded-full opacity-25 blur-[60px]" style={{ background: glow[i] }} />
-                <span className="label-mono relative" style={{ color: glow[i] }}>{e.day}</span>
+                <span className="label-mono relative" style={{ color: label[i] }}>{e.day}</span>
                 <h3 className="relative mt-auto text-[clamp(28px,2.6vw,36px)] font-semibold leading-[1.05] tracking-[-0.035em]">{e.title}</h3>
                 <p className="relative text-[15px] leading-relaxed text-mist">{e.body}</p>
               </Reveal>

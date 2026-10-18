@@ -7,8 +7,8 @@
   --color-surface-2: #171717;
   --color-moon: #fafafa;
   --color-mist: #a1a1a1;
-  --color-dim: #737373;
-  --color-ghost: #3a3a3a;
+  --color-dim: #8a8a8a; /* ≥4.5:1 on night + surfaces (WCAG AA) */
+  --color-ghost: #636363; /* ≥3:1 for large display text */
   --color-amber: #ffaa40;
   --color-ember: #ff7a3d;
   --color-violet: #9c40ff;

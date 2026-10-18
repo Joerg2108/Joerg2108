@@ -42,7 +42,7 @@ export default async function FaqPage({ params }: Props) {
           <p className="max-w-sm text-lg leading-relaxed text-mist">{t.lead}</p>
           <a href={whatsappUrl(site.whatsapp, d.common.whatsappHello)} className="inline-flex h-13 items-center gap-2.5 self-start rounded-full bg-moon px-6 font-semibold text-night"><Icon.WhatsApp /> {t.ask}</a>
         </div>
-        <Faq items={items} />
+        <Faq items={items} level={2} />
       </div>
     </section>
   );
