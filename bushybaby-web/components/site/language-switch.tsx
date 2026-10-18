@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { clsx } from "clsx";
+import { getPrefs } from "@/lib/consent";
 import { LOCALE_COOKIE, localeMeta, locales, switchLocalePath, type Locale } from "@/lib/i18n";
 
 /**
@@ -15,6 +16,8 @@ export function LanguageSwitch({ lang, label, className, onNavigate }: { lang: L
   const qs = search?.toString();
 
   const remember = (l: Locale) => {
+    // Visitor switched "remember my language" off in the cookie settings → set nothing.
+    if (!getPrefs().language) return onNavigate?.();
     const year = "path=/; max-age=31536000; samesite=lax";
     // Value cookie for proxy.ts (server build) …
     document.cookie = `${LOCALE_COOKIE}=${l}; ${year}`;

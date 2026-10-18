@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { CookieSettings } from "@/components/site/cookie-settings";
 import { getDictionary } from "@/content/dictionaries";
 import { hasLocale, href, locales } from "@/lib/i18n";
 import { alternates } from "@/lib/seo";
@@ -27,7 +28,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function LegalPage({ params }: Props) {
   const { lang, doc } = await params;
   if (!hasLocale(lang) || !isDoc(doc)) notFound();
-  const legal = getDictionary(lang).legal;
+  const dict = getDictionary(lang);
+  const legal = dict.legal;
   const t = legal[doc];
   const other: Doc = doc === "imprint" ? "privacy" : "imprint";
 
@@ -59,6 +61,9 @@ export default async function LegalPage({ params }: Props) {
               <section key={s.h} className="flex flex-col gap-3 border-t border-white/8 py-8">
                 <h2 className="label-mono text-mist">{s.h}</h2>
                 <p className="text-[17px] leading-[1.75] text-neutral-300">{s.p.replace("{phone}", site.phoneDisplay ?? "")}</p>
+                {"cookies" in s && s.cookies && (
+                  <CookieSettings t={dict.cookies} className="mt-2 inline-flex h-12 items-center self-start rounded-full border border-white/15 px-5 font-medium hover:border-white/35" />
+                )}
               </section>
             ))}
           </div>

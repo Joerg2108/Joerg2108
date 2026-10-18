@@ -64,7 +64,7 @@ export default async function LangLayout({ children, params }: Props) {
         <MotionProvider>
           <Nav lang={lang} t={{ nav: t.nav, common: t.common }} />
           <main id="main" className="overflow-x-clip">{children}</main>
-          <Footer lang={lang} t={t.footer} country={t.common.country} />
+          <Footer lang={lang} t={t.footer} country={t.common.country} cookies={t.cookies} />
         </MotionProvider>
       </body>
     </html>

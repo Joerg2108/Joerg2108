@@ -1,11 +1,12 @@
 import Link from "next/link";
+import { CookieSettings } from "./cookie-settings";
 import { Wordmark } from "./logo";
 import type { Dictionary } from "@/content/dictionaries";
 import { href, type Locale } from "@/lib/i18n";
 import { site } from "@/lib/site";
 import { whatsappUrl } from "@/lib/whatsapp";
 
-export function Footer({ lang, t, country }: { lang: Locale; t: Dictionary["footer"]; country: string }) {
+export function Footer({ lang, t, country, cookies }: { lang: Locale; t: Dictionary["footer"]; country: string; cookies: Dictionary["cookies"] }) {
   const a = site.address;
   const where = [a.street, a.town].filter(Boolean).join(", ") || country;
   return (
@@ -17,7 +18,9 @@ export function Footer({ lang, t, country }: { lang: Locale; t: Dictionary["foot
         </div>
         <FooterCol lang={lang} title={t.explore} links={t.exploreLinks} />
         <FooterCol lang={lang} title={t.visit} links={[["/reserve", t.reserve], ["/reserve#find-us", t.directions], [site.instagram, "Instagram"], [whatsappUrl(site.whatsapp), "WhatsApp"]]} />
-        <FooterCol lang={lang} title={t.legal} links={[["/legal/imprint", t.imprint], ["/legal/privacy", t.privacy], ["/faq", t.faq]]} />
+        <FooterCol lang={lang} title={t.legal} links={[["/legal/imprint", t.imprint], ["/legal/privacy", t.privacy], ["/faq", t.faq]]}>
+          <CookieSettings t={cookies} className="text-neutral-300 hover:text-amber" />
+        </FooterCol>
       </div>
       <p className="mx-auto mt-10 max-w-7xl text-xs text-dim">{t.responsible}</p>
       <div
@@ -30,7 +33,7 @@ export function Footer({ lang, t, country }: { lang: Locale; t: Dictionary["foot
   );
 }
 
-function FooterCol({ lang, title, links }: { lang: Locale; title: string; links: [string, string][] }) {
+function FooterCol({ lang, title, links, children }: { lang: Locale; title: string; links: [string, string][]; children?: React.ReactNode }) {
   return (
     <nav aria-label={title} className="flex flex-col gap-3">
       <span className="label-mono text-[11px]">{title}</span>
@@ -41,6 +44,7 @@ function FooterCol({ lang, title, links }: { lang: Locale; title: string; links:
           <Link key={label} href={href(lang, to)} className="text-neutral-300 hover:text-amber">{label}</Link>
         ),
       )}
+      {children}
     </nav>
   );
 }
