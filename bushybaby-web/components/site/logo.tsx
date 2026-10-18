@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { clsx } from "clsx";
 
 /** "The Eyes" — the only custom brand glyph. Everything else is Lucide-style stroke icons. */
@@ -12,10 +13,24 @@ export function EyesMark({ className, blink = false }: { className?: string; bli
   );
 }
 
-export function Wordmark({ className }: { className?: string }) {
+/** The tiki emblem (owner-supplied artwork), always shown as a round badge. */
+export function LogoBadge({ size = 40, className }: { size?: number; className?: string }) {
+  return (
+    <Image
+      src="/brand/logo.webp"
+      alt=""
+      width={size}
+      height={size}
+      className={clsx("shrink-0 rounded-full ring-1 ring-white/15", className)}
+      style={{ width: size, height: size }}
+    />
+  );
+}
+
+export function Wordmark({ className, size = 40 }: { className?: string; size?: number }) {
   return (
     <span className={clsx("flex items-center gap-2.5 text-[17px] font-bold tracking-[-0.03em]", className)}>
-      <EyesMark />
+      <LogoBadge size={size} />
       bushybaby
     </span>
   );

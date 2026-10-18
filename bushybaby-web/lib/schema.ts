@@ -54,7 +54,7 @@ export function buildBarSchema(site: Site, opts: { lang: string; description: st
       `${url}/images/bar-sign.jpg`,
       `${url}/images/whole-melon.jpg`,
     ],
-    logo: `${url}/icon.svg`,
+    logo: `${url}/brand/logo-512.jpg`,
     telephone: site.phoneDisplay,
     email: site.email,
     priceRange: site.priceRange,

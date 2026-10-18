@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Wordmark } from "./logo";
 import type { Dictionary } from "@/content/dictionaries";
 import { href, type Locale } from "@/lib/i18n";
 import { site } from "@/lib/site";
@@ -11,7 +12,7 @@ export function Footer({ lang, t, country }: { lang: Locale; t: Dictionary["foot
     <footer className="overflow-hidden border-t border-white/5 px-5 pt-20 md:px-[clamp(20px,5vw,80px)]">
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-10 text-sm md:grid-cols-5">
         <div className="col-span-2 flex max-w-xs flex-col gap-3.5">
-          <span className="text-lg font-bold tracking-[-0.03em]">bushybaby</span>
+          <Wordmark size={48} className="text-lg" />
           <span className="leading-relaxed text-mist">{t.about} {where}.</span>
         </div>
         <FooterCol lang={lang} title={t.explore} links={t.exploreLinks} />
