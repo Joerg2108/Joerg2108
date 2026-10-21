@@ -37,3 +37,13 @@ Greift automatisch, sobald du einen animierten Hero- oder Abschnitts-Hintergrund
 - **Eigener Skill** – Vanta hat kein offizielles Skill-Repo. Inhalt abgeleitet aus README und Quellcode von [tengbao/vanta](https://github.com/tengbao/vanta) (MIT), Commit `f8b351906688b56f0fc744e53bde81fc3c56f150`, Version 0.5.24.
 - Getestet in Chromium (headless): alle 14 Effekte starten mit three.js r134 bzw. p5 1.1.9, `destroy()` räumt auf; npm-Import mit übergebenem `THREE` funktioniert. Ab three.js r159 bricht BIRDS.
 - Das Projekt wird seit Januar 2023 nicht mehr gepflegt – deshalb pinnt der Skill die Versionen.
+
+## threejs
+
+3D-Grafik im Browser mit [three.js](https://threejs.org) (WebGL und WebGPU): Szenen, Modell-Viewer, Produktkonfiguratoren, Partikel, Shader.
+Greift automatisch, sobald es um 3D im Browser geht oder three.js erwähnt wird.
+
+- **Eigener Skill** – three.js hat kein offizielles Skill-Repo. Grundlage sind die offiziellen LLM-Regeln aus [`docs/llms.txt`](https://threejs.org/docs/llms.txt) von [mrdoob/three.js](https://github.com/mrdoob/three.js) (MIT), Commit `560f66427a4c3012e621fc9c6c1ec80b76a906ab`, Version 0.186.1 (r186).
+- Getestet in Chromium (headless) mit three 0.186.1: WebGL-Szene mit OrbitControls, Schatten und Container-Resize; WebGPURenderer mit TSL (läuft headless über den WebGL2-Fallback); glTF laden inkl. Animation; Raycasting auf InstancedMesh; die Cleanup-Funktion gibt alle Geometrien und Texturen frei. npm-Importpfade (`three`, `three/webgpu`, `three/tsl`, `three/addons/…`) lösen im Bundler auf.
+- Seit r183 ist `THREE.Clock` veraltet (`THREE.Timer` nutzen), seit r180 `RGBELoader` (`HDRLoader` nutzen) – der Skill berücksichtigt das.
+- Verträgt sich nicht mit dem `vanta`-Skill in derselben Szene: Vanta braucht das alte globale three.js r134.
