@@ -1,0 +1,53 @@
+<% const qs = new URLSearchParams({ von: fl.from, bis: fl.to, user: fl.userId || '', projekt: query.projekt || '' }).toString(); %>
+<div class="page-head">
+  <div><h1>Zeiterfassung</h1><div class="sub"><%= h.date(fl.from) %> – <%= h.date(fl.to) %>: <strong><%= h.minutes(sum) %></strong> (davon abrechenbar <%= h.minutes(billable) %>)</div></div>
+  <div class="actions"><a class="btn" href="/zeiten/export.csv?<%= qs %>">CSV</a><a class="btn" href="/zeiten/nachweis.pdf?<%= qs %>" target="_blank">Stundennachweis PDF</a></div>
+</div>
+<div class="grid c2">
+  <div class="card">
+    <h2>Stoppuhr</h2>
+    <% if (timer) { %>
+      <p>Läuft seit <strong><%= h.dateTime(timer.started_at) %></strong><%= timer.project_name ? ' · ' + timer.project_name : '' %></p>
+      <form method="post" action="/zeiten/timer/stop" class="form-grid"><input type="hidden" name="_csrf" value="<%= csrf %>">
+        <%- h.input('description', 'Tätigkeit', timer.description, { cls: 'span-8' }) %><div class="span-4" style="align-self:end"><button class="btn danger solid">■ Stoppen &amp; speichern</button></div></form>
+    <% } else { %>
+      <form method="post" action="/zeiten/timer/start" class="form-grid"><input type="hidden" name="_csrf" value="<%= csrf %>">
+        <%- h.select('project_id', 'Projekt', '', projects.map((p) => [p.id, p.number + ' – ' + p.name]), { empty: '– ohne Projekt –' }) %>
+        <%- h.input('description', 'Tätigkeit', '') %>
+        <div class="span-12"><button class="btn primary">▶ Start</button></div></form>
+    <% } %>
+    <hr>
+    <h3>Diese Woche</h3>
+    <div class="week"><% week.forEach((w, i) => { %><div class="<%= w.d === today ? 'today' : '' %>"><small><%= ['Mo','Di','Mi','Do','Fr','Sa','So'][i] %></small><strong><%= h.minutes(w.min).replace(' h', '') %></strong></div><% }) %></div>
+    <p class="small muted">Summe: <%= h.minutes(week.reduce((a, w) => a + w.min, 0)) %></p>
+  </div>
+  <div class="card">
+    <h2>Zeit nachtragen</h2>
+    <form method="post" action="/zeiten" class="form-grid"><input type="hidden" name="_csrf" value="<%= csrf %>">
+      <%- h.input('date', 'Datum', today, { type: 'date', required: true, cls: 'span-4' }) %>
+      <%- h.input('from', 'Von', '', { type: 'time', cls: 'span-2' }) %>
+      <%- h.input('to', 'Bis', '', { type: 'time', cls: 'span-2' }) %>
+      <%- h.input('pause', 'Pause (Min.)', '', { type: 'number', min: 0, cls: 'span-2' }) %>
+      <%- h.input('duration', 'oder Dauer', '', { placeholder: '1:30', cls: 'span-2' }) %>
+      <%- h.select('project_id', 'Projekt', '', projects.map((p) => [p.id, p.number + ' – ' + p.name]), { empty: '– ohne Projekt –' }) %>
+      <% if (canAll) { %><%- h.select('user_id', 'Mitarbeiter', user.id, users.map((u) => [u.id, u.name])) %><% } %>
+      <%- h.input('description', 'Tätigkeit', '', { cls: 'span-12' }) %>
+      <div class="span-12"><%- h.checkbox('billable', 'abrechenbar', true) %></div>
+      <div class="span-12"><button class="btn primary">Speichern</button></div>
+    </form>
+  </div>
+</div>
+<form class="filters">
+  <%- h.input('von', 'Von', fl.from, { type: 'date' }) %><%- h.input('bis', 'Bis', fl.to, { type: 'date' }) %>
+  <% if (canAll) { %><%- h.select('user', 'Mitarbeiter', fl.userId || '', users.map((u) => [u.id, u.name]), { empty: 'Alle' }) %><% } %>
+  <%- h.select('projekt', 'Projekt', query.projekt, projects.map((p) => [p.id, p.name]), { empty: 'Alle' }) %>
+  <button class="btn">Filtern</button>
+</form>
+<div class="card flush"><div class="table-wrap">
+<% if (!rows.length) { %><div class="empty">Keine Einträge im Zeitraum.</div><% } else { %>
+<table><thead><tr><th>Datum</th><th>Mitarbeiter</th><th>Projekt</th><th>Tätigkeit</th><th class="num">Dauer</th><th>Status</th><th></th></tr></thead><tbody>
+<% for (const r of rows) { %><tr><td class="nowrap"><%= h.date(r.date) %><%= r.started_at ? ' ' + r.started_at : '' %></td><td><%= r.user_name %></td><td><%= r.project_name ? r.project_name : '–' %></td><td><%= r.description %></td><td class="num"><%= h.minutes(r.minutes) %></td>
+<td><%- r.invoiced_in ? h.badge('bezahlt', 'abgerechnet') : r.billable ? h.badge('offen', 'abrechenbar') : h.badge('entwurf', 'intern') %></td>
+<td><% if (!r.invoiced_in) { %><form method="post" action="/zeiten/<%= r.id %>/loeschen" data-confirm="Eintrag löschen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm ghost">✕</button></form><% } %></td></tr><% } %>
+</tbody><tfoot><tr><td colspan="4">Summe</td><td class="num"><%= h.minutes(sum) %></td><td colspan="2"></td></tr></tfoot></table><% } %>
+</div></div>

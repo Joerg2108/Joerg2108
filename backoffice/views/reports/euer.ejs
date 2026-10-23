@@ -1,0 +1,13 @@
+<div class="page-head"><div><h1>Einnahmen-Überschuss-Rechnung <%= year %></h1><div class="sub">Zufluss-/Abflussprinzip nach § 4 Abs. 3 EStG · netto</div></div>
+  <div class="actions"><a class="btn" href="/berichte/euer.pdf?jahr=<%= year %>" target="_blank">PDF</a><a class="btn" href="/berichte?jahr=<%= year %>">← Berichte</a></div></div>
+<div class="grid side">
+  <div class="card flush"><div class="table-wrap"><table>
+    <thead><tr><th>Monat</th><th class="num">Einnahmen netto</th><th class="num">Ausgaben netto</th><th class="num">Ergebnis</th></tr></thead>
+    <tbody><% for (const r of e.rows) { %><tr><td><%= r.name %></td><td class="num"><%= h.eur(r.incomeNet) %></td><td class="num"><%= h.eur(r.expNet) %></td><td class="num <%= r.result < 0 ? 'neg' : 'pos' %>"><%= h.eur(r.result) %></td></tr><% } %></tbody>
+    <tfoot><tr><td>Summe</td><td class="num"><%= h.eur(e.total.incomeNet) %></td><td class="num"><%= h.eur(e.total.expNet) %></td><td class="num"><%= h.eur(e.total.result) %></td></tr></tfoot>
+  </table></div></div>
+  <div class="card"><h2>Ausgaben nach Kategorie</h2><table><tbody>
+    <% for (const c of e.byCategory) { %><tr><td><%= c.category %></td><td class="num"><%= h.eur(c.net) %></td></tr><% } %>
+  </tbody></table>
+  <p class="small muted">Vorläufige Auswertung. Abschreibungen (AfA), private Nutzungsanteile und Sonderfälle sind nicht berücksichtigt.</p></div>
+</div>

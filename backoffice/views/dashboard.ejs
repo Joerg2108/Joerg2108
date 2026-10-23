@@ -1,0 +1,84 @@
+<div class="page-head">
+  <div><h1>Hallo <%= user.name.split(' ')[0] %> 👋</h1><div class="sub"><%= new Date().toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Berlin' }) %></div></div>
+  <div class="actions">
+    <% if (can('sales')) { %><a class="btn primary" href="/belege/rechnungen/neu"><%- h.icon('plus') %> Rechnung</a><a class="btn" href="/belege/angebote/neu"><%- h.icon('plus') %> Angebot</a><% } %>
+    <a class="btn" href="/kunden/neu"><%- h.icon('plus') %> Kunde</a>
+    <% if (can('expenses')) { %><a class="btn" href="/ausgaben/neu"><%- h.icon('plus') %> Ausgabe</a><% } %>
+  </div>
+</div>
+
+<div class="kpis">
+  <% if (can('sales')) { %>
+  <a class="kpi" href="/berichte"><span>Umsatz Monat (netto)</span><strong><%= h.eur(kpi.revenueMonth) %></strong><small>Jahr: <%= h.eur(kpi.revenueYear) %></small></a>
+  <a class="kpi" href="/belege/rechnungen?status=offen"><span>Offene Posten</span><strong><%= h.eur(kpi.open.s) %></strong><small><%= kpi.open.n %> Rechnung(en)</small></a>
+  <a class="kpi <%= kpi.overdue.n ? 'warn' : '' %>" href="/belege/mahnwesen"><span>Überfällig</span><strong><%= h.eur(kpi.overdue.s) %></strong><small><%= kpi.overdue.n %> Rechnung(en)</small></a>
+  <a class="kpi" href="/belege/angebote?status=versendet"><span>Offene Angebote</span><strong><%= h.eur(kpi.quotesOpen.s) %></strong><small><%= kpi.quotesOpen.n %> Angebot(e)</small></a>
+  <% } %>
+  <a class="kpi" href="/anfragen"><span>Neue Anfragen</span><strong><%= kpi.leadsNew %></strong><small>Pipeline: <%= h.eur(kpi.pipeline) %></small></a>
+  <% if (can('expenses')) { %><a class="kpi" href="/ausgaben"><span>Ausgaben Jahr (netto)</span><strong><%= h.eur(kpi.expensesYear) %></strong><small>Ergebnis: <%= h.eur(kpi.revenueYear - kpi.expensesYear) %></small></a><% } %>
+  <a class="kpi" href="/zeiten"><span>Meine Stunden (Monat)</span><strong><%= h.minutes(kpi.hoursMonth) %></strong><small><%= kpi.customers %> aktive Kunden</small></a>
+</div>
+
+<div class="grid side">
+  <div>
+    <% if (can('sales')) { %>
+    <div class="card">
+      <div class="card-head"><h2>Umsatz &amp; Ausgaben – letzte 12 Monate</h2><div class="legend"><span><i class="a"></i>Umsatz</span><span><i class="b"></i>Ausgaben</span></div></div>
+      <% const max = Math.max(1, ...chart.map((c) => Math.max(c.revenue, c.expenses))); const W = 760, H = 220, pad = 30, bw = (W - pad) / 12; %>
+      <svg class="chart" viewBox="0 0 <%= W %> <%= H + 24 %>" role="img" aria-label="Balkendiagramm Umsatz und Ausgaben">
+        <% for (let g = 0; g <= 4; g++) { const y = 10 + (H - 10) * g / 4; %>
+          <line class="grid-line" x1="<%= pad %>" x2="<%= W %>" y1="<%= y %>" y2="<%= y %>"/>
+          <text x="0" y="<%= y + 4 %>"><%= Math.round(max * (4 - g) / 4 / 100000) %>k</text>
+        <% } %>
+        <% chart.forEach((c, i) => { const x = pad + i * bw + 6; const hr = (H - 10) * c.revenue / max; const he = (H - 10) * c.expenses / max; %>
+          <rect class="bar-a" x="<%= x %>" y="<%= H - hr %>" width="<%= bw / 2 - 6 %>" height="<%= Math.max(0, hr) %>" rx="3"><title><%= c.label %>: <%= h.eur(c.revenue) %></title></rect>
+          <rect class="bar-b" x="<%= x + bw / 2 - 4 %>" y="<%= H - he %>" width="<%= bw / 2 - 6 %>" height="<%= Math.max(0, he) %>" rx="3"><title><%= c.label %> Ausgaben: <%= h.eur(c.expenses) %></title></rect>
+          <text x="<%= x + bw / 2 - 12 %>" y="<%= H + 18 %>"><%= c.label %></text>
+        <% }) %>
+      </svg>
+    </div>
+    <% if (overdueList.length) { %>
+    <div class="card flush">
+      <div class="card-head"><h2>Überfällige Rechnungen</h2><a href="/belege/mahnwesen">Zum Mahnwesen →</a></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Nr.</th><th>Kunde</th><th>Fällig</th><th class="num">Offen</th><th>Mahnstufe</th></tr></thead>
+        <tbody><% for (const d of overdueList) { %>
+          <tr class="row-link" data-href="/belege/<%= d.id %>"><td><a href="/belege/<%= d.id %>"><%= d.number %></a></td><td><%= h.customerName(d) %></td><td class="neg"><%= h.date(d.due_date) %></td><td class="num"><%= h.eur(d.gross_total - d.paid_total) %></td><td><%= d.dunning_level || '–' %></td></tr>
+        <% } %></tbody>
+      </table></div>
+    </div>
+    <% } %>
+    <% } %>
+    <div class="card flush">
+      <div class="card-head"><h2>Neue Anfragen</h2><a href="/anfragen">Alle →</a></div>
+      <% if (!leads.length) { %><div class="empty">Keine neuen Anfragen 🎉</div><% } else { %>
+      <table><tbody><% for (const l of leads) { %>
+        <tr class="row-link" data-href="/anfragen/<%= l.id %>"><td><strong><%= l.name %></strong><% if (l.company) { %> · <%= l.company %><% } %><div class="muted small"><%= l.subject %></div></td><td class="right muted small nowrap"><%= h.dateTime(l.created_at) %><br><span class="tag"><%= l.source %></span></td></tr>
+      <% } %></tbody></table>
+      <% } %>
+    </div>
+  </div>
+  <div>
+    <div class="card">
+      <div class="card-head"><h2>Meine Aufgaben</h2><a class="btn sm" href="/aufgaben/neu"><%- h.icon('plus') %></a></div>
+      <% if (!tasks.length) { %><p class="muted">Alles erledigt.</p><% } %>
+      <% for (const t of tasks) { %>
+        <div style="display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--border)">
+          <form method="post" action="/aufgaben/<%= t.id %>/status"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="status" value="erledigt"><button class="btn sm ghost" title="Erledigt">☐</button></form>
+          <div style="flex:1;min-width:0"><a href="/aufgaben/<%= t.id %>/bearbeiten"><%= t.title %></a>
+            <div class="small muted"><% if (t.due_date) { %><span class="<%= t.due_date < today ? 'neg' : '' %>">fällig <%= h.date(t.due_date) %></span> · <% } %><%= t.project_name || '' %></div></div>
+          <%- t.priority !== 'normal' ? h.badge(t.priority) : '' %>
+        </div>
+      <% } %>
+    </div>
+    <div class="card">
+      <div class="card-head"><h2>Nächste Termine</h2><a class="btn sm" href="/kalender/neu"><%- h.icon('plus') %></a></div>
+      <% if (!appointments.length) { %><p class="muted">Keine Termine in den nächsten 7 Tagen.</p><% } %>
+      <ul class="timeline">
+      <% for (const a of appointments) { %>
+        <li><a href="/kalender/<%= a.id %>/bearbeiten"><strong><%= a.title %></strong></a><br><small><%= h.date(a.starts_at) %><%= a.all_day ? ' (ganztägig)' : ', ' + a.starts_at.slice(11, 16) + ' Uhr' %><%= a.location ? ' · ' + a.location : '' %></small></li>
+      <% } %>
+      </ul>
+    </div>
+  </div>
+</div>

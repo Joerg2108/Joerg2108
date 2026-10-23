@@ -1,0 +1,15 @@
+<div class="page-head"><div><h1>Benutzer &amp; Rollen</h1></div><a class="btn primary" href="/admin/benutzer/neu"><%- h.icon('plus') %> Neuer Benutzer</a></div>
+<div class="card flush"><div class="table-wrap"><table>
+  <thead><tr><th>Name</th><th>E-Mail</th><th>Rolle</th><th>2FA</th><th>Letzter Login</th><th>Sitzungen</th><th>Status</th></tr></thead>
+  <tbody><% for (const u of rows) { %>
+    <tr class="row-link" data-href="/admin/benutzer/<%= u.id %>/bearbeiten"><td><a href="/admin/benutzer/<%= u.id %>/bearbeiten"><strong><%= u.name %></strong></a></td><td><%= u.email %></td><td><%= ROLE_LABELS[u.role] %></td>
+    <td><%- u.totp_enabled ? h.badge('aktiv', 'an') : h.badge('inaktiv', 'aus') %></td><td class="small"><%= u.last_login_at ? h.dateTime(u.last_login_at) : 'nie' %></td><td><%= u.sessions %></td>
+    <td><%- u.active ? (u.locked_until && u.locked_until > new Date().toISOString() ? h.badge('ueberfaellig', 'gesperrt') : h.badge('aktiv')) : h.badge('inaktiv', 'deaktiviert') %></td></tr>
+  <% } %></tbody>
+</table></div></div>
+<div class="card"><h2>Rechte je Rolle</h2>
+  <% const areas = { dashboard: 'Dashboard', customers: 'Kunden', leads: 'Anfragen', sales: 'Belege', 'sales.finalize': 'Rechnungen festschreiben/stornieren', payments: 'Zahlungen', products: 'Artikel', projects: 'Projekte', tasks: 'Aufgaben', calendar: 'Kalender', time: 'Zeiterfassung', 'time.all': 'Zeiten aller Mitarbeiter', expenses: 'Ausgaben', files: 'Dokumente', reports: 'Berichte', admin: 'Verwaltung' }; %>
+  <div class="table-wrap"><table><thead><tr><th>Bereich</th><% for (const r of Object.keys(PERMISSIONS)) { %><th><%= ROLE_LABELS[r] %></th><% } %></tr></thead><tbody>
+  <% for (const [k, v] of Object.entries(areas)) { %><tr><td><%= v %></td><% for (const r of Object.keys(PERMISSIONS)) { const ok = PERMISSIONS[r].includes('*') || PERMISSIONS[r].includes(k); %><td><%= ok ? '✔' : '–' %></td><% } %></tr><% } %>
+  </tbody></table></div>
+</div>

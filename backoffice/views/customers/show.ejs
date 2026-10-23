@@ -1,0 +1,112 @@
+<div class="page-head">
+  <div><h1><%= h.customerName(c) %> <%- h.badge(c.status) %></h1><div class="sub mono"><%= c.number %> · <%= h.label(c.type) %></div></div>
+  <div class="actions">
+    <% if (can('sales')) { %>
+      <a class="btn primary" href="/belege/rechnungen/neu?kunde=<%= c.id %>"><%- h.icon('plus') %> Rechnung</a>
+      <a class="btn" href="/belege/angebote/neu?kunde=<%= c.id %>"><%- h.icon('plus') %> Angebot</a>
+    <% } %>
+    <a class="btn" href="/kunden/<%= c.id %>/bearbeiten">Bearbeiten</a>
+    <details class="dropdown"><summary class="btn">Mehr ▾</summary>
+      <div class="menu-pop">
+        <a href="/projekte/neu?kunde=<%= c.id %>">Neues Projekt</a>
+        <a href="/kalender/neu?kunde=<%= c.id %>">Neuer Termin</a>
+        <a href="/aufgaben/neu?kunde=<%= c.id %>">Neue Aufgabe</a>
+        <a href="/kunden/<%= c.id %>/dsgvo-export">DSGVO-Auskunft (JSON)</a>
+        <% if (can('sales')) { %>
+        <form method="post" action="/kunden/<%= c.id %>/anonymisieren" data-confirm="Kunde unwiderruflich anonymisieren? Personenbezogene Daten werden entfernt, Rechnungen bleiben (Aufbewahrungspflicht)."><input type="hidden" name="_csrf" value="<%= csrf %>"><button>DSGVO: Anonymisieren</button></form>
+        <form method="post" action="/kunden/<%= c.id %>/loeschen" data-confirm="Kunde wirklich löschen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="neg">Löschen</button></form>
+        <% } %>
+      </div>
+    </details>
+  </div>
+</div>
+<% if (can('sales')) { %>
+<div class="kpis">
+  <div class="kpi"><span>Umsatz gesamt (netto)</span><strong><%= h.eur(stats.revenue) %></strong></div>
+  <div class="kpi <%= stats.open ? 'warn' : '' %>"><span>Offene Posten</span><strong><%= h.eur(stats.open) %></strong></div>
+  <div class="kpi"><span>Erfasste Stunden</span><strong><%= h.minutes(stats.hours) %></strong></div>
+</div>
+<% } %>
+<div class="grid side">
+  <div>
+    <% if (can('sales')) { %>
+    <div class="card flush">
+      <div class="card-head"><h2>Belege</h2></div>
+      <% if (!docs.length) { %><div class="empty">Noch keine Belege.</div><% } else { %>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Art</th><th>Nr.</th><th>Datum</th><th>Titel</th><th>Status</th><th class="num">Brutto</th></tr></thead>
+        <tbody><% for (const d of docs) { %>
+          <tr class="row-link" data-href="/belege/<%= d.id %>"><td><span class="tag"><%= { angebot: 'Angebot', auftrag: 'AB', rechnung: 'Rechnung', storno: 'Storno' }[d.kind] %></span></td><td class="mono"><a href="/belege/<%= d.id %>"><%= d.number || 'Entwurf' %></a></td><td><%= h.date(d.issue_date) %></td><td><%= d.title %></td><td><%- h.badge(d.status) %></td><td class="num"><%= h.eur(d.gross_total) %></td></tr>
+        <% } %></tbody>
+      </table></div>
+      <% } %>
+    </div>
+    <% } %>
+    <div class="card" id="aktivitaeten">
+      <h2>Kontakthistorie</h2>
+      <form method="post" action="/kunden/<%= c.id %>/aktivitaeten" class="form-grid">
+        <input type="hidden" name="_csrf" value="<%= csrf %>">
+        <%- h.select('type', 'Art', 'notiz', { notiz: 'Notiz', anruf: 'Anruf', email: 'E-Mail', termin: 'Termin', besuch: 'Besuch' }, { cls: 'span-3' }) %>
+        <%- h.input('subject', 'Betreff', '', { required: true, cls: 'span-9' }) %>
+        <%- h.input('body', 'Details', '', { type: 'textarea', cls: 'span-12', rows: 2 }) %>
+        <div class="span-12"><button class="btn">Eintrag hinzufügen</button></div>
+      </form>
+      <hr>
+      <ul class="timeline">
+        <% for (const a of activities) { %>
+          <li><strong><%= a.subject %></strong> <span class="tag"><%= a.type %></span><br><small><%= h.dateTime(a.created_at) %> · <%= a.user_name || 'System' %></small><% if (a.body) { %><div><%= a.body %></div><% } %></li>
+        <% } %>
+        <% if (!activities.length) { %><li class="muted">Noch keine Einträge.</li><% } %>
+      </ul>
+    </div>
+  </div>
+  <div>
+    <div class="card">
+      <h2>Kontaktdaten</h2>
+      <dl class="facts">
+        <% if (c.company && (c.first_name || c.last_name)) { %><dt>Ansprechpartner</dt><dd><%= [c.salutation, c.first_name, c.last_name].filter(Boolean).join(' ') %></dd><% } %>
+        <% if (c.email) { %><dt>E-Mail</dt><dd><a href="mailto:<%= c.email %>"><%= c.email %></a></dd><% } %>
+        <% if (c.phone) { %><dt>Telefon</dt><dd><a href="tel:<%= c.phone %>"><%= c.phone %></a></dd><% } %>
+        <% if (c.mobile) { %><dt>Mobil</dt><dd><a href="tel:<%= c.mobile %>"><%= c.mobile %></a></dd><% } %>
+        <% if (c.street || c.city) { %><dt>Adresse</dt><dd><%= c.street %><br><%= c.zip %> <%= c.city %> <%= c.country !== 'DE' ? c.country : '' %></dd><% } %>
+        <% if (c.website) { %><dt>Website</dt><dd><a href="<%= c.website %>" rel="noopener" target="_blank"><%= c.website %></a></dd><% } %>
+        <% if (c.vat_id) { %><dt>USt-IdNr.</dt><dd><%= c.vat_id %></dd><% } %>
+        <% if (c.leitweg_id) { %><dt>Leitweg-ID</dt><dd><%= c.leitweg_id %></dd><% } %>
+        <dt>Zahlungsziel</dt><dd><%= c.payment_terms != null ? c.payment_terms + ' Tage' : 'Standard (' + s.payment_terms_days + ' Tage)' %></dd>
+        <% if (c.discount_pct) { %><dt>Rabatt</dt><dd><%= h.num(c.discount_pct) %> %</dd><% } %>
+        <dt>DSGVO</dt><dd><%= c.gdpr_consent ? 'Einwilligung liegt vor' : 'keine Einwilligung' %></dd>
+        <dt>Angelegt</dt><dd><%= h.dateTime(c.created_at) %></dd>
+      </dl>
+      <% if (c.tags) { %><p><% for (const t of c.tags.split(',').map((x) => x.trim()).filter(Boolean)) { %><span class="tag"><%= t %></span><% } %></p><% } %>
+      <% if (c.notes) { %><hr><p style="white-space:pre-line"><%= c.notes %></p><% } %>
+    </div>
+    <div class="card" id="kontakte">
+      <h2>Ansprechpartner</h2>
+      <% for (const p of contacts) { %>
+        <div style="display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)">
+          <div><strong><%= p.name %></strong><%= p.is_primary ? ' ★' : '' %><div class="small muted"><%= [p.position, p.email, p.phone].filter(Boolean).join(' · ') %></div></div>
+          <form method="post" action="/kunden/<%= c.id %>/kontakte/<%= p.id %>/loeschen" data-confirm="Ansprechpartner entfernen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm ghost">✕</button></form>
+        </div>
+      <% } %>
+      <details><summary class="btn sm" style="margin-top:8px">+ Ansprechpartner</summary>
+        <form method="post" action="/kunden/<%= c.id %>/kontakte" class="form-grid" style="margin-top:10px">
+          <input type="hidden" name="_csrf" value="<%= csrf %>">
+          <%- h.input('name', 'Name', '', { required: true, cls: 'span-12' }) %>
+          <%- h.input('position', 'Position', '') %><%- h.input('phone', 'Telefon', '') %>
+          <%- h.input('email', 'E-Mail', '', { type: 'email', cls: 'span-12' }) %>
+          <div class="span-12"><%- h.checkbox('is_primary', 'Hauptansprechpartner', false) %></div>
+          <div class="span-12"><button class="btn">Hinzufügen</button></div>
+        </form>
+      </details>
+    </div>
+    <% if (projects.length) { %><div class="card"><h2>Projekte</h2><% for (const p of projects) { %><div><a href="/projekte/<%= p.id %>"><%= p.name %></a> <%- h.badge(p.status) %></div><% } %></div><% } %>
+    <div class="card">
+      <h2>Dokumente</h2>
+      <% for (const fl of files) { %><div class="small"><a href="/dateien/<%= fl.id %>/download"><%= fl.original_name %></a> <span class="muted">(<%= h.bytes(fl.size) %>)</span></div><% } %>
+      <form method="post" action="/dateien?_csrf=<%= csrf %>" enctype="multipart/form-data" style="margin-top:10px">
+        <input type="hidden" name="customer_id" value="<%= c.id %>"><input type="hidden" name="folder" value="Kunden">
+        <input type="file" name="files" multiple required> <button class="btn sm" style="margin-top:6px">Hochladen</button>
+      </form>
+    </div>
+  </div>
+</div>

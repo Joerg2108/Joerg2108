@@ -1,0 +1,8 @@
+<div class="page-head"><div><h1>Artikel &amp; Leistungen</h1><div class="sub">Katalog für schnelle Angebots- und Rechnungserstellung</div></div><a class="btn primary" href="/artikel/neu"><%- h.icon('plus') %> Neuer Artikel</a></div>
+<form class="filters"><input type="search" name="q" value="<%= query.q || '' %>" placeholder="Name oder Artikelnr."><button class="btn">Suchen</button></form>
+<div class="card flush"><div class="table-wrap">
+<% if (!rows.length) { %><div class="empty">Noch keine Artikel – lege deine Standardleistungen an (z. B. „Sicherheitsmitarbeiter je Std.“, „Objektschutz Pauschale“).</div><% } else { %>
+<table><thead><tr><th>Nr.</th><th>Bezeichnung</th><th>Einheit</th><th class="num">Preis netto</th><th class="num">USt</th><th>Status</th></tr></thead><tbody>
+<% for (const p of rows) { %><tr class="row-link" data-href="/artikel/<%= p.id %>/bearbeiten"><td class="mono"><%= p.sku || '' %></td><td><strong><%= p.name %></strong><div class="small muted"><%= p.description || '' %></div></td><td><%= p.unit %></td><td class="num"><%= h.eur(p.price) %></td><td class="num"><%= h.num(p.tax_rate) %> %</td><td><%- p.active ? h.badge('aktiv') : h.badge('inaktiv') %></td></tr><% } %>
+</tbody></table><% } %>
+</div></div>

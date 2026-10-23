@@ -1,0 +1,9 @@
+<div class="page-head"><h1>Systeminformationen</h1></div>
+<div class="grid c2">
+  <div class="card"><h2>Laufzeit</h2><dl class="facts">
+    <dt>Version</dt><dd>1.0.0</dd><dt>Node.js</dt><dd><%= node %></dd><dt>Umgebung</dt><dd><%= env %></dd><dt>URL</dt><dd><%= baseUrl %></dd>
+    <dt>Datenordner</dt><dd class="mono"><%= dataDir %></dd><dt>Laufzeit</dt><dd><%= Math.floor(uptime / 3600) %> h <%= Math.floor(uptime % 3600 / 60) %> min</dd>
+    <dt>Speicher</dt><dd><%= h.bytes(mem) %></dd><dt>E-Mail</dt><dd><%= mailEnabled ? 'SMTP eingerichtet' : 'nicht eingerichtet' %></dd>
+  </dl></div>
+  <div class="card"><h2>Datenbestand</h2><dl class="facts"><% for (const [k, v] of Object.entries(counts)) { %><dt><%= k %></dt><dd><%= v %></dd><% } %></dl></div>
+</div>

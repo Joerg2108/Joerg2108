@@ -1,0 +1,6 @@
+<div class="page-head"><div><h1>Offene Posten</h1><div class="sub"><%= rows.length %> offene Rechnungen · <%= h.eur(rows.reduce((a, r) => a + r.gross_total - r.paid_total, 0)) %></div></div><a class="btn" href="/berichte">← Berichte</a></div>
+<div class="kpis"><% for (const [k, v] of Object.entries(buckets)) { %><div class="kpi <%= k !== 'nicht fällig' && v ? 'warn' : '' %>"><span><%= k %></span><strong><%= h.eur(v) %></strong></div><% } %></div>
+<div class="card flush"><div class="table-wrap"><table>
+  <thead><tr><th>Rechnung</th><th>Kunde</th><th>Datum</th><th>Fällig</th><th class="num">Tage überfällig</th><th class="num">Brutto</th><th class="num">Offen</th><th>Mahnstufe</th></tr></thead>
+  <tbody><% for (const r of rows) { %><tr class="row-link" data-href="/belege/<%= r.id %>"><td class="mono"><a href="/belege/<%= r.id %>"><%= r.number %></a></td><td><%= h.customerName(r) %></td><td><%= h.date(r.issue_date) %></td><td><%= h.date(r.due_date) %></td><td class="num <%= r.days_over > 0 ? 'neg' : '' %>"><%= r.days_over > 0 ? Math.floor(r.days_over) : '–' %></td><td class="num"><%= h.eur(r.gross_total) %></td><td class="num"><%= h.eur(r.gross_total - r.paid_total) %></td><td><%= r.dunning_level || '–' %></td></tr><% } %></tbody>
+</table><% if (!rows.length) { %><div class="empty">Keine offenen Posten.</div><% } %></div></div>

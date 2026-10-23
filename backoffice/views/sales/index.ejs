@@ -1,0 +1,49 @@
+<div class="page-head">
+  <div><h1><%= title %></h1><div class="sub"><%= p.total %> Belege · netto <%= h.eur(sums.net) %><%= kind === 'rechnung' ? ' · offen ' + h.eur(sums.open) : '' %></div></div>
+  <div class="actions">
+    <% if (kind === 'rechnung') { %><a class="btn" href="/berichte/rechnungsausgangsbuch.csv">Rechnungsausgangsbuch CSV</a><% } %>
+    <% if (kind !== 'storno') { %><a class="btn primary" href="/belege/<%= route %>/neu"><%- h.icon('plus') %> Neu</a><% } %>
+  </div>
+</div>
+<% if (kind === 'rechnung') { %>
+<div class="tabs">
+  <a href="/belege/rechnungen" class="<%= !query.status ? 'active' : '' %>">Alle</a>
+  <a href="?status=entwurf" class="<%= query.status === 'entwurf' ? 'active' : '' %>">Entwürfe</a>
+  <a href="?status=offen" class="<%= query.status === 'offen' ? 'active' : '' %>">Offen</a>
+  <a href="?status=teilbezahlt" class="<%= query.status === 'teilbezahlt' ? 'active' : '' %>">Teilbezahlt</a>
+  <a href="?status=ueberfaellig" class="<%= query.status === 'ueberfaellig' ? 'active' : '' %>">Überfällig</a>
+  <a href="?status=bezahlt" class="<%= query.status === 'bezahlt' ? 'active' : '' %>">Bezahlt</a>
+  <a href="?status=storniert" class="<%= query.status === 'storniert' ? 'active' : '' %>">Storniert</a>
+  <a href="/belege/stornos">Stornorechnungen</a>
+</div>
+<% } %>
+<form class="filters">
+  <% if (query.status) { %><input type="hidden" name="status" value="<%= query.status %>"><% } %>
+  <input type="search" name="q" value="<%= query.q || '' %>" placeholder="Nummer, Titel, Kunde">
+  <%- h.input('von', 'Von', query.von, { type: 'date' }) %><%- h.input('bis', 'Bis', query.bis, { type: 'date' }) %>
+  <% if (kind !== 'rechnung') { %><%- h.select('status', 'Status', query.status, statuses.map((x) => [x, h.label(x)]), { empty: 'Alle' }) %><% } %>
+  <button class="btn">Filtern</button>
+</form>
+<div class="card flush"><div class="table-wrap">
+<% if (!rows.length) { %><div class="empty">Keine Belege gefunden.</div><% } else { %>
+<table>
+  <thead><tr><th>Nr.</th><th>Datum</th><th>Kunde</th><th>Titel</th><% if (kind === 'rechnung') { %><th>Fällig</th><% } %><% if (kind === 'angebot') { %><th>Gültig bis</th><% } %><th>Status</th><th class="num">Netto</th><th class="num">Brutto</th><% if (kind === 'rechnung') { %><th class="num">Offen</th><% } %></tr></thead>
+  <tbody>
+  <% for (const d of rows) { const over = kind === 'rechnung' && ['offen','teilbezahlt'].includes(d.status) && d.due_date && d.due_date < today; %>
+    <tr class="row-link" data-href="/belege/<%= d.id %>">
+      <td class="mono"><a href="/belege/<%= d.id %>"><%= d.number || 'Entwurf' %></a></td>
+      <td class="nowrap"><%= h.date(d.issue_date) %></td>
+      <td><%= h.customerName(d) %></td>
+      <td><%= d.title %></td>
+      <% if (kind === 'rechnung') { %><td class="nowrap <%= over ? 'neg' : '' %>"><%= h.date(d.due_date) %></td><% } %>
+      <% if (kind === 'angebot') { %><td class="nowrap"><%= h.date(d.valid_until) %></td><% } %>
+      <td><%- over ? h.badge('ueberfaellig') : h.badge(d.status) %><% if (d.dunning_level) { %> <span class="tag">M<%= d.dunning_level %></span><% } %></td>
+      <td class="num"><%= h.eur(d.net_total) %></td>
+      <td class="num"><%= h.eur(d.gross_total) %></td>
+      <% if (kind === 'rechnung') { %><td class="num <%= d.gross_total - d.paid_total > 0 && d.status !== 'storniert' && d.status !== 'entwurf' ? 'neg' : 'muted' %>"><%= ['storniert', 'entwurf'].includes(d.status) ? '–' : h.eur(d.gross_total - d.paid_total) %></td><% } %>
+    </tr>
+  <% } %>
+  </tbody>
+</table>
+<% } %>
+</div><%- h.pagination(p.page, p.pages, query) %></div>

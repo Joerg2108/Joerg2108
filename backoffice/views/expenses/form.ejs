@@ -1,0 +1,18 @@
+<div class="page-head"><h1><%= title %></h1>
+<% if (e.id) { %><form method="post" action="/ausgaben/<%= e.id %>/loeschen" data-confirm="Ausgabe löschen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn danger">Löschen</button></form><% } %></div>
+<form method="post" action="<%= e.id ? '/ausgaben/' + e.id : '/ausgaben' %>?_csrf=<%= csrf %>" enctype="multipart/form-data" class="card form-grid">
+  <%- h.input('date', 'Belegdatum', e.date, { type: 'date', required: true, cls: 'span-3' }) %>
+  <%- h.select('supplier_id', 'Lieferant (gespeichert)', e.supplier_id, suppliers.map((x) => [x.id, x.name]), { empty: '–', cls: 'span-4' }) %>
+  <%- h.input('supplier_name', 'oder Lieferant (frei)', e.supplier_name, { cls: 'span-5' }) %>
+  <%- h.select('category', 'Kategorie', e.category, categories, { cls: 'span-4' }) %>
+  <%- h.input('receipt_no', 'Belegnummer', e.receipt_no, { cls: 'span-4' }) %>
+  <%- h.select('project_id', 'Projekt', e.project_id, projects.map((p) => [p.id, p.name]), { empty: '–', cls: 'span-4' }) %>
+  <%- h.input('description', 'Beschreibung', e.description, { cls: 'span-12' }) %>
+  <%- h.input('amount', 'Betrag €', e.gross_amount ? h.moneyInput(e.gross_amount) : '', { required: true, inputmode: 'decimal', cls: 'span-3' }) %>
+  <%- h.select('amount_mode', 'Betrag ist', 'brutto', { brutto: 'Brutto', netto: 'Netto' }, { cls: 'span-3' }) %>
+  <%- h.select('tax_rate', 'USt-Satz', e.tax_rate, [[19, '19 %'], [7, '7 %'], [0, '0 % / ohne']], { cls: 'span-3' }) %>
+  <div class="span-3" style="align-self:end"><%- h.checkbox('paid', 'bezahlt', e.paid) %></div>
+  <%- h.input('paid_at', 'Bezahlt am', e.paid_at, { type: 'date', cls: 'span-3', hint: 'für EÜR (Abflussprinzip)' }) %>
+  <label class="field span-9"><span>Beleg (PDF/Foto)</span><input type="file" name="receipt" accept=".pdf,.png,.jpg,.jpeg,.heic,.webp"><% if (e.file_id) { %><small><a href="/dateien/<%= e.file_id %>/download" target="_blank">Aktueller Beleg ansehen</a> – neue Datei ersetzt die Zuordnung</small><% } else { %><small>GoBD: Belege digital aufbewahren (10 Jahre)</small><% } %></label>
+  <div class="span-12 sticky-actions"><a class="btn" href="/ausgaben">Abbrechen</a><% if (!e.id) { %><button class="btn" name="again" value="1">Speichern &amp; nächste</button><% } %><button class="btn primary">Speichern</button></div>
+</form>

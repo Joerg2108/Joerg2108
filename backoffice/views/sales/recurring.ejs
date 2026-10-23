@@ -1,0 +1,21 @@
+<div class="page-head">
+  <div><h1>Wiederkehrende Rechnungen</h1><div class="sub">Abos, Wartungs- &amp; Dienstleistungsverträge, monatliche Pauschalen</div></div>
+  <form method="post" action="/belege/wiederkehrend/ausfuehren"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn">Fällige jetzt erzeugen</button></form>
+</div>
+<div class="alert info">So geht's: Rechnung als Vorlage anlegen → in der Rechnung unter „Wiederkehrend“ Intervall wählen. Fällige Rechnungen werden stündlich automatisch erstellt.</div>
+<div class="card flush"><div class="table-wrap">
+<% if (!rows.length) { %><div class="empty">Noch keine wiederkehrenden Rechnungen.</div><% } else { %>
+<table>
+  <thead><tr><th>Kunde</th><th>Vorlage</th><th>Intervall</th><th>Nächste</th><th>Ende</th><th>Auto</th><th class="num">Netto</th><th>Status</th><th></th></tr></thead>
+  <tbody><% for (const r of rows) { %>
+    <tr>
+      <td><%= h.customerName(r) %></td><td><a href="/belege/<%= r.template_id %>"><%= r.title || r.number || 'Vorlage' %></a></td><td><%= r.interval %></td>
+      <td><%= h.date(r.next_date) %></td><td><%= h.date(r.end_date) || '–' %></td><td><%= r.auto_finalize ? 'festschreiben' : 'Entwurf' %></td>
+      <td class="num"><%= h.eur(r.net_total) %></td><td><%- r.active ? h.badge('aktiv') : h.badge('pausiert') %></td>
+      <td class="nowrap"><form method="post" action="/belege/wiederkehrend/<%= r.id %>/umschalten" class="inline-form"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm"><%= r.active ? 'Pause' : 'Aktiv' %></button></form>
+      <form method="post" action="/belege/wiederkehrend/<%= r.id %>/loeschen" class="inline-form" data-confirm="Wiederholung beenden?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm danger">✕</button></form></td>
+    </tr>
+  <% } %></tbody>
+</table>
+<% } %>
+</div></div>

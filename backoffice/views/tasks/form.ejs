@@ -1,0 +1,14 @@
+<div class="page-head"><h1><%= title %></h1>
+<% if (t.id) { %><form method="post" action="/aufgaben/<%= t.id %>/loeschen" data-confirm="Aufgabe löschen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn danger">Löschen</button></form><% } %></div>
+<form method="post" action="<%= t.id ? '/aufgaben/' + t.id : '/aufgaben' %>" class="card form-grid">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <%- h.input('title', 'Titel', t.title, { required: true, cls: 'span-12', autofocus: !t.id }) %>
+  <%- h.input('description', 'Beschreibung', t.description, { type: 'textarea', rows: 4, cls: 'span-12' }) %>
+  <%- h.select('status', 'Status', t.status, STATUSES.map((x) => [x, h.label(x)]), { cls: 'span-3' }) %>
+  <%- h.select('priority', 'Priorität', t.priority, PRIORITIES.map((x) => [x, h.label(x)]), { cls: 'span-3' }) %>
+  <%- h.input('due_date', 'Fällig am', t.due_date, { type: 'date', cls: 'span-3' }) %>
+  <%- h.select('assigned_to', 'Zuständig', t.assigned_to, users.map((u) => [u.id, u.name]), { empty: '– offen –', cls: 'span-3' }) %>
+  <%- h.select('project_id', 'Projekt', t.project_id, projects.map((p) => [p.id, p.number + ' – ' + p.name]), { empty: '–' }) %>
+  <%- h.select('customer_id', 'Kunde', t.customer_id, customers.map((c) => [c.id, h.customerName(c)]), { empty: '–' }) %>
+  <div class="span-12 sticky-actions"><a class="btn" href="/aufgaben">Abbrechen</a><button class="btn primary">Speichern</button></div>
+</form>

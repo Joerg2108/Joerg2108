@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="de" style="--brand: <%= s.brand_color || '#1d4ed8' %>">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title><%= title ? title + ' · ' : '' %><%= s.app_title %> · <%= s.company_name %></title>
+  <link rel="stylesheet" href="/static/css/app.css">
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <script src="/static/js/app.js" defer></script>
+</head>
+<body>
+<%
+  const nav = [
+    { perm: 'dashboard', href: '/', icon: 'home', label: 'Dashboard', exact: true },
+    { perm: 'leads', href: '/anfragen', icon: 'inbox', label: 'Anfragen', count: newLeads },
+    { perm: 'customers', href: '/kunden', icon: 'users', label: 'Kunden' },
+    { section: 'Verkauf', perm: 'sales' },
+    { perm: 'sales', href: '/belege/angebote', icon: 'file', label: 'Angebote' },
+    { perm: 'sales', href: '/belege/auftraege', icon: 'check', label: 'Aufträge' },
+    { perm: 'sales', href: '/belege/rechnungen', icon: 'euro', label: 'Rechnungen' },
+    { perm: 'sales', href: '/belege/wiederkehrend', icon: 'repeat', label: 'Abos & Verträge' },
+    { perm: 'sales', href: '/belege/mahnwesen', icon: 'bell', label: 'Mahnwesen' },
+    { perm: 'products', href: '/artikel', icon: 'box', label: 'Artikel & Leistungen' },
+    { section: 'Organisation', perm: 'projects' },
+    { perm: 'projects', href: '/projekte', icon: 'folder', label: 'Projekte' },
+    { perm: 'tasks', href: '/aufgaben', icon: 'check', label: 'Aufgaben' },
+    { perm: 'calendar', href: '/kalender', icon: 'calendar', label: 'Kalender' },
+    { perm: 'time', href: '/zeiten', icon: 'clock', label: 'Zeiterfassung' },
+    { section: 'Finanzen', perm: 'expenses' },
+    { perm: 'expenses', href: '/ausgaben', icon: 'receipt', label: 'Ausgaben' },
+    { perm: 'expenses', href: '/ausgaben/lieferanten', icon: 'truck', label: 'Lieferanten' },
+    { perm: 'reports', href: '/berichte', icon: 'chart', label: 'Berichte' },
+    { perm: 'files', href: '/dateien', icon: 'folder', label: 'Dokumente' },
+    { section: 'Verwaltung', perm: 'admin' },
+    { perm: 'admin', href: '/admin/einstellungen', icon: 'settings', label: 'Einstellungen' },
+    { perm: 'admin', href: '/admin/benutzer', icon: 'users', label: 'Benutzer' },
+    { perm: 'admin', href: '/admin/api', icon: 'shield', label: 'API & Website' },
+    { perm: 'admin', href: '/admin/protokoll', icon: 'shield', label: 'Protokoll' },
+    { perm: 'admin', href: '/admin/backups', icon: 'box', label: 'Backups' },
+  ];
+  const active = (n) => n.exact ? path === n.href : (path === n.href || path.startsWith(n.href + '/')) && !(n.href === '/ausgaben' && path.startsWith('/ausgaben/lieferanten'));
+%>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="/">
+      <% if (s.logo_file) { %><img src="/logo" alt="<%= s.company_name %>"><% } else { %><span class="brand-mark"><%= (s.company_name || 'B').slice(0, 1) %></span><% } %>
+      <span><strong><%= s.company_name %></strong><small><%= s.app_title %></small></span>
+    </a>
+    <nav>
+      <% for (const n of nav) { if (!can(n.perm)) continue; %>
+        <% if (n.section) { %><div class="nav-section"><%= n.section %></div><% } else { %>
+        <a href="<%= n.href %>" class="<%= active(n) ? 'active' : '' %>"><%- h.icon(n.icon) %><span><%= n.label %></span><% if (n.count) { %><em class="count"><%= n.count %></em><% } %></a>
+        <% } %>
+      <% } %>
+    </nav>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn mobile-only" data-toggle="sidebar" aria-label="Menü"><%- h.icon('menu') %></button>
+      <form class="search" action="/suche" role="search">
+        <%- h.icon('search') %>
+        <input type="search" name="q" placeholder="Suchen … (Strg + K)" autocomplete="off" data-live-search value="<%= query.q && path === '/suche' ? query.q : '' %>">
+        <div class="search-results" hidden></div>
+      </form>
+      <div class="topbar-right">
+        <% if (can('time')) { %>
+          <% if (timer) { %>
+            <form method="post" action="/zeiten/timer/stop" class="timer running">
+              <input type="hidden" name="_csrf" value="<%= csrf %>">
+              <span class="dot"></span><span data-timer-start="<%= timer.started_at %>">0:00:00</span>
+              <small><%= timer.project_name || timer.description || 'Stoppuhr' %></small>
+              <button class="btn sm danger">Stopp</button>
+            </form>
+          <% } else { %>
+            <a class="icon-btn" href="/zeiten" title="Zeiterfassung"><%- h.icon('clock') %></a>
+          <% } %>
+        <% } %>
+        <a class="icon-btn" href="/benachrichtigungen" title="Benachrichtigungen"><%- h.icon('bell') %><% if (unread) { %><em class="count"><%= unread %></em><% } %></a>
+        <details class="menu">
+          <summary class="avatar" title="<%= user.name %>"><%= user.name.split(' ').map((x) => x[0]).join('').slice(0, 2).toUpperCase() %></summary>
+          <div class="menu-pop">
+            <div class="menu-head"><strong><%= user.name %></strong><small><%= user.email %> · <%= ROLE_LABELS[user.role] %></small></div>
+            <a href="/profil">Mein Profil & Sicherheit</a>
+            <button type="button" data-theme-toggle>Hell / Dunkel umschalten</button>
+            <form method="post" action="/logout"><input type="hidden" name="_csrf" value="<%= csrf %>"><button>Abmelden</button></form>
+          </div>
+        </details>
+      </div>
+    </header>
+    <main class="content">
+      <% for (const fl of flash) { %><div class="alert <%= fl.type %>" role="status"><%= fl.msg %></div><% } %>
+      <%- body %>
+    </main>
+    <footer class="footer"><%= s.company_name %> · <%= s.app_title %> v1.0</footer>
+  </div>
+</div>
+</body>
+</html>

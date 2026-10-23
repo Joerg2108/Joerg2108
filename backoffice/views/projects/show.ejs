@@ -1,0 +1,73 @@
+<% const used = p.budget ? Math.round(invoiced / p.budget * 100) : 0; %>
+<div class="page-head">
+  <div><h1><%= p.name %> <%- h.badge(p.status) %></h1><div class="sub mono"><%= p.number %><% if (customer) { %> · <a href="/kunden/<%= customer.id %>"><%= h.customerName(customer) %></a><% } %></div></div>
+  <div class="actions">
+    <% if (can('sales') && totals.open_min) { %>
+    <form method="post" action="/projekte/<%= p.id %>/abrechnen" class="inline-form"><input type="hidden" name="_csrf" value="<%= csrf %>">
+      <select name="mode" style="width:auto"><option value="summe">als Sammelposition</option><option value="einzeln">je Eintrag eine Position</option></select>
+      <button class="btn primary">Offene Zeiten abrechnen (<%= h.minutes(totals.open_min) %>)</button></form>
+    <% } %>
+    <% if (can('sales') && customer) { %><a class="btn" href="/belege/rechnungen/neu?kunde=<%= customer.id %>&projekt=<%= p.id %>">Rechnung</a><a class="btn" href="/belege/angebote/neu?kunde=<%= customer.id %>&projekt=<%= p.id %>">Angebot</a><% } %>
+    <a class="btn" href="/projekte/<%= p.id %>/bearbeiten">Bearbeiten</a>
+  </div>
+</div>
+<div class="kpis">
+  <div class="kpi"><span>Stunden gesamt</span><strong><%= h.minutes(totals.all_min) %></strong><small>davon offen abrechenbar: <%= h.minutes(totals.open_min) %></small></div>
+  <div class="kpi"><span>Abgerechnet (netto)</span><strong><%= h.eur(invoiced) %></strong><% if (p.budget) { %><small><%= used %> % von <%= h.eur(p.budget) %></small><% } %></div>
+  <div class="kpi"><span>Projektkosten</span><strong><%= h.eur(expenses) %></strong><small>Deckungsbeitrag: <%= h.eur(invoiced - expenses) %></small></div>
+  <div class="kpi"><span>Aufgaben</span><strong><%= tasks.filter((t) => t.status === 'erledigt').length %> / <%= tasks.length %></strong><small>erledigt</small></div>
+</div>
+<div class="grid side">
+  <div>
+    <div class="card">
+      <div class="card-head"><h2>Aufgaben</h2></div>
+      <form method="post" action="/aufgaben" class="form-grid">
+        <input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="project_id" value="<%= p.id %>"><input type="hidden" name="customer_id" value="<%= p.customer_id || '' %>"><input type="hidden" name="back" value="/projekte/<%= p.id %>">
+        <%- h.input('title', 'Neue Aufgabe', '', { required: true, cls: 'span-6' }) %>
+        <%- h.select('assigned_to', 'Zuständig', user.id, users.map((u) => [u.id, u.name]), { cls: 'span-3' }) %>
+        <%- h.input('due_date', 'Fällig', '', { type: 'date', cls: 'span-2' }) %>
+        <div class="span-1" style="align-self:end"><button class="btn">+</button></div>
+      </form>
+      <div class="table-wrap" style="margin-top:10px"><table><tbody>
+      <% for (const t of tasks) { %>
+        <tr><td style="width:40px"><form method="post" action="/aufgaben/<%= t.id %>/status"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="status" value="<%= t.status === 'erledigt' ? 'offen' : 'erledigt' %>"><button class="btn sm ghost"><%= t.status === 'erledigt' ? '☑' : '☐' %></button></form></td>
+        <td class="<%= t.status === 'erledigt' ? 'muted' : '' %>"><a href="/aufgaben/<%= t.id %>/bearbeiten"><%= t.title %></a></td><td><%- h.badge(t.status) %> <%- t.priority !== 'normal' ? h.badge(t.priority) : '' %></td><td class="small"><%= t.assignee || '' %></td><td class="small nowrap"><%= h.date(t.due_date) %></td></tr>
+      <% } %>
+      </tbody></table></div>
+    </div>
+    <div class="card flush">
+      <div class="card-head"><h2>Zeiten</h2><a class="btn sm" href="/zeiten/nachweis.pdf?projekt=<%= p.id %>&von=2000-01-01&bis=<%= h.today() %>&user=" target="_blank">Stundennachweis PDF</a></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Datum</th><th>Mitarbeiter</th><th>Tätigkeit</th><th class="num">Dauer</th><th>Status</th></tr></thead>
+        <tbody><% for (const t of times) { %><tr><td class="nowrap"><%= h.date(t.date) %></td><td><%= t.user_name %></td><td><%= t.description %></td><td class="num"><%= h.minutes(t.minutes) %></td><td><%- t.invoiced_in ? h.badge('bezahlt', 'abgerechnet') : t.billable ? h.badge('offen', 'offen') : h.badge('entwurf', 'intern') %></td></tr><% } %></tbody>
+      </table><% if (!times.length) { %><div class="empty">Noch keine Zeiten erfasst.</div><% } %></div>
+    </div>
+  </div>
+  <div>
+    <div class="card"><h2>Details</h2>
+      <dl class="facts">
+        <dt>Leitung</dt><dd><%= p.manager || '–' %></dd>
+        <dt>Zeitraum</dt><dd><%= h.date(p.start_date) || '–' %> – <%= h.date(p.end_date) || 'offen' %></dd>
+        <dt>Stundensatz</dt><dd><%= p.hourly_rate ? h.eur(p.hourly_rate) : 'je Mitarbeiter' %></dd>
+        <dt>Budget</dt><dd><%= p.budget ? h.eur(p.budget) : '–' %></dd>
+      </dl>
+      <% if (p.budget) { %><div class="progress <%= used > 100 ? 'over' : '' %>" style="margin-top:10px"><span style="width:<%= Math.min(used, 100) %>%"></span></div><% } %>
+      <% if (p.description) { %><hr><p style="white-space:pre-line"><%= p.description %></p><% } %>
+    </div>
+    <div class="card"><h2>Zeit erfassen</h2>
+      <form method="post" action="/zeiten" class="form-grid">
+        <input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="project_id" value="<%= p.id %>"><input type="hidden" name="back" value="/projekte/<%= p.id %>">
+        <%- h.input('date', 'Datum', h.today(), { type: 'date', required: true }) %>
+        <%- h.input('duration', 'Dauer', '', { placeholder: '1:30 oder 1,5', required: true }) %>
+        <%- h.input('description', 'Tätigkeit', '', { cls: 'span-12' }) %>
+        <div class="span-12"><%- h.checkbox('billable', 'abrechenbar', true) %></div>
+        <div class="span-12"><button class="btn primary">Erfassen</button></div>
+      </form>
+    </div>
+    <% if (can('sales') && docs.length) { %><div class="card"><h2>Belege</h2><% for (const d of docs) { %><div><a href="/belege/<%= d.id %>"><%= d.number || 'Entwurf' %></a> <span class="tag"><%= d.kind %></span> <%= h.eur(d.net_total) %> <%- h.badge(d.status) %></div><% } %></div><% } %>
+    <div class="card"><h2>Dateien</h2>
+      <% for (const fl of files) { %><div class="small"><a href="/dateien/<%= fl.id %>/download"><%= fl.original_name %></a> <span class="muted">(<%= h.bytes(fl.size) %>)</span></div><% } %>
+      <form method="post" action="/dateien?_csrf=<%= csrf %>" enctype="multipart/form-data" style="margin-top:10px"><input type="hidden" name="project_id" value="<%= p.id %>"><input type="hidden" name="customer_id" value="<%= p.customer_id || '' %>"><input type="hidden" name="folder" value="Projekte"><input type="file" name="files" multiple required><button class="btn sm" style="margin-top:6px">Hochladen</button></form>
+    </div>
+  </div>
+</div>

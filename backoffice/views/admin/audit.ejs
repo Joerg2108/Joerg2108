@@ -1,0 +1,8 @@
+<div class="page-head"><div><h1>Protokoll (Audit-Log)</h1><div class="sub">Unveränderliches, hash-verkettetes Änderungsprotokoll (GoBD)</div></div>
+  <a class="btn" href="?pruefen=1">Integrität prüfen</a></div>
+<% if (verify) { %><div class="alert <%= verify.ok ? 'success' : 'error' %>"><%= verify.ok ? `Protokoll intakt – ${verify.count} Einträge geprüft, keine Manipulation festgestellt.` : `Achtung: Hash-Kette bei Eintrag #${verify.brokenAt} unterbrochen – Daten wurden außerhalb der Anwendung verändert!` %></div><% } %>
+<form class="filters"><input type="search" name="q" value="<%= query.q || '' %>" placeholder="Aktion, Benutzer, Details"><button class="btn">Suchen</button></form>
+<div class="card flush"><div class="table-wrap"><table>
+  <thead><tr><th>#</th><th>Zeit</th><th>Benutzer</th><th>Aktion</th><th>Objekt</th><th>Details</th><th>IP</th></tr></thead>
+  <tbody><% for (const r of rows) { %><tr><td class="muted"><%= r.id %></td><td class="nowrap small"><%= h.dateTime(r.created_at) %></td><td><%= r.user_name %></td><td><span class="tag"><%= r.action %></span></td><td class="small"><%= r.entity ? r.entity + (r.entity_id ? ' #' + r.entity_id : '') : '' %></td><td class="small mono"><%= (r.details || '').slice(0, 120) %></td><td class="small mono"><%= r.ip || '' %></td></tr><% } %></tbody>
+</table></div></div>

@@ -1,0 +1,45 @@
+<div class="page-head"><h1><%= title %></h1></div>
+<form method="post" action="<%= c.id ? '/kunden/' + c.id : '/kunden' %>" class="card">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <fieldset><legend>Stammdaten</legend>
+    <div class="form-grid">
+      <%- h.select('type', 'Kundentyp', c.type, { firma: 'Firma', privat: 'Privatperson', behoerde: 'Behörde / öffentl. Auftraggeber' }, { cls: 'span-3' }) %>
+      <%- h.select('status', 'Status', c.status, { aktiv: 'Aktiv', interessent: 'Interessent', inaktiv: 'Inaktiv' }, { cls: 'span-3' }) %>
+      <%- h.input('company', 'Firma / Behörde', c.company, { cls: 'span-6' }) %>
+      <%- h.select('salutation', 'Anrede', c.salutation, ['', 'Herr', 'Frau', 'Divers', 'Dr.', 'Prof.'], { cls: 'span-2' }) %>
+      <%- h.input('first_name', 'Vorname', c.first_name, { cls: 'span-4' }) %>
+      <%- h.input('last_name', 'Nachname', c.last_name, { cls: 'span-6' }) %>
+    </div>
+  </fieldset>
+  <fieldset><legend>Kontakt &amp; Adresse</legend>
+    <div class="form-grid">
+      <%- h.input('email', 'E-Mail', c.email, { type: 'email', cls: 'span-4' }) %>
+      <%- h.input('phone', 'Telefon', c.phone, { type: 'tel', cls: 'span-4' }) %>
+      <%- h.input('mobile', 'Mobil', c.mobile, { type: 'tel', cls: 'span-4' }) %>
+      <%- h.input('street', 'Straße & Hausnr.', c.street, { cls: 'span-6' }) %>
+      <%- h.input('zip', 'PLZ', c.zip, { cls: 'span-2' }) %>
+      <%- h.input('city', 'Ort', c.city, { cls: 'span-3' }) %>
+      <%- h.input('country', 'Land (ISO)', c.country, { cls: 'span-1', maxlength: 2 }) %>
+      <%- h.input('website', 'Website', c.website, { type: 'url', cls: 'span-6' }) %>
+    </div>
+  </fieldset>
+  <fieldset><legend>Abrechnung</legend>
+    <div class="form-grid">
+      <%- h.input('vat_id', 'USt-IdNr.', c.vat_id, { cls: 'span-3', hint: 'Pflicht bei Reverse Charge (EU)' }) %>
+      <%- h.input('leitweg_id', 'Leitweg-ID', c.leitweg_id, { cls: 'span-3', hint: 'Für XRechnung an Behörden' }) %>
+      <%- h.input('payment_terms', 'Zahlungsziel (Tage)', c.payment_terms, { type: 'number', min: 0, cls: 'span-3', hint: 'Leer = Standard aus Einstellungen' }) %>
+      <%- h.input('discount_pct', 'Standardrabatt %', c.discount_pct ? h.num(c.discount_pct) : '', { cls: 'span-3' }) %>
+    </div>
+  </fieldset>
+  <fieldset><legend>Sonstiges</legend>
+    <div class="form-grid">
+      <%- h.input('tags', 'Tags (kommagetrennt)', c.tags, { cls: 'span-12', placeholder: 'z. B. Objektschutz, Stammkunde, Veranstaltung' }) %>
+      <%- h.input('notes', 'Interne Notizen', c.notes, { type: 'textarea', cls: 'span-12', rows: 4 }) %>
+      <div class="span-12"><%- h.checkbox('gdpr_consent', 'Einwilligung zur Kontaktaufnahme / Newsletter liegt vor (DSGVO)', c.gdpr_consent) %></div>
+    </div>
+  </fieldset>
+  <div class="sticky-actions">
+    <a class="btn" href="<%= c.id ? '/kunden/' + c.id : '/kunden' %>">Abbrechen</a>
+    <button class="btn primary">Speichern</button>
+  </div>
+</form>
