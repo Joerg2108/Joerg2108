@@ -1,0 +1,16 @@
+<div class="page-head"><h1>Kunden importieren</h1></div>
+<div class="grid c2">
+  <form class="card" method="post" action="/kunden/import?_csrf=<%= csrf %>" enctype="multipart/form-data">
+    <h2>CSV-Datei hochladen</h2>
+    <p>Trennzeichen <code>;</code> oder <code>,</code>, UTF-8. Die erste Zeile muss die Spaltennamen enthalten. Excel: „Speichern unter → CSV UTF-8“.</p>
+    <input type="file" name="file" accept=".csv,text/csv" required>
+    <p><button class="btn primary">Importieren</button></p>
+  </form>
+  <div class="card">
+    <h2>Erkannte Spalten</h2>
+    <p class="small">Englische Feldnamen oder deutsche Bezeichnungen werden erkannt:</p>
+    <div class="codebox">firma;anrede;vorname;nachname;email;telefon;strasse;plz;ort;land;ust-idnr;notizen
+Muster GmbH;Herr;Max;Mustermann;max@muster.de;0123 456;Hauptstr. 1;12345;Berlin;DE;DE123456789;Stammkunde</div>
+    <p class="small muted">Alle Felder: <%= fields.join(', ') %>, payment_terms, discount_pct</p>
+  </div>
+</div>

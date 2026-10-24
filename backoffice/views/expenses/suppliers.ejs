@@ -1,0 +1,18 @@
+<div class="page-head"><h1>Lieferanten</h1></div>
+<div class="grid side">
+  <div class="card flush"><div class="table-wrap">
+  <% if (!rows.length) { %><div class="empty">Noch keine Lieferanten.</div><% } else { %>
+  <table><thead><tr><th>Name</th><th>Kontakt</th><th>IBAN</th><th class="num">Ausgaben</th><th></th></tr></thead><tbody>
+  <% for (const r of rows) { %><tr><td><strong><%= r.name %></strong><div class="small muted"><%= r.notes || '' %></div></td><td class="small"><%= r.email || '' %><br><%= r.phone || '' %></td><td class="mono small"><%= r.iban || '' %></td><td class="num"><%= h.eur(r.total) %></td>
+  <td><form method="post" action="/ausgaben/lieferanten/<%= r.id %>/loeschen" data-confirm="Lieferant löschen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm ghost">✕</button></form></td></tr><% } %>
+  </tbody></table><% } %>
+  </div></div>
+  <form class="card form-grid" method="post" action="/ausgaben/lieferanten"><input type="hidden" name="_csrf" value="<%= csrf %>">
+    <h2 class="span-12">Neuer Lieferant</h2>
+    <%- h.input('name', 'Name', '', { required: true, cls: 'span-12' }) %>
+    <%- h.input('email', 'E-Mail', '', { type: 'email' }) %><%- h.input('phone', 'Telefon', '') %>
+    <%- h.input('iban', 'IBAN', '', { cls: 'span-12' }) %>
+    <%- h.input('notes', 'Notizen', '', { type: 'textarea', cls: 'span-12' }) %>
+    <div class="span-12"><button class="btn primary">Anlegen</button></div>
+  </form>
+</div>

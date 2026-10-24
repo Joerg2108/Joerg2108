@@ -1,0 +1,16 @@
+<div class="page-head"><h1><%= title %></h1>
+<% if (p.id) { %><form method="post" action="/artikel/<%= p.id %>/loeschen" data-confirm="Artikel löschen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn danger">Löschen</button></form><% } %></div>
+<form method="post" action="<%= p.id ? '/artikel/' + p.id : '/artikel' %>" class="card form-grid">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <%- h.input('sku', 'Artikelnummer', p.sku, { cls: 'span-3' }) %>
+  <%- h.input('name', 'Bezeichnung', p.name, { required: true, cls: 'span-6' }) %>
+  <%- h.input('category', 'Kategorie', p.category, { cls: 'span-3', list: 'categories' }) %>
+  <datalist id="categories"><% for (const c of categories) { %><option value="<%= c %>"><% } %></datalist>
+  <%- h.input('description', 'Beschreibung (erscheint auf dem Beleg)', p.description, { type: 'textarea', cls: 'span-12' }) %>
+  <%- h.input('unit', 'Einheit', p.unit, { cls: 'span-3', list: 'units' }) %>
+  <%- h.input('price', 'Preis netto €', h.moneyInput(p.price), { inputmode: 'decimal', cls: 'span-3' }) %>
+  <%- h.select('tax_rate', 'USt-Satz', p.tax_rate, [[19, '19 %'], [7, '7 %'], [0, '0 %']], { cls: 'span-3' }) %>
+  <div class="span-3" style="align-self:end"><%- h.checkbox('active', 'Aktiv', p.active) %></div>
+  <datalist id="units"><option value="Stk."><option value="Std."><option value="Tag"><option value="Monat"><option value="Pauschal"><option value="km"><option value="Schicht"><option value="Nacht"></datalist>
+  <div class="span-12 sticky-actions"><a class="btn" href="/artikel">Abbrechen</a><button class="btn primary">Speichern</button></div>
+</form>

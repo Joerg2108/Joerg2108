@@ -1,0 +1,29 @@
+<% const MONTHS = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember']; %>
+<div class="page-head">
+  <div><h1><%= MONTHS[Number(month.slice(5)) - 1] %> <%= month.slice(0, 4) %></h1></div>
+  <div class="actions">
+    <div class="btn-group"><a class="btn" href="?monat=<%= prev %>">‹</a><a class="btn" href="/kalender">Heute</a><a class="btn" href="?monat=<%= next %>">›</a></div>
+    <form class="inline-form"><input type="hidden" name="monat" value="<%= month %>"><select name="user" style="width:auto"><option value="">Alle Mitarbeiter</option><% for (const u of users) { %><option value="<%= u.id %>" <%= String(query.user) === String(u.id) ? 'selected' : '' %>><%= u.name %></option><% } %></select><button class="btn sm">Filtern</button></form>
+    <a class="btn primary" href="/kalender/neu"><%- h.icon('plus') %> Termin</a>
+  </div>
+</div>
+<div class="card flush">
+  <div class="cal">
+    <% for (const d of ['Mo','Di','Mi','Do','Fr','Sa','So']) { %><div class="dow"><%= d %></div><% } %>
+    <% for (const d of days) { %>
+      <div class="day <%= d.slice(0, 7) !== month ? 'other' : '' %> <%= d === today ? 'today' : '' %>">
+        <a class="dnum" href="/kalender/neu?datum=<%= d %>" title="Termin anlegen"><%= Number(d.slice(8)) %></a>
+        <% for (const e of byDay[d]) { %>
+          <% if (e.type === 'termin') { %><a class="ev <%= e.color %>" href="/kalender/<%= e.id %>/bearbeiten" title="<%= e.title %><%= e.user_name ? ' (' + e.user_name + ')' : '' %>"><%= e.all_day ? '' : e.starts_at.slice(11, 16) + ' ' %><%= e.title %></a>
+          <% } else if (e.type === 'aufgabe') { %><a class="ev aufgabe" href="/aufgaben/<%= e.id %>/bearbeiten">☐ <%= e.title %></a>
+          <% } else { %><a class="ev rechnung" href="/belege/<%= e.id %>"><%= e.title %></a><% } %>
+        <% } %>
+      </div>
+    <% } %>
+  </div>
+</div>
+<div class="card">
+  <h3>Kalender abonnieren (Outlook, Google, iPhone)</h3>
+  <p class="small">Diese private Adresse in deinem Kalenderprogramm als „Kalender aus dem Internet / per URL“ hinzufügen. Nicht weitergeben!</p>
+  <div style="display:flex;gap:8px"><input id="ical" value="<%= feedUrl %>" readonly><button type="button" class="btn" data-copy="ical">Kopieren</button></div>
+</div>

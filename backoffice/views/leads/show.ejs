@@ -1,0 +1,51 @@
+<div class="page-head">
+  <div><h1><%= l.name %> <%- h.badge(l.status) %></h1><div class="sub">Eingang <%= h.dateTime(l.created_at) %> · Quelle: <%= l.source %></div></div>
+  <div class="actions">
+    <% if (l.customer_id) { %><a class="btn" href="/kunden/<%= l.customer_id %>">Zum Kunden →</a><% } else { %>
+    <form method="post" action="/anfragen/<%= l.id %>/zu-kunde"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn primary">Als Kunde übernehmen</button></form><% } %>
+    <% if (l.customer_id && can('sales')) { %><a class="btn primary" href="/belege/angebote/neu?kunde=<%= l.customer_id %>">Angebot erstellen</a><% } %>
+    <a class="btn" href="/anfragen/<%= l.id %>/bearbeiten">Bearbeiten</a>
+    <form method="post" action="/anfragen/<%= l.id %>/loeschen" data-confirm="Anfrage löschen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn danger">Löschen</button></form>
+  </div>
+</div>
+<div class="grid side">
+  <div>
+    <div class="card">
+      <h2><%= l.subject || 'Anfrage' %></h2>
+      <p style="white-space:pre-line"><%= l.message || '–' %></p>
+    </div>
+    <div class="card">
+      <h2>Verlauf &amp; Notizen</h2>
+      <form method="post" action="/anfragen/<%= l.id %>/notiz" class="form-grid">
+        <input type="hidden" name="_csrf" value="<%= csrf %>">
+        <%- h.select('type', 'Art', 'anruf', { notiz: 'Notiz', anruf: 'Anruf', email: 'E-Mail', termin: 'Termin', besuch: 'Besuch' }, { cls: 'span-3' }) %>
+        <%- h.input('subject', 'Betreff', '', { required: true, cls: 'span-9' }) %>
+        <%- h.input('body', 'Details', '', { type: 'textarea', rows: 2, cls: 'span-12' }) %>
+        <div class="span-12"><button class="btn">Eintragen</button></div>
+      </form>
+      <hr>
+      <ul class="timeline"><% for (const a of activities) { %><li><strong><%= a.subject %></strong> <span class="tag"><%= a.type %></span><br><small><%= h.dateTime(a.created_at) %> · <%= a.user_name %></small><% if (a.body) { %><div><%= a.body %></div><% } %></li><% } %>
+      <% if (!activities.length) { %><li class="muted">Noch keine Einträge.</li><% } %></ul>
+    </div>
+  </div>
+  <div>
+    <div class="card">
+      <h2>Kontakt</h2>
+      <dl class="facts">
+        <% if (l.company) { %><dt>Firma</dt><dd><%= l.company %></dd><% } %>
+        <% if (l.email) { %><dt>E-Mail</dt><dd><a href="mailto:<%= l.email %>?subject=<%= encodeURIComponent('Re: ' + (l.subject || 'Ihre Anfrage')) %>"><%= l.email %></a></dd><% } %>
+        <% if (l.phone) { %><dt>Telefon</dt><dd><a href="tel:<%= l.phone %>"><%= l.phone %></a></dd><% } %>
+        <dt>Wert</dt><dd><%= l.value ? h.eur(l.value) : '–' %></dd>
+        <dt>Einwilligung</dt><dd><%= l.consent ? 'Datenschutz akzeptiert' : '–' %></dd>
+      </dl>
+    </div>
+    <div class="card">
+      <h2>Status ändern</h2>
+      <div class="actions">
+        <% for (const st of STATUSES) { %>
+          <form method="post" action="/anfragen/<%= l.id %>/status"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="status" value="<%= st %>"><button class="btn sm <%= l.status === st ? 'primary' : '' %>"><%= h.label(st) %></button></form>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>

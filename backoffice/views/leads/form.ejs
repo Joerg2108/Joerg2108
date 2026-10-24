@@ -1,0 +1,15 @@
+<div class="page-head"><h1><%= title %></h1></div>
+<form method="post" action="<%= l.id ? '/anfragen/' + l.id : '/anfragen' %>" class="card form-grid">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <%- h.input('name', 'Name', l.name, { required: true }) %>
+  <%- h.input('company', 'Firma', l.company) %>
+  <%- h.input('email', 'E-Mail', l.email, { type: 'email' }) %>
+  <%- h.input('phone', 'Telefon', l.phone, { type: 'tel' }) %>
+  <%- h.input('subject', 'Betreff', l.subject, { cls: 'span-12' }) %>
+  <%- h.input('message', 'Nachricht / Bedarf', l.message, { type: 'textarea', rows: 5, cls: 'span-12' }) %>
+  <%- h.select('source', 'Quelle', l.source, { website: 'Website', telefon: 'Telefon', email: 'E-Mail', empfehlung: 'Empfehlung', messe: 'Messe/Event', social: 'Social Media', manuell: 'Sonstiges' }, { cls: 'span-3' }) %>
+  <%- h.select('status', 'Status', l.status, { neu: 'Neu', kontaktiert: 'Kontaktiert', qualifiziert: 'Qualifiziert', gewonnen: 'Gewonnen', verloren: 'Verloren' }, { cls: 'span-3' }) %>
+  <%- h.input('value', 'Geschätzter Auftragswert €', l.value ? h.moneyInput(l.value) : '', { cls: 'span-3', inputmode: 'decimal' }) %>
+  <%- h.select('assigned_to', 'Zuständig', l.assigned_to, users.map((u) => [u.id, u.name]), { empty: '– niemand –', cls: 'span-3' }) %>
+  <div class="span-12 sticky-actions"><a class="btn" href="/anfragen">Abbrechen</a><button class="btn primary">Speichern</button></div>
+</form>

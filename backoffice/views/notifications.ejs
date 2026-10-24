@@ -1,0 +1,15 @@
+<div class="page-head"><h1>Benachrichtigungen</h1>
+  <form method="post" action="/benachrichtigungen/gelesen"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn">Alle als gelesen markieren</button></form>
+</div>
+<div class="card flush">
+<% if (!items.length) { %><div class="empty">Keine Benachrichtigungen.</div><% } else { %>
+  <table><tbody>
+  <% for (const n of items) { %>
+    <tr<% if (n.link) { %> class="row-link" data-href="<%= n.link %>"<% } %>>
+      <td><% if (!n.read) { %><%- h.badge('neu') %> <% } %><strong><%= n.title %></strong><% if (n.body) { %><div class="muted"><%= n.body %></div><% } %></td>
+      <td class="right muted nowrap"><%= h.dateTime(n.created_at) %></td>
+    </tr>
+  <% } %>
+  </tbody></table>
+<% } %>
+</div>

@@ -1,0 +1,17 @@
+<div class="page-head">
+  <div><h1>Artikel &amp; Leistungen</h1><div class="sub"><%= rows.length %> Einträge · Katalog für schnelle Angebots- und Rechnungserstellung</div></div>
+  <div class="actions">
+    <% if (missing) { %><form method="post" action="/artikel/katalog" data-confirm="Leistungskatalog (<%= missing %> fehlende Leistungen) einspielen? Bestehende Artikel bleiben unverändert."><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn">Leistungskatalog einspielen (<%= missing %>)</button></form><% } %>
+    <a class="btn primary" href="/artikel/neu"><%- h.icon('plus') %> Neue Leistung</a>
+  </div>
+</div>
+<form class="filters"><input type="search" name="q" value="<%= query.q || '' %>" placeholder="Name, Nummer oder Kategorie"><button class="btn">Suchen</button></form>
+<% if (!rows.length) { %><div class="card"><div class="empty">Noch keine Leistungen – spiele den Leistungskatalog ein oder lege eigene an.</div></div><% } %>
+<% for (const g of groups) { %>
+<div class="card flush">
+  <div class="card-head"><h2><%= g.name %></h2><span class="muted small"><%= g.items.length %> Leistung(en)</span></div>
+  <div class="table-wrap"><table><thead><tr><th>Nr.</th><th>Bezeichnung</th><th>Einheit</th><th class="num">Preis netto</th><th class="num">USt</th><th>Status</th></tr></thead><tbody>
+  <% for (const p of g.items) { %><tr class="row-link" data-href="/artikel/<%= p.id %>/bearbeiten"><td class="mono nowrap"><%= p.sku || "" %></td><td><strong><%= p.name %></strong><div class="small muted"><%= p.description || '' %></div></td><td><%= p.unit %></td><td class="num"><%= h.eur(p.price) %></td><td class="num"><%= h.num(p.tax_rate) %> %</td><td><%- p.active ? h.badge('aktiv') : h.badge('inaktiv') %></td></tr><% } %>
+  </tbody></table></div>
+</div>
+<% } %>

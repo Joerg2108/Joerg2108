@@ -1,0 +1,12 @@
+# Start:  docker compose up -d      Logs:  docker compose logs -f
+services:
+  backoffice:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATA_DIR: /data
+    volumes:
+      - ./data:/data
+    ports:
+      - "127.0.0.1:3000:3000"   # nur lokal – öffentlich über Reverse Proxy (Caddy/Nginx) mit HTTPS

@@ -1,0 +1,6 @@
+# Caddy holt automatisch ein Let's-Encrypt-Zertifikat (HTTPS).
+office.joerg-noack.com {
+	encode gzip
+	reverse_proxy 127.0.0.1:3000
+	header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+}

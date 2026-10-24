@@ -1,0 +1,9 @@
+<div class="page-head"><div><h1>Umsatzsteuer <%= year %></h1><div class="sub">Vorbereitung der USt-Voranmeldung (Soll-Versteuerung nach Rechnungsdatum)</div></div>
+  <div class="actions"><div class="btn-group"><a class="btn <%= period === 'monat' ? 'active' : '' %>" href="?jahr=<%= year %>&zeitraum=monat">Monatlich</a><a class="btn <%= period === 'quartal' ? 'active' : '' %>" href="?jahr=<%= year %>&zeitraum=quartal">Quartalsweise</a></div><a class="btn" href="/berichte?jahr=<%= year %>">← Berichte</a></div></div>
+<% if (small) { %><div class="alert info">Kleinunternehmerregelung aktiv – keine Umsatzsteuer-Voranmeldung erforderlich (nur Jahreserklärung).</div><% } %>
+<div class="card flush"><div class="table-wrap"><table>
+  <thead><tr><th>Zeitraum</th><th class="num">Bemessung 19 % (Kz 81)</th><th class="num">USt 19 %</th><th class="num">Bemessung 7 % (Kz 86)</th><th class="num">USt 7 %</th><th class="num">steuerfrei/0 %</th><th class="num">Vorsteuer (Kz 66)</th><th class="num">Zahllast</th></tr></thead>
+  <tbody><% for (const r of rows) { %><tr><td><%= r.name %></td><td class="num"><%= h.eur(r.b19) %></td><td class="num"><%= h.eur(r.t19) %></td><td class="num"><%= h.eur(r.b7) %></td><td class="num"><%= h.eur(r.t7) %></td><td class="num"><%= h.eur(r.b0) %></td><td class="num"><%= h.eur(r.vst) %></td><td class="num <%= r.zahllast < 0 ? 'pos' : '' %>"><strong><%= h.eur(r.zahllast) %></strong></td></tr><% } %></tbody>
+  <tfoot><tr><td>Jahr</td><% for (const k of ['b19', 't19', 'b7', 't7', 'b0', 'vst', 'zahllast']) { %><td class="num"><%= h.eur(rows.reduce((a, r) => a + r[k], 0)) %></td><% } %></tr></tfoot>
+</table></div></div>
+<p class="small muted">Werte zur Kontrolle – die Übermittlung erfolgt über ELSTER oder deinen Steuerberater. Negative Zahllast = Erstattung.</p>

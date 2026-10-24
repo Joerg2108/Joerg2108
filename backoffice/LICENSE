@@ -1,0 +1,12 @@
+Copyright (c) 2026 Jörg Noack. Alle Rechte vorbehalten.
+
+Diese Software ("Back Office") ist proprietär. Nutzung, Vervielfältigung, Veränderung
+und Weitergabe sind nur im Rahmen einer schriftlichen Lizenzvereinbarung mit dem
+Rechteinhaber gestattet.
+
+Enthaltene Drittkomponenten (express, ejs, helmet, bcryptjs, multer, pdfkit, qrcode,
+nodemailer) stehen unter ihren jeweiligen Open-Source-Lizenzen (MIT bzw. Apache-2.0);
+deren Lizenztexte liegen im Ordner node_modules der jeweiligen Pakete.
+
+DIE SOFTWARE WIRD OHNE MÄNGELGEWÄHR BEREITGESTELLT, SOWEIT NICHT ANDERS VEREINBART.
+Sie ersetzt keine Steuer- oder Rechtsberatung.

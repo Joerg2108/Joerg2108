@@ -1,0 +1,15 @@
+<div class="page-head"><h1><%= title %></h1>
+<% if (p.id) { %><form method="post" action="/projekte/<%= p.id %>/loeschen" data-confirm="Projekt inkl. Aufgaben löschen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn danger">Löschen</button></form><% } %></div>
+<form method="post" action="<%= p.id ? '/projekte/' + p.id : '/projekte' %>" class="card form-grid">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <%- h.input('name', 'Projektname', p.name, { required: true, cls: 'span-8' }) %>
+  <%- h.select('status', 'Status', p.status, STATUSES.map((x) => [x, h.label(x)]), { cls: 'span-4' }) %>
+  <%- h.select('customer_id', 'Kunde', p.customer_id, customers.map((c) => [c.id, h.customerName(c)]), { empty: '– ohne Kunde –' }) %>
+  <%- h.select('manager_id', 'Projektleitung', p.manager_id, users.map((u) => [u.id, u.name]), { empty: '–' }) %>
+  <%- h.input('start_date', 'Start', p.start_date, { type: 'date', cls: 'span-3' }) %>
+  <%- h.input('end_date', 'Ende', p.end_date, { type: 'date', cls: 'span-3' }) %>
+  <%- h.input('budget', 'Budget netto €', p.budget ? h.moneyInput(p.budget) : '', { inputmode: 'decimal', cls: 'span-3' }) %>
+  <%- h.input('hourly_rate', 'Stundensatz netto €', p.hourly_rate ? h.moneyInput(p.hourly_rate) : '', { inputmode: 'decimal', cls: 'span-3', hint: 'Leer = Satz des Mitarbeiters' }) %>
+  <%- h.input('description', 'Beschreibung', p.description, { type: 'textarea', rows: 4, cls: 'span-12' }) %>
+  <div class="span-12 sticky-actions"><a class="btn" href="<%= p.id ? '/projekte/' + p.id : '/projekte' %>">Abbrechen</a><button class="btn primary">Speichern</button></div>
+</form>

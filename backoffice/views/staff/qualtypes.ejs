@@ -1,0 +1,17 @@
+<div class="page-head"><div><h1>Qualifikationen</h1><div class="sub">Katalog für Nachweise und Schicht-Anforderungen</div></div><a class="btn" href="/personal">← Personal</a></div>
+<div class="grid side">
+  <div class="card flush"><div class="table-wrap">
+  <% if (!rows.length) { %><div class="empty">Noch keine Qualifikationen.</div><% } else { %>
+  <table><thead><tr><th>Name</th><th>Gültigkeit</th><th class="num">Mitarbeiter</th><th></th></tr></thead><tbody>
+  <% for (const t of rows) { %><tr><td><strong><%= t.name %></strong><div class="small muted"><%= t.description || '' %></div></td><td><%= t.validity_months ? t.validity_months + ' Monate' : 'unbefristet' %></td><td class="num"><%= t.n %></td>
+  <td><form method="post" action="/personal/qualifikationen/<%= t.id %>/loeschen" data-confirm="Qualifikation inkl. aller Nachweise löschen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm ghost">✕</button></form></td></tr><% } %>
+  </tbody></table><% } %>
+  </div></div>
+  <form class="card form-grid" method="post" action="/personal/qualifikationen"><input type="hidden" name="_csrf" value="<%= csrf %>">
+    <h2 class="span-12">Neue Qualifikation</h2>
+    <%- h.input('name', 'Bezeichnung', '', { required: true, cls: 'span-12', placeholder: 'z. B. Ersthelfer' }) %>
+    <%- h.input('validity_months', 'Gültigkeit (Monate)', '', { type: 'number', min: 1, cls: 'span-12', hint: 'leer = unbefristet; Ablaufdatum wird beim Erfassen automatisch berechnet' }) %>
+    <%- h.input('description', 'Beschreibung', '', { cls: 'span-12' }) %>
+    <div class="span-12"><button class="btn primary">Anlegen</button></div>
+  </form>
+</div>

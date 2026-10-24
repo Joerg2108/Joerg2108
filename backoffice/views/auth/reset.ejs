@@ -1,0 +1,7 @@
+<% if (typeof error !== 'undefined') { %><div class="alert error"><%= error %></div><% } %>
+<form method="post" action="/passwort-neu/<%= token %>">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <%- h.input('password', 'Neues Passwort', '', { type: 'password', required: true, autocomplete: 'new-password', hint: 'Mind. 10 Zeichen, Groß-/Kleinbuchstaben und Ziffer' }) %>
+  <%- h.input('password2', 'Passwort wiederholen', '', { type: 'password', required: true, autocomplete: 'new-password' }) %>
+  <button class="btn primary">Passwort speichern</button>
+</form>

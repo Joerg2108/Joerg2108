@@ -1,0 +1,102 @@
+<%
+  const tabs = { firma: 'Firma', bank: 'Bank & Steuern', belege: 'Belege & Texte', mahnwesen: 'Mahnwesen', email: 'E-Mail-Vorlagen', dienstplan: 'Dienstplan', design: 'Design', system: 'System' };
+  const checks = { steuern: 'small_business', bank: 'small_business', system: 'backup_auto' };
+%>
+<div class="page-head"><h1>Einstellungen</h1></div>
+<div class="tabs"><% for (const [k, v] of Object.entries(tabs)) { %><a href="?tab=<%= k %>" class="<%= tab === k ? 'active' : '' %>"><%= v %></a><% } %></div>
+
+<% if (tab === 'design') { %>
+<div class="grid c2">
+  <form class="card form-grid" method="post" action="/admin/einstellungen"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="_tab" value="design">
+    <h2 class="span-12">Erscheinungsbild</h2>
+    <%- h.input('app_title', 'Name der Anwendung', s.app_title, { cls: 'span-12' }) %>
+    <%- h.input('brand_color', 'Markenfarbe', s.brand_color, { type: 'color', cls: 'span-4' }) %>
+    <div class="span-12"><button class="btn primary">Speichern</button></div>
+  </form>
+  <div class="card">
+    <h2>Logo</h2>
+    <% if (s.logo_file) { %><p><img src="/logo" alt="Logo" style="max-height:80px;max-width:240px;background:#fff;padding:6px;border-radius:6px"></p>
+      <form method="post" action="/admin/einstellungen/logo/entfernen"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn danger sm">Logo entfernen</button></form><hr><% } %>
+    <form method="post" action="/admin/einstellungen/logo?_csrf=<%= csrf %>" enctype="multipart/form-data">
+      <p class="small muted">PNG oder JPG, max. 2 MB. Erscheint in der Navigation und auf allen PDFs (oben rechts).</p>
+      <input type="file" name="logo" accept=".png,.jpg,.jpeg" required> <button class="btn" style="margin-top:8px">Hochladen</button>
+    </form>
+  </div>
+</div>
+<% } else { %>
+<form class="card" method="post" action="/admin/einstellungen">
+  <input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="_tab" value="<%= tab %>">
+  <% if (checks[tab]) { %><input type="hidden" name="_checkboxes" value="<%= checks[tab] %>"><% } %>
+  <div class="form-grid">
+  <% if (tab === 'firma') { %>
+    <%- h.input('company_name', 'Firmenname', s.company_name, { required: true, cls: 'span-8' }) %>
+    <%- h.input('company_owner', 'Inhaber / Geschäftsführer', s.company_owner, { cls: 'span-4' }) %>
+    <%- h.input('company_street', 'Straße', s.company_street, { cls: 'span-6' }) %>
+    <%- h.input('company_zip', 'PLZ', s.company_zip, { cls: 'span-2' }) %>
+    <%- h.input('company_city', 'Ort', s.company_city, { cls: 'span-3' }) %>
+    <%- h.input('company_country', 'Land', s.company_country, { cls: 'span-1', maxlength: 2 }) %>
+    <%- h.input('company_email', 'E-Mail', s.company_email, { type: 'email', cls: 'span-4' }) %>
+    <%- h.input('company_phone', 'Telefon', s.company_phone, { cls: 'span-4' }) %>
+    <%- h.input('company_website', 'Website', s.company_website, { cls: 'span-4' }) %>
+    <%- h.input('company_register', 'Registereintrag (optional)', s.company_register, { cls: 'span-12', hint: 'z. B. „HRB 12345, AG Charlottenburg“ – erscheint im PDF-Fuß' }) %>
+  <% } else if (tab === 'bank') { %>
+    <%- h.input('bank_name', 'Bank', s.bank_name, { cls: 'span-4' }) %>
+    <%- h.input('bank_iban', 'IBAN', s.bank_iban, { cls: 'span-5' }) %>
+    <%- h.input('bank_bic', 'BIC', s.bank_bic, { cls: 'span-3' }) %>
+    <%- h.input('company_tax_number', 'Steuernummer', s.company_tax_number, { cls: 'span-6' }) %>
+    <%- h.input('company_vat_id', 'USt-IdNr.', s.company_vat_id, { cls: 'span-6', hint: 'Eine von beiden ist Pflichtangabe auf Rechnungen (§ 14 UStG)' }) %>
+    <%- h.select('default_tax_rate', 'Standard-USt-Satz', s.default_tax_rate, [['19', '19 %'], ['7', '7 %'], ['0', '0 %']], { cls: 'span-4' }) %>
+    <div class="span-8" style="align-self:end"><%- h.checkbox('small_business', 'Kleinunternehmer nach § 19 UStG (keine Umsatzsteuer ausweisen)', s.small_business === '1') %></div>
+  <% } else if (tab === 'belege') { %>
+    <%- h.input('payment_terms_days', 'Zahlungsziel (Tage)', s.payment_terms_days, { type: 'number', min: 0, cls: 'span-3' }) %>
+    <%- h.input('quote_valid_days', 'Angebote gültig (Tage)', s.quote_valid_days, { type: 'number', min: 1, cls: 'span-3' }) %>
+    <%- h.input('number_digits', 'Stellen der laufenden Nr.', s.number_digits, { type: 'number', min: 1, max: 8, cls: 'span-3' }) %>
+    <div class="span-12 small muted">Nummernkreise: Platzhalter {YYYY}, {YY}, {MM}. Bei {YYYY} beginnt die Zählung jedes Jahr neu.</div>
+    <%- h.input('prefix_invoice', 'Präfix Rechnungen', s.prefix_invoice, { cls: 'span-3' }) %>
+    <%- h.input('prefix_quote', 'Präfix Angebote', s.prefix_quote, { cls: 'span-3' }) %>
+    <%- h.input('prefix_order', 'Präfix Auftragsbest.', s.prefix_order, { cls: 'span-3' }) %>
+    <%- h.input('prefix_storno', 'Präfix Storno', s.prefix_storno, { cls: 'span-3' }) %>
+    <%- h.input('prefix_customer', 'Präfix Kunden', s.prefix_customer, { cls: 'span-3' }) %>
+    <%- h.input('prefix_project', 'Präfix Projekte', s.prefix_project, { cls: 'span-3' }) %>
+    <%- h.input('invoice_intro', 'Rechnung: Einleitung', s.invoice_intro, { type: 'textarea', cls: 'span-6' }) %>
+    <%- h.input('invoice_footer', 'Rechnung: Schlusstext', s.invoice_footer, { type: 'textarea', cls: 'span-6' }) %>
+    <%- h.input('quote_intro', 'Angebot: Einleitung', s.quote_intro, { type: 'textarea', cls: 'span-6' }) %>
+    <%- h.input('quote_footer', 'Angebot: Schlusstext', s.quote_footer, { type: 'textarea', cls: 'span-6' }) %>
+    <%- h.input('order_intro', 'Auftragsbestätigung: Einleitung', s.order_intro, { type: 'textarea', cls: 'span-12' }) %>
+    <%- h.input('expense_categories', 'Ausgaben-Kategorien (kommagetrennt)', s.expense_categories, { type: 'textarea', cls: 'span-12' }) %>
+  <% } else if (tab === 'mahnwesen') { %>
+    <%- h.input('dunning_days', 'Zahlungsfrist je Mahnung (Tage)', s.dunning_days, { type: 'number', min: 1, cls: 'span-3' }) %>
+    <%- h.input('dunning_fee_1', 'Gebühr Stufe 1 €', s.dunning_fee_1, { cls: 'span-3' }) %>
+    <%- h.input('dunning_fee_2', 'Gebühr Stufe 2 €', s.dunning_fee_2, { cls: 'span-3' }) %>
+    <%- h.input('dunning_fee_3', 'Gebühr Stufe 3 €', s.dunning_fee_3, { cls: 'span-3' }) %>
+    <%- h.input('dunning_text_1', 'Text Zahlungserinnerung', s.dunning_text_1, { type: 'textarea', cls: 'span-12' }) %>
+    <%- h.input('dunning_text_2', 'Text 2. Mahnung', s.dunning_text_2, { type: 'textarea', cls: 'span-12' }) %>
+    <%- h.input('dunning_text_3', 'Text letzte Mahnung', s.dunning_text_3, { type: 'textarea', cls: 'span-12', hint: 'Platzhalter {DUE_DATE} = neue Frist' }) %>
+  <% } else if (tab === 'email') { %>
+    <div class="span-12 small muted">Platzhalter: {NUMBER}, {AMOUNT}, {NAME}, {COMPANY}, {DUE_DATE}</div>
+    <%- h.input('email_invoice_subject', 'Rechnung: Betreff', s.email_invoice_subject, { cls: 'span-12' }) %>
+    <%- h.input('email_invoice_body', 'Rechnung: Text', s.email_invoice_body, { type: 'textarea', rows: 6, cls: 'span-12' }) %>
+    <%- h.input('email_quote_subject', 'Angebot: Betreff', s.email_quote_subject, { cls: 'span-12' }) %>
+    <%- h.input('email_quote_body', 'Angebot: Text', s.email_quote_body, { type: 'textarea', rows: 6, cls: 'span-12' }) %>
+    <%- h.input('lead_notify_email', 'Benachrichtigung bei Website-Anfragen an', s.lead_notify_email, { type: 'email', cls: 'span-12', hint: 'Leer = Firmen-E-Mail' }) %>
+  <% } else if (tab === 'dienstplan') { %>
+    <%- h.select('holiday_state', 'Bundesland (Feiertage)', s.holiday_state, { BW: 'Baden-Württemberg', BY: 'Bayern', BE: 'Berlin', BB: 'Brandenburg', HB: 'Bremen', HH: 'Hamburg', HE: 'Hessen', MV: 'Mecklenburg-Vorpommern', NI: 'Niedersachsen', NW: 'Nordrhein-Westfalen', RP: 'Rheinland-Pfalz', SL: 'Saarland', SN: 'Sachsen', ST: 'Sachsen-Anhalt', SH: 'Schleswig-Holstein', TH: 'Thüringen' }, { cls: 'span-4' }) %>
+    <%- h.input('night_from', 'Nachtzeit ab (Uhr)', s.night_from, { type: 'number', min: 18, max: 23, cls: 'span-4', hint: '§ 3b EStG: 20 Uhr' }) %>
+    <%- h.input('minijob_limit', 'Minijob-Grenze €/Monat', s.minijob_limit, { cls: 'span-4', hint: 'jährlich prüfen (an Mindestlohn gekoppelt)' }) %>
+    <div class="span-12"><h3 style="margin:8px 0 0">Abrechnung an Kunden</h3></div>
+    <%- h.input('shift_rate', 'Standard-Stundensatz € (falls Projekt keinen hat)', s.shift_rate, { cls: 'span-3' }) %>
+    <%- h.input('surcharge_night_pct', 'Nachtzuschlag %', s.surcharge_night_pct, { type: 'number', min: 0, cls: 'span-3' }) %>
+    <%- h.input('surcharge_sunday_pct', 'Sonntagszuschlag %', s.surcharge_sunday_pct, { type: 'number', min: 0, cls: 'span-3' }) %>
+    <%- h.input('surcharge_holiday_pct', 'Feiertagszuschlag %', s.surcharge_holiday_pct, { type: 'number', min: 0, cls: 'span-3' }) %>
+  <% } else if (tab === 'system') { %>
+    <div class="span-12"><%- h.checkbox('backup_auto', 'Tägliches automatisches Backup', s.backup_auto === '1') %></div>
+    <div class="span-12"><p>SMTP-Versand: <%- mailEnabled ? h.badge('aktiv', 'eingerichtet') : h.badge('offen', 'nicht eingerichtet') %> <span class="small muted">(Konfiguration in der Datei <code>.env</code>)</span></p></div>
+  <% } %>
+  </div>
+  <div class="sticky-actions"><button class="btn primary">Speichern</button></div>
+</form>
+<% if (tab === 'system') { %>
+<div class="card"><h2>System</h2><p><a class="btn" href="/admin/system">Systeminformationen</a> <a class="btn" href="/admin/backups">Datensicherung</a> <a class="btn" href="/admin/protokoll">Audit-Log</a></p></div>
+<form method="post" action="/admin/einstellungen/testmail" class="card"><input type="hidden" name="_csrf" value="<%= csrf %>"><h2>E-Mail testen</h2><p>Sendet eine Testmail an <%= user.email %>.</p><button class="btn">Testmail senden</button></form>
+<% } %>
+<% } %>

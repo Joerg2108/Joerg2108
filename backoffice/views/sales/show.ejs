@@ -1,0 +1,158 @@
+<%
+  const label = { angebot: 'Angebot', auftrag: 'Auftragsbestätigung', rechnung: 'Rechnung', storno: 'Stornorechnung' }[d.kind];
+  const locked = d.finalized_at && ['rechnung', 'storno'].includes(d.kind);
+  const fees = d.dunnings.reduce((a, x) => a + x.fee, 0);
+%>
+<div class="page-head">
+  <div>
+    <h1><%= label %> <span class="mono"><%= d.number || '(Entwurf)' %></span> <%- d.overdue ? h.badge('ueberfaellig') : h.badge(d.status) %></h1>
+    <div class="sub"><a href="/kunden/<%= d.customer_id %>"><%= d.snapshot.name %></a> · <%= h.date(d.issue_date) %><% if (locked) { %> · 🔒 festgeschrieben am <%= h.dateTime(d.finalized_at) %><% } %></div>
+  </div>
+  <div class="actions">
+    <a class="btn" href="/belege/<%= d.id %>/pdf" target="_blank">PDF ansehen</a>
+    <a class="btn" href="/belege/<%= d.id %>/pdf?download=1">PDF ⤓</a>
+    <% if (locked) { %><a class="btn" href="/belege/<%= d.id %>/xrechnung.xml" title="E-Rechnung nach EN 16931">XRechnung ⤓</a><% } %>
+    <% if (!locked) { %><a class="btn" href="/belege/<%= d.id %>/bearbeiten">Bearbeiten</a><% } %>
+    <% if (d.kind === 'rechnung' && !d.finalized_at && can('sales.finalize')) { %>
+      <form method="post" action="/belege/<%= d.id %>/festschreiben" data-confirm="Rechnung festschreiben? Danach ist sie unveränderlich und erhält ihre endgültige Nummer (GoBD)."><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn primary">🔒 Festschreiben</button></form>
+    <% } %>
+    <details class="dropdown"><summary class="btn">Aktionen ▾</summary>
+      <div class="menu-pop">
+        <% if (d.kind === 'angebot') { %>
+          <form method="post" action="/belege/<%= d.id %>/umwandeln"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="target" value="auftrag"><button>→ Auftragsbestätigung erstellen</button></form>
+          <form method="post" action="/belege/<%= d.id %>/umwandeln"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="target" value="rechnung"><button>→ Rechnung erstellen</button></form>
+          <% for (const st of ['versendet', 'angenommen', 'abgelehnt']) { %><form method="post" action="/belege/<%= d.id %>/status"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="status" value="<%= st %>"><button>Status: <%= h.label(st) %></button></form><% } %>
+        <% } %>
+        <% if (d.kind === 'auftrag') { %>
+          <form method="post" action="/belege/<%= d.id %>/umwandeln"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="target" value="rechnung"><button>→ Rechnung erstellen</button></form>
+          <% for (const st of ['in_bearbeitung', 'abgeschlossen']) { %><form method="post" action="/belege/<%= d.id %>/status"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="status" value="<%= st %>"><button>Status: <%= h.label(st) %></button></form><% } %>
+        <% } %>
+        <form method="post" action="/belege/<%= d.id %>/duplizieren"><input type="hidden" name="_csrf" value="<%= csrf %>"><button>Duplizieren</button></form>
+        <% if (d.kind === 'rechnung' && locked && ['offen', 'teilbezahlt'].includes(d.status)) { %>
+          <form method="post" action="/belege/<%= d.id %>/mahnen" data-confirm="Nächste Mahnstufe erzeugen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button>Mahnung erstellen (Stufe <%= Math.min(d.dunning_level + 1, 3) %>)</button></form>
+        <% } %>
+        <% if (d.kind === 'rechnung' && locked && d.status !== 'storniert' && can('sales.finalize')) { %>
+          <form method="post" action="/belege/<%= d.id %>/stornieren" data-confirm="Stornorechnung erzeugen? Die Rechnung wird dadurch vollständig storniert."><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="neg">Stornieren (Stornorechnung)</button></form>
+        <% } %>
+        <% if (!locked) { %>
+          <form method="post" action="/belege/<%= d.id %>/loeschen" data-confirm="Beleg wirklich löschen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="neg">Löschen</button></form>
+        <% } %>
+      </div>
+    </details>
+  </div>
+</div>
+
+<div class="grid side">
+  <div>
+    <div class="card doc-preview">
+      <div class="grid c2">
+        <div class="doc-addr"><strong><%= d.snapshot.name %></strong>
+<%= d.snapshot.contact || '' %>
+<%= d.snapshot.street || '' %>
+<%= [d.snapshot.zip, d.snapshot.city].filter(Boolean).join(' ') %></div>
+        <dl class="facts">
+          <dt>Kundennr.</dt><dd><%= d.snapshot.number %></dd>
+          <dt>Datum</dt><dd><%= h.date(d.issue_date) %></dd>
+          <% if (d.service_date) { %><dt>Leistung</dt><dd><%= h.date(d.service_date) %><%= d.service_until ? ' – ' + h.date(d.service_until) : '' %></dd><% } %>
+          <% if (d.due_date) { %><dt>Fällig</dt><dd class="<%= d.overdue ? 'neg' : '' %>"><%= h.date(d.due_date) %></dd><% } %>
+          <% if (d.valid_until) { %><dt>Gültig bis</dt><dd><%= h.date(d.valid_until) %></dd><% } %>
+        </dl>
+      </div>
+      <h2 style="margin-top:16px"><%= d.title || label %></h2>
+      <% if (d.intro) { %><p style="white-space:pre-line"><%= d.intro.replaceAll('{DUE_DATE}', h.date(d.due_date)) %></p><% } %>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Pos.</th><th>Bezeichnung</th><th class="num">Menge</th><th class="num">Einzelpreis</th><% if (!d.small_business) { %><th class="num">USt</th><% } %><th class="num">Gesamt</th></tr></thead>
+        <tbody><% for (const it of d.items) { %>
+          <tr><td><%= it.position %></td><td><strong><%= it.name %></strong><% if (it.description) { %><div class="small muted" style="white-space:pre-line"><%= it.description %></div><% } %></td>
+          <td class="num"><%= h.num(it.quantity, 3) %> <%= it.unit %></td><td class="num"><%= h.eur(it.unit_price) %><%= it.discount_pct ? ' −' + h.num(it.discount_pct) + ' %' : '' %></td>
+          <% if (!d.small_business) { %><td class="num"><%= h.num(it.tax_rate) %> %</td><% } %><td class="num"><%= h.eur(it.net_amount) %></td></tr>
+        <% } %></tbody>
+      </table></div>
+      <div class="totals" style="margin-top:12px">
+        <div><span>Summe netto</span><span><%= h.eur(d.calc.net) %></span></div>
+        <% if (!d.small_business) { for (const t of d.calc.taxes) { %><div><span>zzgl. <%= h.num(t.rate) %> % USt</span><span><%= h.eur(t.tax) %></span></div><% } } %>
+        <div class="grand"><span>Gesamt</span><span><%= h.eur(d.calc.gross) %></span></div>
+        <% if (d.paid_total) { %><div><span>bezahlt</span><span class="pos">−<%= h.eur(d.paid_total) %></span></div><div><strong>offen</strong><strong><%= h.eur(d.open_amount) %></strong></div><% } %>
+      </div>
+      <% if (d.footer) { %><p class="muted" style="white-space:pre-line;margin-top:16px"><%= d.footer.replaceAll('{DUE_DATE}', h.date(d.due_date)).replaceAll('{VALID_UNTIL}', h.date(d.valid_until)) %></p><% } %>
+    </div>
+  </div>
+
+  <div>
+    <% if (d.kind === 'rechnung' && locked) { %>
+    <div class="card">
+      <h2>Zahlungen</h2>
+      <% for (const pm of d.payments) { %>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border)">
+          <div><strong class="pos"><%= h.eur(pm.amount) %></strong> <span class="small muted">am <%= h.date(pm.paid_at) %> · <%= { ueberweisung: 'Überweisung', bar: 'Bar', karte: 'Karte', paypal: 'PayPal', lastschrift: 'Lastschrift', verrechnung: 'Verrechnung' }[pm.method] || pm.method %><%= pm.note ? ' · ' + pm.note : '' %></span></div>
+          <% if (can('payments')) { %><form method="post" action="/belege/zahlungen/<%= pm.id %>/loeschen" data-confirm="Zahlung entfernen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm ghost">✕</button></form><% } %>
+        </div>
+      <% } %>
+      <% if (!d.payments.length) { %><p class="muted">Noch keine Zahlung erfasst.</p><% } %>
+      <% if (can('payments') && ['offen', 'teilbezahlt'].includes(d.status)) { %>
+      <form method="post" action="/belege/<%= d.id %>/zahlungen" class="form-grid" style="margin-top:10px">
+        <input type="hidden" name="_csrf" value="<%= csrf %>">
+        <%- h.input('amount', 'Betrag €', h.moneyInput(d.open_amount), { inputmode: 'decimal', required: true }) %>
+        <%- h.input('paid_at', 'Datum', h.today(), { type: 'date', required: true }) %>
+        <%- h.select('method', 'Zahlungsart', 'ueberweisung', { ueberweisung: 'Überweisung', bar: 'Bar', karte: 'EC/Kreditkarte', paypal: 'PayPal', lastschrift: 'Lastschrift', verrechnung: 'Verrechnung' }) %>
+        <%- h.input('note', 'Notiz', '') %>
+        <div class="span-12"><button class="btn primary">Zahlung erfassen</button></div>
+      </form>
+      <% } %>
+    </div>
+    <% if (d.dunnings.length) { %>
+    <div class="card">
+      <h2>Mahnungen</h2>
+      <% for (const dn of d.dunnings) { %>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)"><span>Stufe <%= dn.level %> vom <%= h.date(dn.created_at) %><br><small class="muted">Frist <%= h.date(dn.due_date) %><%= dn.fee ? ' · Gebühr ' + h.eur(dn.fee) : '' %></small></span><a class="btn sm" href="/belege/<%= d.id %>/mahnung/<%= dn.level %>/pdf" target="_blank">PDF</a></div>
+      <% } %>
+      <% if (fees) { %><p class="small">Mahngebühren gesamt: <%= h.eur(fees) %></p><% } %>
+    </div>
+    <% } %>
+    <% } %>
+
+    <% if (d.finalized_at || !['rechnung', 'storno'].includes(d.kind)) { %>
+    <div class="card">
+      <h2>Per E-Mail senden</h2>
+      <% if (!mailEnabled) { %><p class="alert warning small">SMTP ist nicht eingerichtet – Versand wird nur simuliert. Siehe README → E-Mail.</p><% } %>
+      <form method="post" action="/belege/<%= d.id %>/senden" class="form-grid">
+        <input type="hidden" name="_csrf" value="<%= csrf %>">
+        <%- h.input('to', 'Empfänger', d.snapshot.email || (d.customer && d.customer.email) || '', { type: 'email', required: true, cls: 'span-12' }) %>
+        <% if (d.kind === 'rechnung') { %><div class="span-12"><%- h.checkbox('xrechnung', 'XRechnung (XML) zusätzlich anhängen', !!d.snapshot.leitweg_id) %></div><% } %>
+        <div class="span-12"><button class="btn primary">Senden</button><% if (d.sent_at) { %> <span class="small muted">zuletzt versendet <%= h.dateTime(d.sent_at) %></span><% } %></div>
+      </form>
+    </div>
+    <% } %>
+
+    <% if (d.kind === 'rechnung') { %>
+    <div class="card">
+      <h2>Wiederkehrend</h2>
+      <% if (recurring) { %>
+        <p>Diese Rechnung dient als Vorlage: <strong><%= recurring.interval %></strong>, nächste am <strong><%= h.date(recurring.next_date) %></strong><%= recurring.end_date ? ', endet ' + h.date(recurring.end_date) : '' %>. <%- recurring.active ? h.badge('aktiv') : h.badge('pausiert') %></p>
+        <form method="post" action="/belege/wiederkehrend/<%= recurring.id %>/umschalten" class="inline-form"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm"><%= recurring.active ? 'Pausieren' : 'Aktivieren' %></button></form>
+        <form method="post" action="/belege/wiederkehrend/<%= recurring.id %>/loeschen" class="inline-form" data-confirm="Wiederholung beenden?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm danger">Beenden</button></form>
+      <% } else { %>
+      <p class="small muted">Für Hausmeister- und Betreuungsverträge, Social-Media- und Marketing-Pauschalen, Abos usw. – erstellt automatisch neue Rechnungen nach diesem Muster.</p>
+      <form method="post" action="/belege/<%= d.id %>/wiederkehrend" class="form-grid">
+        <input type="hidden" name="_csrf" value="<%= csrf %>">
+        <%- h.select('interval', 'Intervall', 'monatlich', { monatlich: 'Monatlich', quartalsweise: 'Quartalsweise', halbjaehrlich: 'Halbjährlich', jaehrlich: 'Jährlich' }) %>
+        <%- h.input('next_date', 'Nächste Rechnung am', h.addMonths(d.issue_date, 1), { type: 'date', required: true }) %>
+        <%- h.input('end_date', 'Endet am (optional)', '', { type: 'date' }) %>
+        <div style="align-self:end"><%- h.checkbox('auto_finalize', 'automatisch festschreiben', false) %></div>
+        <div class="span-12"><button class="btn">Einrichten</button></div>
+      </form>
+      <% } %>
+    </div>
+    <% } %>
+
+    <% if (related.length) { %>
+    <div class="card"><h2>Verknüpfte Belege</h2>
+      <% for (const r of related) { if (r.id === d.id) continue; %><div><a href="/belege/<%= r.id %>"><%= { angebot: 'Angebot', auftrag: 'AB', rechnung: 'Rechnung', storno: 'Storno' }[r.kind] %> <%= r.number || 'Entwurf' %></a> <%- h.badge(r.status) %></div><% } %>
+    </div>
+    <% } %>
+
+    <div class="card"><h2>Verlauf</h2>
+      <ul class="timeline"><% for (const a of history) { %><li><%= a.action %><br><small><%= h.dateTime(a.created_at) %> · <%= a.user_name %></small></li><% } %></ul>
+    </div>
+  </div>
+</div>

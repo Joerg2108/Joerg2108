@@ -1,0 +1,36 @@
+<div class="page-head">
+  <div><h1>Kunden</h1><div class="sub"><%= p.total %> Einträge</div></div>
+  <div class="actions">
+    <a class="btn" href="/kunden/import">Import</a>
+    <a class="btn" href="/kunden/export.csv">Export CSV</a>
+    <a class="btn primary" href="/kunden/neu"><%- h.icon('plus') %> Neuer Kunde</a>
+  </div>
+</div>
+<form class="filters">
+  <input type="search" name="q" value="<%= query.q || '' %>" placeholder="Name, Nummer, E-Mail, Ort, Tag …">
+  <%- h.select('status', 'Status', query.status, { aktiv: 'Aktiv', interessent: 'Interessent', inaktiv: 'Inaktiv' }, { empty: 'Alle' }) %>
+  <%- h.select('type', 'Typ', query.type, { firma: 'Firma', privat: 'Privat', behoerde: 'Behörde' }, { empty: 'Alle' }) %>
+  <%- h.select('sort', 'Sortierung', query.sort, { name: 'Name', number: 'Nummer', city: 'Ort', created: 'Neueste' }) %>
+  <button class="btn">Filtern</button>
+</form>
+<div class="card flush"><div class="table-wrap">
+<% if (!rows.length) { %><div class="empty">Noch keine Kunden. <a href="/kunden/neu">Jetzt anlegen</a> oder <a href="/kunden/import">CSV importieren</a>.</div><% } else { %>
+<table>
+  <thead><tr><th>Nr.</th><th>Name</th><th>Kontakt</th><th>Ort</th><th>Status</th><th class="num">Umsatz</th><th class="num">Offen</th></tr></thead>
+  <tbody>
+  <% for (const c of rows) { %>
+    <tr class="row-link" data-href="/kunden/<%= c.id %>">
+      <td class="mono"><%= c.number %></td>
+      <td><a href="/kunden/<%= c.id %>"><strong><%= h.customerName(c) %></strong></a><% if (c.company && c.last_name) { %><div class="small muted"><%= [c.first_name, c.last_name].filter(Boolean).join(' ') %></div><% } %>
+        <% for (const t of String(c.tags || '').split(',').map((x) => x.trim()).filter(Boolean)) { %><span class="tag"><%= t %></span><% } %></td>
+      <td class="small"><% if (c.email) { %><a href="mailto:<%= c.email %>"><%= c.email %></a><br><% } %><%= c.phone || '' %></td>
+      <td><%= [c.zip, c.city].filter(Boolean).join(' ') %></td>
+      <td><%- h.badge(c.status) %></td>
+      <td class="num"><%= h.eur(c.revenue) %></td>
+      <td class="num <%= c.open ? 'neg' : 'muted' %>"><%= h.eur(c.open) %></td>
+    </tr>
+  <% } %>
+  </tbody>
+</table>
+<% } %>
+</div><%- h.pagination(p.page, p.pages, query) %></div>

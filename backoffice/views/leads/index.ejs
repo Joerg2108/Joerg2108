@@ -1,0 +1,35 @@
+<div class="page-head">
+  <div><h1>Anfragen &amp; Vertrieb</h1><div class="sub"><%= stats.total %> Anfragen · Abschlussquote <%= stats.rate %> %</div></div>
+  <div class="actions">
+    <div class="btn-group"><a class="btn <%= view === 'board' ? 'active' : '' %>" href="?ansicht=board">Board</a><a class="btn <%= view === 'liste' ? 'active' : '' %>" href="?ansicht=liste">Liste</a></div>
+    <a class="btn primary" href="/anfragen/neu"><%- h.icon('plus') %> Anfrage erfassen</a>
+  </div>
+</div>
+<form class="filters"><input type="hidden" name="ansicht" value="<%= view %>"><input type="search" name="q" value="<%= query.q || '' %>" placeholder="Name, Firma, E-Mail, Betreff"><button class="btn">Suchen</button></form>
+<% if (view === 'board') { %>
+<div class="board" data-board="/anfragen/{id}/status">
+  <% for (const col of columns) { %>
+    <div class="column" data-status="<%= col.status %>">
+      <h3><span><%- h.badge(col.status) %> <span class="col-count"><%= col.items.length %></span></span><span class="muted"><%= col.sum ? h.eur(col.sum) : '' %></span></h3>
+      <div class="col-items">
+        <% for (const l of col.items) { %>
+          <a class="kcard" href="/anfragen/<%= l.id %>" draggable="true" data-id="<%= l.id %>">
+            <strong><%= l.name %></strong>
+            <small><%= l.company || l.email || '' %></small>
+            <small><%= l.subject %></small>
+            <small><%= h.date(l.created_at) %> · <%= l.source %><%= l.value ? ' · ' + h.eur(l.value) : '' %><%= l.assignee ? ' · ' + l.assignee : '' %></small>
+          </a>
+        <% } %>
+      </div>
+    </div>
+  <% } %>
+</div>
+<p class="small muted">Tipp: Karten per Drag &amp; Drop in eine andere Spalte ziehen, um den Status zu ändern.</p>
+<% } else { %>
+<div class="card flush"><div class="table-wrap"><table>
+  <thead><tr><th>Eingang</th><th>Name</th><th>Betreff</th><th>Quelle</th><th>Status</th><th class="num">Wert</th><th>Zuständig</th></tr></thead>
+  <tbody><% for (const l of rows) { %>
+    <tr class="row-link" data-href="/anfragen/<%= l.id %>"><td class="nowrap"><%= h.dateTime(l.created_at) %></td><td><a href="/anfragen/<%= l.id %>"><strong><%= l.name %></strong></a><div class="small muted"><%= l.company || '' %> <%= l.email || '' %></div></td><td><%= l.subject %></td><td><span class="tag"><%= l.source %></span></td><td><%- h.badge(l.status) %></td><td class="num"><%= l.value ? h.eur(l.value) : '' %></td><td><%= l.assignee || '' %></td></tr>
+  <% } %></tbody>
+</table><% if (!rows.length) { %><div class="empty">Keine Anfragen.</div><% } %></div></div>
+<% } %>

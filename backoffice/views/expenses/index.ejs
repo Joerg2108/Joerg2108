@@ -1,0 +1,25 @@
+<div class="page-head">
+  <div><h1>Ausgaben <%= year %></h1><div class="sub">netto <%= h.eur(sums.net) %> · Vorsteuer <%= h.eur(sums.tax) %> · brutto <%= h.eur(sums.gross) %></div></div>
+  <div class="actions"><a class="btn" href="/ausgaben/export.csv?jahr=<%= year %>">CSV</a><a class="btn primary" href="/ausgaben/neu"><%- h.icon('plus') %> Neue Ausgabe</a></div>
+</div>
+<form class="filters">
+  <%- h.input('jahr', 'Jahr', year, { type: 'number', min: 2000, max: 2100 }) %>
+  <%- h.select('kategorie', 'Kategorie', query.kategorie, categories, { empty: 'Alle' }) %>
+  <input type="search" name="q" value="<%= query.q || '' %>" placeholder="Lieferant, Beschreibung, Belegnr.">
+  <button class="btn">Filtern</button>
+</form>
+<div class="grid side">
+  <div class="card flush"><div class="table-wrap">
+  <% if (!rows.length) { %><div class="empty">Keine Ausgaben erfasst.</div><% } else { %>
+  <table><thead><tr><th>Datum</th><th>Lieferant</th><th>Kategorie</th><th>Beschreibung</th><th class="num">Netto</th><th class="num">USt</th><th class="num">Brutto</th><th>Beleg</th></tr></thead><tbody>
+  <% for (const e of rows) { %><tr class="row-link" data-href="/ausgaben/<%= e.id %>/bearbeiten"><td class="nowrap"><%= h.date(e.date) %></td><td><%= e.supplier_name || '–' %></td><td><span class="tag"><%= e.category %></span></td><td><%= e.description %><% if (e.project_name) { %><div class="small muted"><%= e.project_name %></div><% } %></td>
+  <td class="num"><%= h.eur(e.net_amount) %></td><td class="num muted"><%= h.eur(e.tax_amount) %></td><td class="num"><%= h.eur(e.gross_amount) %><% if (!e.paid) { %><br><%- h.badge('offen', 'unbezahlt') %><% } %></td><td><% if (e.file_id) { %><a href="/dateien/<%= e.file_id %>/download" target="_blank">📎</a><% } %></td></tr><% } %>
+  </tbody></table><% } %>
+  </div></div>
+  <div class="card"><h2>Nach Kategorie</h2>
+    <% const max = Math.max(1, ...byCat.map((c) => c.net)); for (const c of byCat) { %>
+      <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between"><span><%= c.category %></span><strong><%= h.eur(c.net) %></strong></div><div class="progress"><span style="width:<%= Math.round(c.net / max * 100) %>%"></span></div></div>
+    <% } %>
+    <% if (!byCat.length) { %><p class="muted">–</p><% } %>
+  </div>
+</div>
