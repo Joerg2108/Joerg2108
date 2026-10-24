@@ -3,7 +3,9 @@
 <form method="post" action="<%= p.id ? '/artikel/' + p.id : '/artikel' %>" class="card form-grid">
   <input type="hidden" name="_csrf" value="<%= csrf %>">
   <%- h.input('sku', 'Artikelnummer', p.sku, { cls: 'span-3' }) %>
-  <%- h.input('name', 'Bezeichnung', p.name, { required: true, cls: 'span-9' }) %>
+  <%- h.input('name', 'Bezeichnung', p.name, { required: true, cls: 'span-6' }) %>
+  <%- h.input('category', 'Kategorie', p.category, { cls: 'span-3', list: 'categories' }) %>
+  <datalist id="categories"><% for (const c of categories) { %><option value="<%= c %>"><% } %></datalist>
   <%- h.input('description', 'Beschreibung (erscheint auf dem Beleg)', p.description, { type: 'textarea', cls: 'span-12' }) %>
   <%- h.input('unit', 'Einheit', p.unit, { cls: 'span-3', list: 'units' }) %>
   <%- h.input('price', 'Preis netto €', h.moneyInput(p.price), { inputmode: 'decimal', cls: 'span-3' }) %>

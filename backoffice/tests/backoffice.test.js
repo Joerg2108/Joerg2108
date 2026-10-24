@@ -267,3 +267,24 @@ test('API: REST nur mit gültigem Schlüssel, Scopes werden geprüft', async () 
   r = await fetch(`${base}/api/v1/kunden`, { method: 'POST', headers: { Authorization: `Bearer ${writeKey}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ company: 'API GmbH' }) });
   assert.equal(r.status, 201);
 });
+
+test('Leistungskatalog: wird vollständig eingespielt, erneutes Einspielen erzeugt keine Duplikate', async () => {
+  const catalog = require('../src/lib/catalog');
+  const first = catalog.importCatalog();
+  assert.equal(first.added, catalog.CATALOG.length);
+  db.run("UPDATE products SET price = 9999 WHERE sku = 'OD-03'");
+  const second = catalog.importCatalog();
+  assert.equal(second.added, 0);
+  assert.equal(db.get("SELECT price FROM products WHERE sku = 'OD-03'").price, 9999, 'eigene Preise bleiben erhalten');
+  for (const name of ['Hausmeisterdienst', 'Einbau genormter Baufertigteile', 'Künstlerbetreuung', 'Ausstellungsbau', 'Online-Marketing', 'Social-Media-Kommunikation',
+    'Kundenanfragen & digitale Vertriebsunterstützung', 'Prozess- und Projektkoordination', 'Digitalisierung von Verwaltungs-, Dokumentations- und Planungsabläufen',
+    'KI-Unterstützung', 'Einsatz- und Qualitätsplanung', 'Erstellung und Pflege von Dokumentationen', 'Berichtswesen und Auswertungen']) {
+    assert.ok(db.get('SELECT id FROM products WHERE name = ?', name), `fehlt: ${name}`);
+  }
+  // Artikelliste zeigt Kategorien
+  const c = client(base);
+  await c.login();
+  const html = await (await c.req('/artikel')).text();
+  assert.match(html, /Organisation &amp; Digitalisierung/);
+  assert.match(html, /Event &amp; Ausstellung/);
+});

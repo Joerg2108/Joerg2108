@@ -46,9 +46,9 @@
     <div class="card-head">
       <h2>Positionen</h2>
       <% if (products.length) { %>
-      <select data-product-pick style="max-width:320px">
-        <option value="">+ Artikel aus Katalog einfügen …</option>
-        <% for (const p of products) { %><option value="<%= p.id %>"><%= p.name %> – <%= h.eur(p.price) %>/<%= p.unit %></option><% } %>
+      <select data-product-pick style="max-width:380px">
+        <option value="">+ Leistung aus Katalog einfügen …</option>
+        <% const cats = [...new Set(products.map((p) => p.category || 'Weitere'))]; for (const cat of cats) { %><optgroup label="<%= cat %>"><% for (const p of products.filter((x) => (x.category || 'Weitere') === cat)) { %><option value="<%= p.id %>"><%= p.name %> – <%= h.eur(p.price) %>/<%= p.unit %></option><% } %></optgroup><% } %>
       </select>
       <% } %>
     </div>

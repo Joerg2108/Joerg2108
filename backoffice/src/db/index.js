@@ -19,7 +19,8 @@ function open(file = config.dbFile) {
 
 // Spätere Schema-Änderungen hier als nummerierte Migrationen ergänzen.
 const migrations = [
-  // (db) => db.exec('ALTER TABLE customers ADD COLUMN foo TEXT'),
+  // 1: Kategorien für den Leistungskatalog
+  (d) => d.exec('ALTER TABLE products ADD COLUMN category TEXT'),
 ];
 
 function migrate(d) {

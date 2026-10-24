@@ -70,7 +70,7 @@ function lookups() {
   return {
     customers: db.all("SELECT id, number, company, first_name, last_name, payment_terms, discount_pct FROM customers WHERE anonymized = 0 AND status != 'inaktiv' ORDER BY COALESCE(company, last_name) COLLATE NOCASE"),
     projects: db.all("SELECT id, number, name, customer_id FROM projects WHERE status NOT IN ('abgeschlossen','storniert') ORDER BY name"),
-    products: db.all('SELECT * FROM products WHERE active = 1 ORDER BY name'),
+    products: db.all("SELECT * FROM products WHERE active = 1 ORDER BY COALESCE(category, 'zzz'), sku, name"),
   };
 }
 

@@ -8,7 +8,8 @@
     "dev": "node --no-warnings --watch src/server.js",
     "seed": "node --no-warnings src/db/seed.js",
     "test": "node --no-warnings --test tests/*.test.js",
-    "backup": "node --no-warnings src/lib/backup-cli.js"
+    "backup": "node --no-warnings src/lib/backup-cli.js",
+    "catalog": "node --no-warnings src/lib/catalog.js"
   },
   "author": "Jörg Noack",
   "license": "UNLICENSED",

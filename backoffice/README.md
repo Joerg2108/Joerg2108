@@ -80,6 +80,19 @@ Erste Schritte nach dem Login:
 
 ---
 
+### Leistungskatalog
+
+Der Katalog mit den Leistungen von Jörg Noack ist hinterlegt (`src/lib/catalog.js`). Eingespielt wird er über **Artikel & Leistungen → „Leistungskatalog einspielen“** oder per `npm run catalog`. Bei Demo-Daten passiert das automatisch.
+
+| Kategorie | Leistungen |
+|---|---|
+| Facility & Montage | Hausmeisterdienst (Std. / Monatspauschale), Einbau genormter Baufertigteile |
+| Event & Ausstellung | Künstlerbetreuung (Std. / Tagespauschale), Ausstellungsbau |
+| Digital & Marketing | Online-Marketing (Std. / Monatspauschale), Social-Media-Kommunikation (Std. / Monatspauschale), Kundenanfragen & digitale Vertriebsunterstützung |
+| Organisation & Digitalisierung | Prozess- und Projektkoordination, Digitalisierung von Verwaltungs-, Dokumentations- und Planungsabläufen, KI-Unterstützung, Einsatz- und Qualitätsplanung, Erstellung und Pflege von Dokumentationen, Berichtswesen und Auswertungen |
+
+Die Preise sind **Richtwerte** und lassen sich im Back Office ändern. Erneutes Einspielen ergänzt nur fehlende Leistungen und überschreibt keine eigenen Preise oder Texte.
+
 ## Produktivbetrieb (Server)
 
 ### Variante A: Docker (empfohlen)

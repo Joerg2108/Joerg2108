@@ -19,7 +19,7 @@ const f = require('../lib/format');
 db.open();
 
 settings.setMany({
-  company_name: 'Jörg Noack Sicherheitsdienstleistungen',
+  company_name: 'Jörg Noack Dienstleistungen',
   company_owner: 'Jörg Noack',
   company_street: 'Musterstraße 12',
   company_zip: '10115',
@@ -69,7 +69,8 @@ const products = [
   ['KO-01', 'Sicherheitskonzept / Gefährdungsanalyse', 'Erstellung inkl. Begehung', 'Pauschal', 89000],
   ['SC-01', 'Schulung Hausrecht & Deeskalation', 'Halbtagesschulung bis 12 Personen', 'Pauschal', 69000],
 ];
-for (const p of products) db.run('INSERT INTO products (sku, name, description, unit, price, tax_rate) VALUES (?, ?, ?, ?, ?, 19)', ...p);
+for (const p of products) db.run("INSERT INTO products (sku, name, description, unit, price, tax_rate, category) VALUES (?, ?, ?, ?, ?, 19, 'Sicherheitsdienst')", ...p);
+require('../lib/catalog').importCatalog();
 
 const pid = (name, customerId, status, budget, rate) => Number(db.run(
   'INSERT INTO projects (number, name, customer_id, status, start_date, budget, hourly_rate, manager_id, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
