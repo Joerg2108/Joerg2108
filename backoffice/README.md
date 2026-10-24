@@ -112,7 +112,7 @@ Im Render-Dashboard: **New + → Blueprint →** Repository wählen, `ADMIN_EMAI
 
 ### Demo-Version für Interessenten
 
-Eine **separate, öffentliche Vorführ-Instanz** mit der fiktiven *Muster Service GmbH*: Ein-Klick-Login für drei Rollen, Demo-Banner mit „Für Ihr Unternehmen anfragen“, Rundgang auf dem Dashboard, automatischer Reset alle 6 Stunden, gesperrte Zugangsdaten und kein E-Mail-Versand. Aktiviert wird sie mit `DEMO_MODE=1`. Auf Render läuft sie kostenlos über **`render-demo.yaml`**.
+Eine **separate, öffentliche Vorführ-Instanz** mit der fiktiven *Muster Service GmbH*: Ein-Klick-Login für drei Rollen, Demo-Banner mit „Für Ihr Unternehmen anfragen“, Rundgang auf dem Dashboard, automatischer Reset alle 6 Stunden, gesperrte Zugangsdaten und kein E-Mail-Versand. Aktiviert wird sie mit `DEMO_MODE=1`. Auf Render ist sie als zweiter, kostenloser Dienst **`backoffice-demo`** in `render.yaml` eingetragen und wird mit dem Blueprint automatisch angelegt.
 
 ```bash
 DEMO_MODE=1 DATA_DIR=./demo-data npm start      # lokal ausprobieren

@@ -4,7 +4,7 @@ Render betreibt das Back Office für dich: Server, HTTPS-Zertifikat, Neustarts u
 
 Zeitaufwand: etwa **15 Minuten**, mit eigener Domain etwas mehr.
 
-> Du suchst die **öffentliche Demo für Interessenten**? Die läuft als eigener, kostenloser Dienst über `render-demo.yaml`: siehe **[DEMO.md](DEMO.md)**.
+> Du suchst die **öffentliche Demo für Interessenten**? Sie steht als zweiter, kostenloser Dienst `backoffice-demo` in derselben `render.yaml` und wird automatisch mit angelegt: siehe **[DEMO.md](DEMO.md)**.
 
 ---
 
@@ -39,6 +39,7 @@ Render baut das Back Office direkt aus deinem GitHub-Repository **Joerg2108/Joer
 5. Render liest `render.yaml` und zeigt an, was angelegt wird:
    - Web Service **backoffice** (Region Frankfurt, Tarif Starter)
    - Disk **backoffice-data** (1 GB, unter `/var/data`)
+   - Web Service **backoffice-demo** (Free, kostenlos): die öffentliche Demo für Interessenten, siehe [DEMO.md](DEMO.md)
 6. Render fragt zwei Werte ab:
 
    | Variable | Was eintragen |

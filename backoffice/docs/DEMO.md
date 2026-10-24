@@ -41,18 +41,17 @@ Zum Schutz echter Daten wird nichts gelöscht. Demo-Instanzen brauchen ein eigen
 
 ---
 
-## Demo auf Render einrichten (kostenlos)
+## Demo auf Render (kostenlos)
 
-Die Datei **`render-demo.yaml`** im Hauptordner des Repositorys enthält alles. Die Demo läuft im **Free-Tarif**: Eine Disk braucht sie nicht, denn Datenverlust ist hier ja gewollt.
+Die Demo steht als zweiter Dienst **`backoffice-demo`** in der **`render.yaml`** im Hauptordner des Repositorys, direkt neben dem echten Back Office. Sie läuft im **Free-Tarif** ohne Disk, denn Datenverlust ist hier ja gewollt.
 
-1. In **[dashboard.render.com](https://dashboard.render.com)** auf **„New +“ → „Blueprint“** klicken.
-2. Das Repository **Joerg2108/Joerg2108** wählen.
-3. Bei **„Blueprint Path“** `render-demo.yaml` eintragen (statt `render.yaml`).
-4. Als Namen z. B. „Back Office Demo“ eingeben und **„Apply“** klicken.
+**Du hast den Blueprint schon angelegt?** Dann musst du nichts tun. Sobald die neue `render.yaml` im Standard-Branch ist, legt Render den Dienst `backoffice-demo` automatisch an. Falls nicht, klickst du im Render-Dashboard unter **Blueprints** → dein Blueprint → **„Manual Sync“**.
 
-Nach 2 bis 4 Minuten läuft die Demo unter einer Adresse wie `https://backoffice-demo-xxxx.onrender.com`.
+**Noch kein Blueprint?** Dann richtest du ihn wie in [RENDER.md](RENDER.md) beschrieben ein (**New + → Blueprint**). Dabei werden das Back Office **und** die Demo angelegt.
 
-> **Falls das Feld „Blueprint Path“ fehlt:** Lege den Dienst von Hand an: **New + → Web Service**, Repository wählen, dann
+Nach 2 bis 4 Minuten läuft die Demo unter einer Adresse wie `https://backoffice-demo-xxxx.onrender.com`. Die genaue Adresse steht oben im Dashboard des Dienstes `backoffice-demo`.
+
+> **Nur die Demo, ohne Back Office?** Dann legst du den Dienst von Hand an: **New + → Web Service**, Repository wählen, dann
 > Root Directory `backoffice`, Build Command `npm ci --omit=dev`, Start Command `node --no-warnings src/server.js`, Region Frankfurt, Instance Type **Free**, Health Check Path `/healthz`.
 > Unter **Environment** diese Variablen eintragen:
 >
@@ -66,6 +65,12 @@ Nach 2 bis 4 Minuten läuft die Demo unter einer Adresse wie `https://backoffice
 > | `DEMO_RESET_HOURS` | `6` |
 > | `DEMO_CONTACT_URL` | `https://joerg-noack.com/kontakt` |
 > | `DEMO_VENDOR` | `Jörg Noack` |
+
+### Prüfen, ob alles läuft
+
+1. `https://backoffice-demo-xxxx.onrender.com/healthz` muss `{"ok":true}` zeigen.
+2. Auf der Anmeldeseite stehen die drei Rollen-Buttons und oben das gelbe Demo-Banner.
+3. Im Render-Log steht `Demo-Daten zurückgesetzt (nächster Reset in 6 Std.)`.
 
 ### Free-Tarif: Was du wissen solltest
 
