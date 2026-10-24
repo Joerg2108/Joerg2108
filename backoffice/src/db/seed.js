@@ -164,6 +164,50 @@ for (let m = 5; m >= 0; m--) {
 exp(ago(50), 'Workwear Profi GmbH', 'Ausrüstung', 'Dienstkleidung & Warnwesten', 64260);
 exp(ago(12), null, 'Fortbildung', 'Sachkundeprüfung § 34a Mitarbeiter', 21000, 0);
 
+// Dienstplanung: Qualifikationen, Personal, Nachweise, Urlaub, Schichten (aktuelle + nächste Woche)
+const qt = (name, months, desc) => Number(db.run('INSERT INTO qualification_types (name, validity_months, description) VALUES (?, ?, ?)', name, months, desc).lastInsertRowid);
+const q34aU = qt('Unterrichtung § 34a GewO', null, 'IHK-Unterrichtung (40 Std.)');
+const q34aS = qt('Sachkundeprüfung § 34a GewO', null, 'Pflicht u. a. für Eingangsbereiche von Veranstaltungen, Streifen, Ladendetektive');
+const qEH = qt('Ersthelfer', 24, 'Erste-Hilfe-Ausbildung, Auffrischung alle 2 Jahre');
+const qBS = qt('Brandschutzhelfer', 36, 'nach ASR A2.2');
+const qFS = qt('Führerschein Klasse B', null, '');
+const staffRow = (no, first, last, emp, hours, wage, color, userId) => Number(db.run(
+  'INSERT INTO staff (personnel_no, first_name, last_name, email, phone, employment, weekly_hours, hourly_wage, color, user_id, bewacher_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+  no, first, last, `${first.toLowerCase()}@example.com`, '0170 000000' + no.slice(-1), emp, hours, wage, color, userId, `BWR-${no}`,
+).lastInsertRowid);
+const s1 = staffRow('1001', 'Max', 'Wachsam', 'vollzeit', 40, 1600, 'blau', staff);
+const s2 = staffRow('1002', 'Sandra', 'Sicher', 'vollzeit', 40, 1650, 'gruen', null);
+const s3 = staffRow('1003', 'Ali', 'Aufpasser', 'teilzeit', 25, 1550, 'orange', null);
+const s4 = staffRow('1004', 'Lena', 'Lotse', 'minijob', 8, 1390, 'lila', null);
+const sq = (sid, tid, issued, expires) => db.run('INSERT INTO staff_qualifications (staff_id, type_id, issued_at, expires_at) VALUES (?, ?, ?, ?)', sid, tid, issued, expires);
+for (const sid of [s1, s2, s3, s4]) sq(sid, q34aU, '2022-03-01', null);
+sq(s1, q34aS, '2023-05-10', null); sq(s2, q34aS, '2021-09-01', null);
+sq(s1, qEH, ago(400), f.addDays(today, 20)); sq(s2, qEH, ago(100), f.addDays(today, 630)); sq(s3, qEH, ago(800), ago(70));
+sq(s2, qBS, ago(200), f.addDays(today, 900)); sq(s1, qFS, '2010-01-01', null); sq(s3, qFS, '2015-01-01', null);
+const mon = f.addDays(today, -((new Date(today + 'T12:00:00Z').getUTCDay() + 6) % 7));
+db.run("INSERT INTO absences (staff_id, type, date_from, date_to, note) VALUES (?, 'urlaub', ?, ?, 'Jahresurlaub')", s3, f.addDays(mon, 10), f.addDays(mon, 13));
+const shift = (sid, dayOffset, from, to, brk, title, project, reqs, status = 'bestaetigt') => {
+  const day = f.addDays(mon, dayOffset);
+  const end = to <= from ? f.addDays(day, 1) : day;
+  db.run('INSERT INTO shifts (staff_id, project_id, customer_id, title, location, starts_at, ends_at, break_minutes, status, required_qualifications, created_by) VALUES (?, ?, (SELECT customer_id FROM projects WHERE id = ?), ?, ?, ?, ?, ?, ?, ?, ?)',
+    sid, project, project, title, project === p1 ? 'Industriestraße 5, Berlin' : 'Am Ufer 9, Berlin', `${day}T${from}`, `${end}T${to}`, brk, status, reqs, admin);
+};
+for (let w = 0; w < 2; w++) {
+  for (let d = 0; d < 7; d++) {
+    const o = w * 7 + d;
+    const st = w ? 'geplant' : 'bestaetigt';
+    // Feste Schichtgruppen (keine Ruhezeitverstöße): Sandra Früh, Max Spät, Ali Nacht Mo–Do
+    if (d < 5) shift(s2, o, '06:00', '14:00', 30, 'Objektschutz Frühdienst', p1, String(q34aU), st);
+    if (d < 5) shift(s1, o, '14:00', '22:00', 30, 'Objektschutz Spätdienst', p1, String(q34aU), st);
+    if (d < 4 && !(w === 1 && d === 3)) shift(s3, o, '22:00', '06:00', 45, 'Objektschutz Nachtdienst', p1, String(q34aU), st);
+    else shift(null, o, '22:00', '06:00', 45, 'Objektschutz Nachtdienst', p1, `${q34aU},${qEH}`, 'geplant');
+    if (d === 5) shift(null, o, '08:00', '18:00', 60, 'Objektschutz Wochenende', p1, String(q34aU), 'geplant');
+  }
+}
+// Bewusste Beispiele für die Konfliktprüfung: fehlende Sachkunde und abgelaufener Ersthelfer
+shift(s4, 5, '18:00', '23:00', 0, 'Einlasskontrolle Sommerfest', p2, String(q34aS));
+shift(s3, 5, '18:00', '02:00', 30, 'Veranstaltungsschutz Sommerfest', p2, `${q34aU},${qEH}`);
+
 db.run("INSERT INTO notifications (user_id, title, link) VALUES (NULL, 'Willkommen im Back Office! Starte mit den Einstellungen.', '/admin/einstellungen')");
 
 console.log('Demo-Daten angelegt.');

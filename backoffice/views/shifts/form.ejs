@@ -1,0 +1,37 @@
+<div class="page-head"><h1><%= title %></h1>
+<% if (s.id) { %><div class="actions">
+  <% for (const [k, v] of Object.entries(STATUS)) { if (k === s.status) continue; %><form method="post" action="/dienstplan/schicht/<%= s.id %>/status"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="status" value="<%= k %>"><button class="btn sm"><%= v %></button></form><% } %>
+  <form method="post" action="/dienstplan/schicht/<%= s.id %>/loeschen" data-confirm="Schicht löschen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm danger">Löschen</button></form>
+</div><% } %></div>
+<% if (warnings.length) { %>
+  <div class="alert <%= warnings.some((w) => w.level === 'error') ? 'error' : 'warning' %>"><strong>Prüfung:</strong><ul style="margin:6px 0 0 18px;padding:0"><% for (const w of warnings) { %><li><%= w.text %></li><% } %></ul></div>
+<% } %>
+<form method="post" action="<%= s.id ? '/dienstplan/schicht/' + s.id : '/dienstplan/schicht' %>" class="card form-grid">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <%- h.input('title', 'Einsatz / Bezeichnung', s.title, { required: true, cls: 'span-6', placeholder: 'z. B. Objektschutz Tor 1, Einlasskontrolle, Revierfahrt' }) %>
+  <%- h.input('location', 'Einsatzort', s.location, { cls: 'span-6' }) %>
+  <%- h.input('date', 'Datum', s.date, { type: 'date', required: true, cls: 'span-3' }) %>
+  <%- h.input('from', 'Beginn', s.from, { type: 'time', required: true, cls: 'span-2' }) %>
+  <%- h.input('to', 'Ende', s.to, { type: 'time', required: true, cls: 'span-2', hint: 'Ende < Beginn = über Mitternacht' }) %>
+  <%- h.input('break_minutes', 'Pause (Min.)', s.break_minutes, { type: 'number', min: 0, cls: 'span-2' }) %>
+  <%- h.select('status', 'Status', s.status, STATUS, { cls: 'span-3' }) %>
+  <%- h.select('staff_id', 'Mitarbeiter', s.staff_id, staff.map((x) => [x.id, x.last_name + ', ' + x.first_name]), { empty: '– offene Schicht –', cls: 'span-4' }) %>
+  <%- h.select('project_id', 'Projekt / Objekt', s.project_id, projects.map((p) => [p.id, p.number + ' – ' + p.name]), { empty: '–', cls: 'span-4' }) %>
+  <%- h.select('customer_id', 'Kunde (falls ohne Projekt)', s.customer_id, customers.map((c) => [c.id, h.customerName(c)]), { empty: '–', cls: 'span-4' }) %>
+  <div class="span-12 field"><span>Erforderliche Qualifikationen</span>
+    <div style="display:flex;flex-wrap:wrap;gap:6px 18px"><% for (const t of types) { %><label class="check"><input type="checkbox" name="required_qualifications" value="<%= t.id %>" <%= s.req.includes(t.id) ? 'checked' : '' %>> <%= t.name %></label><% } %>
+    <% if (!types.length) { %><small class="muted">Noch keine Qualifikationen angelegt – <a href="/personal/qualifikationen">jetzt anlegen</a>.</small><% } %></div></div>
+  <%- h.input('notes', 'Hinweise für den Einsatz', s.notes, { type: 'textarea', rows: 2, cls: 'span-12' }) %>
+  <% if (!s.id) { %>
+  <fieldset class="span-12"><legend>Serie (optional)</legend>
+    <div class="form-grid">
+      <div class="span-8 field"><span>Wiederholen an</span><div style="display:flex;gap:12px;flex-wrap:wrap"><% ['Mo','Di','Mi','Do','Fr','Sa','So'].forEach((d, i) => { %><label class="check"><input type="checkbox" name="repeat_days" value="<%= i %>"> <%= d %></label><% }) %></div></div>
+      <%- h.input('repeat_until', 'bis einschließlich', '', { type: 'date', cls: 'span-4' }) %>
+    </div>
+    <small class="muted">Kollidiert eine Serienschicht mit Urlaub oder anderer Schicht, wird sie als offene Schicht angelegt.</small>
+  </fieldset>
+  <% } %>
+  <% if (warnings.some((w) => w.level === 'error')) { %><div class="span-12"><%- h.checkbox('force', 'Trotz Konflikt speichern (begründete Ausnahme)', false) %></div><% } %>
+  <% if (typeof split !== 'undefined' && split) { %><div class="span-12 small muted">Arbeitszeit <%= h.minutes(split.total) %> · Nacht <%= h.minutes(split.night) %> · Sonntag <%= h.minutes(split.sunday) %> · Feiertag <%= h.minutes(split.holiday) %></div><% } %>
+  <div class="span-12 sticky-actions"><a class="btn" href="/dienstplan?woche=<%= s.date %>">Abbrechen</a><button class="btn primary">Speichern</button></div>
+</form>

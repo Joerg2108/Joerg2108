@@ -1,5 +1,5 @@
 <%
-  const tabs = { firma: 'Firma', bank: 'Bank & Steuern', belege: 'Belege & Texte', mahnwesen: 'Mahnwesen', email: 'E-Mail-Vorlagen', design: 'Design', system: 'System' };
+  const tabs = { firma: 'Firma', bank: 'Bank & Steuern', belege: 'Belege & Texte', mahnwesen: 'Mahnwesen', email: 'E-Mail-Vorlagen', dienstplan: 'Dienstplan', design: 'Design', system: 'System' };
   const checks = { steuern: 'small_business', bank: 'small_business', system: 'backup_auto' };
 %>
 <div class="page-head"><h1>Einstellungen</h1></div>
@@ -79,6 +79,15 @@
     <%- h.input('email_quote_subject', 'Angebot: Betreff', s.email_quote_subject, { cls: 'span-12' }) %>
     <%- h.input('email_quote_body', 'Angebot: Text', s.email_quote_body, { type: 'textarea', rows: 6, cls: 'span-12' }) %>
     <%- h.input('lead_notify_email', 'Benachrichtigung bei Website-Anfragen an', s.lead_notify_email, { type: 'email', cls: 'span-12', hint: 'Leer = Firmen-E-Mail' }) %>
+  <% } else if (tab === 'dienstplan') { %>
+    <%- h.select('holiday_state', 'Bundesland (Feiertage)', s.holiday_state, { BW: 'Baden-Württemberg', BY: 'Bayern', BE: 'Berlin', BB: 'Brandenburg', HB: 'Bremen', HH: 'Hamburg', HE: 'Hessen', MV: 'Mecklenburg-Vorpommern', NI: 'Niedersachsen', NW: 'Nordrhein-Westfalen', RP: 'Rheinland-Pfalz', SL: 'Saarland', SN: 'Sachsen', ST: 'Sachsen-Anhalt', SH: 'Schleswig-Holstein', TH: 'Thüringen' }, { cls: 'span-4' }) %>
+    <%- h.input('night_from', 'Nachtzeit ab (Uhr)', s.night_from, { type: 'number', min: 18, max: 23, cls: 'span-4', hint: '§ 3b EStG: 20 Uhr' }) %>
+    <%- h.input('minijob_limit', 'Minijob-Grenze €/Monat', s.minijob_limit, { cls: 'span-4', hint: 'jährlich prüfen (an Mindestlohn gekoppelt)' }) %>
+    <div class="span-12"><h3 style="margin:8px 0 0">Abrechnung an Kunden</h3></div>
+    <%- h.input('shift_rate', 'Standard-Stundensatz € (falls Projekt keinen hat)', s.shift_rate, { cls: 'span-3' }) %>
+    <%- h.input('surcharge_night_pct', 'Nachtzuschlag %', s.surcharge_night_pct, { type: 'number', min: 0, cls: 'span-3' }) %>
+    <%- h.input('surcharge_sunday_pct', 'Sonntagszuschlag %', s.surcharge_sunday_pct, { type: 'number', min: 0, cls: 'span-3' }) %>
+    <%- h.input('surcharge_holiday_pct', 'Feiertagszuschlag %', s.surcharge_holiday_pct, { type: 'number', min: 0, cls: 'span-3' }) %>
   <% } else if (tab === 'system') { %>
     <div class="span-12"><%- h.checkbox('backup_auto', 'Tägliches automatisches Backup', s.backup_auto === '1') %></div>
     <div class="span-12"><p>SMTP-Versand: <%- mailEnabled ? h.badge('aktiv', 'eingerichtet') : h.badge('offen', 'nicht eingerichtet') %> <span class="small muted">(Konfiguration in der Datei <code>.env</code>)</span></p></div>

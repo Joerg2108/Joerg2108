@@ -59,6 +59,17 @@
     </div>
   </div>
   <div>
+    <% if (myShifts.length) { %>
+    <div class="card"><div class="card-head"><h2>Meine nächsten Schichten</h2><a href="/dienstplan">Plan →</a></div>
+      <% for (const s of myShifts) { %><div style="padding:5px 0;border-bottom:1px solid var(--border)"><strong><%= h.date(s.starts_at) %></strong> <%= s.starts_at.slice(11) %>–<%= s.ends_at.slice(11) %><div class="small muted"><%= s.title %><%= s.location ? ' · ' + s.location : '' %></div></div><% } %>
+    </div>
+    <% } %>
+    <% if (roster && (roster.open || roster.expiring.length)) { %>
+    <div class="card"><div class="card-head"><h2>Einsatzplanung</h2><a href="/dienstplan">Dienstplan →</a></div>
+      <% if (roster.open) { %><p class="neg"><strong><%= roster.open %></strong> offene Schicht(en) in den nächsten 14 Tagen</p><% } %>
+      <% for (const q of roster.expiring) { %><div class="small"><a href="/personal/<%= q.staff_id %>"><%= q.first_name %> <%= q.last_name %></a>: <%= q.type_name %> <%= q.expires_at < today ? 'abgelaufen' : 'bis ' + h.date(q.expires_at) %></div><% } %>
+    </div>
+    <% } %>
     <div class="card">
       <div class="card-head"><h2>Meine Aufgaben</h2><a class="btn sm" href="/aufgaben/neu"><%- h.icon('plus') %></a></div>
       <% if (!tasks.length) { %><p class="muted">Alles erledigt.</p><% } %>

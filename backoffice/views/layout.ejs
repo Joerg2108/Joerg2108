@@ -27,6 +27,10 @@
     { perm: 'tasks', href: '/aufgaben', icon: 'check', label: 'Aufgaben' },
     { perm: 'calendar', href: '/kalender', icon: 'calendar', label: 'Kalender' },
     { perm: 'time', href: '/zeiten', icon: 'clock', label: 'Zeiterfassung' },
+    { section: 'Einsatzplanung', perm: 'shifts.view' },
+    { perm: 'shifts.view', href: '/dienstplan', icon: 'calendar', label: 'Dienstplan' },
+    { perm: 'shifts', href: '/dienstplan/auswertung', icon: 'chart', label: 'Stundenauswertung' },
+    { perm: 'staff', href: '/personal', icon: 'shield', label: 'Personal & Qualifikationen' },
     { section: 'Finanzen', perm: 'expenses' },
     { perm: 'expenses', href: '/ausgaben', icon: 'receipt', label: 'Ausgaben' },
     { perm: 'expenses', href: '/ausgaben/lieferanten', icon: 'truck', label: 'Lieferanten' },
@@ -39,7 +43,7 @@
     { perm: 'admin', href: '/admin/protokoll', icon: 'shield', label: 'Protokoll' },
     { perm: 'admin', href: '/admin/backups', icon: 'box', label: 'Backups' },
   ];
-  const active = (n) => n.exact ? path === n.href : (path === n.href || path.startsWith(n.href + '/')) && !(n.href === '/ausgaben' && path.startsWith('/ausgaben/lieferanten'));
+  const active = (n) => n.exact ? path === n.href : (path === n.href || path.startsWith(n.href + '/')) && !(n.href === '/ausgaben' && path.startsWith('/ausgaben/lieferanten')) && !(n.href === '/dienstplan' && path.startsWith('/dienstplan/auswertung'));
 %>
 <div class="app">
   <aside class="sidebar" id="sidebar">

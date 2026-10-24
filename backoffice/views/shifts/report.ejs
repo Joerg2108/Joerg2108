@@ -1,0 +1,39 @@
+<div class="page-head">
+  <div><h1>Stundenauswertung</h1><div class="sub"><%= h.date(from) %> – <%= h.date(to) %> · Feiertage: <%= state %></div></div>
+  <div class="actions"><a class="btn" href="/dienstplan/auswertung.csv?von=<%= from %>&bis=<%= to %>">CSV für Lohnbuchhaltung</a><a class="btn" href="/dienstplan">← Dienstplan</a></div>
+</div>
+<form class="filters"><%- h.input('von', 'Von', from, { type: 'date' }) %><%- h.input('bis', 'Bis', to, { type: 'date' }) %><button class="btn">Anzeigen</button></form>
+<div class="card flush"><div class="table-wrap">
+<% if (!rows.length) { %><div class="empty">Keine Schichten im Zeitraum.</div><% } else { %>
+<table>
+  <thead><tr><th>Mitarbeiter</th><th class="num">Schichten</th><th class="num">Ist</th><th class="num">Soll</th><th class="num">Saldo</th><th class="num">Nacht 20–6</th><th class="num">davon 0–4</th><th class="num">Sonntag</th><th class="num">Feiertag</th><th class="num">Grundlohn</th></tr></thead>
+  <tbody><% for (const r of rows) { %>
+    <tr><td><a href="/personal/<%= r.staff_id %>"><%= r.name %></a> <span class="tag"><%= r.employment %></span><% if (r.minijobOver) { %> <%- h.badge('ueberfaellig', 'Minijob-Grenze!') %><% } %></td>
+      <td class="num"><%= r.shifts %></td><td class="num"><%= h.minutes(r.total) %></td><td class="num muted"><%= h.minutes(r.target) %></td>
+      <td class="num <%= r.diff > 0 ? 'neg' : 'pos' %>"><%= r.diff < 0 ? '−' : '+' %><%= h.minutes(Math.abs(r.diff)) %></td>
+      <td class="num"><%= h.minutes(r.night) %></td><td class="num"><%= h.minutes(r.coreNight) %></td><td class="num"><%= h.minutes(r.sunday) %></td><td class="num"><%= h.minutes(r.holiday) %></td><td class="num"><%= h.eur(r.wage) %></td></tr>
+  <% } %></tbody>
+</table>
+<% } %>
+</div></div>
+<div class="grid c2">
+  <div class="card"><h2>Hinweise</h2>
+    <ul class="small">
+      <li>Nacht/Sonntag/Feiertag sind die Zeitfenster für steuerfreie SFN-Zuschläge nach § 3b EStG (Nacht 25 %, 0–4 Uhr 40 % bei Beginn vor 0 Uhr, Sonntag 50 %, Feiertag 125 %). Die konkrete Zuschlagshöhe regelt dein Arbeits-/Tarifvertrag (z. B. BDSW-Tarif).</li>
+      <li>Soll = Wochenstunden laut Personalstamm, anteilig auf den Zeitraum.</li>
+      <li>Minijob-Prüfung gegen die Grenze aus den Einstellungen (Grundlohn ohne Zuschläge).</li>
+      <li>Werte zur Lohnvorbereitung – die Lohnabrechnung selbst erfolgt im Lohnprogramm bzw. beim Steuerberater.</li>
+    </ul>
+    <% if (holidays.length) { %><p class="small"><strong>Feiertage im Zeitraum:</strong> <%= holidays.map(([d, n]) => h.date(d) + ' ' + n).join(', ') %></p><% } %>
+  </div>
+  <% if (can('sales')) { %>
+  <form class="card form-grid" method="post" action="/dienstplan/abrechnen" data-confirm="Schichten dieses Projekts im Zeitraum in einen Rechnungsentwurf übernehmen?">
+    <input type="hidden" name="_csrf" value="<%= csrf %>">
+    <h2 class="span-12">Schichten an Kunden abrechnen</h2>
+    <%- h.select('project_id', 'Projekt / Objekt', '', projects.map((p) => [p.id, p.number + ' – ' + p.name]), { required: true, cls: 'span-12' }) %>
+    <%- h.input('von', 'Von', from, { type: 'date', required: true }) %><%- h.input('bis', 'Bis', to, { type: 'date', required: true }) %>
+    <p class="span-12 small muted">Erzeugt einen Rechnungsentwurf: Einsatzstunden × Stundensatz des Projekts (sonst Standardsatz) plus Nacht-, Sonntags- und Feiertagszuschläge laut Einstellungen → Dienstplan. Abgerechnete Schichten werden gesperrt.</p>
+    <div class="span-12"><button class="btn primary">Rechnungsentwurf erstellen</button></div>
+  </form>
+  <% } %>
+</div>

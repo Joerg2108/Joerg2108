@@ -20,6 +20,7 @@ function jobs() {
   try {
     const created = sales.runRecurring();
     if (created.length) console.log(`Wiederkehrende Rechnungen erzeugt: ${created.length}`);
+    require('./lib/shifts').notifyExpiring();
     db.run("DELETE FROM sessions WHERE expires_at < datetime('now')");
     db.run("DELETE FROM password_resets WHERE expires_at < datetime('now') OR used = 1");
     if (settings.get('backup_auto') === '1') {

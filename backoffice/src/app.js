@@ -90,6 +90,8 @@ function createApp() {
   app.use('/aufgaben', require('./routes/tasks'));
   app.use('/kalender', require('./routes/calendar'));
   app.use('/zeiten', require('./routes/time'));
+  app.use('/dienstplan', require('./routes/shifts'));
+  app.use('/personal', require('./routes/staff'));
   app.use('/ausgaben', require('./routes/expenses'));
   app.use('/dateien', require('./routes/files'));
   app.use('/berichte', require('./routes/reports'));

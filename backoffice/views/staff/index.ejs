@@ -1,0 +1,20 @@
+<div class="page-head">
+  <div><h1>Personal</h1><div class="sub"><%= rows.length %> Mitarbeiter</div></div>
+  <div class="actions"><a class="btn" href="/personal/qualifikationen">Qualifikationen</a><a class="btn" href="?alle=<%= showAll ? '0' : '1' %>"><%= showAll ? 'Nur aktive' : 'Auch inaktive' %></a><a class="btn primary" href="/personal/neu"><%- h.icon('plus') %> Mitarbeiter</a></div>
+</div>
+<% if (expiring.length) { %>
+<div class="alert warning"><strong>Ablaufende Nachweise (60 Tage):</strong>
+  <% for (const q of expiring) { %><div><a href="/personal/<%= q.staff_id %>"><%= q.first_name %> <%= q.last_name %></a>: <%= q.type_name %> – <%= q.expires_at < today ? 'abgelaufen seit' : 'gültig bis' %> <%= h.date(q.expires_at) %></div><% } %>
+</div>
+<% } %>
+<div class="card flush"><div class="table-wrap">
+<% if (!rows.length) { %><div class="empty">Noch kein Personal. <a href="/personal/neu">Jetzt anlegen</a>.</div><% } else { %>
+<table><thead><tr><th>Pers.-Nr.</th><th>Name</th><th>Beschäftigung</th><th class="num">Std./Woche</th><th>Bewacher-ID</th><th>Kontakt</th><th>Nachweise</th><th>Status</th></tr></thead><tbody>
+<% for (const s of rows) { %>
+  <tr class="row-link" data-href="/personal/<%= s.id %>"><td class="mono"><%= s.personnel_no || '' %></td><td><a href="/personal/<%= s.id %>"><strong><%= s.last_name %>, <%= s.first_name %></strong></a></td>
+  <td><%= EMPLOYMENT[s.employment] %></td><td class="num"><%= h.num(s.weekly_hours) %></td><td class="mono small"><%= s.bewacher_id || '–' %></td>
+  <td class="small"><%= s.phone || '' %><br><%= s.email || '' %></td>
+  <td><%= s.quals %><% if (s.next_expiry) { %> <%- s.next_expiry < today ? h.badge('ueberfaellig', 'abgelaufen') : s.next_expiry < soon ? h.badge('offen', 'läuft ab') : '' %><% } %></td>
+  <td><%- s.active ? h.badge('aktiv') : h.badge('inaktiv') %></td></tr>
+<% } %></tbody></table><% } %>
+</div></div>

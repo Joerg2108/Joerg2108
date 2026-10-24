@@ -395,3 +395,72 @@ CREATE TABLE IF NOT EXISTS counters (
   name  TEXT PRIMARY KEY,
   value INTEGER NOT NULL DEFAULT 0
 );
+
+-- ───────── Dienstplanung (Personal, Qualifikationen, Schichten) ─────────
+CREATE TABLE IF NOT EXISTS staff (
+  id             INTEGER PRIMARY KEY AUTOINCREMENT,
+  personnel_no   TEXT UNIQUE,
+  first_name     TEXT NOT NULL,
+  last_name      TEXT NOT NULL,
+  email          TEXT,
+  phone          TEXT,
+  user_id        INTEGER REFERENCES users(id) ON DELETE SET NULL,
+  employment     TEXT NOT NULL DEFAULT 'vollzeit' CHECK (employment IN ('vollzeit','teilzeit','minijob','aushilfe','freelancer')),
+  weekly_hours   REAL NOT NULL DEFAULT 40,
+  hourly_wage    INTEGER NOT NULL DEFAULT 0,
+  bewacher_id    TEXT,
+  color          TEXT NOT NULL DEFAULT 'blau',
+  active         INTEGER NOT NULL DEFAULT 1,
+  notes          TEXT,
+  created_at     TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE TABLE IF NOT EXISTS qualification_types (
+  id              INTEGER PRIMARY KEY AUTOINCREMENT,
+  name            TEXT NOT NULL UNIQUE,
+  validity_months INTEGER,
+  description     TEXT
+);
+
+CREATE TABLE IF NOT EXISTS staff_qualifications (
+  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  staff_id   INTEGER NOT NULL REFERENCES staff(id) ON DELETE CASCADE,
+  type_id    INTEGER NOT NULL REFERENCES qualification_types(id) ON DELETE CASCADE,
+  issued_at  TEXT,
+  expires_at TEXT,
+  file_id    INTEGER REFERENCES files(id) ON DELETE SET NULL,
+  note       TEXT,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS idx_staffq_staff ON staff_qualifications(staff_id);
+
+CREATE TABLE IF NOT EXISTS absences (
+  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  staff_id   INTEGER NOT NULL REFERENCES staff(id) ON DELETE CASCADE,
+  type       TEXT NOT NULL DEFAULT 'urlaub' CHECK (type IN ('urlaub','krank','frei','schulung','sonstiges')),
+  date_from  TEXT NOT NULL,
+  date_to    TEXT NOT NULL,
+  note       TEXT,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE TABLE IF NOT EXISTS shifts (
+  id            INTEGER PRIMARY KEY AUTOINCREMENT,
+  staff_id      INTEGER REFERENCES staff(id) ON DELETE SET NULL,
+  project_id    INTEGER REFERENCES projects(id) ON DELETE SET NULL,
+  customer_id   INTEGER REFERENCES customers(id) ON DELETE SET NULL,
+  title         TEXT NOT NULL,
+  location      TEXT,
+  starts_at     TEXT NOT NULL,
+  ends_at       TEXT NOT NULL,
+  break_minutes INTEGER NOT NULL DEFAULT 0,
+  status        TEXT NOT NULL DEFAULT 'geplant' CHECK (status IN ('geplant','bestaetigt','erledigt','abgesagt')),
+  required_qualifications TEXT,
+  notes         TEXT,
+  invoiced_in   INTEGER REFERENCES documents_sales(id) ON DELETE SET NULL,
+  created_by    INTEGER REFERENCES users(id) ON DELETE SET NULL,
+  created_at    TEXT NOT NULL DEFAULT (datetime('now')),
+  updated_at    TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS idx_shifts_start ON shifts(starts_at);
+CREATE INDEX IF NOT EXISTS idx_shifts_staff ON shifts(staff_id, starts_at);

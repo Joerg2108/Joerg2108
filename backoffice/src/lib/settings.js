@@ -51,6 +51,13 @@ const DEFAULTS = {
   lead_notify_email: '',
   expense_categories: 'Büromaterial,Fahrtkosten,Fortbildung,Hard- & Software,Kommunikation,Marketing,Miete,Versicherungen,Fahrzeug,Ausrüstung,Fremdleistungen,Bewirtung,Sonstiges',
   backup_auto: '1',
+  holiday_state: 'BE',
+  night_from: '20',
+  minijob_limit: '603,00',
+  shift_rate: '28,50',
+  surcharge_night_pct: '25',
+  surcharge_sunday_pct: '50',
+  surcharge_holiday_pct: '100',
 };
 
 let cache = null;

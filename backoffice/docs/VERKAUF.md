@@ -10,6 +10,14 @@
 - Handwerker, Agenturen, Berater, IT-Dienstleister, Hausverwaltungen, Vereine
 - Alle, die Lexoffice/sevDesk + CRM + Zeiterfassung + Projekttool durch **eine** Lösung ersetzen wollen
 
+## Killer-Feature für Sicherheitsdienste: Dienstplanung
+- Wochenplan mit offenen Schichten, Serien, „Woche kopieren“, PDF und Mailversand an die Wachleute
+- Automatische Prüfung: **Sachkunde/Unterrichtung § 34a, Ersthelfer & Co. abgelaufen?** Urlaub? Doppelt verplant? Ruhezeit/ArbZG?
+- Erinnerung, bevor Nachweise ablaufen (wichtig bei Kundenaudits und Ausschreibungen)
+- Nacht-/Sonntags-/Feiertagsstunden je Bundesland → CSV für die Lohnbuchhaltung
+- **Schichten mit Zuschlägen per Klick an den Kunden abrechnen**
+> Vergleichbare Branchenlösungen kosten 5–15 € pro Mitarbeiter und Monat. Bei 20 Wachleuten sind das bis zu 3.600 €/Jahr.
+
 ## Nutzenargumente
 | Statt … | … mit Back Office |
 |---|---|
@@ -28,6 +36,7 @@ Back Office ab 1.500 € einmalig + Hosting (≈ 5–10 €/Monat) → amortisie
 | **Basis** | Software-Lizenz, Installation auf Kundenserver/VPS, Einrichtung Firmendaten, Logo, Nummernkreise, 1 h Einweisung | **1.500 €** |
 | **Business** | Basis + Website-Formular einbauen, SMTP, HTTPS/Domain, Datenimport (CSV), Artikelkatalog, 3 h Schulung | **2.490 €** |
 | **Premium** | Business + individuelle Anpassungen (bis 8 h), DATEV-Abstimmung mit Steuerberater, Offsite-Backup | **3.900 €** |
+| **Security-Edition** | Business + Dienstplanung eingerichtet (Personal- & Nachweisimport, Objekte, Zuschlagssätze), Schulung Einsatzleitung | **3.490 €** |
 | Wartung (optional) | Updates, Sicherheits-Patches, Backup-Kontrolle, Support per Mail | **49–99 €/Monat** |
 | Hosting (optional) | Managed Server in DE inkl. Backups | **19–39 €/Monat** |
 
@@ -37,6 +46,7 @@ Back Office ab 1.500 € einmalig + Hosting (≈ 5–10 €/Monat) → amortisie
 3. Website-Anfrage → im Board auf „qualifiziert“ ziehen → „Als Kunde übernehmen“ → Angebot
 4. Angebot → Rechnung umwandeln → Festschreiben → PDF mit GiroCode → XRechnung
 5. Zahlung buchen, Mahnwesen, Stornorechnung zeigen (GoBD!)
+5b. Dienstplan: Konflikte (⚠ abgelaufener Ersthelfer, fehlende Sachkunde), offene Schichten, Woche kopieren, Stundenauswertung → „Schichten abrechnen“
 6. Stoppuhr starten, Projekt „Offene Zeiten abrechnen“
 7. Berichte: EÜR, USt-Kennziffern, DATEV-Export
 8. Sicherheit: 2FA, Rollen, Audit-Log „Integrität prüfen“

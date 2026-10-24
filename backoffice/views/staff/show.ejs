@@ -1,0 +1,61 @@
+<div class="page-head">
+  <div><h1><%= st.first_name %> <%= st.last_name %> <%- st.active ? h.badge('aktiv') : h.badge('inaktiv') %></h1><div class="sub"><%= EMPLOYMENT[st.employment] %> · <%= h.num(st.weekly_hours) %> Std./Woche<%= st.personnel_no ? ' · Pers.-Nr. ' + st.personnel_no : '' %></div></div>
+  <div class="actions"><a class="btn primary" href="/dienstplan/schicht/neu?ma=<%= st.id %>"><%- h.icon('plus') %> Schicht</a><a class="btn" href="/personal/<%= st.id %>/bearbeiten">Bearbeiten</a></div>
+</div>
+<div class="kpis">
+  <div class="kpi"><span>Stunden diesen Monat</span><strong><%= h.minutes(report ? report.total : 0) %></strong><small>Soll <%= h.minutes(report ? report.target : 0) %></small></div>
+  <div class="kpi"><span>Nacht / Sonntag / Feiertag</span><strong><%= h.minutes(report ? report.night : 0).replace(' h', '') %> · <%= h.minutes(report ? report.sunday : 0).replace(' h', '') %> · <%= h.minutes(report ? report.holiday : 0).replace(' h', '') %></strong><small>Stunden im Monat</small></div>
+  <div class="kpi"><span>Grundlohn Monat</span><strong><%= h.eur(report ? report.wage : 0) %></strong><small><%= st.hourly_wage ? h.eur(st.hourly_wage) + '/Std.' : 'kein Stundenlohn hinterlegt' %></small></div>
+</div>
+<div class="grid side">
+  <div>
+    <div class="card" id="qualifikationen">
+      <h2>Qualifikationen &amp; Nachweise</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Qualifikation</th><th>Erworben</th><th>Gültig bis</th><th>Nachweis</th><th></th></tr></thead>
+        <tbody><% for (const q of quals) { %>
+          <tr><td><strong><%= q.type_name %></strong><% if (q.note) { %><div class="small muted"><%= q.note %></div><% } %></td><td><%= h.date(q.issued_at) || '–' %></td>
+          <td><%= q.expires_at ? h.date(q.expires_at) : 'unbefristet' %> <%- q.expires_at && q.expires_at < today ? h.badge('ueberfaellig', 'abgelaufen') : q.expires_at && q.expires_at < soon ? h.badge('offen', 'läuft ab') : '' %></td>
+          <td><% if (q.file_id) { %><a href="/dateien/<%= q.file_id %>/download" target="_blank">📎 ansehen</a><% } %></td>
+          <td><form method="post" action="/personal/<%= st.id %>/qualifikationen/<%= q.id %>/loeschen" data-confirm="Nachweis entfernen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm ghost">✕</button></form></td></tr>
+        <% } %></tbody>
+      </table><% if (!quals.length) { %><div class="empty">Noch keine Nachweise erfasst.</div><% } %></div>
+      <form method="post" action="/personal/<%= st.id %>/qualifikationen?_csrf=<%= csrf %>" enctype="multipart/form-data" class="form-grid" style="margin-top:12px">
+        <%- h.select('type_id', 'Qualifikation', '', types.map((t) => [t.id, t.name + (t.validity_months ? ' (' + t.validity_months + ' Mon. gültig)' : '')]), { required: true, empty: '– wählen –', cls: 'span-4' }) %>
+        <%- h.input('issued_at', 'Erworben am', '', { type: 'date', cls: 'span-2' }) %>
+        <%- h.input('expires_at', 'Gültig bis', '', { type: 'date', cls: 'span-2', hint: 'leer = automatisch' }) %>
+        <label class="field span-4"><span>Nachweis (PDF/Foto)</span><input type="file" name="file" accept=".pdf,.png,.jpg,.jpeg,.heic"></label>
+        <%- h.input('note', 'Notiz', '', { cls: 'span-9' }) %>
+        <div class="span-3" style="align-self:end"><button class="btn">Hinzufügen</button></div>
+      </form>
+    </div>
+    <div class="card flush"><div class="card-head"><h2>Nächste Schichten</h2></div>
+      <div class="table-wrap"><table><tbody>
+      <% for (const s of upcoming) { %><tr class="row-link" data-href="/dienstplan/schicht/<%= s.id %>"><td class="nowrap"><%= h.date(s.starts_at) %></td><td class="nowrap"><%= s.starts_at.slice(11) %>–<%= s.ends_at.slice(11) %></td><td><%= s.title %></td><td><%- h.badge(s.status === 'bestaetigt' ? 'aktiv' : s.status === 'abgesagt' ? 'storniert' : 'geplant', s.status) %></td></tr><% } %>
+      </tbody></table><% if (!upcoming.length) { %><div class="empty">Keine geplanten Schichten.</div><% } %></div>
+    </div>
+  </div>
+  <div>
+    <div class="card"><h2>Stammdaten</h2>
+      <dl class="facts">
+        <% if (st.phone) { %><dt>Telefon</dt><dd><a href="tel:<%= st.phone %>"><%= st.phone %></a></dd><% } %>
+        <% if (st.email) { %><dt>E-Mail</dt><dd><a href="mailto:<%= st.email %>"><%= st.email %></a></dd><% } %>
+        <dt>Bewacher-ID</dt><dd><%= st.bewacher_id || '–' %></dd>
+        <dt>Stundenlohn</dt><dd><%= st.hourly_wage ? h.eur(st.hourly_wage) : '–' %></dd>
+      </dl>
+      <% if (st.notes) { %><hr><p style="white-space:pre-line"><%= st.notes %></p><% } %>
+    </div>
+    <div class="card" id="abwesenheiten"><h2>Abwesenheiten</h2>
+      <form method="post" action="/personal/<%= st.id %>/abwesenheiten" class="form-grid">
+        <input type="hidden" name="_csrf" value="<%= csrf %>">
+        <%- h.select('type', 'Art', 'urlaub', ABSENCE_LABELS, { cls: 'span-12' }) %>
+        <%- h.input('date_from', 'Von', today, { type: 'date', required: true }) %><%- h.input('date_to', 'Bis', today, { type: 'date', required: true }) %>
+        <%- h.input('note', 'Notiz', '', { cls: 'span-12' }) %>
+        <div class="span-12"><button class="btn">Eintragen</button></div>
+      </form>
+      <hr>
+      <% for (const a of absences) { %><div style="display:flex;justify-content:space-between;padding:4px 0"><span><span class="absence <%= a.type %>"><%= ABSENCE_LABELS[a.type] %></span> <%= h.date(a.date_from) %> – <%= h.date(a.date_to) %><%= a.note ? ' · ' + a.note : '' %></span>
+        <form method="post" action="/personal/<%= st.id %>/abwesenheiten/<%= a.id %>/loeschen"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm ghost">✕</button></form></div><% } %>
+    </div>
+  </div>
+</div>

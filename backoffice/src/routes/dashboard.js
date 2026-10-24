@@ -48,7 +48,14 @@ router.get('/', (req, res) => {
        WHERE d.kind='rechnung' AND d.status IN ('offen','teilbezahlt') AND d.due_date < ? ORDER BY d.due_date LIMIT 6`, today,
     )
     : [];
-  res.render('dashboard', { title: 'Dashboard', kpi, chart, tasks, appointments, leads, overdueList, today });
+  const shiftsLib = require('../lib/shifts');
+  const staffMe = db.get('SELECT id FROM staff WHERE user_id = ?', req.user.id);
+  const myShifts = staffMe ? db.all("SELECT * FROM shifts WHERE staff_id = ? AND ends_at >= ? AND status != 'abgesagt' ORDER BY starts_at LIMIT 5", staffMe.id, today) : [];
+  const roster = sec.can(req.user, 'shifts') ? {
+    open: db.get("SELECT COUNT(*) AS n FROM shifts WHERE staff_id IS NULL AND status != 'abgesagt' AND starts_at >= ? AND starts_at < ?", today, f.addDays(today, 14)).n,
+    expiring: shiftsLib.expiringQualifications(30),
+  } : null;
+  res.render('dashboard', { title: 'Dashboard', kpi, chart, tasks, appointments, leads, overdueList, today, myShifts, roster });
 });
 
 // Globale Suche über alle Bereiche

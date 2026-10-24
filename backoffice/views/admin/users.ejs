@@ -8,7 +8,7 @@
   <% } %></tbody>
 </table></div></div>
 <div class="card"><h2>Rechte je Rolle</h2>
-  <% const areas = { dashboard: 'Dashboard', customers: 'Kunden', leads: 'Anfragen', sales: 'Belege', 'sales.finalize': 'Rechnungen festschreiben/stornieren', payments: 'Zahlungen', products: 'Artikel', projects: 'Projekte', tasks: 'Aufgaben', calendar: 'Kalender', time: 'Zeiterfassung', 'time.all': 'Zeiten aller Mitarbeiter', expenses: 'Ausgaben', files: 'Dokumente', reports: 'Berichte', admin: 'Verwaltung' }; %>
+  <% const areas = { dashboard: 'Dashboard', customers: 'Kunden', leads: 'Anfragen', sales: 'Belege', 'sales.finalize': 'Rechnungen festschreiben/stornieren', payments: 'Zahlungen', products: 'Artikel', projects: 'Projekte', tasks: 'Aufgaben', calendar: 'Kalender', time: 'Zeiterfassung', 'time.all': 'Zeiten aller Mitarbeiter', 'shifts.view': 'Dienstplan ansehen', shifts: 'Dienstplan bearbeiten', staff: 'Personal & Qualifikationen', expenses: 'Ausgaben', files: 'Dokumente', reports: 'Berichte', admin: 'Verwaltung' }; %>
   <div class="table-wrap"><table><thead><tr><th>Bereich</th><% for (const r of Object.keys(PERMISSIONS)) { %><th><%= ROLE_LABELS[r] %></th><% } %></tr></thead><tbody>
   <% for (const [k, v] of Object.entries(areas)) { %><tr><td><%= v %></td><% for (const r of Object.keys(PERMISSIONS)) { const ok = PERMISSIONS[r].includes('*') || PERMISSIONS[r].includes(k); %><td><%= ok ? '✔' : '–' %></td><% } %></tr><% } %>
   </tbody></table></div>

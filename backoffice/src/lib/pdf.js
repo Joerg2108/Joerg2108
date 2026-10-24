@@ -27,8 +27,11 @@ function hexColor(c) {
   return /^#[0-9a-f]{6}$/i.test(c || '') ? c : '#1d4ed8';
 }
 
-function base(s) {
-  const doc = new PDFDocument({ size: 'A4', margins: { top: mm(20), bottom: mm(30), left: mm(25), right: mm(20) }, bufferPages: true, info: { Producer: 'Back Office', Creator: s.company_name } });
+// Nutzbare Inhaltsbreite (25 mm links, 20 mm rechts) – funktioniert für Hoch- und Querformat
+const cw = (doc) => doc.page.width - mm(45);
+
+function base(s, layout = 'portrait') {
+  const doc = new PDFDocument({ size: 'A4', layout, margins: { top: mm(20), bottom: mm(30), left: mm(25), right: mm(20) }, bufferPages: true, info: { Producer: 'Back Office', Creator: s.company_name } });
   doc.font('Helvetica');
   return doc;
 }
@@ -37,10 +40,10 @@ function header(doc, s) {
   const color = hexColor(s.brand_color);
   const logo = s.logo_file ? path.join(config.uploadDir, s.logo_file) : null;
   if (logo && fs.existsSync(logo)) {
-    try { doc.image(logo, mm(130), mm(12), { fit: [mm(60), mm(25)], align: 'right' }); } catch { /* ungültiges Bild ignorieren */ }
+    try { doc.image(logo, mm(25) + cw(doc) - mm(60), mm(12), { fit: [mm(60), mm(25)], align: 'right' }); } catch { /* ungültiges Bild ignorieren */ }
   } else {
-    doc.fillColor(color).font('Helvetica-Bold').fontSize(16).text(s.company_name, mm(25), mm(18), { width: mm(165), align: 'right' });
-    doc.font('Helvetica').fontSize(9).fillColor('#555').text(s.company_website || '', { width: mm(165), align: 'right' });
+    doc.fillColor(color).font('Helvetica-Bold').fontSize(16).text(s.company_name, mm(25), mm(18), { width: cw(doc), align: 'right' });
+    doc.font('Helvetica').fontSize(9).fillColor('#555').text(s.company_website || '', { width: cw(doc), align: 'right' });
   }
 }
 
@@ -71,16 +74,17 @@ function footer(doc, s) {
     const y = doc.page.height - mm(24);
     const oldBottom = doc.page.margins.bottom;
     doc.page.margins.bottom = 0;
-    doc.moveTo(mm(25), y - 4).lineTo(mm(190), y - 4).lineWidth(0.5).strokeColor('#ccc').stroke();
+    doc.font('Helvetica');
+    doc.moveTo(mm(25), y - 4).lineTo(mm(25) + cw(doc), y - 4).lineWidth(0.5).strokeColor('#ccc').stroke();
     doc.fontSize(7).fillColor('#666');
-    const w = mm(55);
+    const w = cw(doc) / 3;
     const col1 = [s.company_name, s.company_owner && s.company_owner !== s.company_name ? `Inhaber: ${s.company_owner}` : '', s.company_street, `${s.company_zip} ${s.company_city}`].filter(Boolean).join('\n');
     const col2 = [s.company_phone ? `Tel. ${s.company_phone}` : '', s.company_email, s.company_website, s.company_register].filter(Boolean).join('\n');
     const col3 = [s.bank_name, s.bank_iban ? `IBAN ${s.bank_iban}` : '', s.bank_bic ? `BIC ${s.bank_bic}` : '', s.company_vat_id ? `USt-IdNr. ${s.company_vat_id}` : s.company_tax_number ? `St.-Nr. ${s.company_tax_number}` : ''].filter(Boolean).join('\n');
     doc.text(col1, mm(25), y, { width: w, lineBreak: true });
     doc.text(col2, mm(25) + w, y, { width: w });
     doc.text(col3, mm(25) + 2 * w, y, { width: w });
-    doc.text(`Seite ${i - range.start + 1} von ${range.count}`, mm(25), doc.page.height - mm(8), { width: mm(165), align: 'right' });
+    doc.text(`Seite ${i - range.start + 1} von ${range.count}`, mm(25), doc.page.height - mm(8), { width: cw(doc), align: 'right' });
     doc.page.margins.bottom = oldBottom;
   }
 }
@@ -266,20 +270,20 @@ async function dunningLetter(d, dunning) {
 }
 
 // Einfache Tabellen-PDFs für Berichte (z. B. Stundennachweis)
-async function tableReport(title, subtitle, headers, rows, widths) {
+async function tableReport(title, subtitle, headers, rows, widths, { landscape = false } = {}) {
   const s = settings.all();
-  const doc = base(s);
+  const doc = base(s, landscape ? 'landscape' : 'portrait');
   doc.page.margins.top = mm(20);
   header(doc, s);
   doc.fillColor('#000').font('Helvetica-Bold').fontSize(15).text(title, mm(25), mm(45));
-  doc.font('Helvetica').fontSize(9).fillColor('#555').text(subtitle || '', { width: mm(165) }).moveDown(1);
+  doc.font('Helvetica').fontSize(9).fillColor('#555').text(subtitle || '', { width: cw(doc) }).moveDown(1);
   const total = widths.reduce((a, b) => a + b, 0);
-  const ws = widths.map((w) => (w / total) * mm(165));
+  const ws = widths.map((w) => (w / total) * cw(doc));
   const drawRow = (cells, bold, fill) => {
     const h = Math.max(...cells.map((c, i) => doc.fontSize(8.5).heightOfString(String(c ?? ''), { width: ws[i] - 4 }))) + 6;
     if (doc.y + h > doc.page.height - mm(35)) { doc.addPage(); doc.y = mm(25); }
     const y = doc.y;
-    if (fill) doc.rect(mm(25), y - 2, mm(165), h).fill(fill);
+    if (fill) doc.rect(mm(25), y - 2, cw(doc), h).fill(fill);
     let x = mm(25);
     doc.font(bold ? 'Helvetica-Bold' : 'Helvetica').fillColor(fill === hexColor(s.brand_color) ? '#fff' : '#000');
     cells.forEach((c, i) => {
