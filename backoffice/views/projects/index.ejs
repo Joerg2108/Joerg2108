@@ -1,0 +1,12 @@
+<div class="page-head"><div><h1>Projekte</h1><div class="sub"><%= rows.length %> Projekte</div></div><a class="btn primary" href="/projekte/neu"><%- h.icon('plus') %> Neues Projekt</a></div>
+<form class="filters"><input type="search" name="q" value="<%= query.q || '' %>" placeholder="Name oder Nummer"><%- h.select('status', 'Status', query.status, STATUSES.map((x) => [x, h.label(x)]), { empty: 'Laufende' }) %><button class="btn">Filtern</button></form>
+<div class="card flush"><div class="table-wrap">
+<% if (!rows.length) { %><div class="empty">Keine Projekte.</div><% } else { %>
+<table><thead><tr><th>Nr.</th><th>Projekt</th><th>Kunde</th><th>Status</th><th>Zeitraum</th><th>Aufgaben</th><th class="num">Stunden</th><th>Budget</th></tr></thead><tbody>
+<% for (const p of rows) { const used = p.budget ? Math.round(p.invoiced / p.budget * 100) : 0; %>
+  <tr class="row-link" data-href="/projekte/<%= p.id %>"><td class="mono"><%= p.number %></td><td><a href="/projekte/<%= p.id %>"><strong><%= p.name %></strong></a><div class="small muted"><%= p.manager || '' %></div></td>
+  <td><%= p.customer_id ? h.customerName(p) : '–' %></td><td><%- h.badge(p.status) %></td><td class="small nowrap"><%= h.date(p.start_date) %><%= p.end_date ? ' – ' + h.date(p.end_date) : '' %></td>
+  <td><%= p.all_tasks - p.open_tasks %>/<%= p.all_tasks %></td><td class="num"><%= h.minutes(p.minutes) %></td>
+  <td style="min-width:120px"><% if (p.budget) { %><div class="progress <%= used > 100 ? 'over' : '' %>"><span style="width:<%= Math.min(used, 100) %>%"></span></div><small class="muted"><%= used %> % von <%= h.eur(p.budget) %></small><% } else { %>–<% } %></td></tr>
+<% } %></tbody></table><% } %>
+</div></div>

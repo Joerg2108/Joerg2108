@@ -1,0 +1,24 @@
+<div class="page-head">
+  <div><h1>Aufgaben</h1></div>
+  <div class="actions">
+    <div class="btn-group"><a class="btn <%= mine ? 'active' : '' %>" href="?filter=meine">Meine</a><a class="btn <%= !mine ? 'active' : '' %>" href="?filter=alle">Alle</a></div>
+    <a class="btn primary" href="/aufgaben/neu"><%- h.icon('plus') %> Neue Aufgabe</a>
+  </div>
+</div>
+<div class="board" data-board="/aufgaben/{id}/status">
+  <% for (const col of columns) { %>
+    <div class="column" data-status="<%= col.status %>">
+      <h3><span><%- h.badge(col.status) %> <span class="col-count"><%= col.items.length %></span></span></h3>
+      <div class="col-items">
+      <% for (const t of col.items) { %>
+        <a class="kcard" href="/aufgaben/<%= t.id %>/bearbeiten" draggable="true" data-id="<%= t.id %>">
+          <strong><%= t.title %></strong>
+          <small><%= t.project_name || (t.customer_id ? h.customerName(t) : '') %></small>
+          <small><%- t.priority !== 'normal' ? h.badge(t.priority) : '' %> <%= t.due_date ? 'fällig ' + h.date(t.due_date) : '' %> <%= t.assignee ? '· ' + t.assignee : '' %></small>
+        </a>
+      <% } %>
+      </div>
+    </div>
+  <% } %>
+</div>
+<p class="small muted">Erledigte Aufgaben werden 7 Tage lang angezeigt. <a href="?filter=<%= mine ? 'meine' : 'alle' %>&erledigt=1">Alle erledigten anzeigen</a></p>

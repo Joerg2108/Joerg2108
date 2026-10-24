@@ -1,0 +1,105 @@
+<%
+  const label = { angebot: 'Angebot', auftrag: 'Auftragsbestätigung', rechnung: 'Rechnung', storno: 'Storno' }[d.kind];
+  const small = s.small_business === '1';
+  const taxes = small ? [[0, '0 %']] : [[19, '19 %'], [7, '7 %'], [0, '0 %']];
+%>
+<div class="page-head">
+  <div><h1><%= title %></h1><div class="sub"><%= d.number ? 'Nr. ' + d.number : (d.kind === 'rechnung' ? 'Die Rechnungsnummer wird beim Festschreiben vergeben (lückenlos).' : '') %></div></div>
+</div>
+<% if (small) { %><div class="alert info">Kleinunternehmerregelung (§ 19 UStG) ist aktiv – es wird keine Umsatzsteuer ausgewiesen.</div><% } %>
+<form method="post" action="<%= d.id ? '/belege/' + d.id : '/belege/' + route %>">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <div class="grid side">
+    <div class="card">
+      <div class="form-grid">
+        <label class="field span-8" for="f_customer_id"><span>Kunde <i class="req">*</i></span>
+          <select id="f_customer_id" name="customer_id" required>
+            <option value="">– Kunde wählen –</option>
+            <% for (const c of customers) { %><option value="<%= c.id %>" data-terms="<%= c.payment_terms ?? s.payment_terms_days %>" <%= String(c.id) === String(d.customer_id) ? 'selected' : '' %>><%= h.customerName(c) %> (<%= c.number %>)</option><% } %>
+          </select>
+          <small><a href="/kunden/neu" target="_blank">+ neuen Kunden anlegen</a></small>
+        </label>
+        <%- h.select('project_id', 'Projekt', d.project_id, projects.map((p) => [p.id, p.number + ' – ' + p.name]), { empty: '– kein Projekt –', cls: 'span-4' }) %>
+        <%- h.input('title', 'Betreff / Titel', d.title, { cls: 'span-12', placeholder: label + ' für …' }) %>
+      </div>
+    </div>
+    <div class="card">
+      <div class="form-grid">
+        <%- h.input('issue_date', 'Belegdatum', d.issue_date, { type: 'date', required: true, cls: 'span-12' }) %>
+        <% if (d.kind === 'rechnung') { %>
+          <%- h.input('service_date', 'Leistungsdatum / Beginn', d.service_date, { type: 'date', required: true, hint: 'Pflicht nach § 14 UStG' }) %>
+          <%- h.input('service_until', 'Leistungszeitraum bis', d.service_until, { type: 'date', hint: 'optional' }) %>
+          <%- h.input('due_date', 'Fällig am', d.due_date, { type: 'date', cls: 'span-12' }) %>
+          <div class="span-12"><%- h.checkbox('reverse_charge', 'Reverse Charge (§ 13b UStG, EU-Ausland)', d.reverse_charge) %></div>
+        <% } %>
+        <% if (d.kind === 'angebot') { %><%- h.input('valid_until', 'Gültig bis', d.valid_until, { type: 'date', cls: 'span-12' }) %><% } %>
+        <% if (d.kind === 'auftrag') { %><%- h.input('service_date', 'Geplanter Leistungstermin', d.service_date, { type: 'date', cls: 'span-12' }) %><% } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <%- h.input('intro', 'Einleitungstext', d.intro, { type: 'textarea', rows: 2 }) %>
+  </div>
+
+  <div class="card" data-items-editor data-small-business="<%= small ? '1' : '0' %>">
+    <div class="card-head">
+      <h2>Positionen</h2>
+      <% if (products.length) { %>
+      <select data-product-pick style="max-width:380px">
+        <option value="">+ Leistung aus Katalog einfügen …</option>
+        <% const cats = [...new Set(products.map((p) => p.category || 'Weitere'))]; for (const cat of cats) { %><optgroup label="<%= cat %>"><% for (const p of products.filter((x) => (x.category || 'Weitere') === cat)) { %><option value="<%= p.id %>"><%= p.name %> – <%= h.eur(p.price) %>/<%= p.unit %></option><% } %></optgroup><% } %>
+      </select>
+      <% } %>
+    </div>
+    <div class="table-wrap">
+    <table class="items-table">
+      <thead><tr><th></th><th>Bezeichnung / Beschreibung</th><th>Menge</th><th>Einheit</th><th>Einzelpreis €</th><th>Rabatt %</th><th>USt</th><th class="num">Gesamt</th><th></th></tr></thead>
+      <tbody>
+      <% for (const it of d.items) { %>
+        <tr>
+          <td class="col-pos"></td>
+          <td class="col-name"><input type="hidden" name="item_product_id" value="<%= it.product_id || '' %>"><input name="item_name" value="<%= it.name %>" placeholder="Bezeichnung" required><textarea name="item_description" rows="1" placeholder="Beschreibung (optional)"><%= it.description || '' %></textarea></td>
+          <td class="col-qty"><input name="item_quantity" value="<%= h.num(it.quantity, 3) %>" inputmode="decimal"></td>
+          <td class="col-unit"><input name="item_unit" value="<%= it.unit %>" list="units"></td>
+          <td class="col-price"><input name="item_price" value="<%= h.moneyInput(it.unit_price) %>" inputmode="decimal"></td>
+          <td class="col-disc"><input name="item_discount" value="<%= it.discount_pct ? h.num(it.discount_pct) : '' %>" inputmode="decimal" placeholder="0"></td>
+          <td class="col-tax"><select name="item_tax"><% for (const [v, l] of taxes) { %><option value="<%= v %>" <%= Number(it.tax_rate) === v ? 'selected' : '' %>><%= l %></option><% } %></select></td>
+          <td class="col-total num"></td>
+          <td class="col-del"><button type="button" class="btn sm ghost" data-move-up title="Nach oben">↑</button><button type="button" class="btn sm ghost" data-del-row title="Entfernen">✕</button></td>
+        </tr>
+      <% } %>
+      </tbody>
+    </table>
+    </div>
+    <template id="item-template">
+      <tr>
+        <td class="col-pos"></td>
+        <td class="col-name"><input type="hidden" name="item_product_id" value=""><input name="item_name" placeholder="Bezeichnung" required><textarea name="item_description" rows="1" placeholder="Beschreibung (optional)"></textarea></td>
+        <td class="col-qty"><input name="item_quantity" value="1" inputmode="decimal"></td>
+        <td class="col-unit"><input name="item_unit" value="Stk." list="units"></td>
+        <td class="col-price"><input name="item_price" value="0,00" inputmode="decimal"></td>
+        <td class="col-disc"><input name="item_discount" value="" inputmode="decimal" placeholder="0"></td>
+        <td class="col-tax"><select name="item_tax"><% for (const [v, l] of taxes) { %><option value="<%= v %>" <%= Number(s.default_tax_rate) === v ? 'selected' : '' %>><%= l %></option><% } %></select></td>
+        <td class="col-total num"></td>
+        <td class="col-del"><button type="button" class="btn sm ghost" data-move-up title="Nach oben">↑</button><button type="button" class="btn sm ghost" data-del-row title="Entfernen">✕</button></td>
+      </tr>
+    </template>
+    <datalist id="units"><option value="Stk."><option value="Std."><option value="Tag"><option value="Monat"><option value="Pauschal"><option value="km"><option value="Schicht"><option value="Nacht"><option value="m²"></datalist>
+    <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:10px">
+      <div><button type="button" class="btn" data-add-row><%- h.icon('plus') %> Position</button></div>
+      <div class="totals" data-totals></div>
+    </div>
+    <script type="application/json" id="products-data"><%- JSON.stringify(products).replace(/</g, '\\u003c') %></script>
+  </div>
+
+  <div class="card">
+    <%- h.input('footer', 'Schlusstext', d.footer, { type: 'textarea', rows: 3, hint: 'Platzhalter: {DUE_DATE}, {VALID_UNTIL}, {NUMBER}, {AMOUNT}, {NAME}, {COMPANY}' }) %>
+  </div>
+
+  <div class="sticky-actions">
+    <a class="btn" href="<%= d.id ? '/belege/' + d.id : '/belege/' + route %>">Abbrechen</a>
+    <button class="btn" name="after" value="save">Als Entwurf speichern</button>
+    <% if (d.kind === 'rechnung' && can('sales.finalize')) { %><button class="btn primary" name="after" value="finalize" data-confirm-finalize>Speichern &amp; festschreiben</button><% } else { %><button class="btn primary" name="after" value="save">Speichern</button><% } %>
+  </div>
+</form>

@@ -1,0 +1,20 @@
+<div class="page-head"><div><h1>Mahnwesen</h1><div class="sub"><%= rows.length %> überfällige Rechnung(en) · <%= h.eur(rows.reduce((a, r) => a + r.gross_total - r.paid_total, 0)) %> offen</div></div></div>
+<div class="card flush"><div class="table-wrap">
+<% if (!rows.length) { %><div class="empty">Keine überfälligen Rechnungen 🎉</div><% } else { %>
+<table>
+  <thead><tr><th>Rechnung</th><th>Kunde</th><th>Fällig seit</th><th class="num">Tage</th><th class="num">Offen</th><th>Stufe</th><th>Letzte Mahnung</th><th></th></tr></thead>
+  <tbody><% for (const r of rows) { %>
+    <tr>
+      <td class="mono"><a href="/belege/<%= r.id %>"><%= r.number %></a></td><td><%= h.customerName(r) %><div class="small muted"><%= r.customer_email || '' %></div></td>
+      <td><%= h.date(r.due_date) %></td><td class="num neg"><%= Math.floor(r.days_over) %></td><td class="num"><%= h.eur(r.gross_total - r.paid_total) %></td>
+      <td><%= r.dunning_level ? 'Mahnung ' + r.dunning_level : 'keine' %></td><td><%= r.last_dunning_at ? h.dateTime(r.last_dunning_at) : '–' %></td>
+      <td class="nowrap">
+        <% if (r.dunning_level < 3) { %><form method="post" action="/belege/<%= r.id %>/mahnen" class="inline-form" data-confirm="Mahnstufe <%= r.dunning_level + 1 %> erstellen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm primary">Stufe <%= r.dunning_level + 1 %> erstellen</button></form><% } %>
+        <% if (r.dunning_level) { %><a class="btn sm" href="/belege/<%= r.id %>/mahnung/<%= r.dunning_level %>/pdf" target="_blank">PDF</a><% } %>
+      </td>
+    </tr>
+  <% } %></tbody>
+</table>
+<% } %>
+</div></div>
+<p class="small muted">Hinweis: Verzugszinsen nach § 288 BGB (B2B: Basiszins + 9 %-Punkte, B2C: + 5 %-Punkte) und die 40-€-Pauschale (§ 288 Abs. 5 BGB, nur B2B) können zusätzlich geltend gemacht werden. Mahngebühren je Stufe stellst du unter Einstellungen → Mahnwesen ein.</p>

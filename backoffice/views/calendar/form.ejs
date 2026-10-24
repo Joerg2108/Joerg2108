@@ -1,0 +1,16 @@
+<div class="page-head"><h1><%= title %></h1>
+<% if (a.id) { %><form method="post" action="/kalender/<%= a.id %>/loeschen" data-confirm="Termin löschen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn danger">Löschen</button></form><% } %></div>
+<form method="post" action="<%= a.id ? '/kalender/' + a.id : '/kalender' %>" class="card form-grid">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <%- h.input('title', 'Titel', a.title, { required: true, cls: 'span-8' }) %>
+  <%- h.select('color', 'Farbe', a.color, COLORS, { cls: 'span-4' }) %>
+  <%- h.input('starts_at', 'Beginn', a.starts_at, { type: 'datetime-local', required: true, 'data-time-field': true, cls: 'span-4' }) %>
+  <%- h.input('ends_at', 'Ende', a.ends_at, { type: 'datetime-local', required: true, 'data-time-field': true, cls: 'span-4' }) %>
+  <div class="span-4" style="align-self:end"><%- h.checkbox('all_day', 'ganztägig', a.all_day) %></div>
+  <%- h.input('location', 'Ort', a.location, { cls: 'span-12' }) %>
+  <%- h.select('user_id', 'Mitarbeiter', a.user_id, users.map((u) => [u.id, u.name]), { empty: '– alle –', cls: 'span-4' }) %>
+  <%- h.select('customer_id', 'Kunde', a.customer_id, customers.map((c) => [c.id, h.customerName(c)]), { empty: '–', cls: 'span-4' }) %>
+  <%- h.select('project_id', 'Projekt', a.project_id, projects.map((p) => [p.id, p.name]), { empty: '–', cls: 'span-4' }) %>
+  <%- h.input('description', 'Notizen', a.description, { type: 'textarea', rows: 3, cls: 'span-12' }) %>
+  <div class="span-12 sticky-actions"><a class="btn" href="/kalender">Abbrechen</a><button class="btn primary">Speichern</button></div>
+</form>

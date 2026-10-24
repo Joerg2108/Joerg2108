@@ -1,0 +1,42 @@
+<div class="page-head">
+  <div><h1>Berichte &amp; Auswertungen</h1></div>
+  <form class="actions"><select name="jahr" style="width:auto"><% for (const y of years) { %><option <%= y === year ? 'selected' : '' %>><%= y %></option><% } %></select><button class="btn">Anzeigen</button></form>
+</div>
+<div class="tabs"><a class="active" href="/berichte?jahr=<%= year %>">Übersicht</a><a href="/berichte/euer?jahr=<%= year %>">EÜR</a><a href="/berichte/ust?jahr=<%= year %>">Umsatzsteuer</a><a href="/berichte/offene-posten">Offene Posten</a></div>
+<div class="kpis">
+  <div class="kpi"><span>Umsatz <%= year %> (netto)</span><strong><%= h.eur(revenueByMonth.reduce((a, r) => a + r.net, 0)) %></strong><small>Vorjahr: <%= h.eur(revenueByMonth.reduce((a, r) => a + r.prev, 0)) %></small></div>
+  <div class="kpi"><span>Gewinn (EÜR, netto)</span><strong class="<%= e.total.result < 0 ? 'neg' : '' %>"><%= h.eur(e.total.result) %></strong><small>Einnahmen <%= h.eur(e.total.incomeNet) %></small></div>
+  <div class="kpi"><span>Angebotsquote</span><strong><%= quotes.won + quotes.lost ? Math.round(quotes.won / (quotes.won + quotes.lost) * 100) : 0 %> %</strong><small><%= quotes.won || 0 %> von <%= quotes.n %> angenommen</small></div>
+  <div class="kpi"><span>Ø Zahlungsdauer</span><strong><%= avgPayDays ? Math.round(avgPayDays) + ' Tage' : '–' %></strong><small>Rechnung → Zahlung</small></div>
+</div>
+<div class="card">
+  <div class="card-head"><h2>Umsatz je Monat</h2><div class="legend"><span><i class="a"></i><%= year %></span><span><i class="b"></i><%= Number(year) - 1 %></span></div></div>
+  <% const max = Math.max(1, ...revenueByMonth.map((r) => Math.max(r.net, r.prev))); const W = 760, H = 200, bw = 730 / 12; %>
+  <svg class="chart" viewBox="0 0 <%= W %> <%= H + 22 %>">
+    <% revenueByMonth.forEach((r, i) => { const x = 30 + i * bw; const a = (H - 10) * r.net / max, b = (H - 10) * r.prev / max; %>
+      <rect class="bar-b" x="<%= x + 4 %>" y="<%= H - b %>" width="<%= bw / 2 - 4 %>" height="<%= Math.max(0, b) %>" rx="3"><title><%= r.name %> <%= Number(year) - 1 %>: <%= h.eur(r.prev) %></title></rect>
+      <rect class="bar-a" x="<%= x + bw / 2 %>" y="<%= H - a %>" width="<%= bw / 2 - 4 %>" height="<%= Math.max(0, a) %>" rx="3"><title><%= r.name %>: <%= h.eur(r.net) %></title></rect>
+      <text x="<%= x + 10 %>" y="<%= H + 16 %>"><%= r.name.slice(0, 3) %></text>
+    <% }) %>
+  </svg>
+</div>
+<div class="grid c3">
+  <div class="card flush"><div class="card-head"><h2>Top-Kunden</h2></div><table><tbody>
+    <% for (const c of topCustomers) { %><tr><td><a href="/kunden/<%= c.id %>"><%= h.customerName(c) %></a></td><td class="num"><%= h.eur(c.net) %></td></tr><% } %>
+    <% if (!topCustomers.length) { %><tr><td class="muted">–</td></tr><% } %></tbody></table></div>
+  <div class="card flush"><div class="card-head"><h2>Top-Leistungen</h2></div><table><tbody>
+    <% for (const p of topProducts) { %><tr><td><%= p.name %><div class="small muted"><%= h.num(p.qty) %> Einheiten</div></td><td class="num"><%= h.eur(p.net) %></td></tr><% } %>
+    <% if (!topProducts.length) { %><tr><td class="muted">–</td></tr><% } %></tbody></table></div>
+  <div class="card flush"><div class="card-head"><h2>Stunden je Mitarbeiter</h2></div><table><tbody>
+    <% for (const u of hours) { %><tr><td><%= u.name %></td><td class="num"><%= h.minutes(u.min) %><div class="small muted"><%= u.min ? Math.round(u.billable / u.min * 100) : 0 %> % abrechenbar</div></td></tr><% } %>
+    <% if (!hours.length) { %><tr><td class="muted">–</td></tr><% } %></tbody></table></div>
+</div>
+<div class="card"><h2>Exporte für Steuerberater</h2>
+  <div class="actions">
+    <a class="btn" href="/berichte/datev.csv?jahr=<%= year %>">DATEV-Buchungsstapel (EXTF, SKR03)</a>
+    <a class="btn" href="/berichte/rechnungsausgangsbuch.csv?jahr=<%= year %>">Rechnungsausgangsbuch (CSV)</a>
+    <a class="btn" href="/ausgaben/export.csv?jahr=<%= year %>">Ausgaben (CSV)</a>
+    <a class="btn" href="/berichte/euer.pdf?jahr=<%= year %>" target="_blank">EÜR (PDF)</a>
+  </div>
+  <p class="small muted">Kontenzuordnung (SKR03) ist ein Vorschlag – bitte einmalig mit deinem Steuerberater abstimmen.</p>
+</div>

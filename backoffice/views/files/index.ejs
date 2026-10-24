@@ -1,0 +1,27 @@
+<div class="page-head"><div><h1>Dokumente</h1><div class="sub"><%= rows.length %> Dateien · <%= h.bytes(used) %> belegt</div></div></div>
+<div class="grid side">
+  <div>
+    <form class="filters"><input type="search" name="q" value="<%= query.q || '' %>" placeholder="Dateiname"><% if (query.ordner) { %><input type="hidden" name="ordner" value="<%= query.ordner %>"><% } %><button class="btn">Suchen</button></form>
+    <div class="card flush"><div class="table-wrap">
+    <% if (!rows.length) { %><div class="empty">Keine Dateien.</div><% } else { %>
+    <table><thead><tr><th>Datei</th><th>Ordner</th><th>Zuordnung</th><th class="num">Größe</th><th>Hochgeladen</th><th></th></tr></thead><tbody>
+    <% for (const x of rows) { %><tr><td><a href="/dateien/<%= x.id %>/download" target="_blank"><%= x.original_name %></a></td><td><span class="tag"><%= x.folder %></span></td>
+    <td class="small"><%= x.customer_id ? h.customerName(x) : '' %><%= x.project_name ? ' · ' + x.project_name : '' %></td><td class="num"><%= h.bytes(x.size) %></td><td class="small nowrap"><%= h.dateTime(x.created_at) %><br><span class="muted"><%= x.uploader || '' %></span></td>
+    <td class="nowrap"><a class="btn sm" href="/dateien/<%= x.id %>/download?download=1">⤓</a><form method="post" action="/dateien/<%= x.id %>/loeschen" class="inline-form" data-confirm="Datei löschen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm ghost">✕</button></form></td></tr><% } %>
+    </tbody></table><% } %>
+    </div></div>
+  </div>
+  <div>
+    <form class="card form-grid" method="post" action="/dateien?_csrf=<%= csrf %>" enctype="multipart/form-data">
+      <h2 class="span-12">Hochladen</h2>
+      <%- h.input('folder', 'Ordner', query.ordner || 'Allgemein', { list: 'folders', cls: 'span-12' }) %>
+      <datalist id="folders"><option value="Allgemein"><option value="Verträge"><option value="Belege"><option value="Personal"><option value="Zertifikate"><option value="Versicherungen"><option value="Behörden"><% for (const fo of folders) { %><option value="<%= fo.folder %>"><% } %></datalist>
+      <label class="field span-12"><span>Dateien (max. 10)</span><input type="file" name="files" multiple required></label>
+      <div class="span-12"><button class="btn primary">Hochladen</button></div>
+    </form>
+    <div class="card"><h2>Ordner</h2>
+      <div><a href="/dateien" class="<%= !query.ordner ? 'pos' : '' %>">Alle</a></div>
+      <% for (const fo of folders) { %><div style="display:flex;justify-content:space-between"><a href="?ordner=<%= encodeURIComponent(fo.folder) %>"><%= fo.folder %></a><span class="muted small"><%= fo.n %> · <%= h.bytes(fo.size) %></span></div><% } %>
+    </div>
+  </div>
+</div>

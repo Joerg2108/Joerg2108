@@ -1,0 +1,9 @@
+<div class="page-head"><h1>Suche</h1></div>
+<form class="filters" action="/suche"><input type="search" name="q" value="<%= term %>" placeholder="Suchbegriff" autofocus><button class="btn primary">Suchen</button></form>
+<div class="card flush">
+<% if (!results.length) { %><div class="empty"><%= term.length < 2 ? 'Bitte mindestens 2 Zeichen eingeben.' : 'Keine Treffer.' %></div><% } else { %>
+  <table><thead><tr><th>Typ</th><th>Treffer</th><th>Details</th></tr></thead><tbody>
+  <% for (const r of results) { %><tr class="row-link" data-href="<%= r.url %>"><td><span class="tag"><%= r.type %></span></td><td><a href="<%= r.url %>"><%= r.title %></a></td><td class="muted"><%= r.sub %></td></tr><% } %>
+  </tbody></table>
+<% } %>
+</div>

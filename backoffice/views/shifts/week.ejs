@@ -1,0 +1,49 @@
+<% const kw = (() => { const d = new Date(start + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate() + 3); const j = new Date(Date.UTC(d.getUTCFullYear(), 0, 4)); return 1 + Math.round(((d - j) / 86400000 - 3 + ((j.getUTCDay() + 6) % 7)) / 7); })(); %>
+<div class="page-head">
+  <div><h1>Dienstplan KW <%= kw %></h1><div class="sub"><%= h.date(days[0]) %> – <%= h.date(days[6]) %> · <%= stats.total %> Schichten<% if (stats.open) { %> · <span class="neg"><%= stats.open %> offen</span><% } %><% if (stats.conflicts) { %> · <span class="neg"><%= stats.conflicts %> mit Konflikt</span><% } %></div></div>
+  <div class="actions">
+    <div class="btn-group"><a class="btn" href="?woche=<%= prev %>">‹</a><a class="btn" href="/dienstplan">Heute</a><a class="btn" href="?woche=<%= next %>">›</a></div>
+    <a class="btn" href="/dienstplan/pdf?woche=<%= start %>" target="_blank">PDF</a>
+    <% if (canEdit) { %>
+    <details class="dropdown"><summary class="btn">Mehr ▾</summary><div class="menu-pop">
+      <form method="post" action="/dienstplan/woche-kopieren" data-confirm="Alle Schichten dieser Woche in die Folgewoche kopieren?"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="woche" value="<%= start %>"><button>Woche in Folgewoche kopieren</button></form>
+      <form method="post" action="/dienstplan/senden" data-confirm="Dienstplan an alle eingeplanten Mitarbeiter mailen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="woche" value="<%= start %>"><button>Plan an Mitarbeiter mailen</button></form>
+      <a href="/dienstplan/auswertung">Stundenauswertung</a>
+      <a href="/personal">Personal verwalten</a>
+    </div></details>
+    <a class="btn primary" href="/dienstplan/schicht/neu?datum=<%= days[0] < today && days[6] >= today ? today : days[0] %>"><%- h.icon('plus') %> Schicht</a>
+    <% } %>
+  </div>
+</div>
+<% if (!grid.length) { %><div class="alert info">Noch kein Personal angelegt. <a href="/personal/neu">Ersten Mitarbeiter anlegen →</a></div><% } %>
+<div class="card flush"><div class="table-wrap">
+<table class="roster">
+  <thead><tr><th class="roster-name">Mitarbeiter</th>
+    <% days.forEach((d, i) => { %><th class="<%= d === today ? 'is-today' : '' %> <%= holidays[i] || i >= 5 ? 'is-weekend' : '' %>"><%= DAYS[i] %> <%= d.slice(8) %>.<%= d.slice(5, 7) %>.<% if (holidays[i]) { %><div class="holiday" title="<%= holidays[i] %>"><%= holidays[i] %></div><% } %></th><% }) %>
+  </tr></thead>
+  <tbody>
+  <% for (const row of grid) { const target = row.st.weekly_hours * 60; %>
+    <tr class="<%= row.st.id === me ? 'is-me' : '' %>">
+      <td class="roster-name"><% if (canEdit) { %><a href="/personal/<%= row.st.id %>"><% } %><strong><%= row.st.last_name %>, <%= row.st.first_name %></strong><% if (canEdit) { %></a><% } %>
+        <div class="small <%= row.minutes > target ? 'neg' : 'muted' %>"><%= h.minutes(row.minutes) %> / <%= h.num(row.st.weekly_hours) %> h</div></td>
+      <% row.cells.forEach((cell, i) => { %>
+        <td class="roster-cell <%= holidays[i] || i >= 5 ? 'is-weekend' : '' %>">
+          <% if (row.absences[i]) { %><span class="absence <%= row.absences[i] %>"><%= ABSENCE_LABELS[row.absences[i]] %></span><% } %>
+          <% for (const s of cell) { const err = s.warnings.some((w) => w.level === 'error'); const warn = s.warnings.length > 0; %>
+            <a class="shift <%= row.st.color %> <%= s.status %> <%= err ? 'has-error' : warn ? 'has-warn' : '' %>" href="<%= canEdit ? '/dienstplan/schicht/' + s.id : '#' %>" title="<%= s.warnings.map((w) => w.text).join(' | ') %>">
+              <strong><%= s.starts_at.slice(11) %>–<%= s.ends_at.slice(11) %></strong> <%= err ? '⚠' : warn ? '!' : '' %><br><%= s.title %><% if (s.status !== 'geplant') { %> · <%= s.status === 'bestaetigt' ? '✓' : s.status === 'erledigt' ? '✔✔' : '✕' %><% } %>
+            </a>
+          <% } %>
+          <% if (canEdit && !row.absences[i]) { %><a class="add-shift" href="/dienstplan/schicht/neu?datum=<%= days[i] %>&ma=<%= row.st.id %>" title="Schicht hinzufügen">+</a><% } %>
+        </td>
+      <% }) %>
+    </tr>
+  <% } %>
+    <tr class="open-row">
+      <td class="roster-name"><strong>Offene Schichten</strong><div class="small muted">noch zu besetzen</div></td>
+      <% open.forEach((cell, i) => { %><td class="roster-cell"><% for (const s of cell) { %><a class="shift open <%= s.status %>" href="<%= canEdit ? '/dienstplan/schicht/' + s.id : '#' %>"><strong><%= s.starts_at.slice(11) %>–<%= s.ends_at.slice(11) %></strong><br><%= s.title %></a><% } %></td><% }) %>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+<p class="small muted">Legende: ⚠ Konflikt (Doppelbuchung, Abwesenheit, fehlende/abgelaufene Qualifikation, &gt; 10 Std.) · ! Hinweis (Ruhezeit &lt; 11 Std., Pausen nach ArbZG) · ✓ bestätigt · ✔✔ erledigt. Schichten über Mitternacht werden am Starttag angezeigt.</p>

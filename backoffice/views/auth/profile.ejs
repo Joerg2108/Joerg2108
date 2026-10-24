@@ -1,0 +1,62 @@
+<div class="page-head"><div><h1>Mein Profil</h1><div class="sub"><%= u.email %> · <%= ROLE_LABELS[u.role] %></div></div></div>
+<div class="grid c2">
+  <div>
+    <div class="card">
+      <h2>Persönliche Daten</h2>
+      <form method="post" action="/profil" class="form-grid">
+        <input type="hidden" name="_csrf" value="<%= csrf %>">
+        <%- h.input('name', 'Name', u.name, { required: true, cls: 'span-12' }) %>
+        <div class="span-12"><button class="btn primary">Speichern</button></div>
+      </form>
+    </div>
+    <div class="card">
+      <h2>Passwort ändern</h2>
+      <form method="post" action="/profil/passwort" class="form-grid">
+        <input type="hidden" name="_csrf" value="<%= csrf %>">
+        <%- h.input('current', 'Aktuelles Passwort', '', { type: 'password', required: true, cls: 'span-12', autocomplete: 'current-password' }) %>
+        <%- h.input('password', 'Neues Passwort', '', { type: 'password', required: true, autocomplete: 'new-password', hint: 'Mind. 10 Zeichen, Groß-/Kleinbuchstaben, Ziffer' }) %>
+        <%- h.input('password2', 'Wiederholen', '', { type: 'password', required: true, autocomplete: 'new-password' }) %>
+        <div class="span-12"><button class="btn primary">Passwort ändern</button></div>
+      </form>
+    </div>
+  </div>
+  <div>
+    <div class="card">
+      <h2>Zwei-Faktor-Authentifizierung (2FA)</h2>
+      <% if (u.totp_enabled) { %>
+        <div class="alert success">2FA ist aktiv. Bei jeder Anmeldung wird zusätzlich ein Code abgefragt.</div>
+        <form method="post" action="/profil/2fa/deaktivieren" class="form-grid" data-confirm="2FA wirklich deaktivieren?">
+          <input type="hidden" name="_csrf" value="<%= csrf %>">
+          <%- h.input('password', 'Passwort zur Bestätigung', '', { type: 'password', required: true, cls: 'span-12' }) %>
+          <div class="span-12"><button class="btn danger">2FA deaktivieren</button></div>
+        </form>
+      <% } else { %>
+        <p>Schütze dein Konto mit einer Authenticator-App (z. B. Google Authenticator, Microsoft Authenticator, Authy, 1Password).</p>
+        <ol class="small">
+          <li>QR-Code mit der App scannen (oder Schlüssel manuell eingeben)</li>
+          <li>Angezeigten 6-stelligen Code unten eintragen</li>
+        </ol>
+        <img src="<%= qr %>" alt="QR-Code für 2FA" width="180" height="180" style="background:#fff;padding:8px;border-radius:8px">
+        <p class="small muted">Schlüssel: <span class="mono"><%= secret.match(/.{1,4}/g).join(' ') %></span></p>
+        <form method="post" action="/profil/2fa/aktivieren" class="form-grid">
+          <input type="hidden" name="_csrf" value="<%= csrf %>">
+          <%- h.input('code', 'Code aus der App', '', { inputmode: 'numeric', required: true, maxlength: 7, cls: 'span-12' }) %>
+          <div class="span-12"><button class="btn primary">2FA aktivieren</button></div>
+        </form>
+      <% } %>
+    </div>
+    <div class="card">
+      <div class="card-head"><h2>Aktive Sitzungen</h2>
+        <form method="post" action="/profil/sitzungen/abmelden"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm">Alle anderen abmelden</button></form>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Seit</th><th>IP</th><th>Gerät</th></tr></thead>
+        <tbody>
+        <% for (const se of sessions) { %>
+          <tr><td class="nowrap"><%= h.dateTime(se.created_at) %><% if (se.id === currentSession) { %> <%- h.badge('aktiv', 'diese') %><% } %></td><td class="mono"><%= se.ip %></td><td class="small muted"><%= (se.user_agent || '').slice(0, 70) %></td></tr>
+        <% } %>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</div>

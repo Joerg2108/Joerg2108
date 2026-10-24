@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Vorschau Leistungskatalog · <%= s.company_name %></title>
+  <link rel="stylesheet" href="/static/widget-preview.css">
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+  <header class="pv-head">
+    <strong><%= s.company_name %></strong> – so erscheint der Leistungskatalog auf deiner Website
+    <a href="/admin/api">← zurück ins Back Office</a>
+  </header>
+  <main class="pv-main">
+    <h1>Unsere Leistungen</h1>
+    <div id="noack-leistungen"<% if (kategorie) { %> data-kategorie="<%= kategorie %>"<% } %> data-farbe="<%= s.brand_color %>"></div>
+  </main>
+  <script src="/api/public/leistungen.js" defer></script>
+</body>
+</html>

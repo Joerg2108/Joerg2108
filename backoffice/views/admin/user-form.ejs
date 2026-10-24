@@ -1,0 +1,15 @@
+<div class="page-head"><h1><%= title %></h1></div>
+<form method="post" action="<%= u.id ? '/admin/benutzer/' + u.id : '/admin/benutzer' %>" class="card form-grid">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <%- h.input('name', 'Name', u.name, { required: true }) %>
+  <%- h.input('email', 'E-Mail (Login)', u.email, { type: 'email', required: true }) %>
+  <%- h.select('role', 'Rolle', u.role, ROLE_LABELS, { cls: 'span-4' }) %>
+  <%- h.input('hourly_rate', 'Stundensatz (Abrechnung) €', u.hourly_rate ? h.moneyInput(u.hourly_rate) : '', { inputmode: 'decimal', cls: 'span-4' }) %>
+  <%- h.input('password', u.id ? 'Neues Passwort (optional)' : 'Passwort', '', { type: 'password', required: !u.id, autocomplete: 'new-password', cls: 'span-4', hint: 'Mind. 10 Zeichen, Groß-/Kleinbuchstaben, Ziffer' }) %>
+  <% if (u.id) { %>
+    <div class="span-12"><%- h.checkbox('active', 'Konto aktiv', u.active) %></div>
+    <% if (u.totp_enabled) { %><div class="span-12"><%- h.checkbox('reset_2fa', '2FA zurücksetzen (z. B. bei verlorenem Handy)', false) %></div><% } %>
+    <% if (u.locked_until || u.failed_logins) { %><div class="span-12"><%- h.checkbox('unlock', 'Sperre aufheben / Fehlversuche zurücksetzen', true) %></div><% } %>
+  <% } else { %><input type="hidden" name="active" value="1"><% } %>
+  <div class="span-12 sticky-actions"><a class="btn" href="/admin/benutzer">Abbrechen</a><button class="btn primary">Speichern</button></div>
+</form>

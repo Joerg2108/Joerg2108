@@ -1,0 +1,12 @@
+<% if (typeof error !== 'undefined') { %><div class="alert error"><%= error %></div><% } %>
+<% if (typeof sent !== 'undefined') { %>
+  <div class="alert success">Falls ein Konto mit dieser Adresse existiert, wurde eine E-Mail mit einem Link versendet.</div>
+  <a class="btn" href="/login">Zur Anmeldung</a>
+<% } else { %>
+<form method="post" action="/passwort-vergessen">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <%- h.input('email', 'E-Mail-Adresse', '', { type: 'email', required: true, autofocus: true }) %>
+  <button class="btn primary">Link zum Zurücksetzen senden</button>
+  <p class="small" style="text-align:center;margin:0"><a href="/login">Zurück zur Anmeldung</a></p>
+</form>
+<% } %>
