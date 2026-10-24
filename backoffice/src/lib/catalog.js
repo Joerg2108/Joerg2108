@@ -96,7 +96,27 @@ function importCatalog() {
   return { added, skipped };
 }
 
-module.exports = { CATALOG, importCatalog };
+// Öffentliche Sicht auf den Katalog (Website): nur aktive, freigegebene Leistungen, Preise nur wenn erlaubt
+function publicCatalog() {
+  const s = require('./settings').all();
+  const showPrices = s.public_show_prices === '1';
+  const rows = db.all("SELECT sku, category, name, description, unit, price FROM products WHERE active = 1 AND public = 1 ORDER BY COALESCE(category, 'zzz'), sku, name");
+  const categories = new Map();
+  for (const r of rows) {
+    const cat = r.category || 'Weitere Leistungen';
+    if (!categories.has(cat)) categories.set(cat, []);
+    categories.get(cat).push({
+      sku: r.sku, name: r.name, description: r.description || '', unit: r.unit,
+      ...(showPrices ? { price: r.price / 100, currency: 'EUR', price_note: 'netto zzgl. USt' } : {}),
+    });
+  }
+  return {
+    company: s.company_name, website: s.company_website, intro: s.public_catalog_intro, contact_url: s.public_contact_url,
+    show_prices: showPrices, categories: [...categories].map(([name, items]) => ({ name, items })),
+  };
+}
+
+module.exports = { CATALOG, importCatalog, publicCatalog };
 
 // Direkt ausführbar: npm run catalog
 if (require.main === module) {

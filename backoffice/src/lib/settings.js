@@ -58,6 +58,9 @@ const DEFAULTS = {
   surcharge_night_pct: '25',
   surcharge_sunday_pct: '50',
   surcharge_holiday_pct: '100',
+  public_show_prices: '0',
+  public_contact_url: 'https://joerg-noack.com/kontakt',
+  public_catalog_intro: 'Von Hausmeisterdienst bis KI-Unterstützung – alles aus einer Hand.',
 };
 
 let cache = null;

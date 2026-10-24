@@ -288,3 +288,35 @@ test('Leistungskatalog: wird vollständig eingespielt, erneutes Einspielen erzeu
   assert.match(html, /Organisation &amp; Digitalisierung/);
   assert.match(html, /Event &amp; Ausstellung/);
 });
+
+test('Website: Leistungskatalog öffentlich abrufbar, nur freigegebene Leistungen, Preise nur auf Wunsch', async () => {
+  const catalog = require('../src/lib/catalog');
+  const settings = require('../src/lib/settings');
+  catalog.importCatalog();
+  db.run("UPDATE products SET public = 0 WHERE sku = 'HM-02'");
+  db.run("UPDATE products SET active = 0 WHERE sku = 'EV-02'");
+  let r = await fetch(`${base}/api/public/leistungen`, { headers: { Origin: 'https://irgendeine-seite.de' } });
+  assert.equal(r.status, 200);
+  assert.equal(r.headers.get('access-control-allow-origin'), '*');
+  assert.equal(r.headers.get('cross-origin-resource-policy'), 'cross-origin');
+  let data = await r.json();
+  const skus = data.categories.flatMap((c) => c.items.map((i) => i.sku));
+  assert.ok(skus.includes('HM-01'));
+  assert.ok(!skus.includes('HM-02'), 'nicht freigegebene Leistung darf nicht erscheinen');
+  assert.ok(!skus.includes('EV-02'), 'inaktive Leistung darf nicht erscheinen');
+  assert.equal(data.categories[0].items[0].price, undefined, 'Preise standardmäßig ausgeblendet');
+  settings.setMany({ public_show_prices: '1' });
+  data = await (await fetch(`${base}/api/public/leistungen`)).json();
+  const hm = data.categories.flatMap((c) => c.items).find((i) => i.sku === 'HM-01');
+  assert.equal(typeof hm.price, 'number');
+  settings.setMany({ public_show_prices: '0' });
+  // Widget-Skript und CSS werden ausgeliefert und dürfen fremd eingebunden werden
+  r = await fetch(`${base}/api/public/leistungen.js`);
+  assert.match(r.headers.get('content-type'), /javascript/);
+  assert.equal(r.headers.get('cross-origin-resource-policy'), 'cross-origin');
+  assert.match(await r.text(), /noack-leistungen/);
+  r = await fetch(`${base}/api/public/leistungen.css`);
+  assert.match(r.headers.get('content-type'), /text\/css/);
+  // Interne Felder (Steuersatz, IDs) werden nicht veröffentlicht
+  assert.doesNotMatch(JSON.stringify(data), /tax_rate|"id":/);
+});

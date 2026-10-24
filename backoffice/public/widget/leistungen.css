@@ -1,0 +1,22 @@
+/* Leistungskatalog-Widget – übernimmt Schrift und Textfarbe der Website, nur Akzentfarbe ist einstellbar */
+.nl-root { --nl-accent: #1d4ed8; --nl-border: rgba(127, 127, 127, .25); --nl-muted: rgba(127, 127, 127, .9); font: inherit; color: inherit; }
+.nl-root * { box-sizing: border-box; }
+.nl-intro { font-size: 1.1em; margin: 0 0 1.2em; }
+.nl-filter { display: flex; flex-wrap: wrap; gap: .5em; margin: 0 0 1.5em; }
+.nl-chip { font: inherit; font-size: .9em; padding: .45em 1em; border-radius: 999px; border: 1px solid var(--nl-border); background: transparent; color: inherit; cursor: pointer; }
+.nl-chip:hover { border-color: var(--nl-accent); }
+.nl-chip.nl-active { background: var(--nl-accent); border-color: var(--nl-accent); color: #fff; }
+.nl-section { margin: 0 0 2em; }
+.nl-section[hidden] { display: none; }
+.nl-cat { font-size: 1.25em; margin: 0 0 .8em; padding-bottom: .3em; border-bottom: 2px solid var(--nl-accent); display: inline-block; }
+.nl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1em; }
+.nl-card { display: flex; flex-direction: column; border: 1px solid var(--nl-border); border-radius: 12px; padding: 1.2em; transition: box-shadow .15s, border-color .15s; }
+.nl-card:hover { border-color: var(--nl-accent); box-shadow: 0 6px 24px rgba(0, 0, 0, .08); }
+.nl-name { font-size: 1.05em; margin: 0 0 .5em; }
+.nl-desc { margin: 0 0 1em; font-size: .92em; line-height: 1.5; opacity: .85; flex: 1; }
+.nl-foot { display: flex; justify-content: space-between; align-items: center; gap: .8em; flex-wrap: wrap; }
+.nl-price { font-weight: 600; }
+.nl-price small { font-weight: 400; opacity: .7; }
+.nl-onrequest { font-weight: 400; opacity: .75; font-size: .9em; }
+.nl-btn { display: inline-block; padding: .5em 1em; border-radius: 8px; background: var(--nl-accent); color: #fff !important; text-decoration: none !important; font-size: .9em; font-weight: 600; }
+.nl-btn:hover { filter: brightness(1.1); }

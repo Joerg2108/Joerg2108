@@ -37,10 +37,12 @@ router.post('/einstellungen', (req, res) => {
   const data = { ...req.body };
   // Nicht angehakte Checkboxen werden vom Browser nicht gesendet -> explizit auf 0 setzen
   for (const k of String(req.body._checkboxes || '').split(',').filter(Boolean)) data[k] = req.body[k] ? '1' : '0';
-  for (const k of ['_csrf', '_tab', '_checkboxes', 'logo_file']) delete data[k];
+  for (const k of ['_csrf', '_tab', '_checkboxes', '_back', 'logo_file']) delete data[k];
   settings.setMany(data);
   audit.log(req, 'einstellungen.geaendert', 'settings', null, Object.keys(data));
   req.flash('success', 'Einstellungen gespeichert.');
+  // Formulare anderer Admin-Seiten (z. B. API & Website) dürfen auf ihre Seite zurückleiten
+  if (/^\/admin\/[\w-]+$/.test(req.body._back || '')) return res.redirect(req.body._back);
   res.redirect(`/admin/einstellungen?tab=${encodeURIComponent(req.body._tab || 'firma')}`);
 });
 
@@ -123,6 +125,11 @@ router.get('/api', (req, res) => {
   const keys = db.all('SELECT k.*, u.name AS creator FROM api_keys k LEFT JOIN users u ON u.id = k.created_by ORDER BY k.revoked, k.created_at DESC');
   res.render('admin/api', { title: 'API & Website-Anbindung', keys, newKey: req.session.newKey, baseUrl: config.baseUrl, origins: config.corsOrigins });
   delete req.session.newKey;
+});
+
+// Vorschau des Website-Widgets (eigene Seite ohne Back-Office-Layout)
+router.get('/api/vorschau', (req, res) => {
+  res.render('admin/widget-preview', { layout: false, kategorie: String(req.query.kategorie || '') });
 });
 
 router.post('/api', wrap((req, res) => {

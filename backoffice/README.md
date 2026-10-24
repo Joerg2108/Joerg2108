@@ -76,7 +76,7 @@ Erste Schritte nach dem Login:
 2. **Einstellungen → Design**: Logo hochladen, Markenfarbe wählen.
 3. **Profil → 2FA aktivieren**.
 4. **Artikel & Leistungen** anlegen, damit Angebote schnell gehen.
-5. **API & Website**: Kontaktformular auf joerg-noack.com einbauen.
+5. **API & Website**: Kontaktformular und Leistungskatalog auf joerg-noack.com einbauen.
 
 ---
 
@@ -133,6 +133,22 @@ Empfehlung: eine eigene Subdomain wie **office.joerg-noack.com**. Im DNS legst d
 - [ ] Firewall: nur 80/443 offen, Port 3000 nicht öffentlich
 
 ---
+
+## Leistungen auf der Website anzeigen
+
+Der Leistungskatalog aus dem Back Office lässt sich mit zwei Zeilen auf joerg-noack.com einbinden. Preise oder Texte änderst du nur noch im Back Office, nach spätestens 5 Minuten ist die Änderung auch auf der Website.
+
+```html
+<div id="noack-leistungen"></div>
+<script src="https://office.joerg-noack.com/api/public/leistungen.js" defer></script>
+```
+
+- Darstellung: Karten nach Kategorie, Filter-Schaltflächen, „Anfrage stellen“-Button. Schrift und Textfarbe übernimmt das Widget von deiner Website, die Akzentfarbe ist einstellbar.
+- Suchmaschinen: Das Widget ergänzt automatisch Strukturdaten (Schema.org `OfferCatalog`/`Service`).
+- Steuerung: pro Leistung „Auf der Website anzeigen“, global unter **Verwaltung → API & Website**: Preise ein/aus („ab“-Preise, netto), Einleitungstext, Ziel des Anfrage-Buttons. Dort gibt es auch eine Vorschau.
+- Optionen am `<div>`: `data-kategorie="Digital & Marketing"` (mehrere mit `|`), `data-filter="nein"`, `data-farbe="#0f766e"`, `data-kontakt="/kontakt"`, `data-intro="nein"`.
+- Betreff übernehmen: Der Button öffnet die Kontaktseite mit `?betreff=Anfrage: …`. Bindet die Kontaktseite dasselbe Skript ein, steht der Betreff automatisch im Formular.
+- Datenschutz: Veröffentlicht werden nur Name, Beschreibung, Einheit, Kategorie und (falls freigegeben) der Preis. Es werden keine Cookies gesetzt und keine personenbezogenen Daten übertragen. Rohdaten als JSON gibt es unter `GET /api/public/leistungen`.
 
 ## Website anbinden (Kontaktformular)
 
@@ -227,6 +243,8 @@ Den API-Schlüssel erzeugst du unter Verwaltung → API & Website. Mitgeschickt 
 | GET | `/api/v1/rechnungen/:id` | Rechnung mit Positionen |
 | GET | `/api/v1/anfragen` | Anfragen |
 | GET | `/api/v1/kennzahlen` | KPIs (Umsatz, offene Posten, neue Anfragen) |
+| GET | `/api/public/leistungen` | Leistungskatalog für die Website (öffentlich) |
+| GET | `/api/public/leistungen.js` | Einbau-Widget für den Leistungskatalog |
 | GET | `/api/kalender/:user/:token.ics` | iCal-Feed (geheimer Token) |
 | GET | `/healthz` | Health-Check fürs Monitoring |
 

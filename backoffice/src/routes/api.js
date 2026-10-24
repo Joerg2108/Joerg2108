@@ -63,6 +63,23 @@ router.post('/public/kontakt', cors, contactLimiter, async (req, res) => {
   reply(201, 'Vielen Dank! Ihre Anfrage ist eingegangen – wir melden uns schnellstmöglich.');
 });
 
+// ---------- Leistungskatalog für die Website ----------
+// Öffentliche, nicht personenbezogene Daten: für jede Website abrufbar (CORS *),
+// Cross-Origin-Resource-Policy erlaubt das Einbinden des Widgets auf fremden Domains.
+const path = require('node:path');
+const catalog = require('../lib/catalog');
+function publicAsset(req, res, next) {
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Cross-Origin-Resource-Policy', 'cross-origin');
+  res.set('Cache-Control', 'public, max-age=300');
+  next();
+}
+const catalogLimiter = sec.rateLimit({ windowMs: 60 * 1000, max: 120, key: 'catalog' });
+
+router.get('/public/leistungen', catalogLimiter, publicAsset, (req, res) => res.json(catalog.publicCatalog()));
+router.get('/public/leistungen.js', publicAsset, (req, res) => res.type('application/javascript').sendFile(path.join(__dirname, '..', '..', 'public', 'widget', 'leistungen.js')));
+router.get('/public/leistungen.css', publicAsset, (req, res) => res.type('text/css').sendFile(path.join(__dirname, '..', '..', 'public', 'widget', 'leistungen.css')));
+
 // ---------- iCal-Feed ----------
 router.get('/kalender/:uid/:token.ics', (req, res) => {
   const { icalToken, icsFeed } = require('./calendar');

@@ -1,4 +1,4 @@
-<div class="page-head"><div><h1>API &amp; Website-Anbindung</h1><div class="sub">Kontaktformular von joerg-noack.com direkt ins Back Office</div></div></div>
+<div class="page-head"><div><h1>API &amp; Website-Anbindung</h1><div class="sub">Kontaktformular und Leistungskatalog für joerg-noack.com</div></div></div>
 <% if (newKey) { %><div class="alert success"><strong>Neuer API-Schlüssel – jetzt kopieren, er wird nur einmal angezeigt:</strong><div style="display:flex;gap:8px;margin-top:6px"><input id="newkey" value="<%= newKey %>" readonly class="mono"><button type="button" class="btn" data-copy="newkey">Kopieren</button></div></div><% } %>
 <div class="card">
   <h2>1. Kontaktformular auf der Website</h2>
@@ -17,7 +17,9 @@
   &lt;label&gt;&lt;input type="checkbox" name="consent" value="1" required&gt;
     Ich habe die &lt;a href="/datenschutz"&gt;Datenschutzerklärung&lt;/a&gt; gelesen und stimme zu.&lt;/label&gt;
   &lt;button type="submit"&gt;Anfrage senden&lt;/button&gt;
-&lt;/form&gt;</div>
+&lt;/form&gt;
+&lt;!-- übernimmt den Betreff aus dem Leistungskatalog („Anfrage stellen“) --&gt;
+&lt;script src="<%= baseUrl %>/api/public/leistungen.js" defer&gt;&lt;/script&gt;</div>
   <p><button type="button" class="btn sm" data-copy="snippet">Code kopieren</button></p>
   <details><summary>Variante mit JavaScript (ohne Seitenwechsel)</summary>
   <div class="codebox" id="snippet-js">&lt;script&gt;
@@ -33,9 +35,32 @@ document.querySelector('#kontakt').addEventListener('submit', async (e) =&gt; {
 });
 &lt;/script&gt;</div></details>
 </div>
+<div class="card" id="leistungen">
+  <div class="card-head"><h2>2. Leistungskatalog auf der Website</h2><a class="btn" href="/admin/api/vorschau" target="_blank">Vorschau öffnen ↗</a></div>
+  <p>Zeigt deine Leistungen aus <a href="/artikel">Artikel &amp; Leistungen</a> automatisch auf joerg-noack.com an – nach Kategorien, mit Filter, „Anfrage stellen“-Button und Strukturdaten für Google. Änderungen im Back Office sind nach spätestens 5 Minuten online. Welche Leistungen erscheinen, steuerst du pro Leistung mit „Auf der Website anzeigen“.</p>
+  <div class="grid c2">
+    <div>
+      <h3>Einbau-Code (z. B. Seite „Leistungen“)</h3>
+      <div class="codebox" id="widget-snippet">&lt;div id="noack-leistungen"&gt;&lt;/div&gt;
+&lt;script src="<%= baseUrl %>/api/public/leistungen.js" defer&gt;&lt;/script&gt;</div>
+      <p><button type="button" class="btn sm" data-copy="widget-snippet">Code kopieren</button></p>
+      <p class="small muted">Optionen am &lt;div&gt;: <code>data-kategorie="Digital &amp; Marketing"</code> (nur eine Kategorie, mehrere mit |), <code>data-filter="nein"</code>, <code>data-farbe="#1d4ed8"</code>, <code>data-kontakt="/kontakt"</code>, <code>data-intro="nein"</code>.<br>
+      Auf der Kontaktseite dasselbe Skript einbinden – dann wird der Betreff aus dem Button („Anfrage: Hausmeisterdienst“) automatisch ins Formular übernommen.<br>
+      Für eigene Lösungen: JSON unter <a href="/api/public/leistungen" target="_blank"><code>/api/public/leistungen</code></a>.</p>
+    </div>
+    <form method="post" action="/admin/einstellungen" class="form-grid">
+      <input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="_back" value="/admin/api"><input type="hidden" name="_checkboxes" value="public_show_prices">
+      <h3 class="span-12" style="margin:0">Einstellungen</h3>
+      <%- h.input('public_catalog_intro', 'Einleitungstext', s.public_catalog_intro, { cls: 'span-12' }) %>
+      <%- h.input('public_contact_url', 'Link für „Anfrage stellen“', s.public_contact_url, { type: 'url', cls: 'span-12', hint: 'Deine Kontaktseite – der Betreff wird als ?betreff=… angehängt' }) %>
+      <div class="span-12"><%- h.checkbox('public_show_prices', 'Preise auf der Website anzeigen (netto, „ab“-Preise)', s.public_show_prices === '1') %></div>
+      <div class="span-12"><button class="btn primary">Speichern</button></div>
+    </form>
+  </div>
+</div>
 <div class="grid c2">
   <div class="card">
-    <h2>2. REST-API-Schlüssel</h2>
+    <h2>3. REST-API-Schlüssel</h2>
     <p class="small">Für Integrationen (z. B. Zapier/Make, eigene Skripte). Authentifizierung per Header <code>Authorization: Bearer &lt;Schlüssel&gt;</code>.</p>
     <form method="post" action="/admin/api" class="form-grid"><input type="hidden" name="_csrf" value="<%= csrf %>">
       <%- h.input('name', 'Bezeichnung', '', { required: true, placeholder: 'z. B. Make-Szenario' }) %>
@@ -55,6 +80,7 @@ document.querySelector('#kontakt').addEventListener('submit', async (e) =&gt; {
     <h2>Endpunkte</h2>
     <table class="small"><tbody>
       <tr><td class="mono">POST /api/public/kontakt</td><td>Website-Anfrage (öffentlich)</td></tr>
+      <tr><td class="mono">GET /api/public/leistungen</td><td>Leistungskatalog (öffentlich)</td></tr>
       <tr><td class="mono">GET /api/v1/kunden</td><td>Kundenliste (<code>?limit&amp;offset</code>)</td></tr>
       <tr><td class="mono">GET /api/v1/kunden/:id</td><td>Kunde</td></tr>
       <tr><td class="mono">POST /api/v1/kunden</td><td>Kunde anlegen (write)</td></tr>

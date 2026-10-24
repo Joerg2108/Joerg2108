@@ -21,6 +21,8 @@ function open(file = config.dbFile) {
 const migrations = [
   // 1: Kategorien für den Leistungskatalog
   (d) => d.exec('ALTER TABLE products ADD COLUMN category TEXT'),
+  // 2: Leistung auf der Website anzeigen (Standard: ja)
+  (d) => d.exec('ALTER TABLE products ADD COLUMN public INTEGER NOT NULL DEFAULT 1'),
 ];
 
 function migrate(d) {

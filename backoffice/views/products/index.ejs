@@ -11,7 +11,7 @@
 <div class="card flush">
   <div class="card-head"><h2><%= g.name %></h2><span class="muted small"><%= g.items.length %> Leistung(en)</span></div>
   <div class="table-wrap"><table><thead><tr><th>Nr.</th><th>Bezeichnung</th><th>Einheit</th><th class="num">Preis netto</th><th class="num">USt</th><th>Status</th></tr></thead><tbody>
-  <% for (const p of g.items) { %><tr class="row-link" data-href="/artikel/<%= p.id %>/bearbeiten"><td class="mono nowrap"><%= p.sku || "" %></td><td><strong><%= p.name %></strong><div class="small muted"><%= p.description || '' %></div></td><td><%= p.unit %></td><td class="num"><%= h.eur(p.price) %></td><td class="num"><%= h.num(p.tax_rate) %> %</td><td><%- p.active ? h.badge('aktiv') : h.badge('inaktiv') %></td></tr><% } %>
+  <% for (const p of g.items) { %><tr class="row-link" data-href="/artikel/<%= p.id %>/bearbeiten"><td class="mono nowrap"><%= p.sku || "" %></td><td><strong><%= p.name %></strong><div class="small muted"><%= p.description || '' %></div></td><td><%= p.unit %></td><td class="num"><%= h.eur(p.price) %></td><td class="num"><%= h.num(p.tax_rate) %> %</td><td class="nowrap"><%- p.active ? h.badge('aktiv') : h.badge('inaktiv') %><% if (p.active && p.public) { %> <%- h.badge('neu', 'Website') %><% } %></td></tr><% } %>
   </tbody></table></div>
 </div>
 <% } %>
