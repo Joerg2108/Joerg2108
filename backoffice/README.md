@@ -95,31 +95,46 @@ Die Preise sind **Richtwerte** und lassen sich im Back Office ändern. Erneutes 
 
 ## Produktivbetrieb (Server)
 
-### Variante A: Docker (empfohlen)
+👉 **Schritt-für-Schritt-Anleitung für Einsteiger: [`docs/SERVER-INSTALLATION.md`](docs/SERVER-INSTALLATION.md)**
+
+### Variante A: Ein-Befehl-Installer (empfohlen)
+
+Auf einem frischen Server mit Ubuntu 22.04/24.04 oder Debian 12:
+
+```bash
+tar xzf backoffice-1.0.0.tar.gz && cd backoffice-1.0.0
+sudo bash deploy/install.sh --domain office.joerg-noack.com --email info@joerg-noack.com
+```
+
+Der Installer erledigt:
+- **Node.js 22** installieren, notfalls aus dem offiziellen Archiv mit SHA-256-Prüfung
+- **Systemdienst** mit Autostart, eigenem Benutzer und Härtung: Schreibrecht nur aufs Datenverzeichnis, Port 3000 nur lokal erreichbar
+- **Caddy** mit automatischem **HTTPS-Zertifikat** von Let's Encrypt
+- **Firewall**: nur SSH, 80 und 443 offen
+- **Automatische Sicherheitsupdates** des Betriebssystems
+- **DNS-Prüfung**, Zufalls-Sitzungsschlüssel und Admin-Startpasswort
+
+Du kannst ihn gefahrlos erneut ausführen; `.env` und Daten bleiben erhalten.
+
+| Was | Wo |
+|---|---|
+| Programm | `/opt/backoffice` |
+| Konfiguration | `/opt/backoffice/.env` |
+| Daten, Uploads, Backups | `/var/lib/backoffice` |
+| Startpasswort | `/root/backoffice-zugang.txt` (nach dem ersten Login löschen) |
+
+**Paket erstellen** (auf deinem Rechner): `npm run package` erzeugt `dist/backoffice-<version>.tar.gz`.
+
+**Update:** Neues Paket hochladen und entpacken, dann `sudo bash deploy/update.sh` ausführen. Das Skript macht vorher ein Backup, spielt die neue Version ein und prüft den Start. Startet die neue Version nicht, wird **automatisch die alte wiederhergestellt**.
+
+### Variante B: Docker
 
 ```bash
 cp .env.example .env    # NODE_ENV=production, SESSION_SECRET, BASE_URL, SMTP … setzen
 docker compose up -d
 ```
 
-Daten, Uploads und Backups liegen in `./data` (Volume). Updates spielst du so ein: `git pull && docker compose up -d --build`.
-
-### Variante B: Direkt mit systemd
-
-```bash
-sudo useradd -r -s /bin/false backoffice
-sudo mkdir -p /opt/backoffice && sudo cp -r . /opt/backoffice && cd /opt/backoffice
-sudo npm ci --omit=dev
-sudo chown -R backoffice:backoffice /opt/backoffice
-sudo cp deploy/backoffice.service /etc/systemd/system/
-sudo systemctl enable --now backoffice
-```
-
-### HTTPS über einen Reverse Proxy
-
-Das Back Office lauscht nur auf Port 3000. Öffentlich erreichbar machst du es über **Caddy** (`deploy/Caddyfile`, holt das Zertifikat automatisch) oder **Nginx** (`deploy/nginx.conf`). Setze in der `.env` `TRUST_PROXY=1` und `BASE_URL=https://…`.
-
-Empfehlung: eine eigene Subdomain wie **office.joerg-noack.com**. Im DNS legst du dafür einen A-Record auf die Server-IP an.
+Daten, Uploads und Backups liegen in `./data` (Volume), der Container läuft ohne Root-Rechte. Für HTTPS davor einen Reverse Proxy schalten, z. B. Caddy (`deploy/Caddyfile`) oder Nginx (`deploy/nginx.conf`), und in der `.env` `TRUST_PROXY=1` sowie `BASE_URL=https://…` setzen.
 
 > ⚠️ Hinweis: **joerg-noack.com** war beim Erstellen nicht erreichbar (DNS ohne Antwort). Prüfe vor dem Livegang, ob Domain und DNS-Einträge stimmen.
 

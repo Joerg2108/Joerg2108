@@ -9,7 +9,8 @@
     "seed": "node --no-warnings src/db/seed.js",
     "test": "node --no-warnings --test tests/*.test.js",
     "backup": "node --no-warnings src/lib/backup-cli.js",
-    "catalog": "node --no-warnings src/lib/catalog.js"
+    "catalog": "node --no-warnings src/lib/catalog.js",
+    "package": "bash deploy/package.sh"
   },
   "author": "Jörg Noack",
   "license": "UNLICENSED",
