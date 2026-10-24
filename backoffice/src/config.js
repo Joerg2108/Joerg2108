@@ -20,7 +20,8 @@ module.exports = {
   isProd: env.NODE_ENV === 'production',
   port: Number(env.PORT || 3000),
   host: env.HOST || '0.0.0.0',
-  baseUrl: (env.BASE_URL || `http://localhost:${env.PORT || 3000}`).replace(/\/$/, ''),
+  // Auf Render wird die öffentliche Adresse automatisch über RENDER_EXTERNAL_URL gesetzt
+  baseUrl: (env.BASE_URL || env.RENDER_EXTERNAL_URL || `http://localhost:${env.PORT || 3000}`).replace(/\/$/, ''),
   dataDir,
   dbFile: path.join(dataDir, env.DB_FILE || 'backoffice.sqlite'),
   uploadDir: path.join(dataDir, 'uploads'),

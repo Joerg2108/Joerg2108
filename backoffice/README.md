@@ -95,9 +95,21 @@ Die Preise sind **Richtwerte** und lassen sich im Back Office ändern. Erneutes 
 
 ## Produktivbetrieb (Server)
 
-👉 **Schritt-für-Schritt-Anleitung für Einsteiger: [`docs/SERVER-INSTALLATION.md`](docs/SERVER-INSTALLATION.md)**
+| Variante | Für wen | Anleitung |
+|---|---|---|
+| **Render** (Cloud-Hosting) | ohne eigenen Server, alles per Klick | [`docs/RENDER.md`](docs/RENDER.md) |
+| **Eigener Server** (VPS) | volle Kontrolle, Anbieter in Deutschland | [`docs/SERVER-INSTALLATION.md`](docs/SERVER-INSTALLATION.md) |
+| **Docker** | bestehende Docker-Umgebung, NAS | siehe unten |
 
-### Variante A: Ein-Befehl-Installer (empfohlen)
+### Render
+
+Der Blueprint `render.yaml` im Hauptordner des Repositorys richtet alles ein: Web Service in Frankfurt, Tarif Starter, **1 GB Persistent Disk** für Datenbank, Uploads und Backups, Node.js 22, Health-Check, Sitzungsschlüssel und automatische Deploys.
+
+Im Render-Dashboard: **New + → Blueprint →** Repository wählen, `ADMIN_EMAIL` und `ADMIN_PASSWORD` eintragen, **Apply**. Die öffentliche Adresse übernimmt das Back Office automatisch (`RENDER_EXTERNAL_URL`); für eine eigene Domain setzt du zusätzlich `BASE_URL`.
+
+> Der **Free-Tarif ist nicht geeignet**: Er hat keine Disk, alle Daten gingen bei jedem Neustart verloren.
+
+### Eigener Server: Ein-Befehl-Installer
 
 Auf einem frischen Server mit Ubuntu 22.04/24.04 oder Debian 12:
 
@@ -127,7 +139,7 @@ Du kannst ihn gefahrlos erneut ausführen; `.env` und Daten bleiben erhalten.
 
 **Update:** Neues Paket hochladen und entpacken, dann `sudo bash deploy/update.sh` ausführen. Das Skript macht vorher ein Backup, spielt die neue Version ein und prüft den Start. Startet die neue Version nicht, wird **automatisch die alte wiederhergestellt**.
 
-### Variante B: Docker
+### Docker
 
 ```bash
 cp .env.example .env    # NODE_ENV=production, SESSION_SECRET, BASE_URL, SMTP … setzen

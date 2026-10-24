@@ -1,0 +1,39 @@
+# Render Blueprint – Back Office für joerg-noack.com
+# Anleitung: backoffice/docs/RENDER.md
+#
+# Wichtig: Das Back Office speichert Daten in SQLite auf einer dauerhaften Disk.
+# Disks gibt es nur in bezahlten Tarifen (ab "starter"). Im Free-Tarif gingen alle Daten
+# bei jedem Neustart/Deploy verloren – deshalb ist "starter" hier fest eingestellt.
+services:
+  - type: web
+    name: backoffice
+    runtime: node
+    rootDir: backoffice
+    region: frankfurt          # Rechenzentrum in der EU (DSGVO)
+    plan: starter
+    buildCommand: npm ci --omit=dev
+    startCommand: node --no-warnings src/server.js
+    healthCheckPath: /healthz
+    autoDeploy: true
+    disk:
+      name: backoffice-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: DATA_DIR
+        value: /var/data
+      - key: TRUST_PROXY
+        value: "1"
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: https://joerg-noack.com,https://www.joerg-noack.com
+      # Werden beim Anlegen im Render-Dashboard abgefragt:
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
