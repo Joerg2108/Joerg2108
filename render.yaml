@@ -1,5 +1,5 @@
-# Render Blueprint – Back Office für joerg-noack.com
-# Anleitung: backoffice/docs/RENDER.md
+# Render Blueprint – Back Office für joerg-noack.com + öffentliche Demo für Interessenten
+# Anleitung: backoffice/docs/RENDER.md (Back Office), backoffice/docs/DEMO.md (Demo)
 #
 # Wichtig: Das Back Office speichert Daten in SQLite auf einer dauerhaften Disk.
 # Disks gibt es nur in bezahlten Tarifen (ab "starter"). Im Free-Tarif gingen alle Daten
@@ -37,3 +37,36 @@ services:
         sync: false
       - key: ADMIN_PASSWORD
         sync: false
+
+  # ─── Öffentliche DEMO (Muster Service GmbH) ───────────────────────────────
+  # Eigener Dienst im kostenlosen Free-Tarif ohne Disk: Datenverlust ist hier gewollt.
+  # Musterdaten werden bei jedem Start und alle DEMO_RESET_HOURS Stunden neu angelegt.
+  # Mit dem echten Back Office oben teilt sie nichts (eigene Datenbank, eigene Adresse).
+  - type: web
+    name: backoffice-demo
+    runtime: node
+    rootDir: backoffice
+    region: frankfurt
+    plan: free
+    buildCommand: npm ci --omit=dev
+    startCommand: node --no-warnings src/server.js
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY
+        value: "1"
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: DEMO_MODE
+        value: "1"
+      - key: DEMO_RESET_HOURS
+        value: "6"
+      # Ziel des Buttons „Für Ihr Unternehmen anfragen“ und Anbietername im Demo-Banner
+      - key: DEMO_CONTACT_URL
+        value: https://joerg-noack.com/kontakt
+      - key: DEMO_VENDOR
+        value: Jörg Noack

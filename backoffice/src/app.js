@@ -9,6 +9,7 @@ const db = require('./db');
 const settings = require('./lib/settings');
 const sec = require('./lib/security');
 const view = require('./lib/view');
+const demo = require('./lib/demo');
 
 function createApp() {
   db.open();
@@ -52,7 +53,7 @@ function createApp() {
     const s = settings.all();
     Object.assign(res.locals, {
       h: view, s, path: req.path, can: (p) => sec.can(req.user, p), title: '', flash: req.session.flash || [],
-      ROLE_LABELS: sec.ROLE_LABELS, query: req.query,
+      ROLE_LABELS: sec.ROLE_LABELS, query: req.query, demo: demo.locals(),
     });
     delete req.session.flash;
     req.flash = (type, msg) => { (req.session.flash = req.session.flash || []).push({ type, msg }); };
@@ -73,6 +74,7 @@ function createApp() {
   });
 
   app.use(sec.csrf);
+  app.use(demo.guard);
   // Logo ist auch auf der Login-Seite sichtbar (nicht vertraulich)
   app.get('/logo', (req, res) => {
     const logo = settings.get('logo_file');

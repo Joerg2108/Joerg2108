@@ -13,7 +13,9 @@ const { wrap, id, notFound, UserError } = require('../lib/route');
 const router = express.Router();
 
 // Erlaubte Dateitypen (Whitelist) – keine ausführbaren Dateien
-const ALLOWED = /\.(pdf|png|jpe?g|gif|webp|heic|txt|csv|xlsx?|docx?|pptx?|odt|ods|zip|xml|eml|msg)$/i;
+// Demo-Instanz: nur PDF/Bilder bis 2 MB (Uploads werden beim Demo-Reset gelöscht)
+const ALLOWED = config.demo.enabled ? /\.(pdf|png|jpe?g)$/i : /\.(pdf|png|jpe?g|gif|webp|heic|txt|csv|xlsx?|docx?|pptx?|odt|ods|zip|xml|eml|msg)$/i;
+const MAX_MB = config.demo.enabled ? Math.min(2, config.maxUploadMb) : config.maxUploadMb;
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, config.uploadDir),
@@ -21,7 +23,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({
   storage,
-  limits: { fileSize: config.maxUploadMb * 1024 * 1024, files: 10 },
+  limits: { fileSize: MAX_MB * 1024 * 1024, files: 10 },
   fileFilter: (req, file, cb) => cb(ALLOWED.test(file.originalname) ? null : new UserError(`Dateityp nicht erlaubt: ${file.originalname}`), ALLOWED.test(file.originalname)),
 });
 
@@ -54,7 +56,7 @@ router.get('/', sec.requirePerm('files'), (req, res) => {
 router.post('/', sec.requirePerm('files'), (req, res, next) => {
   upload.array('files', 10)(req, res, (err) => {
     if (err) {
-      req.flash('error', err.code === 'LIMIT_FILE_SIZE' ? `Datei zu groß (max. ${config.maxUploadMb} MB).` : err.message);
+      req.flash('error', err.code === 'LIMIT_FILE_SIZE' ? `Datei zu groß (max. ${MAX_MB} MB).` : err.message);
       return res.redirect(req.get('referer') || '/dateien');
     }
     try {

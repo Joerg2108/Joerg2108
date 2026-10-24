@@ -1,3 +1,18 @@
+<% if (typeof demo !== 'undefined' && demo) { %>
+<div class="demo-login">
+  <p class="small"><strong>Demo ausprobieren</strong> – einfach eine Rolle wählen:</p>
+  <% for (const a of demo.accounts) { %>
+  <form method="post" action="/login">
+    <input type="hidden" name="_csrf" value="<%= csrf %>">
+    <input type="hidden" name="next" value="<%= next %>">
+    <input type="hidden" name="email" value="<%= a.email %>">
+    <input type="hidden" name="password" value="<%= demo.password %>">
+    <button class="btn demo-account"><strong><%= a.label %></strong><small><%= a.name %> · <%= a.hint %></small></button>
+  </form>
+  <% } %>
+  <p class="small muted">Manuell: <%= demo.accounts.map((a) => a.email).join(', ') %> – Passwort für alle: <code><%= demo.password %></code></p>
+</div>
+<% } %>
 <% if (typeof error !== 'undefined') { %><div class="alert error"><%= error %></div><% } %>
 <form method="post" action="/login">
   <input type="hidden" name="_csrf" value="<%= csrf %>">

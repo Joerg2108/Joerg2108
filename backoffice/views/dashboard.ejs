@@ -7,6 +7,8 @@
   </div>
 </div>
 
+<%- include('demo-tour') %>
+
 <div class="kpis">
   <% if (can('sales')) { %>
   <a class="kpi" href="/berichte"><span>Umsatz Monat (netto)</span><strong><%= h.eur(kpi.revenueMonth) %></strong><small>Jahr: <%= h.eur(kpi.revenueYear) %></small></a>

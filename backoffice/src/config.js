@@ -30,7 +30,7 @@ module.exports = {
   sessionDays: Number(env.SESSION_DAYS || 7),
   trustProxy: env.TRUST_PROXY === '1' || env.TRUST_PROXY === 'true',
   // Komma-getrennte Liste erlaubter Website-Origins für das Kontaktformular
-  corsOrigins: (env.CORS_ORIGINS || 'https://joerg-noack.com,https://www.joerg-noack.com')
+  corsOrigins: (env.CORS_ORIGINS || '')
     .split(',').map((s) => s.trim()).filter(Boolean),
   maxUploadMb: Number(env.MAX_UPLOAD_MB || 20),
   backupKeep: Number(env.BACKUP_KEEP || 30),
@@ -41,6 +41,13 @@ module.exports = {
     user: env.SMTP_USER || '',
     pass: env.SMTP_PASS || '',
     from: env.SMTP_FROM || '',
+  },
+  // Vorführ-Instanz für Interessenten: Musterdaten, Ein-Klick-Login, automatischer Reset, Schutzsperren
+  demo: {
+    enabled: env.DEMO_MODE === '1' || env.DEMO_MODE === 'true',
+    resetHours: Math.max(1, Number(env.DEMO_RESET_HOURS || 6)),
+    contactUrl: env.DEMO_CONTACT_URL || '',
+    vendor: env.DEMO_VENDOR || '',
   },
   admin: {
     email: env.ADMIN_EMAIL || 'admin@example.com',

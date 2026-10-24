@@ -311,3 +311,19 @@ body.auth { display: grid; place-items: center; min-height: 100vh; padding: 16px
 .open-row td { background: var(--surface-2); }
 .absence { display: inline-block; font-size: .7rem; font-weight: 600; padding: 1px 6px; border-radius: 4px; margin-bottom: 4px; background: var(--grey-bg); color: var(--grey); }
 .absence.urlaub { background: var(--blue-bg); color: var(--blue); } .absence.krank { background: var(--red-bg); color: var(--red); } .absence.schulung { background: var(--violet-bg); color: var(--violet); }
+
+/* ---------- Demo-Modus ---------- */
+.demo-banner { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; justify-content: space-between; padding: 8px 16px; background: var(--amber-bg); color: var(--amber); border-bottom: 1px solid color-mix(in srgb, var(--amber) 30%, transparent); font-size: .85rem; }
+.demo-banner .btn { flex: none; }
+body.auth:has(.demo-banner) { display: flex; flex-direction: column; align-items: center; padding-top: 0; }
+body.auth .demo-banner { align-self: stretch; margin: 0 -16px 24px; }
+.demo-login { display: grid; gap: 8px; margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+.demo-login p { margin: 0; }
+.demo-login form { display: block; }
+.auth-card .btn.demo-account { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; white-space: normal; padding: 10px 12px; }
+.demo-account small { color: var(--muted); font-weight: 400; }
+.demo-tour { margin-bottom: 18px; border-color: color-mix(in srgb, var(--brand) 35%, var(--border)); }
+.demo-tour-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin-bottom: 10px; }
+.demo-tour-grid a { display: grid; align-content: start; gap: 4px; padding: 12px; border: 1px solid var(--border); border-radius: 10px; color: var(--text); background: var(--surface-2); }
+.demo-tour-grid a:hover { border-color: var(--brand); }
+.demo-tour-grid span { color: var(--muted); font-size: .85rem; }

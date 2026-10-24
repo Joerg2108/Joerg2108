@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
     byGroup.get(name).push(r);
   }
   const groups = [...byGroup].map(([name, items]) => ({ name, items }));
-  const missing = catalog.CATALOG.filter((c) => !db.get('SELECT id FROM products WHERE sku = ?', c.sku)).length;
+  const missing = catalog.active().filter((c) => !db.get('SELECT id FROM products WHERE sku = ?', c.sku)).length;
   res.render('products/index', { title: 'Artikel & Leistungen', rows, groups, missing });
 });
 

@@ -23,6 +23,16 @@ const migrations = [
   (d) => d.exec('ALTER TABLE products ADD COLUMN category TEXT'),
   // 2: Leistung auf der Website anzeigen (Standard: ja)
   (d) => d.exec('ALTER TABLE products ADD COLUMN public INTEGER NOT NULL DEFAULT 1'),
+  // 3: Standardwerte sind jetzt neutral – bestehende Installationen behalten die bisherigen Werte
+  (d) => {
+    if (!d.prepare('SELECT COUNT(*) AS n FROM users').get().n) return;
+    const ins = d.prepare('INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO NOTHING');
+    for (const [k, v] of Object.entries({
+      company_name: 'Jörg Noack', company_owner: 'Jörg Noack', company_email: 'info@joerg-noack.com',
+      company_website: 'https://joerg-noack.com', public_contact_url: 'https://joerg-noack.com/kontakt',
+      public_catalog_intro: 'Von Hausmeisterdienst bis KI-Unterstützung – alles aus einer Hand.',
+    })) ins.run(k, v);
+  },
 ];
 
 function migrate(d) {

@@ -1,8 +1,11 @@
 'use strict';
-// Leistungskatalog Jörg Noack – wird über "Artikel & Leistungen → Leistungskatalog einspielen"
+// Leistungskataloge – werden über "Artikel & Leistungen → Leistungskatalog einspielen"
 // oder "npm run catalog" in die Datenbank übernommen. Bereits vorhandene Artikelnummern bleiben unverändert.
 // Preise sind Richtwerte (netto) und können jederzeit im Back Office angepasst werden.
+//   standard: Leistungskatalog Jörg Noack
+//   muster:   neutraler Musterkatalog (Demo-Modus, Vorführungen) – Auswahl per CATALOG=muster
 const db = require('../db');
+const config = require('../config');
 
 const CATALOG = [
   // ───────── Facility & Montage ─────────
@@ -79,12 +82,44 @@ const CATALOG = [
   },
 ];
 
+const MUSTER_CATALOG = [
+  // ───────── Beratung & Projekte ─────────
+  { sku: 'BP-01', category: 'Beratung & Projekte', name: 'Beratung', unit: 'Std.', price: 9500, description: 'Fachliche Beratung vor Ort oder per Video, inkl. kurzer Ergebniszusammenfassung.' },
+  { sku: 'BP-02', category: 'Beratung & Projekte', name: 'Projektmanagement', unit: 'Std.', price: 8500, description: 'Planung, Steuerung und Abstimmung von Projekten, Termin- und Budgetkontrolle, Statusberichte.' },
+  { sku: 'BP-03', category: 'Beratung & Projekte', name: 'Workshop – Tagessatz', unit: 'Tag', price: 98000, description: 'Ganztägiger Workshop bis 8 Stunden inkl. Vorbereitung und Fotoprotokoll.' },
+  { sku: 'BP-04', category: 'Beratung & Projekte', name: 'Prozessanalyse & Digitalisierung', unit: 'Std.', price: 9000, description: 'Aufnahme bestehender Abläufe, Schwachstellenanalyse und Konzept für digitale Workflows.' },
+  // ───────── Service & Wartung ─────────
+  { sku: 'SW-01', category: 'Service & Wartung', name: 'Servicetechniker', unit: 'Std.', price: 6800, description: 'Service-, Wartungs- und Reparaturarbeiten durch geschulte Fachkräfte.' },
+  { sku: 'SW-02', category: 'Service & Wartung', name: 'Wartungsvertrag – Monatspauschale', unit: 'Monat', price: 24900, description: 'Regelmäßige Wartung nach Leistungsverzeichnis inkl. Prüfprotokoll und bevorzugter Störungsannahme.' },
+  { sku: 'SW-03', category: 'Service & Wartung', name: 'Anfahrtspauschale', unit: 'pauschal', price: 4500, description: 'Anfahrt im Stadtgebiet inkl. Fahrzeit.' },
+  { sku: 'SW-04', category: 'Service & Wartung', name: 'Notdienst-Zuschlag', unit: 'pauschal', price: 8000, description: 'Zuschlag für Einsätze außerhalb der Geschäftszeiten, an Wochenenden und Feiertagen.' },
+  // ───────── Montage & Technik ─────────
+  { sku: 'MT-01', category: 'Montage & Technik', name: 'Montage', unit: 'Std.', price: 6200, description: 'Montage und Installation von Bauteilen, Geräten und Ausstattung.' },
+  { sku: 'MT-02', category: 'Montage & Technik', name: 'Kleinmaterial', unit: 'pauschal', price: 2500, description: 'Befestigungs- und Verbrauchsmaterial.' },
+  { sku: 'MT-03', category: 'Montage & Technik', name: 'Inbetriebnahme & Einweisung', unit: 'Std.', price: 7200, description: 'Funktionsprüfung, Einstellung und Einweisung der Nutzer inkl. Übergabeprotokoll.' },
+  // ───────── Digital & Marketing ─────────
+  { sku: 'DM-01', category: 'Digital & Marketing', name: 'Webdesign & Umsetzung', unit: 'Std.', price: 9000, description: 'Gestaltung und Umsetzung von Websites und Landingpages, responsiv und barrierearm.' },
+  { sku: 'DM-02', category: 'Digital & Marketing', name: 'Website-Pflege – Monatspauschale', unit: 'Monat', price: 14900, description: 'Updates, Sicherheits-Checks, Backups und kleine Inhaltsänderungen.' },
+  { sku: 'DM-03', category: 'Digital & Marketing', name: 'Social-Media-Betreuung – Monatspauschale', unit: 'Monat', price: 49000, description: 'Redaktionsplan, Beitragserstellung, Community-Management und Monatsreport.' },
+  { sku: 'DM-04', category: 'Digital & Marketing', name: 'Hosting & Domain', unit: 'Jahr', price: 18000, description: 'Webhosting mit SSL-Zertifikat, E-Mail-Postfächern und täglicher Sicherung.' },
+  // ───────── Schulung ─────────
+  { sku: 'SC-01', category: 'Schulung', name: 'Schulung vor Ort – Tagessatz', unit: 'Tag', price: 89000, description: 'Praxisschulung für bis zu 10 Teilnehmende inkl. Unterlagen und Teilnahmebescheinigung.' },
+  { sku: 'SC-02', category: 'Schulung', name: 'Online-Schulung', unit: 'Std.', price: 12000, description: 'Live-Schulung per Video inkl. Aufzeichnung.' },
+];
+
+const CATALOGS = { standard: CATALOG, muster: MUSTER_CATALOG };
+
+// Demo-Instanzen nutzen immer den neutralen Musterkatalog
+function active() {
+  return CATALOGS[config.demo.enabled ? 'muster' : process.env.CATALOG] || CATALOG;
+}
+
 // Spielt den Katalog ein; vorhandene Artikelnummern werden übersprungen (Preise bleiben, wie du sie gepflegt hast)
-function importCatalog() {
+function importCatalog(items = active()) {
   let added = 0;
   let skipped = 0;
   db.tx(() => {
-    for (const p of CATALOG) {
+    for (const p of items) {
       if (db.get('SELECT id FROM products WHERE sku = ?', p.sku)) { skipped++; continue; }
       db.run(
         'INSERT INTO products (sku, category, name, description, unit, price, tax_rate, active) VALUES (?, ?, ?, ?, ?, ?, 19, 1)',
@@ -116,7 +151,7 @@ function publicCatalog() {
   };
 }
 
-module.exports = { CATALOG, importCatalog, publicCatalog };
+module.exports = { CATALOG, MUSTER_CATALOG, CATALOGS, active, importCatalog, publicCatalog };
 
 // Direkt ausführbar: npm run catalog
 if (require.main === module) {

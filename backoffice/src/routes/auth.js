@@ -32,7 +32,8 @@ router.post('/login', loginLimiter, (req, res) => {
   if (!u || !u.active || !sec.checkPassword(req.body.password, u.password_hash)) {
     if (u) {
       const fails = u.failed_logins + 1;
-      const lock = fails >= 5 ? new Date(Date.now() + 15 * 60 * 1000).toISOString() : null;
+      // In der Demo kein Sperren – sonst könnte jeder die öffentlichen Demo-Zugänge blockieren
+      const lock = fails >= 5 && !config.demo.enabled ? new Date(Date.now() + 15 * 60 * 1000).toISOString() : null;
       db.run('UPDATE users SET failed_logins = ?, locked_until = ? WHERE id = ?', lock ? 0 : fails, lock, u.id);
       audit.log({ ip: req.ip, user: null }, 'login.fehlgeschlagen', 'user', u.id, { email });
     }
