@@ -3,15 +3,15 @@ const db = require('../db');
 
 // Standardwerte – alles über "Einstellungen" im Back Office änderbar (White-Label).
 const DEFAULTS = {
-  company_name: 'Jörg Noack',
-  company_owner: 'Jörg Noack',
+  company_name: 'Ihre Firma',
+  company_owner: '',
   company_street: 'Musterstraße 1',
   company_zip: '12345',
   company_city: 'Musterstadt',
   company_country: 'DE',
-  company_email: 'info@joerg-noack.com',
+  company_email: '',
   company_phone: '',
-  company_website: 'https://joerg-noack.com',
+  company_website: '',
   company_tax_number: '',
   company_vat_id: '',
   company_register: '',
@@ -59,8 +59,8 @@ const DEFAULTS = {
   surcharge_sunday_pct: '50',
   surcharge_holiday_pct: '100',
   public_show_prices: '0',
-  public_contact_url: 'https://joerg-noack.com/kontakt',
-  public_catalog_intro: 'Von Hausmeisterdienst bis KI-Unterstützung – alles aus einer Hand.',
+  public_contact_url: '',
+  public_catalog_intro: 'Unsere Leistungen im Überblick.',
 };
 
 let cache = null;

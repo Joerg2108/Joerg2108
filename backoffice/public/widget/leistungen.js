@@ -2,8 +2,8 @@
  * Leistungskatalog-Widget für die Website
  *
  * Einbau:
- *   <div id="noack-leistungen"></div>
- *   <script src="https://office.joerg-noack.com/api/public/leistungen.js" defer></script>
+ *   <div id="leistungen-widget"></div>     (ältere Einbauten mit id="noack-leistungen" funktionieren weiter)
+ *   <script src="https://office.ihre-firma.de/api/public/leistungen.js" defer></script>
  *
  * Optionen (data-Attribute am <div>):
  *   data-kategorie="Digital & Marketing"   nur diese Kategorie(n) anzeigen, mehrere mit | trennen
@@ -146,7 +146,7 @@
 
   function init() {
     prefillContactForm();
-    var roots = document.querySelectorAll('#noack-leistungen, [data-noack-leistungen]');
+    var roots = document.querySelectorAll('#leistungen-widget, [data-leistungen-widget], #noack-leistungen, [data-noack-leistungen]');
     if (!roots.length) return;
     loadCss();
     fetch(base + '/api/public/leistungen', { headers: { Accept: 'application/json' } })

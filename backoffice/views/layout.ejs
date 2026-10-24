@@ -92,6 +92,7 @@
         </details>
       </div>
     </header>
+    <%- include('demo-banner') %>
     <main class="content">
       <% for (const fl of flash) { %><div class="alert <%= fl.type %>" role="status"><%= fl.msg %></div><% } %>
       <%- body %>

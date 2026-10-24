@@ -5,8 +5,9 @@ const settings = require('./settings');
 
 let transport;
 
+// In der Demo-Instanz wird grundsätzlich nichts versendet
 function enabled() {
-  return !!config.smtp.host;
+  return !!config.smtp.host && !config.demo.enabled;
 }
 
 function getTransport() {
@@ -25,10 +26,17 @@ function getTransport() {
 async function send({ to, subject, text, attachments = [], replyTo }) {
   const from = config.smtp.from || `${settings.get('company_name')} <${settings.get('company_email')}>`;
   if (!enabled()) {
-    console.log(`[Mail – nicht versendet, SMTP fehlt] An: ${to} | Betreff: ${subject} | Anhänge: ${attachments.map((a) => a.filename).join(', ')}`);
+    console.log(`[Mail – nicht versendet, ${config.demo.enabled ? 'Demo-Modus' : 'SMTP fehlt'}] An: ${to} | Betreff: ${subject} | Anhänge: ${attachments.map((a) => a.filename).join(', ')}`);
     return { simulated: true };
   }
   return getTransport().sendMail({ from, to, subject, text, attachments, replyTo });
 }
 
-module.exports = { send, enabled };
+// Hinweistext für die Oberfläche, wenn nur simuliert wurde
+function simulatedNotice() {
+  return config.demo.enabled
+    ? 'Demo-Version: Der Versand wurde simuliert. In Ihrer Installation geht die E-Mail mit PDF-Anhang direkt an den Kunden.'
+    : 'SMTP ist nicht eingerichtet – Versand wurde nur simuliert (siehe Server-Log).';
+}
+
+module.exports = { send, enabled, simulatedNotice };

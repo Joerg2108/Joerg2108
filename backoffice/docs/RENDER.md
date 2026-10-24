@@ -4,6 +4,8 @@ Render betreibt das Back Office für dich: Server, HTTPS-Zertifikat, Neustarts u
 
 Zeitaufwand: etwa **15 Minuten**, mit eigener Domain etwas mehr.
 
+> Du suchst die **öffentliche Demo für Interessenten**? Die läuft als eigener, kostenloser Dienst über `render-demo.yaml`: siehe **[DEMO.md](DEMO.md)**.
+
 ---
 
 ## Wichtig vorab: Kosten & Tarif

@@ -314,7 +314,7 @@ test('Website: Leistungskatalog öffentlich abrufbar, nur freigegebene Leistunge
   r = await fetch(`${base}/api/public/leistungen.js`);
   assert.match(r.headers.get('content-type'), /javascript/);
   assert.equal(r.headers.get('cross-origin-resource-policy'), 'cross-origin');
-  assert.match(await r.text(), /noack-leistungen/);
+  assert.match(await r.text(), /leistungen-widget/);
   r = await fetch(`${base}/api/public/leistungen.css`);
   assert.match(r.headers.get('content-type'), /text\/css/);
   // Interne Felder (Steuersatz, IDs) werden nicht veröffentlicht

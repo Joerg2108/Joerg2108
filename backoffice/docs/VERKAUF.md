@@ -52,13 +52,18 @@ Back Office ab 1.500 € einmalig + Hosting (≈ 5–10 €/Monat) → amortisie
 | Wartung (optional) | Updates, Sicherheits-Patches, Backup-Kontrolle, Support per Mail | **49–99 €/Monat** |
 | Hosting (optional) | Managed Server in DE inkl. Backups | **19–39 €/Monat** |
 
+## Online-Demo für Interessenten
+Eine öffentliche Demo-Instanz (fiktive **Muster Service GmbH**) läuft unabhängig vom eigenen Back Office, z. B. unter `demo.joerg-noack.com`. Interessenten melden sich mit einem Klick als Geschäftsführung, Buchhaltung oder Mitarbeiter an. Ein Banner führt zur Kontaktseite, und alle 6 Stunden wird automatisch zurückgesetzt. Einrichtung (kostenlos auf Render) und ausführlicher Vorführleitfaden: **[DEMO.md](DEMO.md)**.
+
+**Tipp:** Den Demo-Link in Angebote, E-Mail-Signatur und auf die Website („Live-Demo ansehen“) setzen. Wer selbst geklickt hat, kauft leichter.
+
 ## Vorführung (Demo in 10 Minuten)
-1. `npm run seed` → Demodaten aus dem eigenen Geschäft (Hausmeisterdienst, Ausstellungsbau, Social Media, Digitalisierung)
+1. Online-Demo öffnen (oder lokal `npm run seed`) → Musterdaten der Muster Service GmbH (Wartung, Website-Relaunch, Digitalisierung, Schulung)
 2. Dashboard zeigen (KPIs, Diagramm, überfällige Rechnungen)
 3. Website-Anfrage → im Board auf „qualifiziert“ ziehen → „Als Kunde übernehmen“ → Angebot aus dem Leistungskatalog
 4. Angebot → Rechnung umwandeln → Festschreiben → PDF mit GiroCode → XRechnung (Behörde mit Leitweg-ID)
 5. Zahlung buchen, Mahnwesen, Stornorechnung zeigen (GoBD!)
-6. Einsatzplanung: Konflikt (⚠ abgelaufene Hubarbeitsbühnen-Schulung), offene Einsätze, Woche kopieren, Stundenauswertung → „Einsätze abrechnen“
+6. Einsatzplanung: Konflikt (⚠ abgelaufene Hubarbeitsbühnen-Schulung, fehlender Ersthelfer), offene Einsätze, Woche kopieren, Stundenauswertung → „Einsätze abrechnen“
 7. Stoppuhr starten, Projekt „Offene Zeiten abrechnen“
 8. Berichte: EÜR, USt-Kennziffern, DATEV-Export
 9. Sicherheit: 2FA, Rollen, Audit-Log „Integrität prüfen“

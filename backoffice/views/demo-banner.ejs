@@ -1,0 +1,6 @@
+<% if (typeof demo !== 'undefined' && demo) { %>
+<div class="demo-banner" role="note">
+  <span><strong>Demo-Version</strong> mit Musterdaten · alles darf ausprobiert werden · Reset alle <%= demo.resetHours %> Std. (nächster um <%= demo.nextReset %> Uhr)<% if (demo.vendor) { %> · Anbieter: <%= demo.vendor %><% } %></span>
+  <% if (demo.contactUrl) { %><a class="btn sm" href="<%= demo.contactUrl %>" target="_blank" rel="noopener">Für Ihr Unternehmen anfragen</a><% } %>
+</div>
+<% } %>

@@ -210,7 +210,7 @@ router.post('/:id(\\d+)/senden', wrap(async (req, res) => {
   });
   db.run("UPDATE documents_sales SET sent_at = datetime('now'), status = CASE WHEN status = 'entwurf' THEN 'versendet' ELSE status END WHERE id = ?", d.id);
   audit.log(req, 'beleg.versendet', 'document', d.id, { to });
-  req.flash(result.simulated ? 'warning' : 'success', result.simulated ? 'SMTP ist nicht eingerichtet – Versand wurde nur simuliert (siehe Server-Log).' : `Beleg an ${to} gesendet.`);
+  req.flash(result.simulated ? 'warning' : 'success', result.simulated ? mailer.simulatedNotice() : `Beleg an ${to} gesendet.`);
   res.redirect(`/belege/${d.id}`);
 }));
 

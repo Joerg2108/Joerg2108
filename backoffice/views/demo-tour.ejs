@@ -1,0 +1,22 @@
+<%
+  const tour = [
+    { perm: 'sales', href: '/belege/rechnungen/neu', title: 'Rechnung in 1 Minute', text: 'Leistungen aus dem Katalog wählen, festschreiben, PDF mit GiroCode und XRechnung erzeugen.' },
+    { perm: 'sales', href: '/belege/mahnwesen', title: 'Mahnwesen', text: 'Überfällige Rechnungen erkennen und mit Gebühren mahnen – 3 Mahnstufen.' },
+    { perm: 'leads', href: '/anfragen', title: 'Anfragen von der Website', text: 'Kontaktformular landet direkt hier – mit einem Klick zum Angebot.' },
+    { perm: 'shifts.view', href: '/dienstplan', title: 'Dienstplan mit Konfliktprüfung', text: 'Arbeitszeitgesetz, Ruhezeiten, Urlaub und abgelaufene Qualifikationen werden automatisch geprüft.' },
+    { perm: 'shifts', href: '/dienstplan/auswertung', title: 'Stundenauswertung', text: 'Nacht-, Sonn- und Feiertagszuschläge nach § 3b EStG, Minijob-Grenze, PDF/CSV-Export.' },
+    { perm: 'reports', href: '/berichte', title: 'Berichte & DATEV', text: 'EÜR, Umsatzsteuer-Übersicht und DATEV-Export für den Steuerberater.' },
+    { perm: 'projects', href: '/projekte', title: 'Projekte & Zeiten', text: 'Budget, Stunden und Aufgaben je Projekt – Zeiten direkt abrechnen.' },
+    { perm: 'admin', href: '/admin/einstellungen?tab=design', title: 'Ihr Design', text: 'Firmendaten, Farbe und Texte anpassen – das Back Office trägt Ihren Namen.' },
+    { perm: 'admin', href: '/admin/api', title: 'Website-Anbindung', text: 'Kontaktformular und Leistungskatalog per Code-Schnipsel auf Ihrer Website.' },
+  ].filter((t) => can(t.perm));
+%>
+<% if (demo && tour.length) { %>
+<div class="card demo-tour">
+  <div class="card-head"><h2>Rundgang – das können Sie ausprobieren</h2><% if (demo.contactUrl) { %><a class="btn sm primary" href="<%= demo.contactUrl %>" target="_blank" rel="noopener">Für Ihr Unternehmen anfragen</a><% } %></div>
+  <div class="demo-tour-grid">
+    <% for (const t of tour) { %><a href="<%= t.href %>"><strong><%= t.title %></strong><span><%= t.text %></span></a><% } %>
+  </div>
+  <p class="small muted">Eingeloggt als <%= ROLE_LABELS[user.role] %>. Abmelden und eine andere Rolle wählen, um die Rechteverwaltung zu sehen.</p>
+</div>
+<% } %>

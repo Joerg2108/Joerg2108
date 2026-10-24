@@ -11,6 +11,7 @@ Die Oberfläche ist komplett auf Deutsch, funktioniert auf Smartphones und kennt
 1. [Funktionsumfang](#funktionsumfang)
 2. [Schnellstart](#schnellstart)
 3. [Produktivbetrieb](#produktivbetrieb-server)
+   - [Demo-Version für Interessenten](#demo-version-für-interessenten)
 4. [Website anbinden](#website-anbinden-kontaktformular)
 5. [Rollen & Rechte](#rollen--rechte)
 6. [Rechtliches: GoBD, UStG, DSGVO](#rechtliches-gobd-ustg-dsgvo)
@@ -61,13 +62,13 @@ Voraussetzung: **Node.js 22.5 oder neuer**. Eine separate Datenbank ist nicht n�
 cd backoffice
 npm install
 cp .env.example .env          # danach SESSION_SECRET, ADMIN_EMAIL usw. anpassen
-npm run seed                  # optional: Demo-Daten (Hausmeister, Ausstellungsbau, Marketing, Digitalisierung)
+npm run seed                  # optional: Musterdaten der fiktiven „Muster Service GmbH“
 npm start
 ```
 
 Danach im Browser **http://localhost:3000** öffnen.
 
-- **Mit Demo-Daten** (`npm run seed`): Login mit `ADMIN_EMAIL` aus der `.env` und dem Passwort `Demo-Passwort1`. Das Passwort überschreibst du mit `ADMIN_PASSWORD`. Weitere Demo-Konten: `mitarbeiter@example.com` und `buchhaltung@example.com`.
+- **Mit Musterdaten** (`npm run seed`): Login mit `ADMIN_EMAIL` aus der `.env` (ohne Angabe: `chefin@muster-service.example`) und dem Passwort `Demo-Passwort1`. Das Passwort überschreibst du mit `ADMIN_PASSWORD`. Weitere Konten: `buchhaltung@muster-service.example` und `mitarbeiter@muster-service.example`.
 - **Ohne Demo-Daten**: Beim ersten Start wird ein Admin angelegt. Ist `ADMIN_PASSWORD` leer, steht ein Zufallspasswort einmalig im Konsolen-Log.
 
 Erste Schritte nach dem Login:
@@ -76,13 +77,13 @@ Erste Schritte nach dem Login:
 2. **Einstellungen → Design**: Logo hochladen, Markenfarbe wählen.
 3. **Profil → 2FA aktivieren**.
 4. **Artikel & Leistungen** anlegen, damit Angebote schnell gehen.
-5. **API & Website**: Kontaktformular und Leistungskatalog auf joerg-noack.com einbauen.
+5. **API & Website**: Kontaktformular und Leistungskatalog auf deiner Website einbauen.
 
 ---
 
 ### Leistungskatalog
 
-Der Katalog mit den Leistungen von Jörg Noack ist hinterlegt (`src/lib/catalog.js`). Eingespielt wird er über **Artikel & Leistungen → „Leistungskatalog einspielen“** oder per `npm run catalog`. Bei Demo-Daten passiert das automatisch.
+Der Katalog mit den Leistungen von Jörg Noack ist hinterlegt (`src/lib/catalog.js`). Eingespielt wird er über **Artikel & Leistungen → „Leistungskatalog einspielen“** oder per `npm run catalog`. Für Kundeninstallationen gibt es zusätzlich einen neutralen **Musterkatalog** (Beratung, Service & Wartung, Montage, Digital, Schulung), auswählbar mit `CATALOG=muster`; die Demo und `npm run seed` verwenden ihn automatisch.
 
 | Kategorie | Leistungen |
 |---|---|
@@ -108,6 +109,16 @@ Der Blueprint `render.yaml` im Hauptordner des Repositorys richtet alles ein: We
 Im Render-Dashboard: **New + → Blueprint →** Repository wählen, `ADMIN_EMAIL` und `ADMIN_PASSWORD` eintragen, **Apply**. Die öffentliche Adresse übernimmt das Back Office automatisch (`RENDER_EXTERNAL_URL`); für eine eigene Domain setzt du zusätzlich `BASE_URL`.
 
 > Der **Free-Tarif ist nicht geeignet**: Er hat keine Disk, alle Daten gingen bei jedem Neustart verloren.
+
+### Demo-Version für Interessenten
+
+Eine **separate, öffentliche Vorführ-Instanz** mit der fiktiven *Muster Service GmbH*: Ein-Klick-Login für drei Rollen, Demo-Banner mit „Für Ihr Unternehmen anfragen“, Rundgang auf dem Dashboard, automatischer Reset alle 6 Stunden, gesperrte Zugangsdaten und kein E-Mail-Versand. Aktiviert wird sie mit `DEMO_MODE=1`. Auf Render läuft sie kostenlos über **`render-demo.yaml`**.
+
+```bash
+DEMO_MODE=1 DATA_DIR=./demo-data npm start      # lokal ausprobieren
+```
+
+Einrichtung, Sperren, Schutz echter Daten und ein **15-Minuten-Vorführleitfaden**: **[docs/DEMO.md](docs/DEMO.md)**
 
 ### Eigener Server: Ein-Befehl-Installer
 
@@ -295,9 +306,10 @@ backoffice/
 │   ├── server.js            Start, Hintergrundjobs (Abos, Backups, Aufräumen)
 │   ├── app.js               Express-Setup, Sicherheit, Routing, Layout
 │   ├── config.js            .env-Konfiguration
-│   ├── db/                  Schema, Migrationen, Bootstrap, Demo-Daten
+│   ├── db/                  Schema, Migrationen, Bootstrap, Musterdaten (demo-data.js)
 │   ├── lib/                 Fachlogik: sales (Belege), pdf, xrechnung, numbering,
-│   │                        security, totp, audit, backup, mailer, csv, format, view
+│   │                        security, totp, audit, backup, mailer, csv, format, view,
+│   │                        shifts (Einsatzplanung), catalog, demo (Demo-Modus)
 │   └── routes/              auth, dashboard, customers, leads, sales, products, projects,
 │                            tasks, calendar, time, expenses, files, reports, admin, api
 ├── views/                   EJS-Templates
@@ -315,10 +327,11 @@ backoffice/
 
 ```bash
 npm run dev      # Neustart bei Dateiänderungen
-npm test         # 32 automatisierte Tests: Berechnung, GoBD-Sperren, Nummernkreise,
+npm test         # 42 automatisierte Tests: Berechnung, GoBD-Sperren, Nummernkreise,
                  # Storno, Mahnwesen, Abos, XRechnung, TOTP, Audit-Kette, CSV,
                  # Login, CSRF, Rollen, Kontakt-API, API-Schlüssel, Feiertage,
-                 # SFN-Stunden, ArbZG-Konflikte, Serien, Woche kopieren, Schichtabrechnung
+                 # SFN-Stunden, ArbZG-Konflikte, Serien, Woche kopieren, Schichtabrechnung,
+                 # Demo-Modus (Sperren, Reset, Schutz echter Daten)
 ```
 
 Lizenz: siehe `LICENSE`.
