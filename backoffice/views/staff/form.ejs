@@ -6,8 +6,7 @@
   <%- h.input('last_name', 'Nachname', st.last_name, { required: true, cls: 'span-4' }) %>
   <%- h.input('personnel_no', 'Personalnummer', st.personnel_no, { cls: 'span-4' }) %>
   <%- h.input('email', 'E-Mail (für Dienstplan-Versand)', st.email, { type: 'email', cls: 'span-4' }) %>
-  <%- h.input('phone', 'Telefon', st.phone, { type: 'tel', cls: 'span-4' }) %>
-  <%- h.input('bewacher_id', 'Bewacher-ID (Bewacherregister)', st.bewacher_id, { cls: 'span-4' }) %>
+  <%- h.input('phone', 'Telefon', st.phone, { type: 'tel', cls: 'span-8' }) %>
   <%- h.select('employment', 'Beschäftigung', st.employment, EMPLOYMENT, { cls: 'span-4' }) %>
   <%- h.input('weekly_hours', 'Soll-Stunden / Woche', h.num(st.weekly_hours), { inputmode: 'decimal', cls: 'span-2' }) %>
   <%- h.input('hourly_wage', 'Stundenlohn €', st.hourly_wage ? h.moneyInput(st.hourly_wage) : '', { inputmode: 'decimal', cls: 'span-2', hint: 'für Lohnvorschau' }) %>

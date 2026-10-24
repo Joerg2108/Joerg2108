@@ -9,10 +9,10 @@
 <% } %>
 <div class="card flush"><div class="table-wrap">
 <% if (!rows.length) { %><div class="empty">Noch kein Personal. <a href="/personal/neu">Jetzt anlegen</a>.</div><% } else { %>
-<table><thead><tr><th>Pers.-Nr.</th><th>Name</th><th>Beschäftigung</th><th class="num">Std./Woche</th><th>Bewacher-ID</th><th>Kontakt</th><th>Nachweise</th><th>Status</th></tr></thead><tbody>
+<table><thead><tr><th>Pers.-Nr.</th><th>Name</th><th>Beschäftigung</th><th class="num">Std./Woche</th><th>Kontakt</th><th>Nachweise</th><th>Status</th></tr></thead><tbody>
 <% for (const s of rows) { %>
   <tr class="row-link" data-href="/personal/<%= s.id %>"><td class="mono"><%= s.personnel_no || '' %></td><td><a href="/personal/<%= s.id %>"><strong><%= s.last_name %>, <%= s.first_name %></strong></a></td>
-  <td><%= EMPLOYMENT[s.employment] %></td><td class="num"><%= h.num(s.weekly_hours) %></td><td class="mono small"><%= s.bewacher_id || '–' %></td>
+  <td><%= EMPLOYMENT[s.employment] %></td><td class="num"><%= h.num(s.weekly_hours) %></td>
   <td class="small"><%= s.phone || '' %><br><%= s.email || '' %></td>
   <td><%= s.quals %><% if (s.next_expiry) { %> <%- s.next_expiry < today ? h.badge('ueberfaellig', 'abgelaufen') : s.next_expiry < soon ? h.badge('offen', 'läuft ab') : '' %><% } %></td>
   <td><%- s.active ? h.badge('aktiv') : h.badge('inaktiv') %></td></tr>

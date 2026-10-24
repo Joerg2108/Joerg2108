@@ -40,7 +40,6 @@
       <dl class="facts">
         <% if (st.phone) { %><dt>Telefon</dt><dd><a href="tel:<%= st.phone %>"><%= st.phone %></a></dd><% } %>
         <% if (st.email) { %><dt>E-Mail</dt><dd><a href="mailto:<%= st.email %>"><%= st.email %></a></dd><% } %>
-        <dt>Bewacher-ID</dt><dd><%= st.bewacher_id || '–' %></dd>
         <dt>Stundenlohn</dt><dd><%= st.hourly_wage ? h.eur(st.hourly_wage) : '–' %></dd>
       </dl>
       <% if (st.notes) { %><hr><p style="white-space:pre-line"><%= st.notes %></p><% } %>

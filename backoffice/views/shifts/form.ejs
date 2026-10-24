@@ -8,7 +8,7 @@
 <% } %>
 <form method="post" action="<%= s.id ? '/dienstplan/schicht/' + s.id : '/dienstplan/schicht' %>" class="card form-grid">
   <input type="hidden" name="_csrf" value="<%= csrf %>">
-  <%- h.input('title', 'Einsatz / Bezeichnung', s.title, { required: true, cls: 'span-6', placeholder: 'z. B. Objektschutz Tor 1, Einlasskontrolle, Revierfahrt' }) %>
+  <%- h.input('title', 'Einsatz / Bezeichnung', s.title, { required: true, cls: 'span-6', placeholder: 'z. B. Hausmeisterdienst, Ausstellungsbau, Künstlerbetreuung' }) %>
   <%- h.input('location', 'Einsatzort', s.location, { cls: 'span-6' }) %>
   <%- h.input('date', 'Datum', s.date, { type: 'date', required: true, cls: 'span-3' }) %>
   <%- h.input('from', 'Beginn', s.from, { type: 'time', required: true, cls: 'span-2' }) %>

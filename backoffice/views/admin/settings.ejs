@@ -38,7 +38,7 @@
     <%- h.input('company_email', 'E-Mail', s.company_email, { type: 'email', cls: 'span-4' }) %>
     <%- h.input('company_phone', 'Telefon', s.company_phone, { cls: 'span-4' }) %>
     <%- h.input('company_website', 'Website', s.company_website, { cls: 'span-4' }) %>
-    <%- h.input('company_register', 'Handelsregister / Bewacherregister-Nr.', s.company_register, { cls: 'span-12', hint: 'z. B. „Bewacherregister-ID: …“ oder „HRB 12345, AG Musterstadt“ – erscheint im PDF-Fuß' }) %>
+    <%- h.input('company_register', 'Registereintrag (optional)', s.company_register, { cls: 'span-12', hint: 'z. B. „HRB 12345, AG Charlottenburg“ – erscheint im PDF-Fuß' }) %>
   <% } else if (tab === 'bank') { %>
     <%- h.input('bank_name', 'Bank', s.bank_name, { cls: 'span-4' }) %>
     <%- h.input('bank_iban', 'IBAN', s.bank_iban, { cls: 'span-5' }) %>

@@ -15,7 +15,7 @@ const EMPLOYMENT = { vollzeit: 'Vollzeit', teilzeit: 'Teilzeit', minijob: 'Minij
 const COLORS = { blau: 'Blau', gruen: 'Grün', rot: 'Rot', orange: 'Orange', lila: 'Lila', grau: 'Grau' };
 
 function fromBody(b) {
-  const d = clean(b, ['personnel_no', 'first_name', 'last_name', 'email', 'phone', 'bewacher_id', 'notes']);
+  const d = clean(b, ['personnel_no', 'first_name', 'last_name', 'email', 'phone', 'notes']);
   if (!d.first_name || !d.last_name) throw new UserError('Vor- und Nachname sind Pflicht.');
   d.employment = EMPLOYMENT[b.employment] ? b.employment : 'vollzeit';
   d.weekly_hours = f.parseNumber(b.weekly_hours, 40);
@@ -26,7 +26,7 @@ function fromBody(b) {
   return d;
 }
 
-const COLS = ['personnel_no', 'first_name', 'last_name', 'email', 'phone', 'user_id', 'employment', 'weekly_hours', 'hourly_wage', 'bewacher_id', 'color', 'active', 'notes'];
+const COLS = ['personnel_no', 'first_name', 'last_name', 'email', 'phone', 'user_id', 'employment', 'weekly_hours', 'hourly_wage', 'color', 'active', 'notes'];
 
 router.get('/', (req, res) => {
   const showAll = req.query.alle === '1';

@@ -54,7 +54,7 @@ const DEFAULTS = {
   holiday_state: 'BE',
   night_from: '20',
   minijob_limit: '603,00',
-  shift_rate: '28,50',
+  shift_rate: '45,00',
   surcharge_night_pct: '25',
   surcharge_sunday_pct: '50',
   surcharge_holiday_pct: '100',

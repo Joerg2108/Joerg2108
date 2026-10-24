@@ -215,7 +215,7 @@ CREATE TABLE IF NOT EXISTS dunnings (
   created_at  TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
--- Wiederkehrende Rechnungen (Abos, Wartungsverträge, Objektschutz-Pauschalen …)
+-- Wiederkehrende Rechnungen (Abos, Betreuungsverträge, Monatspauschalen …)
 CREATE TABLE IF NOT EXISTS recurring_invoices (
   id            INTEGER PRIMARY KEY AUTOINCREMENT,
   template_id   INTEGER NOT NULL REFERENCES documents_sales(id) ON DELETE CASCADE,
@@ -408,7 +408,6 @@ CREATE TABLE IF NOT EXISTS staff (
   employment     TEXT NOT NULL DEFAULT 'vollzeit' CHECK (employment IN ('vollzeit','teilzeit','minijob','aushilfe','freelancer')),
   weekly_hours   REAL NOT NULL DEFAULT 40,
   hourly_wage    INTEGER NOT NULL DEFAULT 0,
-  bewacher_id    TEXT,
   color          TEXT NOT NULL DEFAULT 'blau',
   active         INTEGER NOT NULL DEFAULT 1,
   notes          TEXT,

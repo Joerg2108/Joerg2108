@@ -24,7 +24,7 @@ after(() => {
 });
 
 const items = [
-  { name: 'Sicherheitsdienst', quantity: 10, unit: 'Std.', unit_price: 2850, tax_rate: 19, discount_pct: 0 },
+  { name: 'Hausmeisterdienst', quantity: 10, unit: 'Std.', unit_price: 2850, tax_rate: 19, discount_pct: 0 },
   { name: 'Fachbuch', quantity: 1, unit: 'Stk.', unit_price: 1999, tax_rate: 7, discount_pct: 10 },
 ];
 

@@ -132,7 +132,7 @@
         <form method="post" action="/belege/wiederkehrend/<%= recurring.id %>/umschalten" class="inline-form"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm"><%= recurring.active ? 'Pausieren' : 'Aktivieren' %></button></form>
         <form method="post" action="/belege/wiederkehrend/<%= recurring.id %>/loeschen" class="inline-form" data-confirm="Wiederholung beenden?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm danger">Beenden</button></form>
       <% } else { %>
-      <p class="small muted">Für Wartungsverträge, Bewachungspauschalen, Mieten, Abos usw. – erstellt automatisch neue Rechnungen nach diesem Muster.</p>
+      <p class="small muted">Für Hausmeister- und Betreuungsverträge, Social-Media- und Marketing-Pauschalen, Abos usw. – erstellt automatisch neue Rechnungen nach diesem Muster.</p>
       <form method="post" action="/belege/<%= d.id %>/wiederkehrend" class="form-grid">
         <input type="hidden" name="_csrf" value="<%= csrf %>">
         <%- h.select('interval', 'Intervall', 'monatlich', { monatlich: 'Monatlich', quartalsweise: 'Quartalsweise', halbjaehrlich: 'Halbjährlich', jaehrlich: 'Jährlich' }) %>

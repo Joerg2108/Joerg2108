@@ -39,8 +39,8 @@ Die Oberfläche ist komplett auf Deutsch, funktioniert auf Smartphones und kennt
 | **Aufgaben** | Kanban (offen, in Arbeit, wartet, erledigt), Prioritäten, Fälligkeiten, Zuweisung mit Benachrichtigung |
 | **Kalender** | Monatsansicht mit Terminen, fälligen Aufgaben und fälligen Rechnungen, **iCal-Abo für Outlook, Google und iPhone** |
 | **Dienstplanung** | Wochenplan je Mitarbeiter mit offenen Schichten, Schichten über Mitternacht, Serien (z. B. Mo–Fr bis Datum), Woche kopieren, Status (geplant/bestätigt/erledigt/abgesagt), PDF im Querformat, Versand des persönlichen Plans per Mail |
-| **Konfliktprüfung** | Doppelbuchung, Urlaub/Krankheit, fehlende oder **abgelaufene Qualifikation** (z. B. Sachkunde § 34a, Ersthelfer), Ruhezeit < 11 Std. (§ 5 ArbZG), > 10 Std. (§ 3 ArbZG), Pausen (§ 4 ArbZG) |
-| **Personal & Qualifikationen** | Stammdaten, Bewacher-ID, Beschäftigungsart, Soll-Stunden, Nachweise mit Upload und automatischem Ablaufdatum, Erinnerung vor Ablauf, Abwesenheiten |
+| **Konfliktprüfung** | Doppelbuchung, Urlaub/Krankheit, fehlende oder **abgelaufene Qualifikation** (z. B. Arbeitsschutzunterweisung, Ersthelfer, Hubarbeitsbühne), Ruhezeit < 11 Std. (§ 5 ArbZG), > 10 Std. (§ 3 ArbZG), Pausen (§ 4 ArbZG) |
+| **Personal & Qualifikationen** | Stammdaten, Beschäftigungsart, Soll-Stunden, Nachweise mit Upload und automatischem Ablaufdatum, Erinnerung vor Ablauf, Abwesenheiten |
 | **Stundenauswertung** | Ist/Soll/Saldo, Nacht- (20–6), Kernnacht- (0–4), Sonntags- und Feiertagsstunden (§ 3b EStG, Feiertage je Bundesland), Minijob-Grenze, CSV für die Lohnbuchhaltung, **Schichten mit Zuschlägen direkt an Kunden abrechnen** |
 | **Zeiterfassung** | Stoppuhr in der Kopfleiste, Nachtragen per Von/Bis/Pause oder Dauer, Wochenübersicht, Stundennachweis als PDF, CSV-Export |
 | **Ausgaben** | Belegupload (PDF/Foto), Eingabe brutto oder netto, Kategorien, Lieferanten, Projektzuordnung, CSV-Export |
@@ -61,7 +61,7 @@ Voraussetzung: **Node.js 22.5 oder neuer**. Eine separate Datenbank ist nicht n�
 cd backoffice
 npm install
 cp .env.example .env          # danach SESSION_SECRET, ADMIN_EMAIL usw. anpassen
-npm run seed                  # optional: Demo-Daten (Sicherheitsdienst-Beispiel)
+npm run seed                  # optional: Demo-Daten (Hausmeister, Ausstellungsbau, Marketing, Digitalisierung)
 npm start
 ```
 
@@ -186,7 +186,7 @@ Die Software ist so gebaut, dass du die Anforderungen gut erfüllen kannst. Sie 
 - **§ 14 UStG Pflichtangaben**: Name und Anschrift beider Parteien, Steuernummer oder USt-IdNr., Datum, fortlaufende Nummer, Menge und Art, Leistungszeitpunkt, Entgelt nach Steuersätzen, Steuerbetrag. Ohne Leistungsdatum lässt sich eine Rechnung nicht festschreiben.
 - **E-Rechnung**: Seit 01.01.2025 müssen Unternehmen in Deutschland E-Rechnungen empfangen können. Die Pflicht zum Ausstellen gilt im B2B ab 2027/2028 (Übergangsfristen). Der XRechnung-Export ist dafür vorbereitet. Vor dem ersten Produktiveinsatz eine Beispielrechnung mit dem [KoSIT-Validator](https://github.com/itplr-kosit/validator) prüfen.
 - **Aufbewahrung**: Rechnungen und Belege 8 bzw. 10 Jahre (§ 147 AO, § 14b UStG). Deshalb **anonymisiert** die DSGVO-Funktion den Kunden, statt ihn zu löschen. Die eingefrorenen Daten auf festgeschriebenen Rechnungen bleiben erhalten.
-- **Dienstplanung & Arbeitsrecht**: Die ArbZG-Prüfungen sind Warnungen. Für Sicherheitsdienste können Tarifverträge (z. B. BDSW) abweichende Regelungen enthalten. Die Zuschlagsfenster entsprechen § 3b EStG, die tatsächliche Zuschlagshöhe ergibt sich aus Arbeits- oder Tarifvertrag. Die Minijob-Grenze in den Einstellungen jedes Jahr prüfen.
+- **Dienstplanung & Arbeitsrecht**: Die ArbZG-Prüfungen sind Warnungen. Tarifverträge können abweichende Regelungen enthalten. Die Zuschlagsfenster entsprechen § 3b EStG, die tatsächliche Zuschlagshöhe ergibt sich aus Arbeits- oder Tarifvertrag. Die Minijob-Grenze in den Einstellungen jedes Jahr prüfen.
 - **DSGVO**: Auskunft nach Art. 15 als JSON-Export, Einwilligungsfeld, Anonymisierung, Hosting in Deutschland oder der EU empfohlen. Mit dem Hoster einen AV-Vertrag nach Art. 28 DSGVO abschließen.
 
 ---

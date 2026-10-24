@@ -278,7 +278,7 @@ router.post('/abrechnen', sec.requirePerm('sales'), edit, wrap((req, res) => {
   const hrs = (m) => Math.round((m / 60) * 100) / 100;
   const tax = Number(s.default_tax_rate);
   const period = `${f.date(req.body.von)} – ${f.date(req.body.bis)}`;
-  const items = [{ name: `Sicherheitsdienstleistung ${project.name}`, description: `${list.length} Schichten im Zeitraum ${period}`, quantity: hrs(sum.total), unit: 'Std.', unit_price: rate, tax_rate: tax, discount_pct: 0 }];
+  const items = [{ name: `Dienstleistungen ${project.name}`, description: `${list.length} Schichten im Zeitraum ${period}`, quantity: hrs(sum.total), unit: 'Std.', unit_price: rate, tax_rate: tax, discount_pct: 0 }];
   const add = (key, label, pct) => { if (sum[key] && Number(pct)) items.push({ name: `${label} (${pct} %)`, description: '', quantity: hrs(sum[key]), unit: 'Std.', unit_price: Math.round(rate * Number(pct) / 100), tax_rate: tax, discount_pct: 0 }); };
   add('night', 'Nachtzuschlag', s.surcharge_night_pct);
   add('sunday', 'Sonntagszuschlag', s.surcharge_sunday_pct);
