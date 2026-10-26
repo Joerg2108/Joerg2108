@@ -64,8 +64,17 @@ function snapshotCustomer(customerId) {
   const contact = [c.salutation, c.first_name, c.last_name].filter(Boolean).join(' ');
   return {
     number: c.number, name: f.customerName(c), contact: c.company ? contact : '', salutation: c.salutation, last_name: c.last_name, street: c.street, zip: c.zip,
-    city: c.city, country: c.country, vat_id: c.vat_id, email: c.email, leitweg_id: c.leitweg_id,
+    city: c.city, country: c.country, vat_id: c.vat_id, email: c.email, invoice_email: c.invoice_email || null, leitweg_id: c.leitweg_id,
   };
+}
+
+// Vorgeschlagener Empfänger: Rechnungen/Stornos an die Rechnungs-E-Mail, sonst an die Haupt-E-Mail.
+// Die aktuelle Kundenadresse hat Vorrang vor dem Snapshot, damit Änderungen auch für alte Rechnungen greifen.
+function recipientFor(d) {
+  const c = d.customer || {};
+  const main = c.email || d.snapshot.email || '';
+  if (!['rechnung', 'storno'].includes(d.kind)) return main;
+  return c.invoice_email || d.snapshot.invoice_email || main;
 }
 
 function load(id) {
@@ -302,6 +311,6 @@ function fillPlaceholders(text, doc) {
 }
 
 module.exports = {
-  KIND_LABELS, STATUS, STATUS_LABELS, calcItems, itemsFromForm, snapshotCustomer, load, save, finalize, addPayment,
+  KIND_LABELS, STATUS, STATUS_LABELS, calcItems, itemsFromForm, snapshotCustomer, recipientFor, load, save, finalize, addPayment,
   deletePayment, createStorno, convert, duplicate, createDunning, remove, runRecurring, fillPlaceholders, refreshPaymentStatus,
 };

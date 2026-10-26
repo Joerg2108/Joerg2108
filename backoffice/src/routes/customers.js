@@ -13,7 +13,7 @@ const router = express.Router();
 router.use(sec.requirePerm('customers'));
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 5 * 1024 * 1024 } });
 
-const FIELDS = ['type', 'company', 'salutation', 'first_name', 'last_name', 'email', 'phone', 'mobile', 'website', 'street', 'zip', 'city', 'country', 'vat_id', 'leitweg_id', 'tags', 'notes', 'status'];
+const FIELDS = ['type', 'company', 'salutation', 'first_name', 'last_name', 'email', 'invoice_email', 'phone', 'mobile', 'website', 'street', 'zip', 'city', 'country', 'vat_id', 'leitweg_id', 'tags', 'notes', 'status'];
 
 function fromBody(body) {
   const d = clean(body, FIELDS);
@@ -24,7 +24,8 @@ function fromBody(body) {
   d.discount_pct = f.parseNumber(body.discount_pct, 0);
   d.gdpr_consent = body.gdpr_consent ? 1 : 0;
   if (!d.company && !d.last_name) throw new UserError('Bitte Firma oder Nachname angeben.');
-  if (d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) throw new UserError('E-Mail-Adresse ist ungültig.');
+  if (d.email && !f.isEmail(d.email)) throw new UserError('E-Mail-Adresse ist ungültig.');
+  if (d.invoice_email && !f.isEmail(d.invoice_email)) throw new UserError('E-Mail-Adresse für Rechnungen ist ungültig.');
   return d;
 }
 
@@ -83,7 +84,7 @@ router.post('/import', upload.single('file'), wrap((req, res) => {
   // Deutsche Spaltennamen (z. B. aus Excel oder anderen Programmen) werden automatisch zugeordnet
   const ALIASES = {
     firma: 'company', unternehmen: 'company', anrede: 'salutation', vorname: 'first_name', nachname: 'last_name', name: 'last_name',
-    'e-mail': 'email', mail: 'email', telefon: 'phone', tel: 'phone', handy: 'mobile', mobil: 'mobile', webseite: 'website',
+    'e-mail': 'email', mail: 'email', 'rechnungs-e-mail': 'invoice_email', 'e-mail rechnung': 'invoice_email', telefon: 'phone', tel: 'phone', handy: 'mobile', mobil: 'mobile', webseite: 'website',
     strasse: 'street', 'straße': 'street', plz: 'zip', ort: 'city', stadt: 'city', land: 'country', 'ust-idnr': 'vat_id',
     notizen: 'notes', typ: 'type', zahlungsziel: 'payment_terms', rabatt: 'discount_pct',
   };

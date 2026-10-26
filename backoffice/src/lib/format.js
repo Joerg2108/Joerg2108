@@ -99,6 +99,11 @@ function customerName(c) {
   return [c.first_name, c.last_name].filter(Boolean).join(' ') || c.email || `Kunde #${c.id}`;
 }
 
+const isEmail = (s) => /^[^\s@,;]+@[^\s@,;]+\.[^\s@,;]+$/.test(String(s || '').trim());
+
+// "a@x.de, b@y.de; c@z.de" -> ['a@x.de', 'b@y.de', 'c@z.de']
+const emailList = (s) => String(s || '').split(/[,;\s]+/).map((x) => x.trim()).filter(Boolean);
+
 function bytes(n) {
   n = Number(n) || 0;
   if (n < 1024) return `${n} B`;
@@ -108,5 +113,5 @@ function bytes(n) {
 
 module.exports = {
   eur, num, parseMoney, parseNumber, moneyInput, date, dateTime, today, localDate,
-  addDays, addMonths, daysBetween, minutes, parseDuration, customerName, bytes,
+  addDays, addMonths, daysBetween, minutes, parseDuration, customerName, bytes, isEmail, emailList,
 };

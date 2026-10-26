@@ -320,3 +320,45 @@ test('Website: Leistungskatalog öffentlich abrufbar, nur freigegebene Leistunge
   // Interne Felder (Steuersatz, IDs) werden nicht veröffentlicht
   assert.doesNotMatch(JSON.stringify(data), /tax_rate|"id":/);
 });
+
+test('Kunde mit eigener Rechnungs-E-Mail: Formular, Versand und XRechnung', async () => {
+  const c = client(base);
+  await c.login();
+  // Ungültige Rechnungsadresse wird abgelehnt
+  let r = await c.post('/kunden', { type: 'firma', company: 'Falsche Mail GmbH', country: 'DE', status: 'aktiv', invoice_email: 'keine-mail' }, '/kunden/neu');
+  assert.equal(db.get("SELECT COUNT(*) AS n FROM customers WHERE company = 'Falsche Mail GmbH'").n, 0);
+  r = await c.post('/kunden', {
+    type: 'firma', company: 'Zwei Mails GmbH', country: 'DE', status: 'aktiv', email: 'chef@zwei.de', invoice_email: 'buchhaltung@zwei.de',
+  }, '/kunden/neu');
+  assert.equal(r.status, 302);
+  const cust = db.get("SELECT * FROM customers WHERE company = 'Zwei Mails GmbH'");
+  assert.equal(cust.invoice_email, 'buchhaltung@zwei.de');
+  assert.match(await (await c.req(`/kunden/${cust.id}`)).text(), /buchhaltung@zwei\.de/);
+
+  r = await c.post('/belege/rechnungen', {
+    customer_id: String(cust.id), issue_date: '2026-10-01', service_date: '2026-10-01', due_date: '2026-10-15', title: 'Pflege',
+    item_name: 'Hausmeisterdienst', item_quantity: '1', item_unit: 'Std.', item_price: '40,00', item_discount: '', item_tax: '19', after: 'finalize',
+  }, '/belege/rechnungen/neu');
+  const docId = Number(r.headers.get('location').split('/').pop());
+  const d = sales.load(docId);
+  // Rechnung -> Rechnungs-E-Mail, Angebot -> Haupt-E-Mail
+  assert.equal(sales.recipientFor(d), 'buchhaltung@zwei.de');
+  assert.equal(sales.recipientFor({ ...d, kind: 'angebot' }), 'chef@zwei.de');
+  assert.match(await (await c.req(`/belege/${docId}`)).text(), /name="to" value="buchhaltung@zwei\.de"/);
+  assert.match(xrechnung.build(d), /<cbc:EndpointID schemeID="EM">buchhaltung@zwei\.de</);
+
+  // Versand an mehrere Adressen; ungültige Adressen werden abgelehnt
+  r = await c.post(`/belege/${docId}/senden`, { to: 'buchhaltung@zwei.de, chef@zwei.de' }, `/belege/${docId}`);
+  assert.equal(r.status, 302);
+  const log = db.get("SELECT details FROM audit_log WHERE action = 'beleg.versendet' AND entity_id = ? ORDER BY id DESC", docId);
+  assert.equal(JSON.parse(log.details).to, 'buchhaltung@zwei.de, chef@zwei.de');
+  const before = db.get("SELECT COUNT(*) AS n FROM audit_log WHERE action = 'beleg.versendet'").n;
+  await c.post(`/belege/${docId}/senden`, { to: 'buchhaltung@zwei.de, kaputt' }, `/belege/${docId}`);
+  assert.equal(db.get("SELECT COUNT(*) AS n FROM audit_log WHERE action = 'beleg.versendet'").n, before);
+
+  // Ohne Rechnungs-E-Mail bleibt alles wie bisher
+  const plain = sales.load(docId);
+  plain.customer = { ...plain.customer, invoice_email: null };
+  plain.snapshot = { ...plain.snapshot, invoice_email: null };
+  assert.equal(sales.recipientFor(plain), 'chef@zwei.de');
+});

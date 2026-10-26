@@ -49,7 +49,7 @@ function build(d) {
     email: s.company_email, phone: s.company_phone, vat_id: s.company_vat_id, tax_number: s.company_vat_id ? '' : s.company_tax_number,
     contactName: s.company_owner || s.company_name,
   };
-  const buyer = { ...snap, contactName: '' };
+  const buyer = { ...snap, email: snap.invoice_email || snap.email, contactName: '' };
   const typeCode = d.kind === 'storno' ? '384' : '380';
   const taxes = d.calc.taxes;
   const prepaid = d.paid_total || 0;
