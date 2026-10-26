@@ -67,6 +67,6 @@ services:
         value: "6"
       # Ziel des Buttons „Für Ihr Unternehmen anfragen“ und Anbietername im Demo-Banner
       - key: DEMO_CONTACT_URL
-        value: https://joerg-noack.com/kontakt
+        value: https://joerg-noack.com
       - key: DEMO_VENDOR
         value: Jörg Noack
