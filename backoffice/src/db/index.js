@@ -33,6 +33,8 @@ const migrations = [
       public_catalog_intro: 'Von Hausmeisterdienst bis KI-Unterstützung – alles aus einer Hand.',
     })) ins.run(k, v);
   },
+  // 4: Eigene E-Mail-Adresse für Rechnungen (z. B. buchhaltung@…)
+  (d) => d.exec('ALTER TABLE customers ADD COLUMN invoice_email TEXT'),
 ];
 
 function migrate(d) {

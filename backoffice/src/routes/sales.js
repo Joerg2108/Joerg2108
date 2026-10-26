@@ -119,7 +119,7 @@ router.get('/:id(\\d+)', wrap((req, res) => {
   const related = db.all('SELECT id, kind, number, status, issue_date FROM documents_sales WHERE ref_id = ? OR id = ?', d.id, d.ref_id || 0);
   const recurring = db.get('SELECT * FROM recurring_invoices WHERE template_id = ?', d.id);
   const history = db.all("SELECT * FROM audit_log WHERE entity = 'document' AND entity_id = ? ORDER BY id DESC LIMIT 30", d.id);
-  res.render('sales/show', { title: `${sales.KIND_LABELS[d.kind]} ${d.number || '(Entwurf)'}`, d, related, recurring, history, route: ROUTE_OF[d.kind], mailEnabled: mailer.enabled() });
+  res.render('sales/show', { title: `${sales.KIND_LABELS[d.kind]} ${d.number || '(Entwurf)'}`, d, related, recurring, history, route: ROUTE_OF[d.kind], mailEnabled: mailer.enabled(), recipient: sales.recipientFor(d) });
 }));
 
 router.get('/:id(\\d+)/bearbeiten', wrap((req, res) => {
@@ -195,8 +195,11 @@ router.post('/:id(\\d+)/senden', wrap(async (req, res) => {
   const d = sales.load(id(req.params.id));
   if (!d) return notFound(res, 'Beleg');
   if (['rechnung', 'storno'].includes(d.kind) && !d.finalized_at) throw new UserError('Bitte die Rechnung vor dem Versand festschreiben.');
-  const to = String(req.body.to || d.snapshot.email || '').trim();
-  if (!to) throw new UserError('Keine E-Mail-Adresse hinterlegt.');
+  const list = f.emailList(req.body.to || sales.recipientFor(d));
+  if (!list.length) throw new UserError('Keine E-Mail-Adresse hinterlegt.');
+  const bad = list.find((x) => !f.isEmail(x));
+  if (bad) throw new UserError(`Ungültige E-Mail-Adresse: ${bad}`);
+  const to = list.join(', ');
   const s = settings.all();
   const key = d.kind === 'angebot' ? 'quote' : 'invoice';
   const attachments = [{ filename: `${sales.KIND_LABELS[d.kind]}_${d.number}.pdf`, content: await pdf.salesDocument(d) }];
@@ -300,7 +303,7 @@ router.post('/wiederkehrend/ausfuehren', wrap((req, res) => {
 router.get('/mahnwesen', (req, res) => {
   const today = f.today();
   const rows = db.all(
-    `SELECT d.*, c.company, c.first_name, c.last_name, c.email AS customer_email, julianday(?) - julianday(d.due_date) AS days_over
+    `SELECT d.*, c.company, c.first_name, c.last_name, COALESCE(c.invoice_email, c.email) AS customer_email, julianday(?) - julianday(d.due_date) AS days_over
      FROM documents_sales d JOIN customers c ON c.id = d.customer_id
      WHERE d.kind = 'rechnung' AND d.status IN ('offen','teilbezahlt') AND d.due_date < ? ORDER BY d.due_date`, today, today,
   );

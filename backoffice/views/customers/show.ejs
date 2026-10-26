@@ -66,6 +66,7 @@
       <dl class="facts">
         <% if (c.company && (c.first_name || c.last_name)) { %><dt>Ansprechpartner</dt><dd><%= [c.salutation, c.first_name, c.last_name].filter(Boolean).join(' ') %></dd><% } %>
         <% if (c.email) { %><dt>E-Mail</dt><dd><a href="mailto:<%= c.email %>"><%= c.email %></a></dd><% } %>
+        <% if (c.invoice_email) { %><dt>E-Mail Rechnungen</dt><dd><a href="mailto:<%= c.invoice_email %>"><%= c.invoice_email %></a></dd><% } %>
         <% if (c.phone) { %><dt>Telefon</dt><dd><a href="tel:<%= c.phone %>"><%= c.phone %></a></dd><% } %>
         <% if (c.mobile) { %><dt>Mobil</dt><dd><a href="tel:<%= c.mobile %>"><%= c.mobile %></a></dd><% } %>
         <% if (c.street || c.city) { %><dt>Adresse</dt><dd><%= c.street %><br><%= c.zip %> <%= c.city %> <%= c.country !== 'DE' ? c.country : '' %></dd><% } %>

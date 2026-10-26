@@ -117,7 +117,7 @@
       <% if (!mailEnabled) { %><p class="alert warning small">SMTP ist nicht eingerichtet – Versand wird nur simuliert. Siehe README → E-Mail.</p><% } %>
       <form method="post" action="/belege/<%= d.id %>/senden" class="form-grid">
         <input type="hidden" name="_csrf" value="<%= csrf %>">
-        <%- h.input('to', 'Empfänger', d.snapshot.email || (d.customer && d.customer.email) || '', { type: 'email', required: true, cls: 'span-12' }) %>
+        <%- h.input('to', 'Empfänger', recipient, { type: 'email', multiple: true, required: true, cls: 'span-12', hint: 'Mehrere Adressen mit Komma trennen' }) %>
         <% if (d.kind === 'rechnung') { %><div class="span-12"><%- h.checkbox('xrechnung', 'XRechnung (XML) zusätzlich anhängen', !!d.snapshot.leitweg_id) %></div><% } %>
         <div class="span-12"><button class="btn primary">Senden</button><% if (d.sent_at) { %> <span class="small muted">zuletzt versendet <%= h.dateTime(d.sent_at) %></span><% } %></div>
       </form>
