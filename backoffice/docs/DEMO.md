@@ -63,7 +63,7 @@ Nach 2 bis 4 Minuten läuft die Demo unter einer Adresse wie `https://backoffice
 > | `SESSION_SECRET` | beliebiger langer Zufallswert (Button „Generate“) |
 > | `DEMO_MODE` | `1` |
 > | `DEMO_RESET_HOURS` | `6` |
-> | `DEMO_CONTACT_URL` | `https://joerg-noack.com/kontakt` |
+> | `DEMO_CONTACT_URL` | `https://joerg-noack.com` |
 > | `DEMO_VENDOR` | `Jörg Noack` |
 
 ### Prüfen, ob alles läuft
