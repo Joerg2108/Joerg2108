@@ -5,10 +5,13 @@ const f = require('../lib/format');
 const audit = require('../lib/audit');
 const sec = require('../lib/security');
 const patrol = require('../lib/patrol');
+const pdf = require('../lib/pdf');
 const { wrap, id, notFound, UserError } = require('../lib/route');
 
 const router = express.Router();
 router.use(sec.requirePerm('patrols.view'));
+
+const STATUS_LABEL = { laeuft: 'läuft', ob: 'o.B.', vorfall: 'Vorfall', abgebrochen: 'Abgebrochen' };
 
 const SELECT = `SELECT p.*, o.name AS object_name, s.first_name, s.last_name,
   (SELECT COUNT(*) FROM patrol_log l WHERE l.patrol_id = p.id) AS entries
@@ -38,6 +41,19 @@ router.get('/:id(\\d+)', wrap((req, res) => {
   const logs = db.all('SELECT * FROM patrol_log WHERE patrol_id = ? ORDER BY at DESC, id DESC', p.id);
   const incidents = db.all('SELECT id, number, category, status FROM incidents WHERE patrol_id = ? ORDER BY occurred_at DESC', p.id);
   res.render('patrols/show', { title: `Streife ${p.object_name || ''}`.trim(), p, logs, incidents, LOG_KINDS: patrol.LOG_KINDS, canManage: sec.can(req.user, 'patrols') });
+}));
+
+router.get('/:id(\\d+)/pdf', wrap(async (req, res) => {
+  const p = db.get(`${SELECT} WHERE p.id = ?`, id(req.params.id));
+  if (!p) return notFound(res, 'Streife');
+  const logs = db.all('SELECT * FROM patrol_log WHERE patrol_id = ? ORDER BY at, id', p.id)
+    .map((l) => ({ ...l, kind_label: patrol.LOG_KINDS[l.kind] || l.kind }));
+  const buf = await pdf.patrolReport({
+    object_name: p.object_name, staff_name: [p.last_name, p.first_name].filter(Boolean).join(', '),
+    started_at: p.started_at, ended_at: p.ended_at, rounds: p.rounds,
+    status_label: STATUS_LABEL[p.status] || p.status, summary: p.summary, logs,
+  });
+  res.type('application/pdf').set('Content-Disposition', `inline; filename="Wachbuch_${p.id}.pdf"`).send(buf);
 }));
 
 router.post('/:id(\\d+)/log', wrap((req, res) => {

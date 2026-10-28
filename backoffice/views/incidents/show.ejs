@@ -2,7 +2,7 @@
   <div><h1>Vorfall <span class="mono"><%= i.number %></span></h1>
     <div class="sub"><%- h.badge(i.status) %> · <%- h.badge(i.severity) %> · <%= CATEGORIES[i.category] || i.category %></div>
   </div>
-  <div class="actions"><a class="btn" href="/vorfaelle">Zurück</a><a class="btn primary" href="/vorfaelle/<%= i.id %>/bearbeiten"><%- h.icon('settings') %> Bearbeiten</a></div>
+  <div class="actions"><a class="btn" href="/vorfaelle">Zurück</a><a class="btn" href="/vorfaelle/<%= i.id %>/pdf" target="_blank"><%- h.icon('file') %> PDF</a><a class="btn primary" href="/vorfaelle/<%= i.id %>/bearbeiten"><%- h.icon('settings') %> Bearbeiten</a></div>
 </div>
 <div class="grid-2">
   <div class="card">

@@ -5,6 +5,7 @@ const f = require('../lib/format');
 const audit = require('../lib/audit');
 const sec = require('../lib/security');
 const numbering = require('../lib/numbering');
+const pdf = require('../lib/pdf');
 const { wrap, id, notFound, clean, UserError } = require('../lib/route');
 
 const router = express.Router();
@@ -68,6 +69,21 @@ router.get('/:id(\\d+)', wrap((req, res) => {
      LEFT JOIN objects o ON o.id = i.object_id LEFT JOIN staff s ON s.id = i.staff_id LEFT JOIN users u ON u.id = i.user_id WHERE i.id = ?`, id(req.params.id));
   if (!i) return notFound(res, 'Vorfall');
   res.render('incidents/show', { title: `Vorfall ${i.number}`, i, CATEGORIES, SEVERITY, STATUS });
+}));
+
+router.get('/:id(\\d+)/pdf', wrap(async (req, res) => {
+  const i = db.get(
+    `SELECT i.*, o.name AS object_name, s.first_name, s.last_name FROM incidents i
+     LEFT JOIN objects o ON o.id = i.object_id LEFT JOIN staff s ON s.id = i.staff_id WHERE i.id = ?`, id(req.params.id));
+  if (!i) return notFound(res, 'Vorfall');
+  const buf = await pdf.incidentReport({
+    number: i.number, occurred_at: i.occurred_at, object_name: i.object_name,
+    staff_name: [i.last_name, i.first_name].filter(Boolean).join(', '),
+    category_label: CATEGORIES[i.category] || i.category, severity_label: SEVERITY[i.severity] || i.severity,
+    status_label: STATUS[i.status] || i.status, police: i.police, police_ref: i.police_ref,
+    description: i.description, measures: i.measures,
+  });
+  res.type('application/pdf').set('Content-Disposition', `inline; filename="Vorfall_${i.number || i.id}.pdf"`).send(buf);
 }));
 
 router.get('/:id(\\d+)/bearbeiten', wrap((req, res) => {

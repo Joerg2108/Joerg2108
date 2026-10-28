@@ -299,4 +299,80 @@ async function tableReport(title, subtitle, headers, rows, widths, { landscape =
   return toBuffer(doc);
 }
 
-module.exports = { salesDocument, dunningLetter, tableReport };
+// Unterschriftenzeilen (zwei Felder nebeneinander)
+function signatures(doc, left, right) {
+  if (doc.y > doc.page.height - mm(45)) { doc.addPage(); doc.y = mm(25); }
+  const y = Math.max(doc.y + mm(16), doc.page.height - mm(45));
+  const colW = mm(78);
+  doc.moveTo(mm(25), y).lineTo(mm(25) + colW, y).moveTo(mm(112), y).lineTo(mm(112) + colW, y).lineWidth(0.5).strokeColor('#999').stroke();
+  doc.fillColor('#666').fontSize(8).font('Helvetica').text(left, mm(25), y + 3, { width: colW });
+  doc.text(right, mm(112), y + 3, { width: colW });
+}
+
+// Wachbuch-Protokoll einer Streife
+async function patrolReport(p) {
+  const s = settings.all();
+  const doc = base(s);
+  doc.info.Title = `Wachbuch ${p.object_name || ''}`.trim();
+  header(doc, s);
+  infoBlock(doc, [
+    ['Objekt', p.object_name || '–'],
+    ['Mitarbeiter', p.staff_name || '–'],
+    ['Beginn', f.dateTime(p.started_at)],
+    ['Ende', p.ended_at ? f.dateTime(p.ended_at) : 'läuft'],
+    ['Rundgänge', String(p.rounds)],
+    ['Status', p.status_label],
+  ]);
+  doc.fillColor('#000').font('Helvetica-Bold').fontSize(16).text('Wachbuch-Protokoll', mm(25), mm(60), { width: mm(95) });
+  doc.font('Helvetica').fontSize(9.5).fillColor('#555').text(p.object_name || '', { width: mm(95) });
+
+  doc.y = mm(100);
+  doc.fillColor('#000').font('Helvetica-Bold').fontSize(11).text('Protokoll', mm(25), doc.y);
+  doc.moveDown(0.4).font('Helvetica').fontSize(9.5);
+  if (!p.logs.length) { doc.fillColor('#666').text('Keine Einträge.', mm(25)); }
+  for (const l of p.logs) {
+    if (doc.y > doc.page.height - mm(40)) { doc.addPage(); doc.y = mm(25); }
+    doc.fillColor('#000').text(`${f.dateTime(l.at).slice(-5)} Uhr   ${l.kind_label}${l.text ? ' – ' + l.text : ''}`, mm(25), doc.y, { width: mm(165), lineGap: 1 });
+    doc.moveDown(0.35);
+  }
+  doc.moveDown(0.6);
+  doc.font('Helvetica-Bold').fontSize(11).fillColor('#000').text('Besonderheiten / Zusammenfassung', mm(25), doc.y);
+  doc.moveDown(0.3);
+  textBlock(doc, p.summary || 'Keine besonderen Vorkommnisse.');
+  signatures(doc, 'Datum, Unterschrift Mitarbeiter', 'Unterschrift Einsatzleitung');
+  footer(doc, s);
+  return toBuffer(doc);
+}
+
+// Vorfallbericht
+async function incidentReport(i) {
+  const s = settings.all();
+  const doc = base(s);
+  doc.info.Title = `Vorfallbericht ${i.number || ''}`.trim();
+  header(doc, s);
+  infoBlock(doc, [
+    ['Melde-Nr.', i.number || '–'],
+    ['Datum', f.dateTime(i.occurred_at)],
+    ['Objekt', i.object_name || '–'],
+    ['Mitarbeiter', i.staff_name || '–'],
+    ['Kategorie', i.category_label],
+    ['Schweregrad', i.severity_label],
+    ['Status', i.status_label],
+    ['Polizei', i.police ? (i.police_ref ? `Ja · ${i.police_ref}` : 'Ja') : 'Nein'],
+  ]);
+  doc.fillColor('#000').font('Helvetica-Bold').fontSize(16).text('Vorfallbericht', mm(25), mm(60), { width: mm(95) });
+  doc.font('Helvetica').fontSize(9.5).fillColor('#555').text(i.object_name || '', { width: mm(95) });
+
+  doc.y = mm(100);
+  doc.fillColor('#000').font('Helvetica-Bold').fontSize(11).text('Beschreibung des Vorfalls', mm(25), doc.y);
+  doc.moveDown(0.3);
+  textBlock(doc, i.description || '–');
+  doc.font('Helvetica-Bold').fontSize(11).fillColor('#000').text('Getroffene Maßnahmen', mm(25), doc.y);
+  doc.moveDown(0.3);
+  textBlock(doc, i.measures || '–');
+  signatures(doc, 'Datum, Unterschrift Meldender', 'Unterschrift Einsatzleitung');
+  footer(doc, s);
+  return toBuffer(doc);
+}
+
+module.exports = { salesDocument, dunningLetter, tableReport, patrolReport, incidentReport };
