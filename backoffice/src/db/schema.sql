@@ -463,3 +463,88 @@ CREATE TABLE IF NOT EXISTS shifts (
 );
 CREATE INDEX IF NOT EXISTS idx_shifts_start ON shifts(starts_at);
 CREATE INDEX IF NOT EXISTS idx_shifts_staff ON shifts(staff_id, starts_at);
+
+-- ───────── Sicherheitsdienst-Edition (Objekte, Streife/Wachbuch, Vorfälle, Fahrzeuge) ─────────
+-- Wachobjekte / Liegenschaften
+CREATE TABLE IF NOT EXISTS objects (
+  id            INTEGER PRIMARY KEY AUTOINCREMENT,
+  number        TEXT UNIQUE,
+  name          TEXT NOT NULL,
+  customer_id   INTEGER REFERENCES customers(id) ON DELETE SET NULL,
+  street        TEXT,
+  zip           TEXT,
+  city          TEXT,
+  contact_name  TEXT,
+  contact_phone TEXT,
+  access_info   TEXT,
+  checkpoints   INTEGER NOT NULL DEFAULT 0,
+  instructions  TEXT,
+  status        TEXT NOT NULL DEFAULT 'aktiv' CHECK (status IN ('aktiv','inaktiv')),
+  notes         TEXT,
+  created_by    INTEGER REFERENCES users(id) ON DELETE SET NULL,
+  created_at    TEXT NOT NULL DEFAULT (datetime('now')),
+  updated_at    TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS idx_objects_customer ON objects(customer_id);
+
+-- Streifen / Wachbuch (eine Streife = ein Dienstgang, live geführt)
+CREATE TABLE IF NOT EXISTS patrols (
+  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  object_id   INTEGER REFERENCES objects(id) ON DELETE SET NULL,
+  staff_id    INTEGER REFERENCES staff(id) ON DELETE SET NULL,
+  user_id     INTEGER REFERENCES users(id) ON DELETE SET NULL,
+  started_at  TEXT NOT NULL,
+  ended_at    TEXT,
+  rounds      INTEGER NOT NULL DEFAULT 0,
+  status      TEXT NOT NULL DEFAULT 'laeuft' CHECK (status IN ('laeuft','ob','vorfall','abgebrochen')),
+  summary     TEXT,
+  created_at  TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS idx_patrols_status ON patrols(status, started_at);
+CREATE INDEX IF NOT EXISTS idx_patrols_user ON patrols(user_id, status);
+
+-- Wachbuch-Einträge je Streife (Timeline)
+CREATE TABLE IF NOT EXISTS patrol_log (
+  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  patrol_id  INTEGER NOT NULL REFERENCES patrols(id) ON DELETE CASCADE,
+  at         TEXT NOT NULL DEFAULT (datetime('now')),
+  kind       TEXT NOT NULL DEFAULT 'rundgang' CHECK (kind IN ('rundgang','kontrollpunkt','vorkommnis','notiz')),
+  text       TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_patrollog_patrol ON patrol_log(patrol_id, at);
+
+-- Vorfälle / Ereignismeldungen
+CREATE TABLE IF NOT EXISTS incidents (
+  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  number      TEXT UNIQUE,
+  object_id   INTEGER REFERENCES objects(id) ON DELETE SET NULL,
+  staff_id    INTEGER REFERENCES staff(id) ON DELETE SET NULL,
+  user_id     INTEGER REFERENCES users(id) ON DELETE SET NULL,
+  patrol_id   INTEGER REFERENCES patrols(id) ON DELETE SET NULL,
+  occurred_at TEXT NOT NULL,
+  category    TEXT NOT NULL DEFAULT 'sonstiges',
+  severity    TEXT NOT NULL DEFAULT 'mittel' CHECK (severity IN ('niedrig','mittel','hoch')),
+  description TEXT NOT NULL,
+  measures    TEXT,
+  police      INTEGER NOT NULL DEFAULT 0,
+  police_ref  TEXT,
+  status      TEXT NOT NULL DEFAULT 'offen' CHECK (status IN ('offen','in_bearbeitung','abgeschlossen')),
+  created_at  TEXT NOT NULL DEFAULT (datetime('now')),
+  updated_at  TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS idx_incidents_status ON incidents(status, occurred_at);
+
+-- Fahrzeuge / Fuhrpark
+CREATE TABLE IF NOT EXISTS vehicles (
+  id            INTEGER PRIMARY KEY AUTOINCREMENT,
+  plate         TEXT NOT NULL,
+  model         TEXT,
+  staff_id      INTEGER REFERENCES staff(id) ON DELETE SET NULL,
+  mileage       INTEGER NOT NULL DEFAULT 0,
+  tuev          TEXT,
+  insurance     TEXT,
+  status        TEXT NOT NULL DEFAULT 'verfuegbar' CHECK (status IN ('verfuegbar','im_einsatz','werkstatt','stillgelegt')),
+  notes         TEXT,
+  created_at    TEXT NOT NULL DEFAULT (datetime('now')),
+  updated_at    TEXT NOT NULL DEFAULT (datetime('now'))
+);

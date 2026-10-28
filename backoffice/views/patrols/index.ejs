@@ -1,0 +1,36 @@
+<div class="page-head">
+  <div><h1>Streife / Wachbuch</h1><div class="sub"><%= running.length %> laufend · <%= recent.length %> abgeschlossen (letzte)</div></div>
+  <% if (can('patrols')) { %><div class="actions"><a class="btn primary" href="/streife/neu"><%- h.icon('plus') %> Streife starten</a></div><% } %>
+</div>
+
+<% if (running.length) { %>
+<h3 class="section-title amber"><span class="live-dot"></span>Läuft gerade</h3>
+<div class="card flush"><div class="table-wrap">
+<table><thead><tr><th>Objekt</th><th>Mitarbeiter</th><th>Beginn</th><th class="num">Rundg.</th><th class="num">Einträge</th><th></th></tr></thead><tbody>
+<% for (const p of running) { %>
+  <tr class="row-link" data-href="/streife/<%= p.id %>">
+    <td><strong><%= p.object_name || '–' %></strong></td>
+    <td><%= [p.last_name, p.first_name].filter(Boolean).join(', ') || '–' %></td>
+    <td class="small"><%= h.dateTime(p.started_at) %></td>
+    <td class="num"><%= p.rounds %></td><td class="num"><%= p.entries %></td>
+    <td><%- h.badge('laeuft') %></td>
+  </tr>
+<% } %></tbody></table>
+</div></div>
+<% } %>
+
+<h3 class="section-title">Abgeschlossen</h3>
+<div class="card flush"><div class="table-wrap">
+<% if (!recent.length) { %><div class="empty">Noch keine abgeschlossenen Streifen.</div><% } else { %>
+<table><thead><tr><th>Objekt</th><th>Mitarbeiter</th><th>Beginn</th><th>Ende</th><th class="num">Rundg.</th><th>Status</th></tr></thead><tbody>
+<% for (const p of recent) { %>
+  <tr class="row-link" data-href="/streife/<%= p.id %>">
+    <td><strong><%= p.object_name || '–' %></strong></td>
+    <td class="small"><%= [p.last_name, p.first_name].filter(Boolean).join(', ') || '–' %></td>
+    <td class="small"><%= h.dateTime(p.started_at) %></td>
+    <td class="small"><%= p.ended_at ? h.dateTime(p.ended_at) : '' %></td>
+    <td class="num"><%= p.rounds %></td>
+    <td><%- h.badge(p.status) %></td>
+  </tr>
+<% } %></tbody></table><% } %>
+</div></div>

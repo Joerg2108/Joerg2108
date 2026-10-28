@@ -1,0 +1,22 @@
+<div class="page-head">
+  <div><h1>Vorfälle</h1><div class="sub"><%= counts.offen || 0 %> offen · <%= counts.bearb || 0 %> in Bearbeitung · <%= counts.zu || 0 %> abgeschlossen</div></div>
+  <div class="actions"><a class="btn primary" href="/vorfaelle/neu"><%- h.icon('plus') %> Vorfall melden</a></div>
+</div>
+<div class="btn-group" style="margin-bottom:14px">
+  <a class="btn <%= !status ? 'active' : '' %>" href="/vorfaelle">Alle</a>
+  <% for (const [k, v] of Object.entries(STATUS)) { %><a class="btn <%= status === k ? 'active' : '' %>" href="/vorfaelle?status=<%= k %>"><%= v %></a><% } %>
+</div>
+<div class="card flush"><div class="table-wrap">
+<% if (!rows.length) { %><div class="empty">Keine Vorfälle.</div><% } else { %>
+<table><thead><tr><th>Melde-Nr.</th><th>Datum</th><th>Objekt</th><th>Kategorie</th><th>Schwere</th><th>Status</th></tr></thead><tbody>
+<% for (const i of rows) { %>
+  <tr class="row-link" data-href="/vorfaelle/<%= i.id %>">
+    <td class="mono"><%= i.number %></td>
+    <td class="small"><%= h.dateTime(i.occurred_at) %></td>
+    <td><%= i.object_name || '–' %></td>
+    <td><%= CATEGORIES[i.category] || i.category %></td>
+    <td><%- h.badge(i.severity) %></td>
+    <td><%- h.badge(i.status) %></td>
+  </tr>
+<% } %></tbody></table><% } %>
+</div></div>

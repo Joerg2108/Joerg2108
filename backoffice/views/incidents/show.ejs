@@ -1,0 +1,33 @@
+<div class="page-head">
+  <div><h1>Vorfall <span class="mono"><%= i.number %></span></h1>
+    <div class="sub"><%- h.badge(i.status) %> · <%- h.badge(i.severity) %> · <%= CATEGORIES[i.category] || i.category %></div>
+  </div>
+  <div class="actions"><a class="btn" href="/vorfaelle">Zurück</a><a class="btn primary" href="/vorfaelle/<%= i.id %>/bearbeiten"><%- h.icon('settings') %> Bearbeiten</a></div>
+</div>
+<div class="grid-2">
+  <div class="card">
+    <h3>Beschreibung</h3>
+    <p class="pre"><%= i.description %></p>
+    <% if (i.measures) { %><h4>Getroffene Maßnahmen</h4><p class="pre"><%= i.measures %></p><% } %>
+  </div>
+  <div class="stack">
+    <div class="card">
+      <h3>Details</h3>
+      <dl class="kv">
+        <dt>Datum</dt><dd><%= h.dateTime(i.occurred_at) %></dd>
+        <dt>Objekt</dt><dd><%= i.object_name ? `<a href="/objekte/${i.object_id}">${h.esc(i.object_name)}</a>` : '–' %></dd>
+        <dt>Mitarbeiter</dt><dd><%= [i.last_name, i.first_name].filter(Boolean).join(', ') || '–' %></dd>
+        <dt>Gemeldet von</dt><dd><%= i.reporter || '–' %></dd>
+        <dt>Polizei</dt><dd><%= i.police ? 'Ja' + (i.police_ref ? ' · ' + i.police_ref : '') : 'Nein' %></dd>
+      </dl>
+    </div>
+    <div class="card">
+      <h3>Status ändern</h3>
+      <div class="btn-group">
+      <% for (const [k, v] of Object.entries(STATUS)) { %>
+        <form method="post" action="/vorfaelle/<%= i.id %>/status" class="inline-form"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="status" value="<%= k %>"><button class="btn <%= i.status === k ? 'active' : '' %>"><%= v %></button></form>
+      <% } %>
+      </div>
+    </div>
+  </div>
+</div>

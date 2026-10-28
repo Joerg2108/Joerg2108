@@ -1,0 +1,43 @@
+<div class="page-head">
+  <div><h1><%= o.name %></h1><div class="sub"><span class="mono"><%= o.number || '' %></span> · <%- o.status === 'aktiv' ? h.badge('aktiv') : h.badge('inaktiv') %></div></div>
+  <div class="actions"><a class="btn" href="/objekte">Zurück</a><a class="btn primary" href="/objekte/<%= o.id %>/bearbeiten"><%- h.icon('settings') %> Bearbeiten</a></div>
+</div>
+<div class="grid-2">
+  <div class="card">
+    <h3>Stammdaten</h3>
+    <dl class="kv">
+      <dt>Kunde</dt><dd><%= o.company || [o.c_last, o.c_first].filter(Boolean).join(', ') || '–' %></dd>
+      <dt>Adresse</dt><dd><%= [o.street, [o.zip, o.city].filter(Boolean).join(' ')].filter(Boolean).join(', ') || '–' %></dd>
+      <dt>Vor Ort</dt><dd><%= o.contact_name || '–' %><% if (o.contact_phone) { %> · <%= o.contact_phone %><% } %></dd>
+      <dt>Kontrollpunkte</dt><dd><%= o.checkpoints || 0 %></dd>
+    </dl>
+    <% if (o.access_info) { %><h4>Zugang</h4><p class="pre"><%= o.access_info %></p><% } %>
+    <% if (o.instructions) { %><h4>Dienstanweisung</h4><p class="pre"><%= o.instructions %></p><% } %>
+    <% if (o.notes) { %><h4>Notizen</h4><p class="pre muted"><%= o.notes %></p><% } %>
+  </div>
+  <div class="stack">
+    <div class="card flush">
+      <div class="card-head"><h3>Letzte Streifen</h3></div>
+      <div class="table-wrap">
+      <% if (!patrols.length) { %><div class="empty">Noch keine Streifen an diesem Objekt.</div><% } else { %>
+      <table><thead><tr><th>Beginn</th><th>Mitarbeiter</th><th class="num">Rundg.</th><th>Status</th></tr></thead><tbody>
+      <% for (const p of patrols) { %>
+        <tr class="row-link" data-href="/streife/<%= p.id %>"><td class="small"><%= h.dateTime(p.started_at) %></td>
+        <td><%= [p.last_name, p.first_name].filter(Boolean).join(', ') || '–' %></td>
+        <td class="num"><%= p.rounds %></td><td><%- h.badge(p.status) %></td></tr>
+      <% } %></tbody></table><% } %>
+      </div>
+    </div>
+    <div class="card flush">
+      <div class="card-head"><h3>Letzte Vorfälle</h3></div>
+      <div class="table-wrap">
+      <% if (!incidents.length) { %><div class="empty">Keine Vorfälle.</div><% } else { %>
+      <table><thead><tr><th>Nr.</th><th>Datum</th><th>Kategorie</th><th>Status</th></tr></thead><tbody>
+      <% for (const i of incidents) { %>
+        <tr class="row-link" data-href="/vorfaelle/<%= i.id %>"><td class="mono"><%= i.number || '' %></td>
+        <td class="small"><%= h.dateTime(i.occurred_at) %></td><td><%= h.label(i.category) %></td><td><%- h.badge(i.status) %></td></tr>
+      <% } %></tbody></table><% } %>
+      </div>
+    </div>
+  </div>
+</div>

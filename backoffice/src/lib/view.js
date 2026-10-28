@@ -40,11 +40,24 @@ const BADGE_TONES = {
   ueberfaellig: 'red', neu: 'blue', kontaktiert: 'amber', qualifiziert: 'violet', gewonnen: 'green', verloren: 'grey',
   aktiv: 'green', interessent: 'blue', inaktiv: 'grey', geplant: 'grey', pausiert: 'amber', in_arbeit: 'blue', wartet: 'amber',
   niedrig: 'grey', normal: 'blue', hoch: 'amber', dringend: 'red',
+  // Sicherheitsdienst
+  laeuft: 'amber', ob: 'green', vorfall: 'red', abgebrochen: 'grey',
+  verfuegbar: 'green', im_einsatz: 'blue', werkstatt: 'amber', stillgelegt: 'grey',
+  rundgang: 'green', kontrollpunkt: 'blue', vorkommnis: 'red', notiz: 'grey',
+  mittel: 'amber',
 };
 const LABELS = {
   ...STATUS_LABELS, neu: 'Neu', kontaktiert: 'Kontaktiert', qualifiziert: 'Qualifiziert', gewonnen: 'Gewonnen', verloren: 'Verloren',
   aktiv: 'Aktiv', interessent: 'Interessent', inaktiv: 'Inaktiv', geplant: 'Geplant', pausiert: 'Pausiert', in_arbeit: 'In Arbeit',
   wartet: 'Wartet', niedrig: 'Niedrig', normal: 'Normal', hoch: 'Hoch', dringend: 'Dringend', firma: 'Firma', privat: 'Privat', behoerde: 'Behörde',
+  // Sicherheitsdienst
+  laeuft: 'läuft', ob: 'o.B.', vorfall: 'Vorfall', abgebrochen: 'Abgebrochen',
+  verfuegbar: 'Verfügbar', im_einsatz: 'Im Einsatz', werkstatt: 'Werkstatt', stillgelegt: 'Stillgelegt',
+  in_bearbeitung: 'In Bearbeitung', rundgang: 'Rundgang', kontrollpunkt: 'Kontrollpunkt', vorkommnis: 'Vorkommnis', notiz: 'Notiz',
+  mittel: 'Mittel',
+  // Vorfall-Kategorien
+  diebstahl: 'Diebstahl', sachbeschaedigung: 'Sachbeschädigung', ruhestoerung: 'Ruhestörung', hausverbot: 'Hausverbot',
+  koerperverletzung: 'Körperverletzung', brand: 'Brand', notfall: 'Medizinischer Notfall', defekt: 'Technischer Defekt',
 };
 
 function badge(status, label) {
@@ -88,6 +101,11 @@ function icon(name) {
     menu: 'M3 12h18M3 6h18M3 18h18',
     repeat: 'M17 1l4 4-4 4M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 01-4 4H3',
     truck: 'M1 3h15v13H1zM16 8h4l3 3v5h-7V8zM5.5 21a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM18.5 21a2.5 2.5 0 100-5 2.5 2.5 0 000 5z',
+    building: 'M3 21h18M5 21V5a1 1 0 011-1h8a1 1 0 011 1v16M19 21V11a1 1 0 00-1-1h-3M9 7h2M9 11h2M9 15h2',
+    alert: 'M10.29 3.86l-8.18 14A1.5 1.5 0 003.4 20h17.2a1.5 1.5 0 001.29-2.14l-8.18-14a1.5 1.5 0 00-2.62 0zM12 9v4M12 17h.01',
+    activity: 'M22 12h-4l-3 9L9 3l-3 9H2',
+    route: 'M4 19a2 2 0 100-4 2 2 0 000 4zM20 7a2 2 0 100-4 2 2 0 000 4zM6 17h8a4 4 0 004-4V9M6 17a4 4 0 01-4-4V9',
+    car: 'M5 13l1.5-4.5A2 2 0 018.4 7h7.2a2 2 0 011.9 1.5L19 13M5 13h14a1 1 0 011 1v4h-3M5 13a1 1 0 00-1 1v4h3m0 0a1.5 1.5 0 003 0m-3 0h8m4 0a1.5 1.5 0 01-3 0',
   };
   return `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="${paths[name] || paths.file}"/></svg>`;
 }
