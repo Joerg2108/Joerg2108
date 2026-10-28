@@ -105,6 +105,13 @@ const MUSTER_CATALOG = [
   // ───────── Schulung ─────────
   { sku: 'SC-01', category: 'Schulung', name: 'Schulung vor Ort – Tagessatz', unit: 'Tag', price: 89000, description: 'Praxisschulung für bis zu 10 Teilnehmende inkl. Unterlagen und Teilnahmebescheinigung.' },
   { sku: 'SC-02', category: 'Schulung', name: 'Online-Schulung', unit: 'Std.', price: 12000, description: 'Live-Schulung per Video inkl. Aufzeichnung.' },
+  // ───────── Software & Einrichtung (Back-Office-Pakete) ─────────
+  { sku: 'BO-BASIS', category: 'Software & Einrichtung', name: 'Back Office – Paket Basis', unit: 'pauschal', price: 150000, description: 'Unbefristetes, nicht ausschließliches Nutzungsrecht an der Software „Back Office“ für den eigenen Betrieb, beliebig viele Benutzer. Leistungsumfang: Installation auf dem Server/VPS des Kunden, Einrichtung Firmendaten, Logo und Nummernkreise, Einweisung (1 Std.).' },
+  { sku: 'BO-BUSINESS', category: 'Software & Einrichtung', name: 'Back Office – Paket Business', unit: 'pauschal', price: 249000, description: 'Unbefristetes, nicht ausschließliches Nutzungsrecht an der Software „Back Office“ für den eigenen Betrieb, beliebig viele Benutzer. Leistungsumfang inkl. Paket Basis: Anbindung Website-Kontaktformular, E-Mail-Versand (SMTP), Domain und HTTPS, Datenimport Kundenstamm (CSV), Anlage des eigenen Leistungskatalogs, Schulung (3 Std.).' },
+  { sku: 'BO-EINSATZ', category: 'Software & Einrichtung', name: 'Back Office – Paket Business + Einsatzplanung', unit: 'pauschal', price: 349000, description: 'Leistungsumfang wie Paket Business, zusätzlich Einrichtung des Moduls Einsatzplanung: Personalstamm, Qualifikationen und Nachweise, Objekte/Projekte, Zuschlagssätze sowie Schulung der Einsatzleitung.' },
+  { sku: 'BO-PREMIUM', category: 'Software & Einrichtung', name: 'Back Office – Paket Premium', unit: 'pauschal', price: 390000, description: 'Leistungsumfang wie Paket Business, zusätzlich individuelle Anpassungen nach Kundenvorgabe (bis 8 Std.), DATEV-Abstimmung mit dem Steuerberater des Kunden und Einrichtung eines Offsite-Backups.' },
+  { sku: 'BO-WARTUNG', category: 'Software & Einrichtung', name: 'Wartung & Support Back Office', unit: 'Monat', price: 4900, description: 'Monatliche Wartungspauschale: Software-Updates und Sicherheits-Patches, Kontrolle der Datensicherungen, Support per E-Mail.' },
+  { sku: 'BO-HOSTING', category: 'Software & Einrichtung', name: 'Managed Hosting Back Office', unit: 'Monat', price: 1900, description: 'Monatliche Pauschale: Bereitstellung und Betrieb des Servers in Deutschland inkl. täglicher Datensicherung.' },
 ];
 
 const CATALOGS = { standard: CATALOG, muster: MUSTER_CATALOG };
