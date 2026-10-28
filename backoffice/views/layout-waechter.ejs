@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="de" data-theme="dark" style="--brand: <%= s.brand_color || '#1d4ed8' %>">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title><%= title ? title + ' · ' : '' %>Wächter · <%= s.company_name %></title>
+  <link rel="manifest" href="/waechter/manifest.webmanifest">
+  <link rel="stylesheet" href="/static/css/app.css">
+  <link rel="stylesheet" href="/static/css/waechter.css">
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <script src="/static/js/app.js" defer></script>
+  <script src="/static/js/waechter.js" defer></script>
+</head>
+<body class="waechter">
+  <header class="wa-head">
+    <div class="wa-brand">
+      <% if (s.logo_file) { %><img src="/logo" alt=""><% } else { %><span class="brand-mark"><%= (s.company_name || 'W').slice(0, 1) %></span><% } %>
+      <div><strong><%= s.company_name %></strong><small><%= user.name %></small></div>
+    </div>
+    <div class="wa-head-act">
+      <button class="icon-btn" data-theme-toggle title="Hell / Dunkel"><%- h.icon('settings') %></button>
+      <form method="post" action="/logout" class="inline-form"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="icon-btn" title="Abmelden"><%- h.icon('logout') %></button></form>
+    </div>
+  </header>
+  <main class="wa-main">
+    <% for (const fl of flash) { %><div class="alert <%= fl.type %>" role="status"><%= fl.msg %></div><% } %>
+    <%- body %>
+  </main>
+  <nav class="wa-nav">
+    <a href="/waechter" class="<%= path === '/waechter' ? 'on' : '' %>"><%- h.icon('home') %><span>Start</span></a>
+    <a href="/waechter/streife" class="<%= path.startsWith('/waechter/streife') ? 'on' : '' %>"><%- h.icon('route') %><span>Streife</span></a>
+    <a href="/waechter/vorfall" class="<%= path.startsWith('/waechter/vorfall') ? 'on' : '' %>"><%- h.icon('alert') %><span>Vorfall</span></a>
+    <a href="/waechter/schichten" class="<%= path.startsWith('/waechter/schichten') ? 'on' : '' %>"><%- h.icon('calendar') %><span>Schichten</span></a>
+  </nav>
+</body>
+</html>
