@@ -345,3 +345,45 @@ dl.kv dd { margin: 0; font-weight: 600; }
 .live-card:first-child { margin-top: 4px; }
 .live-card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .badge.green.grey, .badge.grey { opacity: 1; }
+
+/* ═══════════ Glass-Look · Sicherheits-Edition (Hell & Dunkel) ═══════════ */
+:root {
+  --glass: color-mix(in srgb, var(--surface) 70%, transparent);
+  --glass-2: color-mix(in srgb, var(--surface) 55%, transparent);
+  --glass-brd: color-mix(in srgb, var(--border) 55%, transparent);
+  --blur: 16px;
+  --radius: 14px;
+}
+body {
+  background:
+    radial-gradient(1150px 700px at 88% -14%, color-mix(in srgb, var(--brand) 22%, transparent), transparent 55%),
+    radial-gradient(950px 620px at -8% 6%, color-mix(in srgb, #14e0a3 16%, transparent), transparent 52%),
+    radial-gradient(1000px 720px at 55% 120%, color-mix(in srgb, #8b7aff 18%, transparent), transparent 55%),
+    var(--bg);
+  background-attachment: fixed;
+}
+.card, .kpi, .wa-card, .live-card, .auth-card, fieldset {
+  background: var(--glass);
+  border-color: var(--glass-brd);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(1.25);
+  backdrop-filter: blur(var(--blur)) saturate(1.25);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 18%, transparent), var(--shadow);
+}
+.kpi { transition: transform .18s ease, border-color .18s ease; }
+.kpi:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--brand) 45%, var(--glass-brd)); }
+.card:hover { border-color: color-mix(in srgb, var(--brand) 30%, var(--glass-brd)); }
+.topbar { background: color-mix(in srgb, var(--surface) 60%, transparent); -webkit-backdrop-filter: blur(18px) saturate(1.25); backdrop-filter: blur(18px) saturate(1.25); border-bottom-color: var(--glass-brd); }
+.search { background: var(--glass-2); border-color: var(--glass-brd); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.menu-pop, .search-results { background: var(--glass); border-color: var(--glass-brd); -webkit-backdrop-filter: blur(20px) saturate(1.25); backdrop-filter: blur(20px) saturate(1.25); }
+.btn { background: var(--glass-2); border-color: var(--glass-brd); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.btn.primary { background: var(--brand); border-color: var(--brand); backdrop-filter: none; -webkit-backdrop-filter: none; }
+.btn.danger.solid { background: var(--red); backdrop-filter: none; -webkit-backdrop-filter: none; }
+input, select, textarea { background: var(--glass-2); border-color: var(--glass-brd); }
+input:focus, select:focus, textarea:focus { background: var(--glass); }
+th, tfoot td { background: color-mix(in srgb, var(--surface-2) 45%, transparent); }
+tbody tr:hover { background: color-mix(in srgb, var(--brand) 8%, transparent); }
+.wa-nav { background: color-mix(in srgb, var(--surface) 62%, transparent); -webkit-backdrop-filter: blur(20px) saturate(1.3); backdrop-filter: blur(20px) saturate(1.3); border-top-color: var(--glass-brd); }
+body.auth { background:
+  radial-gradient(1000px 640px at 82% -12%, color-mix(in srgb, var(--brand) 26%, transparent), transparent 55%),
+  radial-gradient(820px 560px at 0% 112%, color-mix(in srgb, #8b7aff 20%, transparent), transparent 55%),
+  var(--bg); background-attachment: fixed; }
