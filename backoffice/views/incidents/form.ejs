@@ -1,0 +1,16 @@
+<div class="page-head"><h1><%= title %></h1>
+<% if (i.id) { %><form method="post" action="/vorfaelle/<%= i.id %>/loeschen" data-confirm="Vorfall löschen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn danger">Löschen</button></form><% } %></div>
+<form method="post" action="<%= i.id ? '/vorfaelle/' + i.id : '/vorfaelle' %>" class="card form-grid">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <%- h.input('occurred_at', 'Datum & Uhrzeit', String(i.occurred_at || '').replace(' ', 'T').slice(0, 16), { type: 'datetime-local', cls: 'span-4', required: true }) %>
+  <%- h.select('object_id', 'Objekt', i.object_id, objects, { empty: '– Objekt wählen –', cls: 'span-4' }) %>
+  <%- h.select('staff_id', 'Meldender Mitarbeiter', i.staff_id, staff, { empty: '– Mitarbeiter –', cls: 'span-4' }) %>
+  <%- h.select('category', 'Kategorie', i.category, CATEGORIES, { cls: 'span-6' }) %>
+  <%- h.select('severity', 'Schweregrad', i.severity, SEVERITY, { cls: 'span-3' }) %>
+  <%- h.select('status', 'Status', i.status, STATUS, { cls: 'span-3' }) %>
+  <%- h.input('description', 'Was ist passiert?', i.description, { type: 'textarea', cls: 'span-12', rows: 4, required: true }) %>
+  <%- h.input('measures', 'Getroffene Maßnahmen', i.measures, { type: 'textarea', cls: 'span-12' }) %>
+  <div class="span-4" style="align-self:center"><%- h.checkbox('police', 'Polizei verständigt', i.police) %></div>
+  <%- h.input('police_ref', 'Polizei-Aktenzeichen', i.police_ref, { cls: 'span-8' }) %>
+  <div class="span-12 sticky-actions"><a class="btn" href="<%= i.id ? '/vorfaelle/' + i.id : '/vorfaelle' %>">Abbrechen</a><button class="btn primary">Speichern</button></div>
+</form>

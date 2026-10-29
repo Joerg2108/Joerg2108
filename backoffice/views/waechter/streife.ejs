@@ -1,0 +1,38 @@
+<h1 class="wa-greet">Streife / Wachbuch</h1>
+
+<% if (!p) { %>
+<div class="wa-card accent">
+  <div class="wa-status">⚪ <strong>Keine aktive Streife</strong></div>
+  <form method="post" action="/waechter/streife/start" class="wa-form">
+    <input type="hidden" name="_csrf" value="<%= csrf %>">
+    <label class="field"><span>Objekt / Revier</span>
+      <select name="object_id" required><% for (const o of objects) { %><option value="<%= o.id %>"><%= o.name %></option><% } %></select></label>
+    <button class="btn primary wa-big">▶ Streife starten</button>
+  </form>
+</div>
+<% } else { %>
+<div class="wa-card accent">
+  <div class="wa-status"><span class="live-dot" style="color:var(--amber)"></span><strong>Streife läuft</strong></div>
+  <div class="muted"><%= p.object_name || '–' %> · seit <%= h.dateTime(p.started_at).slice(-5) %> Uhr · <%= p.rounds %> Rundgänge</div>
+
+  <form method="post" action="/waechter/streife/log"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="kind" value="rundgang">
+    <button class="btn primary wa-big">✓ Rundgang</button></form>
+
+  <form method="post" action="/waechter/streife/log" class="wa-form">
+    <input type="hidden" name="_csrf" value="<%= csrf %>">
+    <label class="field"><span>Eintrag</span>
+      <select name="kind"><option value="kontrollpunkt">Kontrollpunkt</option><option value="vorkommnis">Vorkommnis</option><option value="notiz">Notiz</option></select></label>
+    <label class="field"><span>Text</span><input name="text" placeholder="z. B. Tor 3 kontrolliert, verschlossen"></label>
+    <button class="btn wa-big">Eintragen</button>
+  </form>
+
+  <form method="post" action="/waechter/streife/beenden" data-confirm="Streife jetzt beenden?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn danger solid wa-big">⏹ Streife beenden</button></form>
+</div>
+
+<h2 class="wa-h2">Protokoll (<%= p.logs.length %>)</h2>
+<% if (!p.logs.length) { %><div class="wa-card muted">Noch keine Einträge – protokolliere deinen ersten Rundgang.</div><% } else { %>
+<div class="wa-card flush"><ul class="timeline" style="padding:14px 16px">
+<% for (const l of p.logs) { %><li><small><%= h.dateTime(l.at).slice(-5) %> Uhr</small><br><%- h.badge(l.kind) %><% if (l.text) { %> <%= l.text %><% } %></li><% } %>
+</ul></div>
+<% } %>
+<% } %>

@@ -1,0 +1,7 @@
+<div class="page-head"><h1>Streife starten</h1></div>
+<form method="post" action="/streife" class="card form-grid">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <%- h.select('object_id', 'Objekt / Revier', null, objects.map((o) => [o.id, o.name]), { empty: '– Objekt wählen –', cls: 'span-6', required: true }) %>
+  <%- h.select('staff_id', 'Mitarbeiter', null, staff.map((s) => [s.id, `${s.last_name}, ${s.first_name}`]), { empty: '– Mitarbeiter wählen –', cls: 'span-6' }) %>
+  <div class="span-12 sticky-actions"><a class="btn" href="/streife">Abbrechen</a><button class="btn primary"><%- h.icon('route') %> Streife starten</button></div>
+</form>

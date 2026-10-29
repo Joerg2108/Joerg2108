@@ -1,0 +1,15 @@
+<h1 class="wa-greet">Meine Schichten</h1>
+<% if (!hasStaff) { %>
+<div class="wa-card muted">Dein Zugang ist noch keinem Personaldatensatz zugeordnet. Die Einsatzleitung kann das unter „Personal" einstellen.</div>
+<% } else if (!shifts.length) { %>
+<div class="wa-card muted">Keine Schichten geplant.</div>
+<% } else { %>
+<% for (const s of shifts) { %>
+  <div class="wa-card">
+    <div class="wa-row"><strong><%= s.title %></strong><%- h.badge(s.status === 'bestaetigt' ? 'bestätigt' : s.status) %></div>
+    <div class="muted"><%= h.dateTime(s.starts_at) %> – <%= h.dateTime(s.ends_at).slice(-5) %> Uhr</div>
+    <% if (s.location) { %><div class="muted">📍 <%= s.location %></div><% } %>
+    <% if (s.notes) { %><div class="wa-note"><%= s.notes %></div><% } %>
+  </div>
+<% } %>
+<% } %>

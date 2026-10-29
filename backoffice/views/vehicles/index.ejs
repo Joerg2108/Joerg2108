@@ -1,0 +1,27 @@
+<div class="page-head">
+  <div><h1>Fahrzeuge</h1><div class="sub"><%= rows.length %> Fahrzeuge</div></div>
+  <div class="actions"><a class="btn primary" href="/fahrzeuge/neu"><%- h.icon('plus') %> Fahrzeug</a></div>
+</div>
+<% const overdue = rows.filter((v) => v.tuev && v.tuev < today); const soonList = rows.filter((v) => v.tuev && v.tuev >= today && v.tuev < soon); %>
+<% if (overdue.length || soonList.length) { %>
+<div class="alert warning"><strong>TÜV/HU:</strong>
+  <% for (const v of overdue) { %><div><%= v.plate %> – abgelaufen seit <%= h.date(v.tuev) %></div><% } %>
+  <% for (const v of soonList) { %><div><%= v.plate %> – fällig <%= h.date(v.tuev) %></div><% } %>
+</div>
+<% } %>
+<div class="card flush"><div class="table-wrap">
+<% if (!rows.length) { %><div class="empty">Noch keine Fahrzeuge. <a href="/fahrzeuge/neu">Jetzt anlegen</a>.</div><% } else { %>
+<table><thead><tr><th>Kennzeichen</th><th>Typ</th><th>Fahrer</th><th class="num">km</th><th>TÜV/HU</th><th>Versicherung</th><th>Status</th><th></th></tr></thead><tbody>
+<% for (const v of rows) { %>
+  <tr class="row-link" data-href="/fahrzeuge/<%= v.id %>/bearbeiten">
+    <td class="mono"><strong><%= v.plate %></strong></td>
+    <td><%= v.model || '' %></td>
+    <td class="small"><%= [v.last_name, v.first_name].filter(Boolean).join(', ') || '' %></td>
+    <td class="num"><%= v.mileage ? h.num(v.mileage, 0) : '' %></td>
+    <td><% if (v.tuev) { %><%= h.date(v.tuev) %> <% if (v.tuev < today) { %><%- h.badge('ueberfaellig', 'abgelaufen') %><% } else if (v.tuev < soon) { %><%- h.badge('offen', 'bald') %><% } %><% } %></td>
+    <td class="small"><%= v.insurance || '' %></td>
+    <td><%- h.badge(v.status) %></td>
+    <td><a class="btn sm" href="/fahrzeuge/<%= v.id %>/bearbeiten">Bearbeiten</a></td>
+  </tr>
+<% } %></tbody></table><% } %>
+</div></div>

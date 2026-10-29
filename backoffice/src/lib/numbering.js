@@ -26,4 +26,15 @@ function next(kind, onDate = new Date().toISOString().slice(0, 10)) {
   });
 }
 
-module.exports = { next };
+// Generischer, fortlaufender Zähler (z. B. Objekte, Vorfälle). {YYYY} im Präfix = Jahreskreis.
+function seq(prefix, digits = 4, onDate = new Date().toISOString().slice(0, 10)) {
+  const p = String(prefix).replace('{YYYY}', onDate.slice(0, 4)).replace('{YY}', onDate.slice(2, 4)).replace('{MM}', onDate.slice(5, 7));
+  const name = `seq:${p}`;
+  return db.tx(() => {
+    db.run('INSERT INTO counters (name, value) VALUES (?, 0) ON CONFLICT(name) DO NOTHING', name);
+    db.run('UPDATE counters SET value = value + 1 WHERE name = ?', name);
+    return p + String(db.get('SELECT value FROM counters WHERE name = ?', name).value).padStart(digits, '0');
+  });
+}
+
+module.exports = { next, seq };
