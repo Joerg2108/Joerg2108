@@ -15,8 +15,12 @@ const PERMISSIONS = {
 
 const ROLE_LABELS = { admin: 'Administrator', manager: 'Manager', buchhaltung: 'Buchhaltung', mitarbeiter: 'Mitarbeiter' };
 
+// Rechte der Sicherheitsdienst-Edition – ohne die Edition hat sie niemand, auch kein Admin
+const SECURITY_PERMS = ['objects', 'patrols', 'patrols.view', 'incidents', 'incidents.report', 'vehicles', 'livelage', 'guard'];
+
 function can(user, perm) {
   if (!user) return false;
+  if (!config.securityEdition && SECURITY_PERMS.includes(perm)) return false;
   const list = PERMISSIONS[user.role] || [];
   return list.includes('*') || list.includes(perm);
 }
