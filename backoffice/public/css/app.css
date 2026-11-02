@@ -322,6 +322,23 @@ body.auth .demo-banner { align-self: stretch; margin: 0 -16px 24px; }
 .demo-login form { display: block; }
 .auth-card .btn.demo-account { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; white-space: normal; padding: 10px 12px; }
 .demo-account small { color: var(--muted); font-weight: 400; }
+/* Leistungsübersicht neben der Anmeldung (nur Demo) */
+.auth-split { display: grid; grid-template-columns: minmax(0, 560px) 400px; gap: 48px; align-items: start; width: min(1060px, 100%); margin: 8px auto 32px; }
+.auth-split .auth-card { width: 100%; }
+.auth-features { padding: 8px 0; }
+.auth-features-kicker { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--brand); }
+.auth-features h2 { margin: 6px 0 18px; font-size: 1.7rem; line-height: 1.2; }
+.auth-features-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 20px; }
+.auth-features-list li { display: flex; gap: 10px; align-items: flex-start; }
+.auth-features-list .icon { flex: none; width: 34px; height: 34px; padding: 7px; border-radius: 9px; background: color-mix(in srgb, var(--brand) 12%, transparent); color: var(--brand); }
+.auth-features-list strong { display: block; font-size: .92rem; }
+.auth-features-list span { display: block; color: var(--muted); font-size: .82rem; line-height: 1.35; margin-top: 2px; }
+.auth-features-usp { margin: 20px 0 0; padding: 12px 14px; border-radius: 10px; background: color-mix(in srgb, var(--brand) 10%, transparent); font-weight: 600; font-size: .9rem; }
+@media (max-width: 1000px) {
+  .auth-split { grid-template-columns: minmax(0, 400px); justify-content: center; gap: 28px; }
+  .auth-split .auth-card { order: -1; }
+}
+@media (max-width: 520px) { .auth-features-list { grid-template-columns: 1fr; } }
 .demo-tour { margin-bottom: 18px; border-color: color-mix(in srgb, var(--brand) 35%, var(--border)); }
 .demo-tour-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin-bottom: 10px; }
 .demo-tour-grid a { display: grid; align-content: start; gap: 4px; padding: 12px; border: 1px solid var(--border); border-radius: 10px; color: var(--text); background: var(--surface-2); }

@@ -374,3 +374,8 @@ test('Sicherheitsdienst-Edition ist im eigenen Back Office abgeschaltet', async 
   assert.equal(sec.can({ role: 'admin' }, 'patrols.view'), false);
   assert.equal(sec.can({ role: 'admin' }, 'customers'), true);
 });
+
+test('Eigenes Back Office: Anmeldeseite ohne Demo-Leistungsübersicht', async () => {
+  const html = await (await client(base).req('/login')).text();
+  assert.doesNotMatch(html, /auth-features|auth-split/);
+});
