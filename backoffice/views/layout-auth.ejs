@@ -11,14 +11,31 @@
 </head>
 <body class="auth">
   <%- include('demo-banner') %>
-  <div class="auth-card">
-    <div class="auth-brand">
-      <% if (s.logo_file) { %><img src="/logo" alt=""><% } else { %><span class="brand-mark lg"><%= (s.company_name || 'B').slice(0, 1) %></span><% } %>
-      <h1><%= s.company_name %></h1>
-      <p><%= s.app_title %></p>
+  <div class="auth-wrap">
+    <% if (typeof demo !== 'undefined' && demo) { %>
+    <aside class="auth-features">
+      <h2>Alles für Ihren Sicherheitsdienst – in einem System</h2>
+      <ul>
+        <li><%- h.icon('calendar') %><div><strong>Dienstplan mit Konfliktprüfung</strong><span>Ruhezeiten, §34a &amp; Qualifikationen automatisch geprüft</span></div></li>
+        <li><%- h.icon('route') %><div><strong>Streife &amp; Wachbuch – live</strong><span>Rundgänge vom Handy, in Echtzeit im Office</span></div></li>
+        <li><%- h.icon('activity') %><div><strong>Live-Lage</strong><span>Laufende Streifen, Dienste &amp; offene Vorfälle auf einen Blick</span></div></li>
+        <li><%- h.icon('alert') %><div><strong>Vorfälle</strong><span>Melden in Sekunden – inkl. PDF-Bericht</span></div></li>
+        <li><%- h.icon('building') %><div><strong>Objekte &amp; Fahrzeuge</strong><span>Wachobjekte, Fuhrpark mit TÜV-Warnung</span></div></li>
+        <li><%- h.icon('shield') %><div><strong>Personal &amp; §34a</strong><span>Qualifikationen &amp; Fristen immer im Blick</span></div></li>
+        <li><%- h.icon('euro') %><div><strong>Rechnungen &amp; DATEV</strong><span>Angebote, Mahnwesen und Steuer-Export inklusive</span></div></li>
+      </ul>
+      <p class="auth-note">Selbst gehostet · DSGVO-konform · komplett auf Ihren Namen</p>
+    </aside>
+    <% } %>
+    <div class="auth-card">
+      <div class="auth-brand">
+        <% if (s.logo_file) { %><img src="/logo" alt=""><% } else { %><span class="brand-mark lg"><%= (s.company_name || 'B').slice(0, 1) %></span><% } %>
+        <h1><%= s.company_name %></h1>
+        <p><%= s.app_title %></p>
+      </div>
+      <% for (const fl of flash) { %><div class="alert <%= fl.type %>"><%= fl.msg %></div><% } %>
+      <%- body %>
     </div>
-    <% for (const fl of flash) { %><div class="alert <%= fl.type %>"><%= fl.msg %></div><% } %>
-    <%- body %>
   </div>
 </body>
 </html>
