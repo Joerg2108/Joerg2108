@@ -120,6 +120,8 @@ DEMO_MODE=1 DATA_DIR=./demo-data npm start      # lokal ausprobieren
 
 Einrichtung, Sperren, Schutz echter Daten und ein **15-Minuten-Vorführleitfaden**: **[docs/DEMO.md](docs/DEMO.md)**
 
+**Sicherheitsdienst-Edition** (Objekte, Streife/Wachbuch, Vorfälle, Fahrzeuge, Wächter-App): standardmäßig **aus**, in der Demo an. Für Kunden aus dem Sicherheitsgewerbe mit `SECURITY_EDITION=1` einschalten, mit `SECURITY_EDITION=0` auch in der Demo abschalten.
+
 ### Eigener Server: Ein-Befehl-Installer
 
 Auf einem frischen Server mit Ubuntu 22.04/24.04 oder Debian 12:

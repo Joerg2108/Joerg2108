@@ -362,3 +362,15 @@ test('Kunde mit eigener Rechnungs-E-Mail: Formular, Versand und XRechnung', asyn
   plain.snapshot = { ...plain.snapshot, invoice_email: null };
   assert.equal(sales.recipientFor(plain), 'chef@zwei.de');
 });
+
+test('Sicherheitsdienst-Edition ist im eigenen Back Office abgeschaltet', async () => {
+  const c = client(base);
+  await c.login();
+  const dash = await (await c.req('/')).text();
+  assert.doesNotMatch(dash, /Sicherheitsdienst|Streife|Wächter-App|Live-Lage/);
+  for (const p of ['/lage', '/objekte', '/streife', '/vorfaelle', '/fahrzeuge', '/waechter']) {
+    assert.equal((await c.req(p)).status, 404, `${p} muss fehlen`);
+  }
+  assert.equal(sec.can({ role: 'admin' }, 'patrols.view'), false);
+  assert.equal(sec.can({ role: 'admin' }, 'customers'), true);
+});
