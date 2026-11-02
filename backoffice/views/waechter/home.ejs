@@ -1,0 +1,39 @@
+<h1 class="wa-greet">Hallo <%= user.name.split(' ')[0] %> 👋</h1>
+
+<div class="wa-card accent">
+  <% if (timer) { %>
+    <div class="wa-status"><span class="live-dot" style="color:var(--green)"></span><strong>Eingestempelt</strong></div>
+    <div class="muted">seit <%= h.dateTime(timer.started_at).slice(-5) %> Uhr<% if (timer.description) { %> · <%= timer.description %><% } %></div>
+    <form method="post" action="/waechter/stempel/stop"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn danger solid wa-big">⏹ Ausstempeln</button></form>
+  <% } else { %>
+    <div class="wa-status">⚪ <strong>Nicht eingestempelt</strong></div>
+    <form method="post" action="/waechter/stempel/start" class="wa-form">
+      <input type="hidden" name="_csrf" value="<%= csrf %>">
+      <label class="field"><span>Einsatzort</span>
+        <select name="object_id"><% for (const o of objects) { %><option value="<%= o.id %>"><%= o.name %></option><% } %></select></label>
+      <button class="btn primary wa-big">▶ Einstempeln</button>
+    </form>
+  <% } %>
+</div>
+
+<% if (running) { %>
+<a class="wa-card wa-link" href="/waechter/streife">
+  <div class="wa-status"><span class="live-dot" style="color:var(--amber)"></span><strong>Streife läuft</strong></div>
+  <div class="muted"><%= running.object_name || 'Streife' %> · <%= running.rounds %> Rundgänge · tippen zum Führen</div>
+</a>
+<% } %>
+
+<div class="wa-actions">
+  <a class="btn wa-tile" href="/waechter/streife"><%- h.icon('route') %><span><%= running ? 'Wachbuch führen' : 'Streife starten' %></span></a>
+  <a class="btn wa-tile danger" href="/waechter/vorfall"><%- h.icon('alert') %><span>Vorfall melden</span></a>
+</div>
+
+<h2 class="wa-h2">Meine nächsten Schichten</h2>
+<% if (!shifts.length) { %><div class="wa-card muted">Keine Schichten geplant.</div><% } else { %>
+<% for (const s of shifts) { %>
+  <div class="wa-card">
+    <div class="wa-row"><strong><%= s.title %></strong><%- h.badge(s.status === 'bestaetigt' ? 'bestätigt' : s.status) %></div>
+    <div class="muted"><%= h.dateTime(s.starts_at) %> – <%= h.dateTime(s.ends_at).slice(-5) %><% if (s.location) { %> · <%= s.location %><% } %></div>
+  </div>
+<% } %>
+<% } %>

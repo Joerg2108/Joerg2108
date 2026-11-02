@@ -1,0 +1,19 @@
+<div class="page-head"><h1><%= title %></h1>
+<% if (o.id) { %><form method="post" action="/objekte/<%= o.id %>/loeschen" data-confirm="Objekt wirklich löschen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn danger">Löschen</button></form><% } %></div>
+<form method="post" action="<%= o.id ? '/objekte/' + o.id : '/objekte' %>" class="card form-grid">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <%- h.input('name', 'Objektname', o.name, { required: true, cls: 'span-8' }) %>
+  <%- h.input('number', 'Objekt-Nr.', o.number, { cls: 'span-4', hint: 'leer = automatisch' }) %>
+  <%- h.select('customer_id', 'Kunde / Auftraggeber', o.customer_id, customers, { empty: '– kein Kunde –', cls: 'span-8' }) %>
+  <%- h.select('status', 'Status', o.status, { aktiv: 'Aktiv', inaktiv: 'Inaktiv' }, { cls: 'span-4' }) %>
+  <%- h.input('street', 'Straße & Nr.', o.street, { cls: 'span-6' }) %>
+  <%- h.input('zip', 'PLZ', o.zip, { cls: 'span-2' }) %>
+  <%- h.input('city', 'Ort', o.city, { cls: 'span-4' }) %>
+  <%- h.input('contact_name', 'Ansprechpartner vor Ort', o.contact_name, { cls: 'span-6' }) %>
+  <%- h.input('contact_phone', 'Telefon vor Ort', o.contact_phone, { type: 'tel', cls: 'span-4' }) %>
+  <%- h.input('checkpoints', 'Kontrollpunkte', o.checkpoints, { type: 'number', min: 0, cls: 'span-2' }) %>
+  <%- h.input('access_info', 'Zugang / Schlüssel / Code', o.access_info, { type: 'textarea', cls: 'span-12' }) %>
+  <%- h.input('instructions', 'Dienstanweisung', o.instructions, { type: 'textarea', cls: 'span-12', rows: 4 }) %>
+  <%- h.input('notes', 'Interne Notizen', o.notes, { type: 'textarea', cls: 'span-12' }) %>
+  <div class="span-12 sticky-actions"><a class="btn" href="<%= o.id ? '/objekte/' + o.id : '/objekte' %>">Abbrechen</a><button class="btn primary">Speichern</button></div>
+</form>

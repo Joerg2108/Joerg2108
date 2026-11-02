@@ -1,0 +1,19 @@
+<div class="page-head">
+  <div><h1>Objekte</h1><div class="sub"><%= rows.length %> <%= showAll ? 'Objekte' : 'aktive Objekte' %></div></div>
+  <div class="actions"><a class="btn" href="?alle=<%= showAll ? '0' : '1' %>"><%= showAll ? 'Nur aktive' : 'Auch inaktive' %></a><a class="btn primary" href="/objekte/neu"><%- h.icon('plus') %> Objekt</a></div>
+</div>
+<div class="card flush"><div class="table-wrap">
+<% if (!rows.length) { %><div class="empty">Noch keine Objekte. <a href="/objekte/neu">Jetzt anlegen</a>.</div><% } else { %>
+<table><thead><tr><th>Obj.-Nr.</th><th>Objekt</th><th>Kunde</th><th>Ort</th><th class="num">Kontrollp.</th><th>Lage</th><th>Status</th></tr></thead><tbody>
+<% for (const o of rows) { %>
+  <tr class="row-link" data-href="/objekte/<%= o.id %>">
+    <td class="mono"><%= o.number || '' %></td>
+    <td><a href="/objekte/<%= o.id %>"><strong><%= o.name %></strong></a></td>
+    <td class="small"><%= o.company || o.c_last || '' %></td>
+    <td class="small"><%= [o.zip, o.city].filter(Boolean).join(' ') %></td>
+    <td class="num"><%= o.checkpoints || 0 %></td>
+    <td><% if (o.running) { %><span class="badge amber"><span class="live-dot"></span>Streife läuft</span><% } %><% if (o.open_incidents) { %> <%- h.badge('vorfall', o.open_incidents + ' Vorfall' + (o.open_incidents > 1 ? 'e' : '')) %><% } %></td>
+    <td><%- o.status === 'aktiv' ? h.badge('aktiv') : h.badge('inaktiv') %></td>
+  </tr>
+<% } %></tbody></table><% } %>
+</div></div>

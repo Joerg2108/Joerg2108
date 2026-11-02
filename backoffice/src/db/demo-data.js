@@ -202,6 +202,36 @@ function seed({ adminEmail, password = PASSWORD } = {}) {
   shift(s4, 5, '18:00', '23:00', 0, 'Abendbetreuung Kundenevent Autohaus', p1, String(qEH));
   shift(null, 12, '18:00', '23:00', 0, 'Abendbetreuung Kundenevent Autohaus', p1, String(qEH), 'geplant');
 
+  // ───────── Sicherheitsdienst-Edition: Objekte, Fahrzeuge, Streifen, Vorfälle ─────────
+  const yr = today.slice(0, 4);
+  const object = (no, name, cid, street, city, cp, contact, phone, instr) => Number(db.run(
+    'INSERT INTO objects (number, name, customer_id, street, city, contact_name, contact_phone, checkpoints, instructions, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    no, name, cid, street, city, contact, phone, cp, instr, 'aktiv').lastInsertRowid);
+  const o1 = object('OBJ-0001', 'City-Galerie Einkaufszentrum', c1, 'Leipziger Str. 44', 'Musterstadt', 6, 'Herr Sommer', '0123 555-900', 'Rundgänge alle 2 Std., Nebeneingänge prüfen, Tiefgarage um 22:00 schließen.');
+  const o2 = object('OBJ-0002', 'Logistikzentrum Nord', c5, 'Hafenstraße 3', 'Musterstadt', 8, 'Frau Hafen', '0123 555-300', 'Toranlagen und Zaun kontrollieren, LKW-Hof beleuchten.');
+  const o3 = object('OBJ-0003', 'Stadtwerke Verwaltung', c3, 'Rathausplatz 1', 'Musterstadt', 4, 'Herr Amt', '0123 555-100', 'Empfang / Pforte, Besucherausweise ausgeben.');
+
+  const vehicle = (plate, model, sid, km, tuevOffset, ins, status) => db.run(
+    'INSERT INTO vehicles (plate, model, staff_id, mileage, tuev, insurance, status) VALUES (?, ?, ?, ?, ?, ?, ?)',
+    plate, model, sid, km, f.addDays(today, tuevOffset), ins, status);
+  vehicle('M-SF 101', 'VW Caddy (Streifenwagen)', s1, 84520, 210, 'HUK-Coburg · VK', 'im_einsatz');
+  vehicle('M-SF 102', 'Mercedes Vito (Mannschaft)', null, 112340, 120, 'Allianz · VK', 'verfuegbar');
+  vehicle('M-SF 103', 'Ford Transit', null, 156900, -12, 'HUK-Coburg · TK', 'werkstatt');
+
+  // Streifen: eine läuft gerade (für die Live-Lage), zwei abgeschlossen
+  const pRun = Number(db.run("INSERT INTO patrols (object_id, staff_id, user_id, started_at, rounds, status) VALUES (?, ?, ?, datetime('now','-38 minutes'), 2, 'laeuft')", o1, s1, staff).lastInsertRowid);
+  const plog = (minsAgo, kind, text) => db.run("INSERT INTO patrol_log (patrol_id, at, kind, text) VALUES (?, datetime('now', ?), ?, ?)", pRun, `-${minsAgo} minutes`, kind, text);
+  plog(33, 'rundgang', null); plog(21, 'kontrollpunkt', 'Haupteingang + Tiefgarage kontrolliert, verschlossen'); plog(9, 'rundgang', null); plog(3, 'notiz', 'Beleuchtung Parkdeck 2 flackert – Haustechnik informieren');
+  db.run("INSERT INTO patrols (object_id, staff_id, user_id, started_at, ended_at, rounds, status, summary) VALUES (?, ?, ?, datetime('now','-1 day'), datetime('now','-1 day','+8 hours'), 6, 'vorfall', 'Kontrollpunkt: Tor 3 offen vorgefunden und gesichert.\nVorkommnis: Unbefugte Person am Zaun angetroffen und des Geländes verwiesen.')", o2, s3, staff);
+  db.run("INSERT INTO patrols (object_id, staff_id, user_id, started_at, ended_at, rounds, status, summary) VALUES (?, ?, ?, datetime('now','-2 days'), datetime('now','-2 days','+8 hours'), 3, 'ob', 'Keine besonderen Vorkommnisse.')", o3, s1, staff);
+
+  const incident = (seq, oid, sid, daysAgo, cat, sev, desc, meas, police, ref, status) => db.run(
+    "INSERT INTO incidents (number, object_id, staff_id, user_id, occurred_at, category, severity, description, measures, police, police_ref, status) VALUES (?, ?, ?, ?, datetime('now', ?), ?, ?, ?, ?, ?, ?, ?)",
+    `VF-${yr}-${seq}`, oid, sid, staff, `-${daysAgo} days`, cat, sev, desc, meas, police, ref, status);
+  incident('0001', o2, s3, 1, 'hausverbot', 'mittel', 'Unbefugte männliche Person am Außenzaun Tor 3 angetroffen. Person konnte keinen Grund für den Aufenthalt nennen.', 'Person des Geländes verwiesen, Personalien aufgenommen, Einsatzleitung informiert.', 0, null, 'abgeschlossen');
+  incident('0002', o1, s1, 0, 'defekt', 'niedrig', 'Brandmeldeanlage Fehlalarm Sektor B.', 'Vor Ort kontrolliert, kein Brand, Haustechnik informiert.', 0, null, 'in_bearbeitung');
+  incident('0003', o1, null, 5, 'diebstahl', 'hoch', 'Ladendiebstahl im Elektronikmarkt beobachtet, Täter beim Verlassen gestellt.', 'Täter festgehalten, Polizei verständigt, Übergabe erfolgt.', 1, 'ST-' + yr + '-44821', 'abgeschlossen');
+
   db.run("INSERT INTO notifications (user_id, title, link) VALUES (NULL, 'Willkommen im Back Office! Starte mit den Einstellungen.', '/admin/einstellungen')");
 }
 

@@ -120,3 +120,10 @@ test('Reset verwirft Änderungen und stellt die Musterdaten wieder her', async (
   assert.equal((await c.login(chefin.email, demoData.PASSWORD)).status, 302);
   assert.equal((await c.req('/belege/rechnungen')).status, 200);
 });
+
+test('Demo: Sicherheitsdienst-Edition bleibt verfügbar', async () => {
+  const c = client(base);
+  await c.login(chefin.email, demoData.PASSWORD);
+  assert.equal((await c.req('/objekte')).status, 200);
+  assert.match(await flashText(c, '/'), /Sicherheitsdienst/);
+});

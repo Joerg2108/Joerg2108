@@ -1,0 +1,14 @@
+<div class="page-head"><h1><%= title %></h1>
+<% if (v.id) { %><form method="post" action="/fahrzeuge/<%= v.id %>/loeschen" data-confirm="Fahrzeug löschen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn danger">Löschen</button></form><% } %></div>
+<form method="post" action="<%= v.id ? '/fahrzeuge/' + v.id : '/fahrzeuge' %>" class="card form-grid">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <%- h.input('plate', 'Kennzeichen', v.plate, { required: true, cls: 'span-4' }) %>
+  <%- h.input('model', 'Typ / Modell', v.model, { cls: 'span-8', placeholder: 'z. B. VW Caddy (Streifenwagen)' }) %>
+  <%- h.select('staff_id', 'Fahrer / zugeteilt', v.staff_id, staff, { empty: '– keiner –', cls: 'span-4' }) %>
+  <%- h.input('mileage', 'Kilometerstand', v.mileage, { type: 'number', min: 0, cls: 'span-4' }) %>
+  <%- h.select('status', 'Status', v.status, STATUS, { cls: 'span-4' }) %>
+  <%- h.input('tuev', 'TÜV/HU gültig bis', v.tuev, { type: 'date', cls: 'span-4' }) %>
+  <%- h.input('insurance', 'Versicherung', v.insurance, { cls: 'span-8', placeholder: 'z. B. HUK-Coburg · VK' }) %>
+  <%- h.input('notes', 'Notizen', v.notes, { type: 'textarea', cls: 'span-12' }) %>
+  <div class="span-12 sticky-actions"><a class="btn" href="/fahrzeuge">Abbrechen</a><button class="btn primary">Speichern</button></div>
+</form>

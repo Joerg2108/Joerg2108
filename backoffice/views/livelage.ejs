@@ -1,0 +1,52 @@
+<div class="page-head">
+  <div><h1>Live-Lage</h1><div class="sub">Laufende Streifen, Dienste &amp; offene Vorfälle – aktualisiert automatisch</div></div>
+  <div class="actions"><span class="badge green" id="live-state"><span class="live-dot"></span>Live</span> <span class="sub" id="live-stamp">Stand <%= now %></span></div>
+</div>
+
+<div id="lage-live" data-poll="/lage">
+<div class="kpis">
+  <div class="kpi"><span>Laufende Streifen</span><strong><%= running.length %></strong><small>aktiv im Revier</small></div>
+  <div class="kpi"><span>Im Dienst</span><strong><%= onDuty.length %></strong><small>eingestempelt</small></div>
+  <div class="kpi <%= incidents.length ? 'warn' : '' %>"><span>Offene Vorfälle</span><strong><%= incidents.length %></strong><small>unbearbeitet</small></div>
+  <div class="kpi"><span>Einträge heute</span><strong><%= logsToday %></strong><small>Wachbuch</small></div>
+</div>
+
+<div class="grid-2">
+  <div class="card flush">
+    <div class="card-head"><h3>🟢 Laufende Streifen / Wachbuch</h3></div>
+    <div style="padding:4px 16px 16px">
+    <% if (!running.length) { %><div class="empty">Keine laufende Streife. Sobald ein Mitarbeiter eine Streife startet, erscheint sie hier.</div><% } else { %>
+      <% for (const p of running) { %>
+      <div class="live-card">
+        <div class="live-card-head"><strong><span class="live-dot" style="color:var(--amber)"></span><%= [p.last_name, p.first_name].filter(Boolean).join(', ') || 'Mitarbeiter' %></strong>
+          <a class="btn sm" href="/streife/<%= p.id %>">Öffnen</a></div>
+        <div class="sub"><%= p.object_name || '–' %> · seit <%= h.dateTime(p.started_at).slice(-5) %> Uhr · <%= p.rounds %> Rundgänge</div>
+        <% if (p.last.length) { %><ul class="timeline" style="margin-top:8px">
+          <% for (const l of p.last) { %><li><small><%= h.dateTime(l.at).slice(-5) %></small> <%- h.badge(l.kind) %><% if (l.text) { %> <%= l.text %><% } %></li><% } %>
+        </ul><% } %>
+      </div>
+      <% } %>
+    <% } %>
+    </div>
+  </div>
+  <div class="stack">
+    <div class="card flush">
+      <div class="card-head"><h3>⏱️ Aktuell im Dienst</h3></div>
+      <div class="table-wrap">
+      <% if (!onDuty.length) { %><div class="empty">Niemand eingestempelt.</div><% } else { %>
+      <table><tbody><% for (const d of onDuty) { %><tr><td><strong><%= d.name %></strong></td><td class="small">seit <%= h.dateTime(d.started_at).slice(-5) %> Uhr</td><td class="small"><%= d.description || '' %></td></tr><% } %></tbody></table><% } %>
+      </div>
+    </div>
+    <div class="card flush">
+      <div class="card-head"><h3>⚠️ Offene Vorfälle</h3></div>
+      <div class="table-wrap">
+      <% if (!incidents.length) { %><div class="empty">Keine offenen Vorfälle.</div><% } else { %>
+      <table><tbody><% for (const i of incidents) { %>
+        <tr class="row-link" data-href="/vorfaelle/<%= i.id %>"><td class="mono"><%= i.number %></td><td><%= h.label(i.category) %></td><td class="small"><%= i.object_name || '' %></td><td><%- h.badge(i.status) %></td></tr>
+      <% } %></tbody></table><% } %>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<script src="/static/js/livelage.js" defer></script>

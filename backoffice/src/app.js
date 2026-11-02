@@ -85,6 +85,14 @@ function createApp() {
   app.use(sec.requireLogin);
   app.use(require('./routes/dashboard'));
   app.use('/kunden', require('./routes/customers'));
+  if (config.securityEdition) {
+    app.use('/lage', require('./routes/livelage'));
+    app.use('/objekte', require('./routes/objects'));
+    app.use('/streife', require('./routes/patrols'));
+    app.use('/vorfaelle', require('./routes/incidents'));
+    app.use('/fahrzeuge', require('./routes/vehicles'));
+    app.use('/waechter', require('./routes/waechter'));
+  }
   app.use('/anfragen', require('./routes/leads'));
   app.use('/belege', require('./routes/sales'));
   app.use('/artikel', require('./routes/products'));

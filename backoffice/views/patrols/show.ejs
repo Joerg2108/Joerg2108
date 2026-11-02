@@ -1,0 +1,59 @@
+<div class="page-head">
+  <div><h1><%= p.object_name || 'Streife' %></h1>
+    <div class="sub"><%- h.badge(p.status) %> · <%= [p.last_name, p.first_name].filter(Boolean).join(', ') || '–' %> · Beginn <%= h.dateTime(p.started_at) %><% if (p.ended_at) { %> · Ende <%= h.dateTime(p.ended_at) %><% } %></div>
+  </div>
+  <div class="actions"><a class="btn" href="/streife">Zurück</a>
+    <a class="btn" href="/streife/<%= p.id %>/pdf" target="_blank"><%- h.icon('file') %> PDF</a>
+    <% if (canManage && p.status === 'laeuft') { %>
+    <form method="post" action="/streife/<%= p.id %>/beenden" data-confirm="Streife jetzt beenden?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn danger">⏹ Streife beenden</button></form>
+    <% } %>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="stack">
+    <% if (p.status === 'laeuft') { %>
+    <div class="card">
+      <h3>Wachbuch-Eintrag</h3>
+      <form method="post" action="/streife/<%= p.id %>/log" class="inline-form">
+        <input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="kind" value="rundgang">
+        <button class="btn primary">✓ Rundgang protokollieren</button>
+      </form>
+      <form method="post" action="/streife/<%= p.id %>/log" class="form-grid" style="margin-top:12px">
+        <input type="hidden" name="_csrf" value="<%= csrf %>">
+        <%- h.select('kind', 'Art', 'kontrollpunkt', { kontrollpunkt: 'Kontrollpunkt', vorkommnis: 'Vorkommnis', notiz: 'Notiz' }, { cls: 'span-5' }) %>
+        <%- h.input('text', 'Eintrag', '', { cls: 'span-7', placeholder: 'z. B. Tor 3 kontrolliert, verschlossen' }) %>
+        <div class="span-12"><button class="btn">Eintragen</button></div>
+      </form>
+    </div>
+    <% } %>
+    <div class="card flush">
+      <div class="card-head"><h3>Protokoll (<%= logs.length %>)</h3><span class="sub"><%= p.rounds %> Rundgänge</span></div>
+      <% if (!logs.length) { %><div class="empty">Noch keine Einträge.</div><% } else { %>
+      <ul class="timeline" style="padding:14px 16px">
+      <% for (const l of logs) { %>
+        <li><small><%= h.dateTime(l.at).slice(-5) %> Uhr</small><br><%- h.badge(l.kind) %><% if (l.text) { %> <%= l.text %><% } %></li>
+      <% } %>
+      </ul><% } %>
+    </div>
+  </div>
+  <div class="stack">
+    <div class="card">
+      <h3>Zusammenfassung</h3>
+      <% if (p.summary) { %><p class="pre"><%= p.summary %></p><% } else if (p.status === 'laeuft') { %><p class="muted">Wird beim Beenden erzeugt.</p><% } else { %><p class="muted">–</p><% } %>
+    </div>
+    <div class="card flush">
+      <div class="card-head"><h3>Vorfälle aus dieser Streife</h3></div>
+      <div class="table-wrap">
+      <% if (!incidents.length) { %><div class="empty">Keine.</div><% } else { %>
+      <table><tbody>
+      <% for (const i of incidents) { %>
+        <tr class="row-link" data-href="/vorfaelle/<%= i.id %>"><td class="mono"><%= i.number %></td><td><%= h.label(i.category) %></td><td><%- h.badge(i.status) %></td></tr>
+      <% } %></tbody></table><% } %>
+      </div>
+    </div>
+    <% if (canManage) { %>
+    <form method="post" action="/streife/<%= p.id %>/loeschen" data-confirm="Streife-Eintrag löschen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn danger ghost">Löschen</button></form>
+    <% } %>
+  </div>
+</div>

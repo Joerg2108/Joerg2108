@@ -1,0 +1,14 @@
+<h1 class="wa-greet">🚨 Vorfall melden</h1>
+<form method="post" action="/waechter/vorfall" class="wa-card wa-form">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <label class="field"><span>Einsatzort / Objekt</span>
+    <select name="object_id"><option value="">– Objekt wählen –</option><% for (const o of objects) { %><option value="<%= o.id %>"><%= o.name %></option><% } %></select></label>
+  <label class="field"><span>Kategorie</span>
+    <select name="category"><% for (const [k, v] of Object.entries(CATEGORIES)) { %><option value="<%= k %>"><%= v %></option><% } %></select></label>
+  <label class="field"><span>Schweregrad</span>
+    <select name="severity"><option value="niedrig">Niedrig</option><option value="mittel" selected>Mittel</option><option value="hoch">Hoch</option></select></label>
+  <label class="field"><span>Was ist passiert? <i class="req">*</i></span><textarea name="description" rows="4" required placeholder="Beschreibung …"></textarea></label>
+  <label class="field"><span>Getroffene Maßnahmen</span><textarea name="measures" rows="2" placeholder="z. B. Person verwiesen, Einsatzleitung informiert"></textarea></label>
+  <label class="check"><input type="checkbox" name="police" value="1"> <span>Polizei verständigt</span></label>
+  <button class="btn danger solid wa-big">Vorfall melden</button>
+</form>
