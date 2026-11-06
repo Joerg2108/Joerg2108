@@ -20,19 +20,21 @@ export default async function PublicationsPage({ params }: LocaleParams) {
       <PageHero kicker={publications.kicker} title={t.books}>
         <p>{publications.text}</p>
       </PageHero>
-      <Container className="py-16">
-        <h2 className="mb-6 font-display text-3xl font-extrabold">{publications.publisher}</h2>
-        <ul className="mb-16 max-w-3xl divide-y-2 divide-ink/10">
-          {publications.books.map((b) => (
-            <li key={b.title} className="flex gap-6 py-3">
-              <span className="w-14 shrink-0 font-bold text-pop-red">{b.year}</span>
+      <Container className="pb-32">
+        <h2 data-reveal className="kicker mb-8">
+          {publications.publisher}
+        </h2>
+        <ol className="mb-24 border-t border-line">
+          {publications.books.map((b, i) => (
+            <li key={b.title} data-reveal style={{ ["--i" as string]: i }} className="group grid grid-cols-[4rem_1fr] gap-6 border-b border-line py-7 sm:grid-cols-[8rem_1fr]">
+              <span className="font-mono text-sm text-primary">{b.year}</span>
               <span>
-                <span className="font-semibold">{b.title}</span>
-                {b.note ? <span className="block text-sm text-muted">{b.note}</span> : null}
+                <span className="block font-display text-2xl italic transition-colors duration-500 group-hover:text-gold sm:text-3xl">{b.title}</span>
+                {b.note ? <span className="mt-2 block text-sm text-muted">{b.note}</span> : null}
               </span>
             </li>
           ))}
-        </ul>
+        </ol>
         <Gallery images={publications.covers} title={t.publications} t={t} />
       </Container>
     </>

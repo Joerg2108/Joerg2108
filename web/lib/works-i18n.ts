@@ -2,7 +2,7 @@
 // Captions that are names of people or places stay as they are.
 import type { WorkCategory } from "./works"
 
-type Meta = Omit<WorkCategory, "images">[]
+type Meta = Omit<WorkCategory, "images" | "cover">[]
 
 export const metaEn: Meta = [
   {

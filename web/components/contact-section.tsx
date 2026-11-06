@@ -3,7 +3,8 @@
 import { useState } from "react"
 import { getContent } from "@/lib/content"
 import { lp, ui, type Locale } from "@/lib/i18n"
-import { Container, SectionTitle } from "@/components/page-hero"
+import { Container } from "@/components/page-hero"
+import { Magnetic, SplitWords } from "@/components/motion"
 
 // Kein Server nötig: Das Formular öffnet das E-Mail-Programm mit vorausgefüllter Nachricht.
 // Dadurch werden keine personenbezogenen Daten auf dem Webserver verarbeitet.
@@ -20,65 +21,102 @@ export function ContactSection({ locale }: { locale: Locale }) {
     window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(subject || t.defaultSubject)}&body=${encodeURIComponent(body)}`
   }
 
-  const field =
-    "w-full rounded border-2 border-ink bg-white px-3 py-2 outline-none focus-visible:border-pop-blue focus-visible:ring-2 focus-visible:ring-pop-blue/30"
-
   return (
-    <section id="kontakt" aria-labelledby="kontakt-titel" className="border-t-2 border-ink bg-pop-yellow py-20">
-      <Container className="grid gap-12 lg:grid-cols-2">
+    <section id="kontakt" aria-labelledby="kontakt-titel" className="relative isolate overflow-hidden py-28 sm:py-40">
+      <div aria-hidden="true" className="absolute inset-0 -z-10">
+        <div className="nc-orb left-[5%] top-[10%] h-[30rem] w-[30rem] bg-primary/25" />
+        <div className="nc-orb bottom-[0%] right-[5%] h-[34rem] w-[34rem] bg-secondary/25 [animation-delay:-9s]" />
+      </div>
+      <Container className="grid gap-14 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
         <div>
-          <SectionTitle kicker={t.contact} title={contact.atelier} id="kontakt-titel" />
-          <p className="max-w-md text-lg">{contact.intro}</p>
-          <address className="mt-8 space-y-1 not-italic">
-            <p className="font-display text-xl font-extrabold uppercase">{contact.place}</p>
-            <p>{contact.street}</p>
-            <p>{contact.city}</p>
-            <p className="pt-3">
-              {t.phone}:{" "}
-              <a href={contact.phoneHref} className="font-semibold underline decoration-2 underline-offset-4">
-                {contact.phone}
-              </a>
-            </p>
-            <p>
-              {t.email}:{" "}
-              <a href={`mailto:${contact.email}`} className="font-semibold underline decoration-2 underline-offset-4">
-                {contact.email}
-              </a>
-            </p>
-            <p>
-              {t.vatId}: {contact.vatId}
-            </p>
-          </address>
-          <div className="mt-8 flex gap-3">
-            <a href={site.instagram} target="_blank" rel="noopener noreferrer" className="pop-shadow-sm rounded border-2 border-ink bg-white px-4 py-2 font-bold">
-              Instagram ↗
-            </a>
-            <a href={site.facebook} target="_blank" rel="noopener noreferrer" className="pop-shadow-sm rounded border-2 border-ink bg-white px-4 py-2 font-bold">
-              Facebook ↗
-            </a>
+          <p data-reveal className="kicker mb-6 flex items-center gap-3">
+            <span className="h-px w-8 bg-[image:var(--nc-gradient-metal)]" />
+            {t.contact} · {contact.atelier}
+          </p>
+          <SplitWords as="h2" id="kontakt-titel" text={t.contactTitle} className="font-display text-[clamp(2.6rem,6vw,5.4rem)] font-medium leading-[0.95]" />
+          <p data-reveal className="mt-8 max-w-md text-lg text-muted">{contact.intro}</p>
+          <dl data-reveal className="mt-12 grid gap-6 sm:grid-cols-2">
+            <div>
+              <dt className="kicker">{contact.place}</dt>
+              <dd className="mt-2 leading-relaxed">
+                {contact.street}
+                <br />
+                {contact.city}
+              </dd>
+            </div>
+            <div>
+              <dt className="kicker">{t.email}</dt>
+              <dd className="mt-2">
+                <a href={`mailto:${contact.email}`} className="bg-[image:linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size] duration-500 hover:bg-[length:100%_1px]">
+                  {contact.email}
+                </a>
+              </dd>
+            </div>
+            <div>
+              <dt className="kicker">{t.phone}</dt>
+              <dd className="mt-2">
+                <a href={contact.phoneHref} className="hover:text-gold">
+                  {contact.phone}
+                </a>
+              </dd>
+            </div>
+            <div>
+              <dt className="kicker">{t.vatId}</dt>
+              <dd className="mt-2 text-muted">{contact.vatId}</dd>
+            </div>
+          </dl>
+          <div data-reveal className="mt-10 flex gap-3">
+            {[
+              ["Instagram", site.instagram],
+              ["Facebook", site.facebook],
+            ].map(([l, h]) => (
+              <Magnetic key={l}>
+                <a href={h} target="_blank" rel="noopener noreferrer" className="glass-soft inline-block rounded-full px-5 py-2.5 text-sm transition-colors hover:border-white/30">
+                  {l} ↗
+                </a>
+              </Magnetic>
+            ))}
           </div>
         </div>
 
-        <form onSubmit={submit} className="pop-shadow space-y-4 rounded-lg border-2 border-ink bg-paper p-6">
-          <h3 className="font-display text-2xl font-extrabold">{t.writeMessage}</h3>
+        <form data-reveal="scale" onSubmit={submit} className="glass space-y-6 rounded-[var(--nc-radius-l)] p-7 sm:p-10">
+          <h3 className="font-display text-3xl italic">{t.writeMessage}</h3>
+          {[
+            { label: t.yourName, value: name, set: setName, auto: "name", required: true },
+            { label: t.subject, value: subject, set: setSubject, placeholder: t.subjectPlaceholder },
+          ].map((f) => (
+            <label key={f.label} className="group block">
+              <span className="kicker">{f.label}</span>
+              <input
+                required={f.required}
+                autoComplete={f.auto}
+                placeholder={f.placeholder}
+                value={f.value}
+                onChange={(e) => f.set(e.target.value)}
+                className="mt-2 w-full border-b border-line bg-transparent py-3 text-lg outline-none transition-colors duration-300 placeholder:text-dim focus:border-primary"
+              />
+            </label>
+          ))}
           <label className="block">
-            <span className="mb-1 block text-sm font-semibold">{t.yourName}</span>
-            <input required className={field} value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" />
+            <span className="kicker">{t.yourMessage}</span>
+            <textarea
+              required
+              rows={5}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              className="mt-2 w-full resize-none border-b border-line bg-transparent py-3 text-lg outline-none transition-colors duration-300 focus:border-primary"
+            />
           </label>
-          <label className="block">
-            <span className="mb-1 block text-sm font-semibold">{t.subject}</span>
-            <input className={field} value={subject} onChange={(e) => setSubject(e.target.value)} placeholder={t.subjectPlaceholder} />
-          </label>
-          <label className="block">
-            <span className="mb-1 block text-sm font-semibold">{t.yourMessage}</span>
-            <textarea required rows={6} className={field} value={message} onChange={(e) => setMessage(e.target.value)} />
-          </label>
-          <button type="submit" className="pop-shadow-sm rounded border-2 border-ink bg-pop-red px-6 py-3 font-bold text-white transition hover:-translate-y-0.5">
-            {t.send}
+          <button
+            type="submit"
+            className="group relative w-full overflow-hidden rounded-full bg-text px-7 py-4 text-sm font-semibold text-bg transition-shadow duration-500 hover:shadow-[var(--nc-shadow-glow)]"
+          >
+            <span className="absolute inset-0 translate-y-full bg-[image:var(--nc-gradient-aurora)] transition-transform duration-500 ease-[var(--nc-ease-out)] group-hover:translate-y-0" />
+            <span className="relative group-hover:text-white">{t.send} →</span>
           </button>
-          <p className="text-xs text-muted">
+          <p className="text-xs leading-relaxed text-dim">
             {t.formNote}{" "}
-            <a href={lp(locale, "/datenschutz")} className="underline">
+            <a href={lp(locale, "/datenschutz")} className="underline hover:text-text">
               {t.privacyPolicy}
             </a>
             .

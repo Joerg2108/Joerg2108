@@ -1,70 +1,311 @@
 @import "tailwindcss";
-@import "@fontsource-variable/bricolage-grotesque";
 @import "@fontsource-variable/inter";
+@import "@fontsource-variable/bodoni-moda";
+@import "@fontsource-variable/bodoni-moda/wght-italic.css";
+@import "@fontsource-variable/jetbrains-mono";
 
-/* Pop-Art-Palette: Fischer-Arts satte Farben auf Papierweiß */
+/* ==========================================================================
+   NOIR CHROMA – Design-Tokens
+   Dunkle Bühne, auf der die Farbe der Kunst leuchtet.
+   Dokumentation: docs/DESIGN-SYSTEM.md
+   ========================================================================== */
 :root {
-  --paper: #fbf7ef;
-  --ink: #141210;
-  --pop-red: #e2281b;
-  --pop-yellow: #ffd200;
-  --pop-blue: #1d4ed8;
-  --pop-green: #16a34a;
-  --pop-pink: #ec4899;
-  --muted: #5d574f;
+  color-scheme: dark;
+
+  /* Hintergrund & Oberflächen */
+  --nc-bg: #06060a; /* Obsidian */
+  --nc-bg-2: #0b0b12; /* Nachtlack */
+  --nc-surface: #11121a; /* Graphit */
+  --nc-surface-2: #181925; /* Schiefer */
+
+  /* Glas */
+  --nc-glass: rgb(255 255 255 / 0.045);
+  --nc-glass-strong: rgb(255 255 255 / 0.085);
+  --nc-glass-border: rgb(255 255 255 / 0.1);
+  --nc-glass-highlight: rgb(255 255 255 / 0.22);
+
+  /* Text */
+  --nc-text: #f4f1ea; /* Porzellan */
+  --nc-text-muted: #a9a5af; /* Nebel */
+  --nc-text-dim: #8a8693; /* Rauch (Kontrast 5,6:1 auf Obsidian) */
+
+  /* Marke */
+  --nc-primary: #ff5b3a; /* Glut – Fischer-Arts Zinnober, ins Licht gedreht */
+  --nc-secondary: #8b7bff; /* Iris */
+  --nc-accent: #3ee6c8; /* Lagune */
+  --nc-highlight: #f2c66d; /* Blattgold */
+  --nc-interactive: #ff8a62;
+  --nc-hover: #ff7148;
+  --nc-glow: rgb(255 91 58 / 0.45);
+  --nc-glow-iris: rgb(139 123 255 / 0.4);
+
+  /* Verläufe */
+  --nc-gradient-aurora: linear-gradient(115deg, #ff5b3a 0%, #ff3f8e 32%, #8b7bff 66%, #3ee6c8 100%);
+  --nc-gradient-metal: linear-gradient(135deg, #fff1cf 0%, #c99a4a 38%, #fff4d6 52%, #8f6b2c 78%, #e8c27a 100%);
+  --nc-gradient-fade: linear-gradient(180deg, transparent, var(--nc-bg));
+
+  /* Schatten & Tiefe */
+  --nc-shadow-float: 0 40px 90px -30px rgb(0 0 0 / 0.85), 0 0 0 1px rgb(255 255 255 / 0.06);
+  --nc-shadow-glow: 0 0 40px -6px var(--nc-glow);
+
+  /* Bewegung */
+  --nc-ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* Expo-out: Ankommen */
+  --nc-ease-in-out: cubic-bezier(0.83, 0, 0.17, 1); /* Quint: Szenenwechsel */
+  --nc-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* leichtes Überschwingen */
+  --nc-dur-1: 180ms;
+  --nc-dur-2: 320ms;
+  --nc-dur-3: 640ms;
+  --nc-dur-4: 1200ms;
+
+  /* Radien */
+  --nc-radius-s: 10px;
+  --nc-radius-m: 18px;
+  --nc-radius-l: 28px;
 }
 
 @theme inline {
-  --color-paper: var(--paper);
-  --color-ink: var(--ink);
-  --color-pop-red: var(--pop-red);
-  --color-pop-yellow: var(--pop-yellow);
-  --color-pop-blue: var(--pop-blue);
-  --color-pop-green: var(--pop-green);
-  --color-pop-pink: var(--pop-pink);
-  --color-muted: var(--muted);
-  --font-display: "Bricolage Grotesque Variable", "Arial Black", system-ui, sans-serif;
-  --font-sans: "Inter Variable", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --color-bg: var(--nc-bg);
+  --color-bg-2: var(--nc-bg-2);
+  --color-surface: var(--nc-surface);
+  --color-surface-2: var(--nc-surface-2);
+  --color-text: var(--nc-text);
+  --color-muted: var(--nc-text-muted);
+  --color-dim: var(--nc-text-dim);
+  --color-primary: var(--nc-primary);
+  --color-secondary: var(--nc-secondary);
+  --color-accent: var(--nc-accent);
+  --color-gold: var(--nc-highlight);
+  --color-line: var(--nc-glass-border);
+  --font-display: "Bodoni Moda Variable", "Noto Serif SC", "Songti SC", "STSong", Georgia, serif;
+  --font-sans: "Inter Variable", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "PingFang SC", monospace;
+  --ease-nc-out: var(--nc-ease-out);
+  --ease-nc-in-out: var(--nc-ease-in-out);
 }
 
 html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
+  background: var(--nc-bg);
+  scroll-padding-top: 6rem;
+}
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 body {
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--nc-bg);
+  color: var(--nc-text);
   font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
 }
 
 ::selection {
-  background: var(--pop-yellow);
-  color: var(--ink);
+  background: var(--nc-primary);
+  color: #fff;
 }
 
-/* Comic-Schatten für Karten und Buttons */
-@utility pop-shadow {
-  box-shadow: 6px 6px 0 0 var(--ink);
-}
-@utility pop-shadow-sm {
-  box-shadow: 4px 4px 0 0 var(--ink);
+:focus-visible {
+  outline: 2px solid var(--nc-accent);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
-/* Punktraster wie im Comicdruck */
-.halftone {
-  background-image: radial-gradient(color-mix(in srgb, var(--ink) 22%, transparent) 1.2px, transparent 1.3px);
-  background-size: 14px 14px;
+/* --------------------------------------------------------------------------
+   Utilities
+   -------------------------------------------------------------------------- */
+@utility glass {
+  background: linear-gradient(160deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.02));
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  border: 1px solid var(--nc-glass-border);
+  box-shadow: inset 0 1px 0 0 var(--nc-glass-highlight), var(--nc-shadow-float);
+}
+@utility glass-soft {
+  background: var(--nc-glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--nc-glass-border);
+}
+@utility text-aurora {
+  background: var(--nc-gradient-aurora);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: nc-shift 9s linear infinite;
+}
+@utility text-metal {
+  background: var(--nc-gradient-metal);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: nc-shift 12s ease-in-out infinite alternate;
+}
+@utility kicker {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--nc-text-muted);
+}
+@utility hairline {
+  background: linear-gradient(90deg, transparent, var(--nc-glass-highlight), transparent);
+  height: 1px;
 }
 
+@keyframes nc-shift {
+  to {
+    background-position: 200% 0;
+  }
+}
+@keyframes nc-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+@keyframes nc-orb {
+  0%,
+  100% {
+    transform: translate3d(-6%, -4%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(6%, 5%, 0) scale(1.12);
+  }
+}
+@keyframes nc-marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@keyframes nc-scrollcue {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+
+/* Leuchtende Hintergrund-Orbs (volumetrisches Licht ohne WebGL) */
+.nc-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.55;
+  pointer-events: none;
+  animation: nc-orb 18s var(--nc-ease-in-out) infinite;
+}
+
+/* Filmkorn über allem */
+.nc-grain::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* --------------------------------------------------------------------------
+   Reveal-System (data-reveal), gesteuert von components/motion.tsx
+   -------------------------------------------------------------------------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  filter: blur(6px);
+  transition:
+    opacity var(--nc-dur-4) var(--nc-ease-out),
+    transform var(--nc-dur-4) var(--nc-ease-out),
+    filter var(--nc-dur-4) var(--nc-ease-out);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+[data-reveal="scale"] {
+  transform: scale(0.94);
+}
+[data-reveal="left"] {
+  transform: translate3d(-36px, 0, 0);
+}
+[data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+.nc-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.nc-word > span {
+  display: inline-block;
+  transform: translate3d(0, 110%, 0) rotate(4deg);
+  transition: transform 1.3s var(--nc-ease-out);
+  transition-delay: calc(var(--w, 0) * 55ms + var(--d, 0ms));
+}
+.is-in .nc-word > span {
+  transform: none;
+}
+
+/* Chinesisch: Serifenschrift ohne künstliche Kursive */
+html[lang^="zh"] :is(.italic, em, i) {
+  font-style: normal;
+}
+
+/* Lichtkegel, der dem Mauszeiger auf Karten folgt */
+.nc-spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.nc-spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity var(--nc-dur-3) var(--nc-ease-out);
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgb(255 91 58 / 0.16), rgb(139 123 255 / 0.08) 40%, transparent 70%);
+}
+.nc-spotlight:hover::before {
+  opacity: 1;
+}
+
+/* Bewegung reduzieren: alles sofort sichtbar, keine Endlosschleifen */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+  [data-reveal],
+  .nc-word > span {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+  .nc-orb,
+  .text-aurora,
+  .text-metal {
+    animation: none !important;
   }
   *,
   *::before,
   *::after {
-    animation: none !important;
-    transition: none !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }

@@ -5,7 +5,7 @@ import { getWork, getWorks, workSlugs } from "@/lib/works"
 import { getContent } from "@/lib/content"
 import { locales, lp, ui, isLocale } from "@/lib/i18n"
 import { alternates } from "@/lib/locale-params"
-import { Container, PageHero } from "@/components/page-hero"
+import { ButtonLink, Container, PageHero } from "@/components/page-hero"
 import { Gallery } from "@/components/gallery"
 
 type P = { params: Promise<{ locale: string; slug: string }> }
@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: P): Promise<Metadata> {
   const { locale, slug } = await params
   if (!isLocale(locale)) return {}
   const w = getWork(locale, slug)
-  return w ? { title: w.title, description: w.text[0], alternates: alternates(locale, `/werk/${slug}`) } : {}
+  return w ? { title: w.title, description: w.text[0], alternates: alternates(locale, `/werk/${slug}`), openGraph: { images: w.images[0] ? [w.images[0].src] : [] } } : {}
 }
 
 export default async function WorkPage({ params }: P) {
@@ -33,23 +33,27 @@ export default async function WorkPage({ params }: P) {
   const works = getWorks(locale)
   const i = works.findIndex((x) => x.slug === w.slug)
   const next = works[(i + 1) % works.length]
+  const nextHref = lp(locale, next.slug === "kunst-am-bau" ? "/kunst-am-bau" : `/werk/${next.slug}`)
   return (
     <>
-      <PageHero kicker={t.work} title={w.title}>
+      <PageHero kicker={`${t.chapter} ${String(i + 1).padStart(2, "0")} · ${t.work}`} title={w.title}>
         {w.text.map((p) => (
           <p key={p} className="mb-4">
             {p}
           </p>
         ))}
       </PageHero>
-      <Container className="py-16">
+      <Container className="pb-24">
         <Gallery images={w.images} title={w.title} t={t} />
-        <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t-2 border-ink pt-8">
-          <a href={`mailto:${contact.email}?subject=${encodeURIComponent(`${t.requestAbout} ${w.title}`)}`} className="font-bold text-pop-red underline decoration-2 underline-offset-4">
+        <div data-reveal className="mt-20 flex flex-wrap items-center justify-between gap-6 border-t border-line pt-10">
+          <ButtonLink href={`mailto:${contact.email}?subject=${encodeURIComponent(`${t.requestAbout} ${w.title}`)}`} variant="ghost">
             {t.requestAbout} {w.title}
-          </a>
-          <Link href={lp(locale, next.slug === "kunst-am-bau" ? "/kunst-am-bau" : `/werk/${next.slug}`)} className="pop-shadow-sm rounded border-2 border-ink bg-pop-yellow px-5 py-2.5 font-bold">
-            {t.nextWork} {next.title} →
+          </ButtonLink>
+          <Link href={nextHref} className="group text-right">
+            <span className="kicker">{t.nextWork}</span>
+            <span className="mt-2 block font-display text-4xl italic transition-colors duration-500 group-hover:text-gold sm:text-6xl">
+              {next.title} <span className="inline-block transition-transform duration-500 group-hover:translate-x-2">→</span>
+            </span>
           </Link>
         </div>
       </Container>

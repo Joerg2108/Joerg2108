@@ -3,10 +3,13 @@ import { notFound } from "next/navigation"
 import "../globals.css"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
+import { RevealObserver, SmoothScroll } from "@/components/motion"
 import { getContent } from "@/lib/content"
 import { isLocale, localeNames, locales, ui, type Locale } from "@/lib/i18n"
 
 export const dynamicParams = false
+
+export const viewport = { themeColor: "#06060a", colorScheme: "dark" as const }
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
@@ -35,7 +38,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       type: "website",
       locale: localeNames[locale].ogLocale,
       siteName: site.name,
-      images: ["/images/werk/originale/originale-02.webp"],
+      images: ["/media/hero-poster.webp"],
     },
   }
 }
@@ -45,10 +48,12 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   if (!isLocale(locale)) notFound()
   return (
     <html lang={localeNames[locale].htmlLang}>
-      <body className="antialiased">
+      <body className="nc-grain antialiased">
+        <SmoothScroll />
+        <RevealObserver />
         <a
           href="#inhalt"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-pop-yellow focus:px-4 focus:py-2 focus:font-bold"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-text focus:px-4 focus:py-2 focus:font-semibold focus:text-bg"
         >
           {ui[locale].skip}
         </a>

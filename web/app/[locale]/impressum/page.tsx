@@ -15,7 +15,7 @@ export default async function ImpressumPage({ params }: LocaleParams) {
   return (
     <>
       <PageHero kicker={locale === "de" ? undefined : ui[locale].imprint} title="Impressum" />
-      <Container className="max-w-3xl space-y-8 py-16 leading-relaxed">
+      <Container className="max-w-3xl space-y-8 pb-32 leading-relaxed text-muted [&_h2]:text-text [&_h2]:font-display [&_h2]:italic [&_a]:text-gold">
         <LegalDraftNote t={ui[locale]} />
         <div lang="de" className="space-y-8">
         <section>

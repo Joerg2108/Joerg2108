@@ -259,3 +259,31 @@ export const shop = {
     },
   ],
 }
+
+// Häufige Fragen – alle Antworten beruhen auf Angaben der bisherigen Website.
+export const faq = [
+  {
+    q: "Wie frage ich eine Auftragsarbeit an?",
+    a: "Schreiben Sie uns Ihre Idee an atelier@fischer-art.de. Auftragsarbeiten reichen vom persönlichen Porträt über Bilder auf Leinwand bis zur Wandbemalung im Eingangsbereich und zur Gestaltung ganzer Fassaden.",
+  },
+  {
+    q: "Kann ich das Atelier besuchen?",
+    a: "Ja. Auf Anfrage gibt es einen persönlichen Atelierrundgang in der Kunstfabrik Borna – mit Geschichten aus Vergangenheit, Gegenwart und Zukunft.",
+  },
+  {
+    q: "Kann ich das Atelier für ein Event buchen?",
+    a: "Ja. Die Kunstfabrik bietet eine außergewöhnliche Kulisse im industriellen Stil für Abende mit Kunden oder Geschäftspartnern. Senden Sie uns Ihre Anfrage per E-Mail.",
+  },
+  {
+    q: "Brauche ich Vorkenntnisse für „Malen mit Fischer-Art“?",
+    a: "Nein. Sie brauchen nur den Mut, etwas Neues auszuprobieren. Material, Leinwände und Acrylfarben stellt der Künstler.",
+  },
+  {
+    q: "Wie bestelle ich einen Kalender?",
+    a: "Senden Sie uns eine E-Mail mit Ihrem Namen und Ihrer Adresse. Ein Kalender kostet 9,90 € zzgl. 8 € Versandkosten.",
+  },
+  {
+    q: "Wo befindet sich das Atelier?",
+    a: "In der Kunstfabrik, Am Steigerhain 13, 04552 Borna – südlich von Leipzig.",
+  },
+]

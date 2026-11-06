@@ -18,36 +18,28 @@ export default async function ExhibitionsPage({ params }: LocaleParams) {
   return (
     <>
       <PageHero kicker={exhibitions.kicker} title={t.exhibitions}>
-        <p className="mb-4 font-medium text-ink">{exhibitions.lead}</p>
+        <p className="mb-5 font-display text-2xl italic leading-snug text-text">{exhibitions.lead}</p>
         <p>{exhibitions.text}</p>
       </PageHero>
-      <Container className="grid gap-12 py-16 md:grid-cols-2">
-        <div>
-          <h2 className="mb-6 font-display text-3xl font-extrabold">{t.date}</h2>
-          <ul className="divide-y-2 divide-ink/10">
-            {exhibitions.dates.map((d, i) => {
-              const [year, ...rest] = d.split(" ")
-              return (
-                <li key={d + i} className="flex gap-4 py-2">
-                  <span className="w-14 shrink-0 font-bold text-pop-red">{year}</span>
-                  <span>{rest.join(" ")}</span>
+      <Container className="grid gap-6 pb-20 md:grid-cols-2">
+        {[
+          { title: t.date, rows: exhibitions.dates.map((d) => d.split(" ")).map(([y, ...r]) => [y, r.join(" ")]) },
+          { title: t.institution, rows: exhibitions.institutions.map((d) => ["", d]) },
+        ].map((col) => (
+          <section key={col.title} data-reveal className="glass rounded-[var(--nc-radius-l)] p-7 sm:p-9">
+            <h2 className="kicker mb-6">{col.title}</h2>
+            <ul className="divide-y divide-line">
+              {col.rows.map(([y, txt], i) => (
+                <li key={i} className="group flex gap-5 py-3 transition-colors duration-300 hover:text-text">
+                  {y ? <span className="w-12 shrink-0 font-mono text-sm text-primary">{y}</span> : null}
+                  <span className="text-muted transition-colors duration-300 group-hover:text-text">{txt}</span>
                 </li>
-              )
-            })}
-          </ul>
-        </div>
-        <div>
-          <h2 className="mb-6 font-display text-3xl font-extrabold">{t.institution}</h2>
-          <ul className="divide-y-2 divide-ink/10">
-            {exhibitions.institutions.map((d, i) => (
-              <li key={d + i} className="py-2">
-                {d}
-              </li>
-            ))}
-          </ul>
-        </div>
+              ))}
+            </ul>
+          </section>
+        ))}
       </Container>
-      <Container className="pb-20">
+      <Container className="pb-32">
         <Gallery images={exhibitions.images} title={t.exhibitions} t={t} />
       </Container>
     </>

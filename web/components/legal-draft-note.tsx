@@ -6,13 +6,9 @@ import type { UI } from "@/lib/i18n"
 export function LegalDraftNote({ t }: { t: UI }) {
   return (
     <>
-      {t.legalNote ? (
-        <p role="note" lang={undefined} className="mb-4 rounded border-2 border-ink bg-white px-4 py-3">
-          {t.legalNote}
-        </p>
-      ) : null}
+      {t.legalNote ? <p role="note" className="glass-soft mb-4 rounded-[var(--nc-radius-m)] px-5 py-4 text-muted">{t.legalNote}</p> : null}
       {LEGAL_TEXTS_REVIEWED ? null : (
-        <p role="note" className="mb-8 rounded border-2 border-ink bg-pop-yellow px-4 py-3 font-semibold">
+        <p role="note" className="mb-8 rounded-[var(--nc-radius-m)] border border-gold/40 bg-gold/10 px-5 py-4 text-gold">
           {t.draftNote}
         </p>
       )}

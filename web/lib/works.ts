@@ -14,9 +14,11 @@ export interface WorkCategory {
   title: string
   text: string[]
   images: WorkImage[]
+  /** Image used on cards and in the mega menu. */
+  cover?: WorkImage
 }
 
-export const metaDe: Omit<WorkCategory, "images">[] = [
+export const metaDe: Omit<WorkCategory, "images" | "cover">[] = [
   {
     slug: "originale",
     title: "Originale",
@@ -93,14 +95,17 @@ export const metaDe: Omit<WorkCategory, "images">[] = [
 
 const byCategory = images as Record<string, WorkImage[]>
 
-const meta: Record<Locale, Omit<WorkCategory, "images">[]> = { de: metaDe, en: metaEn, zh: metaZh }
+const meta: Record<Locale, Omit<WorkCategory, "images" | "cover">[]> = { de: metaDe, en: metaEn, zh: metaZh }
 const captions: Record<Locale, Record<string, string>> = { de: {}, en: captionsEn, zh: captionsZh }
 
+// Covers: the most expressive picture of each category (index into its image list).
+const coverIndex: Record<string, number> = { originale: 14, "kunst-am-bau": 6, events: 3 }
+
 export function getWorks(locale: Locale): WorkCategory[] {
-  return meta[locale].map((m) => ({
-    ...m,
-    images: (byCategory[m.slug] ?? []).map((img) => ({ ...img, caption: captions[locale][img.caption] ?? img.caption })),
-  }))
+  return meta[locale].map((m) => {
+    const images = (byCategory[m.slug] ?? []).map((img) => ({ ...img, caption: captions[locale][img.caption] ?? img.caption }))
+    return { ...m, images, cover: images[coverIndex[m.slug] ?? 0] ?? images[0] }
+  })
 }
 
 export function getWork(locale: Locale, slug: string) {

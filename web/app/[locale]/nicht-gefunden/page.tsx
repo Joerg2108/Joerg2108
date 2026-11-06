@@ -14,7 +14,7 @@ export default async function NotFoundPage({ params }: LocaleParams) {
     <PageHero kicker={t.notFoundKicker} title={t.notFoundTitle}>
       <p>
         {t.notFoundText}{" "}
-        <Link href={lp(locale, "/")} className="font-bold text-pop-red underline">
+        <Link href={lp(locale, "/")} className="text-gold underline underline-offset-4">
           {t.home}
         </Link>
         .

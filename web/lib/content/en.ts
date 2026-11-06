@@ -260,3 +260,30 @@ export const shop: typeof DE.shop = {
     },
   ],
 }
+
+export const faq: typeof DE.faq = [
+  {
+    q: "How do I request a commission?",
+    a: "Send your idea to atelier@fischer-art.de. Commissions range from a personal portrait and paintings on canvas to murals in entrance halls and the design of entire façades.",
+  },
+  {
+    q: "Can I visit the studio?",
+    a: "Yes. A personal studio tour of the Kunstfabrik in Borna is available on request – with stories from the past, present and future.",
+  },
+  {
+    q: "Can I book the studio for an event?",
+    a: "Yes. The Kunstfabrik offers an extraordinary industrial setting for evenings with clients or business partners. Send us your enquiry by email.",
+  },
+  {
+    q: "Do I need any experience for “Painting with Fischer-Art”?",
+    a: "No. All you need is the courage to try something new. The artist provides the materials, canvases and acrylic paints.",
+  },
+  {
+    q: "How do I order a calendar?",
+    a: "Send us an email with your name and address. A calendar costs €9.90 plus €8 shipping.",
+  },
+  {
+    q: "Where is the studio?",
+    a: "At the Kunstfabrik, Am Steigerhain 13, 04552 Borna, Germany – south of Leipzig.",
+  },
+]
