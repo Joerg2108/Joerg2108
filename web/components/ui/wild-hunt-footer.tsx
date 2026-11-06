@@ -74,6 +74,8 @@ export interface WildHuntFooterProps {
   legal?: string
   /** Show the back-to-top link. Defaults to true. */
   backToTop?: boolean
+  /** Text of the back-to-top link. Defaults to "Back to top". */
+  backToTopLabel?: string
   /** The two small sun sigils by the legal line. Defaults to true. */
   sigils?: boolean
   /** Starting colours. Defaults to "vermilion". */
@@ -406,6 +408,7 @@ export default function WildHuntFooter({
   colophon = "Painting: Peter Nicolai Arbo, Åsgårdsreien (The Wild Hunt of Odin), 1872. Nasjonalmuseet, Oslo. Public domain, via Wikimedia Commons. The blackletter is drawn in cells; nothing on this sheet is a font.",
   legal = "© 2026 Huginn Studio",
   backToTop = true,
+  backToTopLabel = "Back to top",
   sigils = true,
   preset = "vermilion",
   palette,
@@ -968,7 +971,7 @@ export default function WildHuntFooter({
         ))}
         {backToTop ? (
           <button type="button" className="whf-up whf-wipe" onClick={toTop} style={{ "--d": ".9s" } as React.CSSProperties}>
-            Back to top
+            {backToTopLabel}
           </button>
         ) : (
           <span />

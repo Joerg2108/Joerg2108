@@ -1,0 +1,29 @@
+# Startseite: Sprache nach Browsereinstellung, sonst Deutsch
+/                         /zh/                 302  Language=zh
+/                         /en/                 302  Language=en
+/                         /de/                 302
+
+# Adressen der alten WordPress-Seite
+/front-page/*             /de/                 301
+/person/*                 /de/person/          301
+/vita/*                   /de/vita/            301
+/exhibitions/*            /de/ausstellungen/   301
+/publications/*           /de/publikationen/   301
+/kunst-am-bau-2/*         /de/kunst-am-bau/    301
+/aktuelles/*              /de/aktuelles/       301
+/impressum/*              /de/impressum/       301
+/datenschutzerklaerung/*  /de/datenschutz/     301
+/portfolio-item/aussergewoehnliches-5/*            /de/werk/originale/   301
+/portfolio-item/skulpturen/*                       /de/werk/skulpturen/  301
+/portfolio-item/leipzig-4/*                        /de/kunst-am-bau/     301
+/portfolio-item/tom-jones/*                        /de/werk/portraets/   301
+/portfolio-item/mensch-aergere-dich-nicht/*        /de/werk/new-art/     301
+/portfolio-item/events-mit-michael-fischer-art-3/* /de/werk/events/      301
+/portfolio-item/china-2/*                          /de/werk/reisen/      301
+/portfolio-item/fischer-art-friends-2/*            /de/werk/friends/     301
+/portfolio-item/axel-schulz-2/*                    /de/werk/charity/     301
+
+# Unbekannte Adressen: Fehlerseite in der passenden Sprache
+/en/*                     /en/nicht-gefunden/  404
+/zh/*                     /zh/nicht-gefunden/  404
+/*                        /de/nicht-gefunden/  404

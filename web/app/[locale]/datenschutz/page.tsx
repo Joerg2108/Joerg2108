@@ -2,8 +2,13 @@ import type { Metadata } from "next"
 import { operator } from "@/lib/legal"
 import { Container, PageHero } from "@/components/page-hero"
 import { LegalDraftNote } from "@/components/legal-draft-note"
+import { ui } from "@/lib/i18n"
+import { alternates, getLocale, type LocaleParams } from "@/lib/locale-params"
 
-export const metadata: Metadata = { title: "Datenschutz", robots: { index: false } }
+export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
+  const locale = await getLocale(params)
+  return { title: ui[locale].privacy, robots: { index: false }, alternates: alternates(locale, "/datenschutz") }
+}
 
 function S({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -14,12 +19,14 @@ function S({ title, children }: { title: string; children: React.ReactNode }) {
   )
 }
 
-export default function DatenschutzPage() {
+export default async function DatenschutzPage({ params }: LocaleParams) {
+  const locale = await getLocale(params)
   return (
     <>
-      <PageHero title="Datenschutzerklärung" />
+      <PageHero kicker={locale === "de" ? undefined : ui[locale].privacy} title="Datenschutzerklärung" />
       <Container className="max-w-3xl space-y-8 py-16 leading-relaxed">
-        <LegalDraftNote />
+        <LegalDraftNote t={ui[locale]} />
+        <div lang="de" className="space-y-8">
         <S title="1. Verantwortlicher">
           <p>
             {operator.name}, {operator.street}, {operator.city}, E-Mail:{" "}
@@ -63,6 +70,7 @@ export default function DatenschutzPage() {
             Datenschutz-Aufsichtsbehörde beschweren, z. B. bei der Sächsischen Datenschutz- und Transparenzbeauftragten.
           </p>
         </S>
+        </div>
       </Container>
     </>
   )

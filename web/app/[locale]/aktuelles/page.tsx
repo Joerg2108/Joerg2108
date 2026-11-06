@@ -1,15 +1,22 @@
 import type { Metadata } from "next"
-import { news } from "@/lib/content"
+import { getContent } from "@/lib/content"
+import { localeNames, ui } from "@/lib/i18n"
+import { alternates, getLocale, type LocaleParams } from "@/lib/locale-params"
 import { Container, PageHero } from "@/components/page-hero"
 
-export const metadata: Metadata = { title: "Aktuelles", description: "Neuigkeiten und Termine aus dem Atelier Fischer-Art." }
+export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
+  const locale = await getLocale(params)
+  return { title: ui[locale].news, alternates: alternates(locale, "/aktuelles") }
+}
 
-const fmt = new Intl.DateTimeFormat("de-DE", { day: "numeric", month: "long", year: "numeric" })
-
-export default function NewsPage() {
+export default async function NewsPage({ params }: LocaleParams) {
+  const locale = await getLocale(params)
+  const { news } = getContent(locale)
+  const t = ui[locale]
+  const fmt = new Intl.DateTimeFormat(localeNames[locale].dateLocale, { day: "numeric", month: "long", year: "numeric" })
   return (
     <>
-      <PageHero kicker="Neuigkeiten" title="Aktuelles" />
+      <PageHero kicker={t.newsKicker} title={t.news} />
       <Container className="space-y-12 py-16">
         {news.map((n) => (
           <article key={n.title} className="pop-shadow grid gap-8 rounded-lg border-2 border-ink bg-white p-6 md:grid-cols-2 md:p-10">

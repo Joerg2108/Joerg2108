@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { useCallback, useEffect, useState } from "react"
+import type { UI } from "@/lib/i18n"
 
 export interface GalleryImage {
   src: string
@@ -10,7 +11,7 @@ export interface GalleryImage {
   caption?: string
 }
 
-export function Gallery({ images, title }: { images: GalleryImage[]; title: string }) {
+export function Gallery({ images, title, t }: { images: GalleryImage[]; title: string; t: UI }) {
   const [index, setIndex] = useState<number | null>(null)
   const close = useCallback(() => setIndex(null), [])
   const step = useCallback(
@@ -34,7 +35,7 @@ export function Gallery({ images, title }: { images: GalleryImage[]; title: stri
   }, [index, close, step])
 
   if (!images.length) {
-    return <p className="text-muted">Bilder folgen in Kürze.</p>
+    return <p className="text-muted">{t.imagesSoon}</p>
   }
 
   const current = index === null ? null : images[index]
@@ -51,7 +52,7 @@ export function Gallery({ images, title }: { images: GalleryImage[]; title: stri
             >
               <Image
                 src={img.src}
-                alt={img.caption || `${title} – Bild ${i + 1}`}
+                alt={img.caption || `${title} – ${t.imageN} ${i + 1}`}
                 width={img.width ?? 1200}
                 height={img.height ?? 800}
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
@@ -79,7 +80,7 @@ export function Gallery({ images, title }: { images: GalleryImage[]; title: stri
               {current.caption ? ` · ${current.caption}` : ""}
             </span>
             <button type="button" onClick={close} className="rounded border border-paper px-3 py-1 font-bold">
-              Schließen ✕
+              {t.closeX}
             </button>
           </div>
           <div className="relative min-h-0 flex-1" onClick={(e) => e.stopPropagation()}>
@@ -94,10 +95,10 @@ export function Gallery({ images, title }: { images: GalleryImage[]; title: stri
           </div>
           <div className="flex justify-center gap-4 pt-3" onClick={(e) => e.stopPropagation()}>
             <button type="button" onClick={() => step(-1)} className="rounded bg-pop-yellow px-5 py-2 font-bold text-ink">
-              ← Zurück
+              {t.back}
             </button>
             <button type="button" onClick={() => step(1)} className="rounded bg-pop-yellow px-5 py-2 font-bold text-ink">
-              Weiter →
+              {t.next}
             </button>
           </div>
         </div>

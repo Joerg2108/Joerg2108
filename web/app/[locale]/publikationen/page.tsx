@@ -1,14 +1,23 @@
 import type { Metadata } from "next"
-import { publications } from "@/lib/content"
+import { getContent } from "@/lib/content"
+import { ui } from "@/lib/i18n"
+import { alternates, getLocale, type LocaleParams } from "@/lib/locale-params"
 import { Container, PageHero } from "@/components/page-hero"
 import { Gallery } from "@/components/gallery"
 
-export const metadata: Metadata = { title: "Publikationen", description: publications.text.slice(0, 160) }
+export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
+  const locale = await getLocale(params)
+  const { publications } = getContent(locale)
+  return { title: ui[locale].publications, description: publications.text.slice(0, 160), alternates: alternates(locale, "/publikationen") }
+}
 
-export default function PublicationsPage() {
+export default async function PublicationsPage({ params }: LocaleParams) {
+  const locale = await getLocale(params)
+  const { publications } = getContent(locale)
+  const t = ui[locale]
   return (
     <>
-      <PageHero kicker={publications.kicker} title="Bücher">
+      <PageHero kicker={publications.kicker} title={t.books}>
         <p>{publications.text}</p>
       </PageHero>
       <Container className="py-16">
@@ -24,7 +33,7 @@ export default function PublicationsPage() {
             </li>
           ))}
         </ul>
-        <Gallery images={publications.covers} title="Publikationen" />
+        <Gallery images={publications.covers} title={t.publications} t={t} />
       </Container>
     </>
   )

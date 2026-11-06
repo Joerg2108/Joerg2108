@@ -1,4 +1,6 @@
 import images from "./works-images.json"
+import type { Locale } from "./i18n"
+import { metaEn, metaZh, captionsEn, captionsZh } from "./works-i18n"
 
 export interface WorkImage {
   src: string
@@ -14,7 +16,7 @@ export interface WorkCategory {
   images: WorkImage[]
 }
 
-const meta: Omit<WorkCategory, "images">[] = [
+export const metaDe: Omit<WorkCategory, "images">[] = [
   {
     slug: "originale",
     title: "Originale",
@@ -91,8 +93,18 @@ const meta: Omit<WorkCategory, "images">[] = [
 
 const byCategory = images as Record<string, WorkImage[]>
 
-export const works: WorkCategory[] = meta.map((m) => ({ ...m, images: byCategory[m.slug] ?? [] }))
+const meta: Record<Locale, Omit<WorkCategory, "images">[]> = { de: metaDe, en: metaEn, zh: metaZh }
+const captions: Record<Locale, Record<string, string>> = { de: {}, en: captionsEn, zh: captionsZh }
 
-export function getWork(slug: string) {
-  return works.find((w) => w.slug === slug)
+export function getWorks(locale: Locale): WorkCategory[] {
+  return meta[locale].map((m) => ({
+    ...m,
+    images: (byCategory[m.slug] ?? []).map((img) => ({ ...img, caption: captions[locale][img.caption] ?? img.caption })),
+  }))
 }
+
+export function getWork(locale: Locale, slug: string) {
+  return getWorks(locale).find((w) => w.slug === slug)
+}
+
+export const workSlugs = metaDe.map((m) => m.slug)

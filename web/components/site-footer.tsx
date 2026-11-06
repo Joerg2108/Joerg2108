@@ -1,9 +1,14 @@
 "use client"
 
 import WildHuntFooter from "@/components/ui/wild-hunt-footer"
-import { contact, site } from "@/lib/content"
+import { getContent } from "@/lib/content"
+import { lp, ui, type Locale } from "@/lib/i18n"
 
-export function SiteFooter() {
+export function SiteFooter({ locale }: { locale: Locale }) {
+  const { contact, site, nav } = getContent(locale)
+  const t = ui[locale]
+  const f = t.footer
+  const label = (href: string) => nav.find((n) => n.href === href)?.label ?? href
   const year = new Date().getFullYear()
   return (
     <WildHuntFooter
@@ -12,46 +17,43 @@ export function SiteFooter() {
       image={{ src: "/images/home/hero.webp", alt: "", position: "50% 40%" }}
       imageHeight={0.55}
       height="min(100svh, 860px)"
-      tagline="Wir gestalten Ihre Welt bunter · Originale · Skulpturen · Kunst am Bau"
-      sideNote="Kunstfabrik · Am Steigerhain 13 · 04552 Borna"
+      tagline={f.tagline}
+      sideNote={f.sideNote}
+      backToTopLabel={f.backToTop}
+      fontFamily={'"Inter Variable", "Helvetica Neue", Arial, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif'}
       columns={[
         {
-          title: "Werk",
+          title: t.work,
           links: [
-            { label: "Originale", href: "/werk/originale" },
-            { label: "Skulpturen", href: "/werk/skulpturen" },
-            { label: "Kunst am Bau", href: "/kunst-am-bau" },
+            { label: f.originals, href: lp(locale, "/werk/originale") },
+            { label: f.sculptures, href: lp(locale, "/werk/skulpturen") },
+            { label: label("/kunst-am-bau"), href: lp(locale, "/kunst-am-bau") },
           ],
         },
         {
-          title: "Künstler",
-          links: [
-            { label: "Person", href: "/person" },
-            { label: "Vita", href: "/vita" },
-            { label: "Ausstellungen", href: "/ausstellungen" },
-            { label: "Publikationen", href: "/publikationen" },
-          ],
+          title: f.artist,
+          links: ["/person", "/vita", "/ausstellungen", "/publikationen"].map((h) => ({ label: label(h), href: lp(locale, h) })),
         },
         {
-          title: "Folgen",
+          title: f.follow,
           links: [
             { label: "Instagram", href: site.instagram },
             { label: "Facebook", href: site.facebook },
-            { label: "Shop", href: site.shopUrl },
+            { label: t.shop, href: site.shopUrl },
           ],
         },
         {
-          title: "Kontakt",
+          title: t.contact,
           links: [
             { label: contact.email, href: `mailto:${contact.email}` },
             { label: contact.phone, href: contact.phoneHref },
-            { label: "Impressum", href: "/impressum" },
-            { label: "Datenschutz", href: "/datenschutz" },
+            { label: t.imprint, href: lp(locale, "/impressum") },
+            { label: t.privacy, href: lp(locale, "/datenschutz") },
           ],
         },
       ]}
       legal={`© ${year} ${site.artist}`}
-      colophon="Alle Werke, Texte und Fotos © Michael Fischer-Art. Nutzung nur mit Genehmigung des Ateliers."
+      colophon={f.colophon}
     />
   )
 }

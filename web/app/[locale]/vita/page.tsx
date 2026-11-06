@@ -1,13 +1,21 @@
 import type { Metadata } from "next"
-import { vita } from "@/lib/content"
+import { getContent } from "@/lib/content"
+import { ui } from "@/lib/i18n"
+import { alternates, getLocale, type LocaleParams } from "@/lib/locale-params"
 import { Container, PageHero } from "@/components/page-hero"
 
-export const metadata: Metadata = { title: "Vita", description: "Lebenslauf von Michael Fischer-Art, geboren 1969 in Leipzig." }
+export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
+  const locale = await getLocale(params)
+  return { title: ui[locale].vita, alternates: alternates(locale, "/vita") }
+}
 
-export default function VitaPage() {
+export default async function VitaPage({ params }: LocaleParams) {
+  const locale = await getLocale(params)
+  const { vita } = getContent(locale)
+  const t = ui[locale]
   return (
     <>
-      <PageHero kicker="Lebenslauf" title="Vita" />
+      <PageHero kicker={t.lifeKicker} title={t.vita} />
       <Container className="py-16">
         <ol className="relative max-w-3xl border-l-4 border-ink">
           {vita.map((v, i) => (

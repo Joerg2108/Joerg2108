@@ -2,15 +2,22 @@ import type { Metadata } from "next"
 import { operator } from "@/lib/legal"
 import { Container, PageHero } from "@/components/page-hero"
 import { LegalDraftNote } from "@/components/legal-draft-note"
+import { ui } from "@/lib/i18n"
+import { alternates, getLocale, type LocaleParams } from "@/lib/locale-params"
 
-export const metadata: Metadata = { title: "Impressum", robots: { index: false } }
+export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
+  const locale = await getLocale(params)
+  return { title: ui[locale].imprint, robots: { index: false }, alternates: alternates(locale, "/impressum") }
+}
 
-export default function ImpressumPage() {
+export default async function ImpressumPage({ params }: LocaleParams) {
+  const locale = await getLocale(params)
   return (
     <>
-      <PageHero title="Impressum" />
+      <PageHero kicker={locale === "de" ? undefined : ui[locale].imprint} title="Impressum" />
       <Container className="max-w-3xl space-y-8 py-16 leading-relaxed">
-        <LegalDraftNote />
+        <LegalDraftNote t={ui[locale]} />
+        <div lang="de" className="space-y-8">
         <section>
           <h2 className="font-display text-2xl font-extrabold">Angaben gemäß § 5 DDG</h2>
           <p className="mt-2">
@@ -62,6 +69,7 @@ export default function ImpressumPage() {
             werden wir derartige Links umgehend entfernen.
           </p>
         </section>
+        </div>
       </Container>
     </>
   )
