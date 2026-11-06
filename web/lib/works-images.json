@@ -1,0 +1,830 @@
+{
+ "originale": [
+  {
+   "src": "/images/werk/originale/originale-01.webp",
+   "width": 1800,
+   "height": 1200,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/originale/originale-02.webp",
+   "width": 1800,
+   "height": 1200,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/originale/originale-03.webp",
+   "width": 1800,
+   "height": 1217,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/originale/originale-04.webp",
+   "width": 1800,
+   "height": 1215,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/originale/originale-05.webp",
+   "width": 1800,
+   "height": 1200,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/originale/originale-06.webp",
+   "width": 1800,
+   "height": 1200,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/originale/originale-07.webp",
+   "width": 1800,
+   "height": 1200,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/originale/originale-08.webp",
+   "width": 1800,
+   "height": 1200,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/originale/originale-09.webp",
+   "width": 1800,
+   "height": 1200,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/originale/originale-10.webp",
+   "width": 1800,
+   "height": 1200,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/originale/originale-11.webp",
+   "width": 1800,
+   "height": 1200,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/originale/originale-12.webp",
+   "width": 800,
+   "height": 585,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/originale/originale-13.webp",
+   "width": 800,
+   "height": 337,
+   "caption": "Zukunft und Vergangenheit"
+  },
+  {
+   "src": "/images/werk/originale/originale-14.webp",
+   "width": 800,
+   "height": 480,
+   "caption": "Vom Tellerwäscher zum Millionär"
+  },
+  {
+   "src": "/images/werk/originale/originale-15.webp",
+   "width": 800,
+   "height": 560,
+   "caption": "Taxi"
+  },
+  {
+   "src": "/images/werk/originale/originale-16.webp",
+   "width": 800,
+   "height": 566,
+   "caption": "Religionen"
+  },
+  {
+   "src": "/images/werk/originale/originale-17.webp",
+   "width": 567,
+   "height": 800,
+   "caption": "Skizze Mensch"
+  },
+  {
+   "src": "/images/werk/originale/originale-18.webp",
+   "width": 554,
+   "height": 800,
+   "caption": "Skizze Mensch"
+  },
+  {
+   "src": "/images/werk/originale/originale-19.webp",
+   "width": 643,
+   "height": 800,
+   "caption": "Skizze Mensch"
+  },
+  {
+   "src": "/images/werk/originale/originale-20.webp",
+   "width": 800,
+   "height": 800,
+   "caption": "Wolkenhaufen"
+  },
+  {
+   "src": "/images/werk/originale/originale-21.webp",
+   "width": 800,
+   "height": 627,
+   "caption": "Seerosen"
+  },
+  {
+   "src": "/images/werk/originale/originale-22.webp",
+   "width": 800,
+   "height": 800,
+   "caption": "Regenwand"
+  },
+  {
+   "src": "/images/werk/originale/originale-23.webp",
+   "width": 800,
+   "height": 627,
+   "caption": "Diplom Finanzbeamte"
+  },
+  {
+   "src": "/images/werk/originale/originale-24.webp",
+   "width": 800,
+   "height": 510,
+   "caption": "Feier zu 3"
+  },
+  {
+   "src": "/images/werk/originale/originale-25.webp",
+   "width": 800,
+   "height": 514,
+   "caption": "911"
+  }
+ ],
+ "skulpturen": [
+  {
+   "src": "/images/werk/skulpturen/skulpturen-01.webp",
+   "width": 960,
+   "height": 720,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/skulpturen/skulpturen-02.webp",
+   "width": 606,
+   "height": 700,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/skulpturen/skulpturen-03.webp",
+   "width": 1181,
+   "height": 886,
+   "caption": "Stahlfigur"
+  },
+  {
+   "src": "/images/werk/skulpturen/skulpturen-04.webp",
+   "width": 1600,
+   "height": 1200,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/skulpturen/skulpturen-05.webp",
+   "width": 960,
+   "height": 720,
+   "caption": "Brunnen- Frankfurt Oder"
+  },
+  {
+   "src": "/images/werk/skulpturen/skulpturen-06.webp",
+   "width": 960,
+   "height": 720,
+   "caption": "Brunnen-Frankfurt Oder"
+  },
+  {
+   "src": "/images/werk/skulpturen/skulpturen-07.webp",
+   "width": 1178,
+   "height": 787,
+   "caption": "Brunnen"
+  },
+  {
+   "src": "/images/werk/skulpturen/skulpturen-08.webp",
+   "width": 1129,
+   "height": 1600,
+   "caption": ""
+  }
+ ],
+ "kunst-am-bau": [
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-01.webp",
+   "width": 800,
+   "height": 466,
+   "caption": "Gestaltung des Hörsaal-Kubus TU Dresden"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-02.webp",
+   "width": 800,
+   "height": 532,
+   "caption": "Verhüllung der Schlosswache auf der Osterburg"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-03.webp",
+   "width": 800,
+   "height": 627,
+   "caption": "Verhüllung Außenfassaden Drei Türme"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-04.webp",
+   "width": 800,
+   "height": 627,
+   "caption": "Verhüllung Außenfassaden Drei Türme"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-05.webp",
+   "width": 800,
+   "height": 394,
+   "caption": "Seehotel Templin"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-06.webp",
+   "width": 800,
+   "height": 533,
+   "caption": "KiTa Olgastraße"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-07.webp",
+   "width": 800,
+   "height": 534,
+   "caption": "Projekt Neubrandenburg"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-08.webp",
+   "width": 800,
+   "height": 627,
+   "caption": "Hotel Berlin"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-09.webp",
+   "width": 800,
+   "height": 600,
+   "caption": "Kindergarten"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-10.webp",
+   "width": 800,
+   "height": 707,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-11.webp",
+   "width": 800,
+   "height": 627,
+   "caption": "Hotel Berlin"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-12.webp",
+   "width": 800,
+   "height": 502,
+   "caption": "Giebelbemalung Brühl-Arkaden"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-13.webp",
+   "width": 800,
+   "height": 533,
+   "caption": "Gestaltung Fritz-Heckert-Wohngebiet"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-14.webp",
+   "width": 800,
+   "height": 600,
+   "caption": "Fischer-Art-Haus Hannover"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-15.webp",
+   "width": 800,
+   "height": 597,
+   "caption": "Eingangsportal der Grundschule Markkleeberg"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-16.webp",
+   "width": 800,
+   "height": 586,
+   "caption": "Fischer-Art-Haus, Sebnitz"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-17.webp",
+   "width": 750,
+   "height": 562,
+   "caption": "Brühl-Arkade"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-18.webp",
+   "width": 800,
+   "height": 600,
+   "caption": "Brühl-Arkade"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-19.webp",
+   "width": 1600,
+   "height": 1200,
+   "caption": "China"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-20.webp",
+   "width": 750,
+   "height": 750,
+   "caption": "Sebnitz"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-21.webp",
+   "width": 900,
+   "height": 675,
+   "caption": "Verhüllung Außenfassaden Drei Türme"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-22.webp",
+   "width": 800,
+   "height": 600,
+   "caption": "Wandbemalung, Kulturhaus Leipzig im Ural"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-23.webp",
+   "width": 240,
+   "height": 212,
+   "caption": "Bildermuseum"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-24.webp",
+   "width": 430,
+   "height": 190,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-25.webp",
+   "width": 577,
+   "height": 380,
+   "caption": "Bibliothek"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-26.webp",
+   "width": 960,
+   "height": 720,
+   "caption": "China"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-27.webp",
+   "width": 1178,
+   "height": 787,
+   "caption": "Brunnen"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-28.webp",
+   "width": 960,
+   "height": 720,
+   "caption": "Brunnen- Frankfurt Oder"
+  },
+  {
+   "src": "/images/werk/kunst-am-bau/kunst-am-bau-29.webp",
+   "width": 1024,
+   "height": 768,
+   "caption": "#2 Atelier Fischer-Art"
+  }
+ ],
+ "portraets": [
+  {
+   "src": "/images/werk/portraets/portraets-01.webp",
+   "width": 519,
+   "height": 713,
+   "caption": "Tom Jones"
+  },
+  {
+   "src": "/images/werk/portraets/portraets-02.webp",
+   "width": 641,
+   "height": 800,
+   "caption": "Amy Winehouse"
+  },
+  {
+   "src": "/images/werk/portraets/portraets-03.webp",
+   "width": 634,
+   "height": 800,
+   "caption": "Brad Pitt"
+  },
+  {
+   "src": "/images/werk/portraets/portraets-04.webp",
+   "width": 585,
+   "height": 800,
+   "caption": "Angelina Jolie"
+  },
+  {
+   "src": "/images/werk/portraets/portraets-05.webp",
+   "width": 633,
+   "height": 800,
+   "caption": "Princess Diana"
+  },
+  {
+   "src": "/images/werk/portraets/portraets-06.webp",
+   "width": 564,
+   "height": 800,
+   "caption": "Karl Lagerfeld"
+  },
+  {
+   "src": "/images/werk/portraets/portraets-07.webp",
+   "width": 800,
+   "height": 640,
+   "caption": "Lady Gaga"
+  },
+  {
+   "src": "/images/werk/portraets/portraets-08.webp",
+   "width": 651,
+   "height": 800,
+   "caption": "Kate Moss"
+  },
+  {
+   "src": "/images/werk/portraets/portraets-09.webp",
+   "width": 573,
+   "height": 694,
+   "caption": "Fischer-Art Porträt"
+  },
+  {
+   "src": "/images/werk/portraets/portraets-10.webp",
+   "width": 606,
+   "height": 596,
+   "caption": "Charlene von Monaco"
+  }
+ ],
+ "new-art": [
+  {
+   "src": "/images/werk/new-art/new-art-01.webp",
+   "width": 1800,
+   "height": 1350,
+   "caption": "Oldtimer"
+  },
+  {
+   "src": "/images/werk/new-art/new-art-02.webp",
+   "width": 1800,
+   "height": 1350,
+   "caption": "Stahlfiguren"
+  },
+  {
+   "src": "/images/werk/new-art/new-art-03.webp",
+   "width": 1024,
+   "height": 768,
+   "caption": "Oldtimer"
+  },
+  {
+   "src": "/images/werk/new-art/new-art-04.webp",
+   "width": 960,
+   "height": 720,
+   "caption": "Nordhäuser"
+  },
+  {
+   "src": "/images/werk/new-art/new-art-05.webp",
+   "width": 960,
+   "height": 720,
+   "caption": "Brunnen-Frankfurt Oder"
+  },
+  {
+   "src": "/images/werk/new-art/new-art-06.webp",
+   "width": 960,
+   "height": 720,
+   "caption": "Brunnen- Frankfurt Oder"
+  },
+  {
+   "src": "/images/werk/new-art/new-art-07.webp",
+   "width": 1181,
+   "height": 886,
+   "caption": "Stahlfigur"
+  },
+  {
+   "src": "/images/werk/new-art/new-art-08.webp",
+   "width": 1600,
+   "height": 1066,
+   "caption": "Friedenspanzer"
+  },
+  {
+   "src": "/images/werk/new-art/new-art-09.webp",
+   "width": 450,
+   "height": 337,
+   "caption": "Blüthner"
+  },
+  {
+   "src": "/images/werk/new-art/new-art-10.webp",
+   "width": 1600,
+   "height": 1200,
+   "caption": "Spielplatz"
+  }
+ ],
+ "events": [
+  {
+   "src": "/images/werk/events/events-01.webp",
+   "width": 1600,
+   "height": 1056,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/events/events-02.webp",
+   "width": 1800,
+   "height": 1350,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/events/events-03.webp",
+   "width": 1600,
+   "height": 1200,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/events/events-04.webp",
+   "width": 1600,
+   "height": 1066,
+   "caption": "Friedenspanzer"
+  },
+  {
+   "src": "/images/werk/events/events-05.webp",
+   "width": 1600,
+   "height": 1066,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/events/events-06.webp",
+   "width": 1800,
+   "height": 1350,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/events/events-07.webp",
+   "width": 1800,
+   "height": 1350,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/events/events-08.webp",
+   "width": 960,
+   "height": 720,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/events/events-09.webp",
+   "width": 960,
+   "height": 720,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/events/events-10.webp",
+   "width": 960,
+   "height": 720,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/events/events-11.webp",
+   "width": 960,
+   "height": 960,
+   "caption": ""
+  }
+ ],
+ "reisen": [
+  {
+   "src": "/images/werk/reisen/reisen-01.webp",
+   "width": 960,
+   "height": 720,
+   "caption": "China"
+  },
+  {
+   "src": "/images/werk/reisen/reisen-02.webp",
+   "width": 960,
+   "height": 720,
+   "caption": "Vietnam"
+  },
+  {
+   "src": "/images/werk/reisen/reisen-03.webp",
+   "width": 960,
+   "height": 720,
+   "caption": "Vietnam"
+  },
+  {
+   "src": "/images/werk/reisen/reisen-04.webp",
+   "width": 960,
+   "height": 720,
+   "caption": ""
+  },
+  {
+   "src": "/images/werk/reisen/reisen-05.webp",
+   "width": 960,
+   "height": 720,
+   "caption": "Vietnam"
+  },
+  {
+   "src": "/images/werk/reisen/reisen-06.webp",
+   "width": 960,
+   "height": 720,
+   "caption": "China"
+  },
+  {
+   "src": "/images/werk/reisen/reisen-07.webp",
+   "width": 960,
+   "height": 720,
+   "caption": "China"
+  },
+  {
+   "src": "/images/werk/reisen/reisen-08.webp",
+   "width": 230,
+   "height": 163,
+   "caption": "Italien"
+  },
+  {
+   "src": "/images/werk/reisen/reisen-09.webp",
+   "width": 201,
+   "height": 166,
+   "caption": "Rathen"
+  },
+  {
+   "src": "/images/werk/reisen/reisen-10.webp",
+   "width": 177,
+   "height": 166,
+   "caption": "Iran"
+  },
+  {
+   "src": "/images/werk/reisen/reisen-11.webp",
+   "width": 230,
+   "height": 163,
+   "caption": "Italien"
+  },
+  {
+   "src": "/images/werk/reisen/reisen-12.webp",
+   "width": 230,
+   "height": 164,
+   "caption": "Israel"
+  },
+  {
+   "src": "/images/werk/reisen/reisen-13.webp",
+   "width": 200,
+   "height": 166,
+   "caption": "Madeira"
+  },
+  {
+   "src": "/images/werk/reisen/reisen-14.webp",
+   "width": 230,
+   "height": 162,
+   "caption": "Frankreich"
+  }
+ ],
+ "friends": [
+  {
+   "src": "/images/werk/friends/friends-01.webp",
+   "width": 400,
+   "height": 300,
+   "caption": "Bill Clinton"
+  },
+  {
+   "src": "/images/werk/friends/friends-02.webp",
+   "width": 240,
+   "height": 212,
+   "caption": "Michelle Hunziker"
+  },
+  {
+   "src": "/images/werk/friends/friends-03.webp",
+   "width": 960,
+   "height": 720,
+   "caption": "Nico Rossberg"
+  },
+  {
+   "src": "/images/werk/friends/friends-04.webp",
+   "width": 240,
+   "height": 212,
+   "caption": "Guido Westerwelle"
+  },
+  {
+   "src": "/images/werk/friends/friends-05.webp",
+   "width": 334,
+   "height": 250,
+   "caption": "Helmut Kohl"
+  },
+  {
+   "src": "/images/werk/friends/friends-06.webp",
+   "width": 450,
+   "height": 365,
+   "caption": "Wolfgang Joop"
+  },
+  {
+   "src": "/images/werk/friends/friends-07.webp",
+   "width": 300,
+   "height": 218,
+   "caption": "Kai Diekmann"
+  },
+  {
+   "src": "/images/werk/friends/friends-08.webp",
+   "width": 1600,
+   "height": 1200,
+   "caption": "Klitschko Brüder"
+  },
+  {
+   "src": "/images/werk/friends/friends-09.webp",
+   "width": 600,
+   "height": 450,
+   "caption": "Prinz Hakoon"
+  },
+  {
+   "src": "/images/werk/friends/friends-10.webp",
+   "width": 450,
+   "height": 341,
+   "caption": "Hannes Jaenicke"
+  },
+  {
+   "src": "/images/werk/friends/friends-11.webp",
+   "width": 400,
+   "height": 277,
+   "caption": "Jenny Elvers"
+  },
+  {
+   "src": "/images/werk/friends/friends-12.webp",
+   "width": 1200,
+   "height": 900,
+   "caption": "Michael Kretzschmer"
+  },
+  {
+   "src": "/images/werk/friends/friends-13.webp",
+   "width": 334,
+   "height": 250,
+   "caption": "Michail Gorbatschow"
+  },
+  {
+   "src": "/images/werk/friends/friends-14.webp",
+   "width": 500,
+   "height": 333,
+   "caption": "Joachim Gauck"
+  },
+  {
+   "src": "/images/werk/friends/friends-15.webp",
+   "width": 1600,
+   "height": 1200,
+   "caption": "Capital Bra"
+  },
+  {
+   "src": "/images/werk/friends/friends-16.webp",
+   "width": 400,
+   "height": 353,
+   "caption": "Michael Ballack"
+  },
+  {
+   "src": "/images/werk/friends/friends-17.webp",
+   "width": 450,
+   "height": 285,
+   "caption": "Ralf Möller"
+  },
+  {
+   "src": "/images/werk/friends/friends-18.webp",
+   "width": 960,
+   "height": 720,
+   "caption": "Axel Schulz"
+  },
+  {
+   "src": "/images/werk/friends/friends-19.webp",
+   "width": 300,
+   "height": 400,
+   "caption": "René Adler"
+  },
+  {
+   "src": "/images/werk/friends/friends-20.webp",
+   "width": 250,
+   "height": 177,
+   "caption": "Uschi Glas"
+  },
+  {
+   "src": "/images/werk/friends/friends-21.webp",
+   "width": 200,
+   "height": 228,
+   "caption": "Angela Merkel"
+  }
+ ],
+ "charity": [
+  {
+   "src": "/images/werk/charity/charity-01.webp",
+   "width": 960,
+   "height": 720,
+   "caption": "Axel Schulz"
+  },
+  {
+   "src": "/images/werk/charity/charity-02.webp",
+   "width": 1800,
+   "height": 1277,
+   "caption": "Marathon am Völkerschlachtdenkmal"
+  },
+  {
+   "src": "/images/werk/charity/charity-03.webp",
+   "width": 1800,
+   "height": 1200,
+   "caption": "Sportstadt Leipzig-Olympiaball"
+  },
+  {
+   "src": "/images/werk/charity/charity-04.webp",
+   "width": 720,
+   "height": 960,
+   "caption": "GRK Golf Charity"
+  },
+  {
+   "src": "/images/werk/charity/charity-05.webp",
+   "width": 1800,
+   "height": 1200,
+   "caption": "Sportstadt Leipzig mit Tina Dietze-Olympiaball"
+  },
+  {
+   "src": "/images/werk/charity/charity-06.webp",
+   "width": 960,
+   "height": 720,
+   "caption": "Sebastian Krumbiegel- Ronald McDonald"
+  },
+  {
+   "src": "/images/werk/charity/charity-07.webp",
+   "width": 1800,
+   "height": 1200,
+   "caption": "Sportstadt Leipzig mit Tina Dietze-Olympiaball"
+  }
+ ]
+}
