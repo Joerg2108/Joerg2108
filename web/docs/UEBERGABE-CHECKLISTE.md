@@ -14,7 +14,7 @@ Stand: 07.11.2026 · Vorschau: https://fischer-art.netlify.app · Branch `claude
 | Seitlicher Überlauf (Mobil) | alle Seiten | ✅ keiner (nach Fix) |
 | Barrierefreiheit (axe-core, WCAG 2.1 AA) | alle Seiten | ✅ 0 Verstöße |
 | hreflang / canonical / `lang` | alle Seiten | ✅ vollständig (außer `/404/`, gewollt) |
-| sitemap.xml / robots.txt | 45 URLs × 3 Sprachen | ✅ vorhanden |
+| sitemap.xml / robots.txt | 15 Seiten × 3 Sprachen = 45 URLs | ✅ vorhanden |
 | Externe Links (Instagram, Facebook, Shop) | – | ⚠️ in der Test-Umgebung nicht erreichbar → **manuell prüfen** (s. u.) |
 
 ### Lighthouse (Mobil, gedrosselt, lokaler Server ohne Kompression)
