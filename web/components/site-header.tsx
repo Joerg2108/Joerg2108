@@ -89,9 +89,9 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   return (
     <>
       <ScrollProgress />
-      <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4" onMouseLeave={scheduleClose}>
+      <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4" onMouseLeave={scheduleClose}>
         <div
-          className={`mx-auto flex max-w-7xl items-center justify-between gap-3 rounded-full py-2 pl-5 pr-2 transition-all duration-700 ease-[var(--nc-ease-out)] ${
+          className={`pointer-events-auto mx-auto flex max-w-7xl items-center justify-between gap-3 rounded-full py-2 pl-5 pr-2 transition-all duration-700 ease-[var(--nc-ease-out)] ${
             scrolled || panel ? "border border-line bg-[rgb(10_10_16/0.72)] shadow-[var(--nc-shadow-float)] backdrop-blur-xl" : "border border-transparent"
           }`}
         >
