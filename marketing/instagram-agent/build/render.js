@@ -1,5 +1,5 @@
 'use strict';
-// Rendert die Beitragsbank als JPEG (1080 × 1350, 4:5) und schreibt posts.json.
+// Rendert die Beitragsbank als JPEG – Feed-Beitrag 1080 × 1350 (4:5) und Story 1080 × 1920 (9:16) – und schreibt posts.json.
 // Aufruf: node render.js <Ordner mit Screenshots>   (Screenshots erzeugt screenshots.js)
 const fs = require('node:fs');
 const path = require('node:path');
@@ -39,9 +39,21 @@ li::before { content: "✓"; position: absolute; left: 0; top: 0; width: 40px; h
 .badge { font-size: 22px; font-weight: 700; padding: 10px 18px; border-radius: 999px; background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); }
 .cta { margin-top: auto; align-self: flex-start; background: var(--accent); color: #0b1220; font-size: 38px; font-weight: 800; padding: 30px 52px; border-radius: 999px; }
 .light .cta { color: #fff; }
+/* Story 9:16 – oben und unten Platz für die Instagram-Bedienelemente lassen */
+body.story { height: 1920px; }
+.story .post { height: 1920px; padding: 230px 80px 340px; }
+.story h1 { font-size: 92px; }
+.story.l-text h1, .story .l-text h1 { font-size: 120px; margin-top: 80px; }
+.story .shot img { height: 760px; }
+.story .phone { width: 400px; height: 800px; }
+.story .phone-wrap { flex-direction: column; align-items: center; gap: 36px; }
+.story li { font-size: 36px; }
+.story .lead { font-size: 42px; }
+.story .foot { bottom: 230px; }
+.story .story-cta { margin-top: auto; padding-top: 48px; text-align: center; font-size: 34px; font-weight: 700; color: var(--accent); }
 `;
 
-function html(p) {
+function html(p, story = false) {
   const theme = p.demo === 'sicherheit' ? 'dark' : 'light';
   const badge = p.demo === 'sicherheit' ? 'Demo Sicherheit' : 'Demo Dienstleistung';
   const img = (name) => 'file://' + path.join(shotsDir, name + '.png');
@@ -49,12 +61,15 @@ function html(p) {
   let body = '';
   if (p.layout === 'text') {
     body = `<p class="lead">${esc(p.lead)}</p><div class="cta">🔗 Live-Demo: Link in Bio</div>`;
+  } else if (p.layout === 'phone' && story) {
+    body = `<div class="phone-wrap"><div class="phone"><img src="${img(p.shot)}"></div></div><ul>${bullets}</ul>`;
   } else if (p.layout === 'phone') {
     body = `<div class="phone-wrap"><div class="phone"><img src="${img(p.shot)}"></div><ul>${bullets}</ul></div>`;
   } else {
     body = `<div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="${img(p.shot)}"></div><ul>${bullets}</ul>`;
   }
-  return `<!doctype html><html lang="de"><head><meta charset="utf-8"><style>${CSS}</style></head><body>
+  if (story && p.layout !== 'text') body += `<div class="story-cta">👆 Mehr im Profil · Live-Demo: Link in Bio</div>`;
+  return `<!doctype html><html lang="de"><head><meta charset="utf-8"><style>${CSS}</style></head><body class="${story ? 'story' : ''}">
 <div class="post ${theme} l-${p.layout}">
   <div class="kicker">${esc(p.kicker)}</div>
   <h1>${p.title}</h1>
@@ -66,11 +81,12 @@ function html(p) {
 (async () => {
   fs.mkdirSync(outDir, { recursive: true });
   const b = await chromium.launch();
-  const page = await b.newPage({ viewport: { width: 1080, height: 1350 } });
+  fs.mkdirSync(path.join(__dirname, '..', 'stories'), { recursive: true });
   const tmp = path.join(require('node:os').tmpdir(), 'ig-post.html');
   const out = [];
-  for (const p of POSTS) {
-    fs.writeFileSync(tmp, html(p));
+  async function shoot(p, story, file) {
+    const page = await b.newPage({ viewport: { width: 1080, height: story ? 1920 : 1350 } });
+    fs.writeFileSync(tmp, html(p, story));
     await page.goto('file://' + tmp);
     await page.evaluate(() => document.fonts.ready);
     await page.waitForTimeout(150);
@@ -79,10 +95,16 @@ function html(p) {
       const foot = document.querySelector('.foot').getBoundingClientRect().top;
       return [...document.querySelectorAll('.post > *:not(.foot)')].some((e) => e.getBoundingClientRect().bottom > foot - 10);
     });
-    if (over) console.warn(`WARNUNG: Beitrag ${p.id} läuft in die Fußzeile`);
-    const file = `posts/${p.id}.jpg`;
+    if (over) console.warn(`WARNUNG: ${file} läuft in die Fußzeile`);
     await page.screenshot({ path: path.join(__dirname, '..', file), type: 'jpeg', quality: 88 });
-    out.push({ id: p.id, demo: p.demo, image: file, caption: p.caption });
+    await page.close();
+  }
+  for (const p of POSTS) {
+    const image = `posts/${p.id}.jpg`;
+    const story = `stories/${p.id}.jpg`;
+    await shoot(p, false, image);
+    await shoot(p, true, story);
+    out.push({ id: p.id, demo: p.demo, image, story, caption: p.caption });
   }
   await b.close();
   fs.writeFileSync(path.join(__dirname, '..', 'posts.json'), JSON.stringify(out, null, 2) + '\n');

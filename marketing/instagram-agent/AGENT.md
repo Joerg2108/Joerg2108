@@ -1,16 +1,17 @@
 # Instagram-Agent – Back Office (Demo Dienstleistung & Demo Sicherheit)
 
-Postet jeden Tag **einen** Beitrag auf Instagram (Konto **flowkit5**), abwechselnd für die
+Postet jeden Tag **einen** Beitrag **und eine Story** auf Instagram (Konto **flowkit5**), abwechselnd für die
 Demo **Dienstleistung** und die Demo **Sicherheit**. Läuft als geplante Aufgabe in Claude Code
-und postet über den Windsor.ai-Connector (Aktion `create_image_post`).
+und postet über den Windsor.ai-Connector (Aktionen `create_image_post` und `create_story`).
 
 ## Dateien
 
 | Datei | Inhalt |
 |---|---|
-| `posts.json` | Beitragsbank: `id`, `demo`, `image` (Pfad), `caption` – Reihenfolge = Postingreihenfolge |
-| `posts/*.jpg` | Bilder 1080 × 1350 (4:5), JPEG |
-| `posted.json` | Protokoll: welcher Beitrag wann gepostet wurde (`id`, `date`, `media_id`) |
+| `posts.json` | Beitragsbank: `id`, `demo`, `image` (Feed), `story` (Story), `caption` – Reihenfolge = Postingreihenfolge |
+| `posts/*.jpg` | Feed-Bilder 1080 × 1350 (4:5), JPEG |
+| `stories/*.jpg` | Story-Bilder 1080 × 1920 (9:16), JPEG – gleiches Thema wie der Feed-Beitrag |
+| `posted.json` | Protokoll: welcher Beitrag wann gepostet wurde (`id`, `date`, `media_id`, `story_media_id`) |
 | `build/content.js` | Quelle der Beiträge (Titel, Stichpunkte, Bildunterschrift) |
 | `build/screenshots.js`, `build/render.js` | Screenshots aus den lokalen Demos holen und Bilder rendern |
 
@@ -25,15 +26,16 @@ Bild-URLs für Instagram (Repo ist öffentlich):
 4. Windsor.ai: Konto **flowkit5** beim Connector `instagram` suchen. Fehlt es → **nicht posten**
    (auch nicht auf ein anderes Konto) und melden.
 5. `create_image_post` mit `image_url` und `caption`.
-6. Eintrag in `posted.json` ergänzen, committen, auf `claude/instagram-agent` pushen.
-7. Sind weniger als 5 Beiträge übrig → im Ergebnis darauf hinweisen.
+6. `create_story` mit `image_url` = Story-Bild desselben Beitrags (Stories haben keine Bildunterschrift).
+7. Eintrag in `posted.json` ergänzen (`story_media_id`, sonst `null`), committen, auf `claude/instagram-agent` pushen.
+8. Sind weniger als 5 Beiträge übrig → im Ergebnis darauf hinweisen.
 
 ## Neue Beiträge erzeugen
 
 ```bash
 # beide Demos lokal starten (Port 3004 = Dienstleistung, 3005 = Sicherheit), dann:
 node build/screenshots.js build/shots
-node build/render.js build/shots   # schreibt posts/*.jpg und posts.json
+node build/render.js build/shots   # schreibt posts/*.jpg, stories/*.jpg und posts.json
 ```
 Neue Beiträge in `build/content.js` ergänzen. Bereits gepostete IDs bleiben in `posted.json` und
 werden nicht erneut gepostet.
