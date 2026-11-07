@@ -50,10 +50,8 @@ module.exports = {
     vendor: env.DEMO_VENDOR || '',
   },
   // Sicherheitsdienst-Edition (Objekte, Streife/Wachbuch, Vorfälle, Fahrzeuge, Wächter-App).
-  // Standard: aus – nur in der Demo an. Mit SECURITY_EDITION=1 bzw. =0 fest ein- oder ausschalten.
-  securityEdition: env.SECURITY_EDITION !== undefined && env.SECURITY_EDITION !== ''
-    ? env.SECURITY_EDITION === '1' || env.SECURITY_EDITION === 'true'
-    : env.DEMO_MODE === '1' || env.DEMO_MODE === 'true',
+  // Standard: aus – auch in der Demo (Back Office für Dienstleister). Nur mit SECURITY_EDITION=1 einschalten.
+  securityEdition: env.SECURITY_EDITION === '1' || env.SECURITY_EDITION === 'true',
   admin: {
     email: env.ADMIN_EMAIL || 'admin@example.com',
     password: env.ADMIN_PASSWORD || '',

@@ -11,6 +11,8 @@
 </head>
 <body class="auth">
   <%- include('demo-banner') %>
+  <% const showFeatures = typeof demo !== 'undefined' && demo && typeof features !== 'undefined' && features; %>
+  <% if (showFeatures) { %><div class="auth-split"><%- include('demo-features') %><% } %>
   <div class="auth-card">
     <div class="auth-brand">
       <% if (s.logo_file) { %><img src="/logo" alt=""><% } else { %><span class="brand-mark lg"><%= (s.company_name || 'B').slice(0, 1) %></span><% } %>
@@ -20,5 +22,6 @@
     <% for (const fl of flash) { %><div class="alert <%= fl.type %>"><%= fl.msg %></div><% } %>
     <%- body %>
   </div>
+  <% if (showFeatures) { %></div><% } %>
 </body>
 </html>

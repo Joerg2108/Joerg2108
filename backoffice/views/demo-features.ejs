@@ -1,0 +1,48 @@
+<%# Leistungsübersicht neben der Anmeldung – nur in der Demo, je nach Version für Dienstleister oder Sicherheitsunternehmen %>
+<%
+  const features = demo.security ? {
+    kicker: 'Back Office für Sicherheitsunternehmen',
+    title: 'Vom Wachbuch bis zur Rechnung – in einer Software.',
+    items: [
+      ['activity', 'Live-Lage', 'Laufende Streifen, Dienste und offene Vorfälle auf einen Blick.'],
+      ['building', 'Objekte & Kontrollpunkte', 'Objektdaten, Ansprechpartner, Dienstanweisungen und Kontrollpunkte.'],
+      ['route', 'Streife & digitales Wachbuch', 'Rundgänge starten, Kontrollpunkte abhaken, lückenlos protokolliert.'],
+      ['alert', 'Vorfälle', 'Vorfälle melden, bearbeiten und als Bericht für den Kunden ausgeben.'],
+      ['users', 'Wächter-App (mobil)', 'Schichten, Streife und Vorfallmeldung direkt auf dem Handy.'],
+      ['car', 'Fahrzeuge', 'Fuhrpark mit Kilometerständen und HU-Terminen.'],
+      ['calendar', 'Dienstplan & Einsatzplanung', 'Prüft Ruhezeiten, Urlaub und abgelaufene Qualifikationen.'],
+      ['clock', 'Stundenauswertung', 'Nacht-, Sonn- und Feiertagszuschläge, CSV für die Lohnbuchhaltung.'],
+      ['euro', 'Angebote & Rechnungen', 'E-Rechnung (XRechnung), GiroCode, Einsätze per Klick abrechnen.'],
+      ['bell', 'Mahnwesen', 'Überfällige Rechnungen erkennen, 3 Mahnstufen mit Gebühren.'],
+      ['chart', 'Ausgaben, Berichte & DATEV', 'Belege, EÜR, Umsatzsteuer und DATEV-Export für den Steuerberater.'],
+      ['shield', 'Rollen & Datenschutz', 'Rechteverwaltung, Zwei-Faktor-Login, Protokoll und Backups.'],
+    ],
+  } : {
+    kicker: 'Back Office für Dienstleistungsunternehmen',
+    title: 'Alles, was Ihr Büro braucht – in einer Software.',
+    items: [
+      ['inbox', 'Anfragen & Kunden', 'Website-Kontaktformular landet direkt im Vertriebs-Board, Kundenkartei mit Historie.'],
+      ['euro', 'Angebote, Aufträge & Rechnungen', 'E-Rechnung (XRechnung), GiroCode, Festschreibung nach GoBD.'],
+      ['repeat', 'Abos & Verträge', 'Wiederkehrende Rechnungen für Wartungs- und Betreuungsverträge.'],
+      ['bell', 'Mahnwesen', 'Überfällige Rechnungen erkennen, 3 Mahnstufen mit Gebühren.'],
+      ['folder', 'Projekte, Aufgaben & Kalender', 'Budget, Stunden und Termine je Projekt im Blick.'],
+      ['clock', 'Zeiterfassung', 'Arbeitszeiten erfassen und direkt abrechnen.'],
+      ['calendar', 'Dienstplan & Einsatzplanung', 'Prüft Ruhezeiten, Urlaub und abgelaufene Qualifikationen.'],
+      ['activity', 'Stundenauswertung', 'Nacht-, Sonn- und Feiertagszuschläge, CSV für die Lohnbuchhaltung.'],
+      ['receipt', 'Ausgaben & Belege', 'Belege hochladen, Lieferanten, EÜR und Umsatzsteuer-Übersicht.'],
+      ['chart', 'Berichte & DATEV', 'Auswertungen und DATEV-Export für den Steuerberater.'],
+      ['file', 'Dateien & Website-Anbindung', 'Dokumentenablage, Leistungskatalog und API für Ihre Website.'],
+      ['shield', 'Rollen & Datenschutz', 'Rechteverwaltung, Zwei-Faktor-Login, Protokoll und Backups.'],
+    ],
+  };
+%>
+<aside class="auth-features">
+  <p class="auth-features-kicker"><%= features.kicker %></p>
+  <h2><%= features.title %></h2>
+  <ul class="auth-features-list">
+    <% for (const [icon, title, text] of features.items) { %>
+    <li><%- h.icon(icon) %><div><strong><%= title %></strong><span><%= text %></span></div></li>
+    <% } %>
+  </ul>
+  <p class="auth-features-usp">Einmalpreis statt Abo · beliebig viele Nutzer · läuft auf Ihrem eigenen Server</p>
+</aside>
