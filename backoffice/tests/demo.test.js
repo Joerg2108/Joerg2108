@@ -121,9 +121,17 @@ test('Reset verwirft Änderungen und stellt die Musterdaten wieder her', async (
   assert.equal((await c.req('/belege/rechnungen')).status, 200);
 });
 
-test('Demo: Sicherheitsdienst-Edition bleibt verfügbar', async () => {
+test('Demo: ohne Sicherheitsdienst-Edition – Back Office für Dienstleister', async () => {
   const c = client(base);
   await c.login(chefin.email, demoData.PASSWORD);
-  assert.equal((await c.req('/objekte')).status, 200);
-  assert.match(await flashText(c, '/'), /Sicherheitsdienst/);
+  assert.equal((await c.req('/objekte')).status, 404);
+  assert.doesNotMatch(await flashText(c, '/'), /Sicherheitsdienst|Streife|Wächter-App|Live-Lage/);
+  assert.equal(db.get('SELECT COUNT(*) AS n FROM objects').n, 0);
+});
+
+test('Demo: Anmeldeseite zeigt die Leistungen des Back Office', async () => {
+  const html = await (await client(base).req('/login')).text();
+  assert.match(html, /auth-features/);
+  assert.match(html, /Back Office für Dienstleistungsunternehmen/);
+  assert.match(html, /Dienstplan &amp; Einsatzplanung/);
 });

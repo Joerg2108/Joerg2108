@@ -79,6 +79,7 @@ function locals() {
     contactUrl: config.demo.contactUrl,
     vendor: config.demo.vendor,
     resetHours: config.demo.resetHours,
+    security: config.securityEdition,
     nextReset: next.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }),
   };
 }

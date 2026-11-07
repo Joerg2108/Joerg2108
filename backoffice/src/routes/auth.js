@@ -18,13 +18,13 @@ const safeNext = (n) => (typeof n === 'string' && n.startsWith('/') && !n.starts
 
 router.get('/login', (req, res) => {
   if (req.user) return res.redirect('/');
-  res.render('auth/login', { title: 'Anmelden', layout: 'layout-auth', next: safeNext(req.query.next), email: '' });
+  res.render('auth/login', { title: 'Anmelden', layout: 'layout-auth', features: true, next: safeNext(req.query.next), email: '' });
 });
 
 router.post('/login', loginLimiter, (req, res) => {
   const email = String(req.body.email || '').trim();
   const next = safeNext(req.body.next);
-  const fail = (msg) => res.status(401).render('auth/login', { title: 'Anmelden', layout: 'layout-auth', next, email, error: msg });
+  const fail = (msg) => res.status(401).render('auth/login', { title: 'Anmelden', layout: 'layout-auth', features: true, next, email, error: msg });
   const u = db.get('SELECT * FROM users WHERE email = ?', email);
   if (u && u.locked_until && u.locked_until > new Date().toISOString()) {
     return fail('Konto vorübergehend gesperrt (zu viele Fehlversuche). Bitte später erneut versuchen.');

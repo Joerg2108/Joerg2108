@@ -1,5 +1,10 @@
 <%
   const tour = [
+    // Nur in der Demo für Sicherheitsunternehmen (ohne Edition fehlen die Rechte, can() filtert sie heraus)
+    { perm: 'livelage', href: '/lage', title: 'Live-Lage', text: 'Laufende Streifen, Dienste und offene Vorfälle – aktualisiert sich automatisch.' },
+    { perm: 'patrols.view', href: '/streife', title: 'Streife & Wachbuch', text: 'Rundgänge mit Kontrollpunkten – lückenlos im digitalen Wachbuch protokolliert.' },
+    { perm: 'incidents', href: '/vorfaelle', title: 'Vorfälle', text: 'Vorfall melden, bearbeiten und als Bericht für den Kunden ausgeben.' },
+    { perm: 'guard', href: '/waechter', title: 'Wächter-App', text: 'So sieht es der Mitarbeiter auf dem Handy: Schichten, Streife, Vorfall melden.' },
     { perm: 'sales', href: '/belege/rechnungen/neu', title: 'Rechnung in 1 Minute', text: 'Leistungen aus dem Katalog wählen, festschreiben, PDF mit GiroCode und XRechnung erzeugen.' },
     { perm: 'sales', href: '/belege/mahnwesen', title: 'Mahnwesen', text: 'Überfällige Rechnungen erkennen und mit Gebühren mahnen – 3 Mahnstufen.' },
     { perm: 'leads', href: '/anfragen', title: 'Anfragen von der Website', text: 'Kontaktformular landet direkt hier – mit einem Klick zum Angebot.' },
