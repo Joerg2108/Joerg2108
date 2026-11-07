@@ -23,6 +23,9 @@
 /portfolio-item/fischer-art-friends-2/*            /de/werk/friends/     301
 /portfolio-item/axel-schulz-2/*                    /de/werk/charity/     301
 
+# Kunst am Bau hat eine eigene Seite
+/:lang/werk/kunst-am-bau/*  /:lang/kunst-am-bau/  301
+
 # Unbekannte Adressen: Fehlerseite in der passenden Sprache
 /en/*                     /en/nicht-gefunden/  404
 /zh/*                     /zh/nicht-gefunden/  404

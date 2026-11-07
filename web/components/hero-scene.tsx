@@ -231,10 +231,22 @@ export function HeroScene({ className = "" }: { className?: string }) {
     }
 
     // wait for the browser to be idle so the 3D never delays the first paint (LCP)
+    // on phones / weak devices the 3D only loads after the first interaction (saves ~600 KB JS + GPU time)
     const w = window as unknown as { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }
-    const id = w.requestIdleCallback ? w.requestIdleCallback(() => void start(), { timeout: 1200 }) : window.setTimeout(() => void start(), 300)
+    const nav = navigator as Navigator & { connection?: { saveData?: boolean } }
+    if (nav.connection?.saveData) return
+    const lazy = window.innerWidth < 768 || (navigator.hardwareConcurrency ?? 8) <= 4
+    let id = 0
+    const evts = ["pointerdown", "touchstart", "scroll", "keydown"] as const
+    const kick = () => {
+      evts.forEach((e) => window.removeEventListener(e, kick))
+      id = w.requestIdleCallback ? w.requestIdleCallback(() => void start(), { timeout: 1200 }) : window.setTimeout(() => void start(), 300)
+    }
+    if (lazy) evts.forEach((e) => window.addEventListener(e, kick, { once: true, passive: true }))
+    else kick()
     return () => {
       disposed = true
+      evts.forEach((e) => window.removeEventListener(e, kick))
       if (!w.requestIdleCallback) window.clearTimeout(id)
       cleanup()
     }

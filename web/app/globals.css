@@ -261,6 +261,19 @@ body {
   transform: none;
 }
 
+/* Hero-Intro: reine CSS-Animation ab dem ersten Paint – wartet nicht auf JS (gut für LCP) */
+@keyframes nc-intro-rise { from { opacity: 0.01; transform: translate3d(0, 24px, 0); } }
+@keyframes nc-intro-word { from { transform: translate3d(0, 110%, 0) rotate(4deg); } }
+p.nc-intro, div.nc-intro {
+  animation: nc-intro-rise 1s var(--nc-ease-out) both;
+  animation-delay: calc(var(--i, 0) * 90ms + 120ms);
+}
+.nc-split.nc-intro .nc-word > span {
+  transform: none;
+  animation: nc-intro-word 1.3s var(--nc-ease-out) both;
+  animation-delay: calc(var(--w, 0) * 55ms + var(--d, 0ms) + 80ms);
+}
+
 /* Chinesisch: Serifenschrift ohne künstliche Kursive */
 html[lang^="zh"] :is(.italic, em, i) {
   font-style: normal;
@@ -289,7 +302,9 @@ html[lang^="zh"] :is(.italic, em, i) {
 /* Bewegung reduzieren: alles sofort sichtbar, keine Endlosschleifen */
 @media (prefers-reduced-motion: reduce) {
   [data-reveal],
+  .nc-intro,
   .nc-word > span {
+    animation: none !important;
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;

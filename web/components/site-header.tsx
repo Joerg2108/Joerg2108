@@ -95,8 +95,9 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             scrolled || panel ? "border border-line bg-[rgb(10_10_16/0.72)] shadow-[var(--nc-shadow-float)] backdrop-blur-xl" : "border border-transparent"
           }`}
         >
-          <Link href={lp(locale, "/")} className="group flex items-baseline gap-2" aria-label="Fischer-Art">
+          <Link href={lp(locale, "/")} className="group flex items-baseline gap-2">
             <span className="font-display text-[1.45rem] font-semibold italic leading-none tracking-tight text-text">Fischer</span>
+            <span className="sr-only">-</span>
             <span className="text-metal font-display text-[1.45rem] font-semibold italic leading-none">Art</span>
           </Link>
 

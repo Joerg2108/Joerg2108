@@ -13,7 +13,7 @@ type P = { params: Promise<{ locale: string; slug: string }> }
 export const dynamicParams = false
 
 export function generateStaticParams() {
-  return locales.flatMap((locale) => workSlugs.map((slug) => ({ locale, slug })))
+  return locales.flatMap((locale) => workSlugs.filter((slug) => slug !== "kunst-am-bau").map((slug) => ({ locale, slug })))
 }
 
 export async function generateMetadata({ params }: P): Promise<Metadata> {

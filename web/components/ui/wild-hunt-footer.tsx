@@ -359,8 +359,9 @@ const WHF_CSS = `
   position: absolute; left: 0; right: 0; bottom: 0; z-index: 6; padding: 0 var(--whf-pad) 18px;
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) auto; column-gap: 20px; row-gap: 0; align-items: start;
 }
-.whf-col h3 { margin: 0 0 .25em; font: inherit; opacity: .55; }
+.whf-col h2 { margin: 0 0 .25em; font: inherit; opacity: .55; }
 .whf-col ul { list-style: none; margin: 0; padding: 0; }
+.whf-col a { display: inline-flex; align-items: center; min-height: 24px; }
 .whf-col a, .whf-up {
   color: inherit; text-decoration: none; opacity: .9; background: none; border: 0; padding: 0; cursor: pointer;
   font: inherit; letter-spacing: inherit; text-transform: inherit;
@@ -959,7 +960,7 @@ export default function WildHuntFooter({
       <div className="whf-foot" ref={footRef}>
         {columns.map((col, i) => (
           <nav className="whf-col whf-wipe" key={col.title} aria-label={col.title} style={{ "--d": 0.5 + i * 0.08 + "s" } as React.CSSProperties}>
-            <h3>{col.title}</h3>
+            <h2>{col.title}</h2>
             <ul>
               {col.links.map((l) => (
                 <li key={l.label}>

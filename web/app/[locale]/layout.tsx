@@ -58,7 +58,9 @@ export default async function LocaleLayout({ children, params }: { children: Rea
           {ui[locale].skip}
         </a>
         <SiteHeader locale={locale} />
-        <main id="inhalt">{children}</main>
+        <main id="inhalt" className="overflow-x-clip">
+          {children}
+        </main>
         <SiteFooter locale={locale} />
       </body>
     </html>

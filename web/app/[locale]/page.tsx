@@ -65,18 +65,18 @@ export default async function Home({ params }: LocaleParams) {
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_70%_45%,rgb(139_123_255/0.18),transparent_60%)]" />
         <HeroScene className="-z-10" />
         <Container className="relative">
-          <p data-reveal className="kicker mb-8 flex items-center gap-3">
+          <p className="nc-intro kicker mb-8 flex items-center gap-3">
             <span className="h-px w-10 bg-[image:var(--nc-gradient-metal)]" />
             {site.tagline} · Leipzig · Borna
           </p>
           <h1 id="hero-title" className="font-display font-medium leading-[0.86] tracking-[-0.03em]">
-            <SplitWords text="Michael" className="block text-[clamp(3.6rem,12vw,11rem)]" />
-            <SplitWords text="Fischer-Art" delay={160} className="text-aurora block text-[clamp(3.6rem,12vw,11rem)] italic" />
+            <SplitWords text="Michael" className="nc-intro block text-[clamp(3.6rem,12vw,11rem)]" />
+            <SplitWords text="Fischer-Art" delay={160} className="nc-intro text-aurora block text-[clamp(3.6rem,12vw,11rem)] italic" />
           </h1>
-          <p data-reveal style={{ ["--i" as string]: 4 }} className="mt-8 max-w-md text-lg text-muted sm:text-xl">
+          <p style={{ ["--i" as string]: 4 }} className="nc-intro mt-8 max-w-md text-lg text-muted sm:text-xl">
             {site.claim}
           </p>
-          <div data-reveal style={{ ["--i" as string]: 5 }} className="mt-10 flex flex-wrap gap-3">
+          <div style={{ ["--i" as string]: 5 }} className="nc-intro mt-10 flex flex-wrap gap-3">
             <Magnetic>
               <ButtonLink href="#werk">{t.discover}</ButtonLink>
             </Magnetic>
@@ -292,7 +292,7 @@ export default async function Home({ params }: LocaleParams) {
           </ul>
           <p data-reveal className="mt-8 text-sm text-dim">
             {shop.order}{" "}
-            <a href={site.shopUrl} target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">
+            <a href={site.shopUrl} target="_blank" rel="noopener noreferrer" className="text-gold underline underline-offset-4 hover:text-text">
               {t.toShop} ↗
             </a>
           </p>
