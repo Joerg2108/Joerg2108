@@ -114,11 +114,24 @@ const MUSTER_CATALOG = [
   { sku: 'BO-HOSTING', category: 'Software & Einrichtung', name: 'Managed Hosting Back Office', unit: 'Monat', price: 1900, description: 'Monatliche Pauschale: Bereitstellung und Betrieb des Servers in Deutschland inkl. täglicher Datensicherung.' },
 ];
 
-const CATALOGS = { standard: CATALOG, muster: MUSTER_CATALOG };
+// Demo für Sicherheitsunternehmen (SECURITY_EDITION=1): Sicherheitsleistungen + Musterkatalog ohne Back-Office-Pakete
+const MUSTER_SECURITY_CATALOG = [
+  { sku: 'SD-01', category: 'Sicherheitsdienstleistungen', name: 'Objektschutz', unit: 'Std.', price: 2950, description: 'Bewachung von Objekten durch Sicherheitsmitarbeiter mit Sachkundeprüfung nach § 34a GewO, Dokumentation im digitalen Wachbuch.' },
+  { sku: 'SD-02', category: 'Sicherheitsdienstleistungen', name: 'Revier- und Streifendienst', unit: 'Kontrolle', price: 1800, description: 'Kontrollfahrt mit Objektrundgang über festgelegte Kontrollpunkte, Protokoll im Wachbuch.' },
+  { sku: 'SD-03', category: 'Sicherheitsdienstleistungen', name: 'Empfangs- und Pfortendienst', unit: 'Std.', price: 2650, description: 'Besucherempfang, Ausweis- und Schlüsselverwaltung, Zutrittskontrolle.' },
+  { sku: 'SD-04', category: 'Sicherheitsdienstleistungen', name: 'Veranstaltungsschutz / Ordnungsdienst', unit: 'Std.', price: 2850, description: 'Einlass- und Ordnungsdienst bei Veranstaltungen, Besucherlenkung und Notfallmanagement.' },
+  { sku: 'SD-05', category: 'Sicherheitsdienstleistungen', name: 'Alarmverfolgung / Intervention', unit: 'Einsatz', price: 6500, description: 'Anfahrt nach Alarmauslösung, Objektkontrolle, Sofortmaßnahmen und Einsatzbericht.' },
+  { sku: 'SD-06', category: 'Sicherheitsdienstleistungen', name: 'Schließ- und Öffnungsdienst – Monatspauschale', unit: 'Monat', price: 18000, description: 'Tägliches Auf- und Abschließen inkl. Kontrollgang und Protokoll.' },
+  { sku: 'SD-07', category: 'Sicherheitsdienstleistungen', name: 'Brandsicherheitswache', unit: 'Std.', price: 3200, description: 'Brandsicherheitswache bei Veranstaltungen und feuergefährlichen Arbeiten.' },
+  ...MUSTER_CATALOG.filter((p) => p.category !== 'Software & Einrichtung'),
+];
 
-// Demo-Instanzen nutzen immer den neutralen Musterkatalog
+const CATALOGS = { standard: CATALOG, muster: MUSTER_CATALOG, 'muster-sicherheit': MUSTER_SECURITY_CATALOG };
+
+// Demo-Instanzen nutzen immer einen neutralen Musterkatalog – mit Sicherheits-Edition den für Sicherheitsunternehmen
 function active() {
-  return CATALOGS[config.demo.enabled ? 'muster' : process.env.CATALOG] || CATALOG;
+  if (config.demo.enabled) return config.securityEdition ? MUSTER_SECURITY_CATALOG : MUSTER_CATALOG;
+  return CATALOGS[process.env.CATALOG] || CATALOG;
 }
 
 // Spielt den Katalog ein; vorhandene Artikelnummern werden übersprungen (Preise bleiben, wie du sie gepflegt hast)
@@ -158,7 +171,7 @@ function publicCatalog() {
   };
 }
 
-module.exports = { CATALOG, MUSTER_CATALOG, CATALOGS, active, importCatalog, publicCatalog };
+module.exports = { CATALOG, MUSTER_CATALOG, MUSTER_SECURITY_CATALOG, CATALOGS, active, importCatalog, publicCatalog };
 
 // Direkt ausführbar: npm run catalog
 if (require.main === module) {

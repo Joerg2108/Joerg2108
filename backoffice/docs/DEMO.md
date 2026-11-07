@@ -4,6 +4,15 @@ Die Demo ist eine **eigene, öffentlich erreichbare Instanz** des Back Office mi
 
 Technisch ist es derselbe Code. Der Schalter `DEMO_MODE=1` macht daraus die Demo, deshalb profitiert die Demo automatisch von jedem Update.
 
+## Zwei Demo-Versionen
+
+| Demo | Render-Dienst | Für wen | Unterschied |
+|---|---|---|---|
+| **Dienstleistungsunternehmen** | `backoffice-demo` | Hausmeister & Facility, Reinigung, Handwerk, Agenturen, Event | Muster Service GmbH, Katalog mit Dienstleistungen und Back-Office-Paketen, **ohne** Sicherheitsdienst |
+| **Sicherheitsunternehmen** | `backoffice-demo-sicherheit` | Wach- und Sicherheitsdienste | Muster Sicherheit GmbH, zusätzlich `SECURITY_EDITION=1`: Live-Lage, Objekte, Streife/Wachbuch, Vorfälle, Fahrzeuge, Wächter-App, Katalog mit Sicherheitsleistungen |
+
+Beide stehen in der `render.yaml` und werden über denselben Blueprint angelegt. Die Anmeldeseite zeigt jeweils links die passenden Leistungen.
+
 ---
 
 ## Was die Demo kann
@@ -82,6 +91,7 @@ Nach 2 bis 4 Minuten läuft die Demo unter einer Adresse wie `https://backoffice
 
 `demo.joerg-noack.com` wirkt deutlich professioneller als `…onrender.com`:
 Render → Dienst **backoffice-demo** → **Settings → Custom Domains** → `demo.joerg-noack.com` eintragen und den angezeigten **CNAME**-Eintrag bei deinem Domain-Anbieter anlegen (Ziel: `backoffice-demo-xxxx.onrender.com`).
+Für die Sicherheits-Demo genauso, z. B. `demo-sicherheit.joerg-noack.com` → Dienst **backoffice-demo-sicherheit**.
 
 ### Anpassen
 
@@ -90,6 +100,7 @@ Render → Dienst **backoffice-demo** → **Settings → Custom Domains** → `d
 | `DEMO_RESET_HOURS` | Abstand zwischen zwei Resets in Stunden (mind. 1) | `6` |
 | `DEMO_CONTACT_URL` | Ziel des Buttons „Für Ihr Unternehmen anfragen“; leer = kein Button | – |
 | `DEMO_VENDOR` | Anbietername im Banner („Anbieter: …“); leer = ausgeblendet | – |
+| `SECURITY_EDITION` | `1` = Demo für Sicherheitsunternehmen (Sicherheitsdienst-Funktionen, eigener Firmenname und Katalog) | aus |
 
 ---
 

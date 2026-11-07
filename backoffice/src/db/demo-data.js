@@ -37,6 +37,13 @@ function seed({ adminEmail, password = PASSWORD } = {}) {
     public_contact_url: 'https://www.muster-service.example/kontakt',
     public_catalog_intro: 'Beratung, Service, Montage und Digitales – alles aus einer Hand.',
   });
+  // Demo für Sicherheitsunternehmen: eigener Firmenname und Katalogtext
+  if (config.securityEdition) {
+    settings.setMany({
+      company_name: 'Muster Sicherheit GmbH',
+      public_catalog_intro: 'Objektschutz, Revierdienst, Empfang und Veranstaltungsschutz – zuverlässig rund um die Uhr.',
+    });
+  }
 
   const users = ACCOUNTS.map((a, i) => Number(db.run(
     'INSERT INTO users (email, name, password_hash, role, hourly_rate) VALUES (?, ?, ?, ?, ?)',
@@ -61,7 +68,7 @@ function seed({ adminEmail, password = PASSWORD } = {}) {
   const c5 = customer({ company: 'Logistik Nord KG', first: 'Oliver', last: 'Hafen', email: 'einkauf@logistik-nord.example', street: 'Hafenstraße 3', zip: '12349', city: 'Musterstadt', tags: 'Schulung, Montage', status: 'interessent' });
   customer({ type: 'privat', salutation: 'Frau', first: 'Maria', last: 'Beispiel', email: 'maria.beispiel@example.com', phone: '0171 9876543', street: 'Gartenweg 2', zip: '12345', city: 'Musterstadt', tags: 'Privatkunde' });
 
-  catalog.importCatalog(catalog.MUSTER_CATALOG);
+  catalog.importCatalog(catalog.active());
 
   const project = (name, customerId, status, budget, rate, description) => Number(db.run(
     'INSERT INTO projects (number, name, customer_id, status, start_date, budget, hourly_rate, manager_id, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
