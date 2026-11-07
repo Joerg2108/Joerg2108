@@ -13,8 +13,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
   return (
     <WildHuntFooter
       wordmark="FISCHER-ART"
-      preset="ink"
-      palette={{ background: "#06060a", ink: "#f4f1ea" }}
+      preset="vermilion"
       image={{ src: "/images/werk/originale/originale-14.webp", alt: "", position: "50% 45%" }}
       imageHeight={0.55}
       height="min(100svh, 860px)"
