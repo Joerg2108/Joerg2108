@@ -1,0 +1,1174 @@
+[
+  {
+    "id": "B01",
+    "thema": "5 Abos, 1 Betrieb – und keins redet mit dem anderen",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office · Klartext",
+        "headline": "Fünf Software-Abos.",
+        "akzent": "Und keins redet mit dem anderen.",
+        "text": "Rechnung, CRM, Zeiterfassung, Projekte, Dienstplan. Jeden Monat bezahlt, jeden Tag abgetippt.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Die übliche Kombi",
+        "headline": "Was das kostet",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Rechnungsprogramm: rund 15 € pro Nutzer",
+          "CRM: rund 25 € pro Nutzer",
+          "Zeiterfassung und Projekte: rund 20 € pro Nutzer"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "zahl",
+        "eyebrow": "Bei 3 Nutzern",
+        "headline": "2.160 €",
+        "akzent": "pro Jahr. Jedes Jahr.",
+        "text": "Rechenbeispiel mit üblichen Listenpreisen, netto. Und die Daten liegen trotzdem in fünf verschiedenen Systemen.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Die Alternative",
+        "headline": "Alles in einem Back Office.",
+        "akzent": "",
+        "text": "Umsatz, offene Rechnungen, Anfragen und Einsätze auf einen Blick.",
+        "punkte": [],
+        "projekt": "bo-dashboard"
+      },
+      {
+        "typ": "zahl",
+        "eyebrow": "Einmal zahlen",
+        "headline": "< 9",
+        "akzent": "Monate bis es sich rechnet.",
+        "text": "Ab 1.500 € einmalig plus Hosting. Beliebig viele Nutzer, kein Abo. Rechenbeispiel bei 3 Nutzern, netto.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Klicken Sie selbst.",
+        "akzent": "Live-Demo ohne Anmeldung.",
+        "text": "Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Fünf Software-Abos für einen Betrieb. Und keins redet mit dem anderen.\n\nRechnungsprogramm, CRM, Zeiterfassung, Projekte, Dienstplan. Jedes kostet „nur“ 10 bis 25 € im Monat, pro Nutzer. Bei drei Nutzern sind das schnell 2.160 € im Jahr, jedes Jahr. Und trotzdem tippen Sie Kundendaten von einem Programm ins nächste.\n\nMein Back Office bringt alles an einen Ort: Anfragen, Angebote, Rechnungen, Mahnwesen, Einsatzplanung und Berichte. Ab 1.500 € einmalig plus Hosting, beliebig viele Nutzer, kein Abo. Im Rechenbeispiel hat es sich nach weniger als neun Monaten bezahlt.\n\nTesten Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.\n\n(Rechenbeispiel mit üblichen Listenpreisen, netto.)",
+    "hashtags": [
+      "#backoffice",
+      "#softwareohneabo",
+      "#kmu",
+      "#selbstständig",
+      "#dienstleister",
+      "#digitalisierung",
+      "#buchhaltung",
+      "#kleinunternehmen",
+      "#büroorganisation"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold: fünf Software-Abos kosten bei drei Nutzern rund 2.160 € im Jahr, das Back Office ersetzt sie mit Einmalpreis, inklusive Dashboard-Screenshot.",
+    "story": {
+      "typ": "fakt",
+      "eyebrow": "Back Office",
+      "headline": "2.160 €",
+      "akzent": "pro Jahr für fünf Abos.",
+      "text": "Oder einmal zahlen. Rechenbeispiel im Beitrag.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B02",
+    "thema": "Sicherheitsdienst: Wann war Ihr Mitarbeiter da?",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Für Sicherheitsdienste",
+        "headline": "„Wann war Ihr Mann da?“",
+        "akzent": "Haben Sie die Antwort sofort?",
+        "text": "Die Frage, die jeder Objektkunde irgendwann stellt, und wie das digitale Wachbuch sie beantwortet.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Mit Papier",
+        "headline": "Wachbuch suchen, Seite finden, entziffern.",
+        "akzent": "",
+        "text": "Und hoffen, dass der Eintrag vollständig ist. Bis dahin ist der Kunde schon unruhig.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Mit der Wächter-App",
+        "headline": "Rundgang mit einem Tipp.",
+        "akzent": "",
+        "text": "Jeder Eintrag mit Uhrzeit, direkt vom Handy.",
+        "punkte": [],
+        "projekt": "bo-streife"
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Was Sie dann haben",
+        "headline": "Lückenlos dokumentiert",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Jeder Rundgang mit Uhrzeit",
+          "Kontrollpunkte und Notizen",
+          "Laufende und abgeschlossene Streifen",
+          "Keine App aus dem Store nötig"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "In der Einsatzleitung",
+        "headline": "Live sehen, was läuft.",
+        "akzent": "",
+        "text": "Laufende Streifen, Personal im Dienst, offene Vorfälle.",
+        "punkte": [],
+        "projekt": "bo-lage"
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Testen Sie die Wächter-App.",
+        "akzent": "Ohne Anmeldung.",
+        "text": "Live-Demo für Sicherheitsunternehmen: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "„Wann war Ihr Mitarbeiter am Objekt?“ Haben Sie die Antwort in zehn Sekunden?\n\nMit einem Wachbuch auf Papier heißt das: Buch suchen, Seite finden, Handschrift entziffern. Mit der Wächter-App im Back Office tippt Ihr Mitarbeiter jeden Rundgang direkt am Handy ein, mit Uhrzeit, Kontrollpunkt und Notiz. Keine App aus dem Store nötig, sie läuft im Browser.\n\nDie Einsatzleitung sieht in der Live-Lage sofort, welche Streife gerade läuft, wer im Dienst ist und welche Vorfälle offen sind.\n\nTesten Sie die Live-Demo für Sicherheitsunternehmen ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#sicherheitsdienst",
+      "#wachdienst",
+      "#objektschutz",
+      "#wachbuch",
+      "#34a",
+      "#sicherheitsunternehmen",
+      "#digitalisierung",
+      "#backoffice",
+      "#einsatzleitung"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über das digitale Wachbuch für Sicherheitsdienste mit Screenshots der Wächter-App am Handy und der Live-Lage der Einsatzleitung.",
+    "story": {
+      "typ": "projekt",
+      "eyebrow": "Wächter-App",
+      "headline": "Rundgang mit einem Tipp.",
+      "akzent": "",
+      "text": "",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": "bo-streife"
+    }
+  },
+  {
+    "id": "B03",
+    "thema": "Klartext: Unbezahlte Rechnungen sind ein Kredit",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office · Klartext",
+        "headline": "Offene Rechnungen",
+        "akzent": "sind ein Kredit ohne Zinsen.",
+        "text": "Den Sie Ihren Kunden nie geben wollten. Warum Mahnen kein Gefühl, sondern ein Ablauf sein sollte.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Das Problem",
+        "headline": "Mahnen ist unangenehm. Also bleibt es liegen.",
+        "akzent": "",
+        "text": "Und plötzlich sind drei Rechnungen über 60 Tage alt, und keiner weiß mehr genau, wer schon erinnert wurde.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Mit dem Back Office",
+        "headline": "Überfälliges sehen Sie sofort.",
+        "akzent": "",
+        "text": "Mit Stufe, Betrag und nächstem Schritt.",
+        "punkte": [],
+        "projekt": "bo-mahnwesen"
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "So läuft es",
+        "headline": "Drei Stufen, ein Klick",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Zahlungserinnerung, 1. und 2. Mahnung",
+          "Mahngebühren und Zinsen hinterlegt",
+          "PDF mit QR-Code zum Bezahlen"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Der Unterschied",
+        "headline": "Nicht Sie mahnen. Der Ablauf mahnt.",
+        "akzent": "",
+        "text": "Das nimmt das Persönliche raus. Und das Geld kommt schneller.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Wie viel ist bei Ihnen gerade offen?",
+        "akzent": "Testen Sie die Demo.",
+        "text": "Live-Demo ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Klartext: Offene Rechnungen sind ein Kredit ohne Zinsen, den Sie Ihren Kunden nie geben wollten.\n\nMahnen ist unangenehm, also bleibt es liegen. Und irgendwann sind drei Rechnungen über 60 Tage alt, und niemand weiß mehr, wer schon erinnert wurde.\n\nIm Back Office sehen Sie überfällige Rechnungen sofort, mit Betrag, Mahnstufe und nächstem Schritt. Zahlungserinnerung, 1. und 2. Mahnung mit hinterlegten Gebühren und Zinsen, als PDF mit QR-Code zum Bezahlen.\n\nNicht Sie mahnen, der Ablauf mahnt. Das nimmt das Persönliche raus, und das Geld kommt schneller.\n\nTesten Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#mahnwesen",
+      "#liquidität",
+      "#rechnungen",
+      "#backoffice",
+      "#kmu",
+      "#selbstständig",
+      "#dienstleister",
+      "#buchhaltung",
+      "#kleinunternehmen"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold mit dem Titel „Offene Rechnungen sind ein Kredit ohne Zinsen“ über das Mahnwesen im Back Office, mit Screenshot.",
+    "story": {
+      "typ": "teaser",
+      "eyebrow": "Klartext",
+      "headline": "Offene Rechnungen",
+      "akzent": "sind ein Kredit ohne Zinsen.",
+      "text": "Wie Mahnen zum Ablauf wird.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B04",
+    "thema": "Sicherheitsdienst: Abgelaufener Nachweis im Dienstplan",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Für Sicherheitsdienste",
+        "headline": "Nachweis abgelaufen.",
+        "akzent": "Mitarbeiter steht trotzdem im Plan.",
+        "text": "Wie Ihr Dienstplan das merkt, bevor es der Kunde merkt.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Was im Alltag durchrutscht",
+        "headline": "Typische Lücken",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Ersthelfer-Nachweis seit Wochen abgelaufen",
+          "Ruhezeit unter 11 Stunden",
+          "Mitarbeiter im Urlaub, aber eingeplant"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Mit dem Back Office",
+        "headline": "Nachweise im Blick.",
+        "akzent": "",
+        "text": "Abgelaufenes rot, Ablauf rechtzeitig angekündigt.",
+        "punkte": [],
+        "projekt": "bo-personal"
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Im Dienstplan",
+        "headline": "Konflikte sehen Sie beim Planen.",
+        "akzent": "Nicht beim Einsatz.",
+        "text": "Fehlende Qualifikation, Doppelbelegung, Urlaub, Ruhezeit: Der Plan zeigt den Hinweis direkt an der Schicht.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Planen Sie sicher.",
+        "akzent": "Im wahrsten Sinne.",
+        "text": "Live-Demo für Sicherheitsunternehmen: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Ersthelfer-Nachweis abgelaufen, und der Mitarbeiter steht trotzdem im Plan. Wer merkt das zuerst: Sie oder Ihr Kunde?\n\nIm Alltag rutscht so etwas schnell durch. Genauso wie eine Ruhezeit unter elf Stunden oder ein Mitarbeiter, der im Urlaub ist und trotzdem eingeplant wurde.\n\nIm Back Office sehen Sie alle Nachweise Ihrer Mitarbeiter auf einen Blick, Abgelaufenes rot, und der Ablauf wird rechtzeitig vorher angekündigt. Im Dienstplan erscheint der Hinweis direkt an der Schicht, beim Planen und nicht erst beim Einsatz.\n\nTesten Sie die Live-Demo für Sicherheitsunternehmen ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#sicherheitsdienst",
+      "#dienstplan",
+      "#wachdienst",
+      "#34a",
+      "#personalplanung",
+      "#arbeitszeitgesetz",
+      "#sicherheitsunternehmen",
+      "#backoffice",
+      "#objektschutz"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über Nachweise und Konflikte im Dienstplan für Sicherheitsdienste, mit Screenshot der Personalübersicht.",
+    "story": {
+      "typ": "frage",
+      "eyebrow": "Kurze Frage",
+      "headline": "Wer merkt den abgelaufenen Nachweis zuerst?",
+      "akzent": "",
+      "text": "Sie oder Ihr Kunde?",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B05",
+    "thema": "Die Anfrage kam am Freitag. Gesehen am Dienstag.",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office · Anfragen",
+        "headline": "Anfrage am Freitag.",
+        "akzent": "Gesehen am Dienstag.",
+        "text": "Da hatte der Kunde längst woanders unterschrieben.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Wo Anfragen verschwinden",
+        "headline": "Im Postfach, zwischen Werbung und Rechnungen.",
+        "akzent": "",
+        "text": "Oder im Kopf von jemandem, der gerade im Urlaub ist.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Mit dem Back Office",
+        "headline": "Jede Anfrage auf dem Board.",
+        "akzent": "",
+        "text": "Neu, kontaktiert, qualifiziert, gewonnen.",
+        "punkte": [],
+        "projekt": "bo-anfragen"
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Was dann passiert",
+        "headline": "Vom Formular zum Auftrag",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Website-Anfragen landen automatisch im Board",
+          "Status und Wert jeder Anfrage sichtbar",
+          "Mit einem Klick Kunde und Angebot anlegen"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Der Nebeneffekt",
+        "headline": "Sie sehen, was in der Pipeline steckt.",
+        "akzent": "",
+        "text": "Wie viel Umsatz gerade verhandelt wird, wissen Sie auf einen Blick.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Keine Anfrage mehr verlieren.",
+        "akzent": "Testen Sie die Demo.",
+        "text": "Live-Demo ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Die Anfrage kam am Freitag. Gesehen am Dienstag. Da hatte der Kunde schon woanders unterschrieben.\n\nAnfragen verschwinden im Postfach zwischen Werbung und Rechnungen, oder im Kopf von jemandem, der gerade im Urlaub ist.\n\nIm Back Office landen Anfragen von Ihrer Website automatisch auf einem Vertriebs-Board: neu, kontaktiert, qualifiziert, gewonnen. Mit Status und Wert. Mit einem Klick wird aus der Anfrage ein Kunde und ein Angebot aus Ihrem Leistungskatalog.\n\nDer Nebeneffekt: Sie sehen jederzeit, wie viel Umsatz gerade in Ihrer Pipeline steckt.\n\nTesten Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#vertrieb",
+      "#kundenanfragen",
+      "#crm",
+      "#backoffice",
+      "#kmu",
+      "#selbstständig",
+      "#dienstleister",
+      "#kundengewinnung",
+      "#digitalisierung"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold mit dem Titel „Anfrage am Freitag. Gesehen am Dienstag.“ über das Vertriebs-Board im Back Office, mit Screenshot.",
+    "story": {
+      "typ": "teaser",
+      "eyebrow": "Back Office",
+      "headline": "Anfrage am Freitag.",
+      "akzent": "Gesehen am Dienstag.",
+      "text": "Wie Ihnen das nicht mehr passiert.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B06",
+    "thema": "Sicherheitsdienst: Vom Vorfall zum Bericht für den Kunden",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Für Sicherheitsdienste",
+        "headline": "Vorfall um 2:14 Uhr.",
+        "akzent": "Bericht beim Kunden um 8:00 Uhr.",
+        "text": "Wie aus einer Meldung vom Handy ein professioneller Bericht wird.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Der Ablauf",
+        "headline": "Vier Schritte",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Mitarbeiter meldet vom Handy",
+          "Einsatzleitung sieht es sofort",
+          "Maßnahmen eintragen, abschließen",
+          "Bericht für den Kunden ausgeben"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Mit dem Back Office",
+        "headline": "Alle Vorfälle an einem Ort.",
+        "akzent": "",
+        "text": "Mit Objekt, Schwere, Kategorie und Status.",
+        "punkte": [],
+        "projekt": "bo-vorfaelle"
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Was Ihr Kunde sieht",
+        "headline": "Einen Dienstleister, der alles im Griff hat.",
+        "akzent": "",
+        "text": "Ein sauberer Bericht am Morgen sagt mehr über Ihre Arbeit als jede Werbebroschüre.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Melden Sie einen Testvorfall.",
+        "akzent": "In der Live-Demo.",
+        "text": "Ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Vorfall um 2:14 Uhr. Bericht beim Kunden um 8:00 Uhr.\n\nSo läuft es im Back Office für Sicherheitsunternehmen: Ihr Mitarbeiter meldet den Vorfall direkt vom Handy, die Einsatzleitung sieht ihn sofort, trägt Maßnahmen ein und schließt ihn ab. Am Morgen geht der Bericht an den Kunden.\n\nAlle Vorfälle stehen an einem Ort, mit Objekt, Schwere, Kategorie und Status. Kein Zettel, keine Nachfrage per Telefon.\n\nEin sauberer Bericht am Morgen sagt mehr über Ihre Arbeit als jede Werbebroschüre.\n\nMelden Sie einen Testvorfall in der Live-Demo, ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#sicherheitsdienst",
+      "#vorfallbericht",
+      "#wachdienst",
+      "#objektschutz",
+      "#sicherheitsunternehmen",
+      "#einsatzleitung",
+      "#digitalisierung",
+      "#backoffice",
+      "#34a"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold darüber, wie aus einer Vorfallmeldung vom Handy ein Bericht für den Kunden wird, mit Screenshot der Vorfallübersicht.",
+    "story": {
+      "typ": "teaser",
+      "eyebrow": "Für Sicherheitsdienste",
+      "headline": "Vorfall um 2:14 Uhr.",
+      "akzent": "Bericht um 8:00 Uhr.",
+      "text": "So geht's im Back Office.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B07",
+    "thema": "E-Rechnung: Ab 2027 reicht ein PDF im B2B nicht mehr",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office · E-Rechnung",
+        "headline": "Die PDF-Rechnung",
+        "akzent": "hat im B2B bald ausgedient.",
+        "text": "Was die E-Rechnung für kleine Betriebe bedeutet, und wie Sie vorbereitet sind.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Der Fahrplan",
+        "headline": "Was wann gilt",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Seit 2025: E-Rechnungen empfangen können",
+          "Ab 2027: Ausstellen für größere Betriebe",
+          "Ab 2028: Ausstellen für alle im B2B"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Mit dem Back Office",
+        "headline": "XRechnung zu jeder Rechnung.",
+        "akzent": "",
+        "text": "Dazu PDF mit GiroCode für schnelles Bezahlen.",
+        "punkte": [],
+        "projekt": "bo-rechnungen"
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Was noch dazugehört",
+        "headline": "Ordnung, die hilft",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Festschreiben und lückenlose Nummern",
+          "Storno statt Löschen",
+          "Änderungsprotokoll"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Wichtig",
+        "headline": "Ihr Fall, Ihr Steuerberater.",
+        "akzent": "",
+        "text": "Welche Frist für Sie gilt, klären Sie mit Ihrer Steuerberatung. Das Back Office unterstützt Sie bei der Umsetzung.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Erzeugen Sie eine XRechnung.",
+        "akzent": "In der Live-Demo.",
+        "text": "Ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Die PDF-Rechnung per Mail hat im B2B bald ausgedient.\n\nDer Fahrplan: Seit 2025 müssen Unternehmen E-Rechnungen empfangen können. Ab 2027 wird das Ausstellen für größere Betriebe Pflicht, ab 2028 für alle im B2B-Geschäft.\n\nIm Back Office entsteht zu jeder Rechnung eine XRechnung, dazu ein PDF mit GiroCode, damit Ihr Kunde per Scan bezahlt. Rechnungen werden festgeschrieben, Nummern sind lückenlos, statt Löschen gibt es Storno, und jede Änderung wird protokolliert.\n\nWelche Frist genau für Sie gilt, klären Sie bitte mit Ihrer Steuerberatung. Das Back Office unterstützt Sie bei der Umsetzung.\n\nErzeugen Sie selbst eine XRechnung in der Live-Demo, ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#erechnung",
+      "#xrechnung",
+      "#rechnungen",
+      "#backoffice",
+      "#kmu",
+      "#selbstständig",
+      "#buchhaltung",
+      "#digitalisierung",
+      "#kleinunternehmen"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über die E-Rechnungspflicht im B2B ab 2027 und 2028 und die XRechnung im Back Office, mit Screenshot der Rechnungsübersicht.",
+    "story": {
+      "typ": "fakt",
+      "eyebrow": "E-Rechnung",
+      "headline": "2028",
+      "akzent": "PDF reicht im B2B nicht mehr.",
+      "text": "Ausstellen wird für alle Pflicht. Sind Sie vorbereitet?",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B08",
+    "thema": "Sicherheitsdienst: Nachtdienst und Zuschläge per Klick abrechnen",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Für Sicherheitsdienste",
+        "headline": "Nacht, Sonntag, Feiertag.",
+        "akzent": "Wer rechnet das bei Ihnen aus?",
+        "text": "Und wie lange dauert es jeden Monat?",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Das Monatsende",
+        "headline": "Stundenzettel, Taschenrechner, Excel.",
+        "akzent": "",
+        "text": "Ein Nachmittag für die Lohnbuchhaltung, noch einer für die Rechnungen an die Kunden.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Mit dem Back Office",
+        "headline": "Die Stunden rechnen sich selbst.",
+        "akzent": "",
+        "text": "Ist, Soll, Nacht, Sonntag, Feiertag je Mitarbeiter.",
+        "punkte": [],
+        "projekt": "bo-auswertung"
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Zwei Klicks",
+        "headline": "Lohn und Rechnung",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "CSV für die Lohnbuchhaltung",
+          "Einsätze mit Zuschlägen an Kunden abrechnen",
+          "Abgerechnete Schichten werden gesperrt"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Das Ergebnis",
+        "headline": "Nichts doppelt, nichts vergessen.",
+        "akzent": "",
+        "text": "Jede geleistete Stunde landet auf einer Rechnung, und keine zweimal.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Rechnen Sie einen Monat ab.",
+        "akzent": "In der Live-Demo.",
+        "text": "Ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Nachtdienst, Sonntag, Feiertag. Wer rechnet das bei Ihnen aus, und wie lange dauert es jeden Monat?\n\nIm Sicherheitsdienst sind Nacht und Wochenende Alltag. Am Monatsende heißt das oft: Stundenzettel, Taschenrechner, Excel. Ein Nachmittag für die Lohnbuchhaltung, noch einer für die Rechnungen an die Kunden.\n\nIm Back Office rechnen sich die Stunden selbst: Ist, Soll, Nacht-, Sonntags- und Feiertagsstunden je Mitarbeiter. Als CSV für die Lohnbuchhaltung, und die Einsätze rechnen Sie mit Zuschlägen per Klick beim Kunden ab. Abgerechnete Schichten werden gesperrt, nichts wird doppelt berechnet.\n\nRechnen Sie einen Monat in der Live-Demo ab, ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#sicherheitsdienst",
+      "#zuschläge",
+      "#nachtdienst",
+      "#lohnabrechnung",
+      "#wachdienst",
+      "#sicherheitsunternehmen",
+      "#backoffice",
+      "#digitalisierung",
+      "#34a"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über die automatische Berechnung von Nacht-, Sonntags- und Feiertagsstunden und die Abrechnung mit Zuschlägen, mit Screenshot der Stundenauswertung.",
+    "story": {
+      "typ": "frage",
+      "eyebrow": "Kurze Frage",
+      "headline": "Wie lange dauert Ihre Zuschlagsrechnung?",
+      "akzent": "",
+      "text": "Im Back Office: zwei Klicks.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B09",
+    "thema": "Ich nutze mein Back Office selbst – jeden Tag",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office · Praxis",
+        "headline": "Ich verkaufe keine Theorie.",
+        "akzent": "Ich nutze es selbst. Jeden Tag.",
+        "text": "Warum mein eigener Betrieb mit genau dem Back Office läuft, das ich Ihnen anbiete.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "zahl",
+        "eyebrow": "Mein eigener Betrieb",
+        "headline": "17",
+        "akzent": "Leistungen in 4 Bereichen.",
+        "text": "Facility, Event, Digital und Organisation. Alles läuft über ein System: Anfragen, Angebote, Rechnungen, Einsätze.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "So sieht es aus",
+        "headline": "Projekte mit Budget und Stunden.",
+        "akzent": "",
+        "text": "Erfasste Zeiten rechnen Sie mit einem Klick ab.",
+        "punkte": [],
+        "projekt": "bo-projekte"
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Was das für Sie heißt",
+        "headline": "Jede Funktion ist im Alltag getestet.",
+        "akzent": "",
+        "text": "Was mich im eigenen Büro nervt, wird verbessert. Davon profitieren alle, die es nutzen.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Schauen Sie hinein.",
+        "akzent": "Live-Demo ohne Anmeldung.",
+        "text": "Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Ich verkaufe keine Theorie. Ich nutze mein Back Office selbst, jeden Tag.\n\nMein eigener Betrieb hat 17 Leistungen in vier Bereichen: Facility, Event, Digital und Organisation. Anfragen, Angebote, Rechnungen, Projekte und Einsätze laufen über genau das System, das ich Ihnen anbiete.\n\nDas heißt für Sie: Jede Funktion ist im echten Alltag getestet. Und was mich im eigenen Büro nervt, wird verbessert, davon profitieren alle, die es nutzen.\n\nSchauen Sie selbst hinein, in der Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#backoffice",
+      "#softwareohneabo",
+      "#dienstleister",
+      "#kmu",
+      "#selbstständig",
+      "#digitalisierung",
+      "#projektmanagement",
+      "#praxis",
+      "#kleinunternehmen"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold: Jörg Noack nutzt sein Back Office im eigenen Betrieb mit 17 Leistungen in vier Bereichen, mit Screenshot der Projektübersicht.",
+    "story": {
+      "typ": "fakt",
+      "eyebrow": "Praxis",
+      "headline": "17",
+      "akzent": "Leistungen, ein System.",
+      "text": "Mein eigener Betrieb läuft mit dem Back Office.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B10",
+    "thema": "Sicherheitsdienst: Einsatzleitung ohne Rumtelefonieren",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Für Sicherheitsdienste",
+        "headline": "Einsatzleitung",
+        "akzent": "ohne Rumtelefonieren.",
+        "text": "Wer ist im Dienst, welche Streife läuft, was ist offen? Ein Blick statt zehn Anrufe.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Live-Lage",
+        "headline": "Alles, was gerade läuft.",
+        "akzent": "",
+        "text": "Aktualisiert sich von selbst.",
+        "punkte": [],
+        "projekt": "bo-lage"
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Objekte",
+        "headline": "Jedes Objekt mit allen Infos.",
+        "akzent": "",
+        "text": "Ansprechpartner, Dienstanweisung, Kontrollpunkte.",
+        "punkte": [],
+        "projekt": "bo-objekte"
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Was Neue sofort wissen",
+        "headline": "Kein Wissen im Kopf",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Dienstanweisungen pro Objekt",
+          "Kontrollpunkte für jeden Rundgang",
+          "Offene Vorfälle am Objekt"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Übernehmen Sie die Einsatzleitung.",
+        "akzent": "In der Live-Demo.",
+        "text": "Ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Einsatzleitung ohne Rumtelefonieren.\n\nWer ist gerade im Dienst, welche Streife läuft, welcher Vorfall ist noch offen? Im Back Office für Sicherheitsunternehmen zeigt die Live-Lage alles auf einen Blick und aktualisiert sich von selbst.\n\nUnd jedes Objekt hat seine Infos an einem Ort: Ansprechpartner, Dienstanweisungen und Kontrollpunkte. Ein neuer Mitarbeiter weiß sofort, was zu tun ist, statt erst drei Kollegen anzurufen.\n\nÜbernehmen Sie selbst die Einsatzleitung in der Live-Demo, ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#sicherheitsdienst",
+      "#einsatzleitung",
+      "#objektschutz",
+      "#wachdienst",
+      "#sicherheitsunternehmen",
+      "#digitalisierung",
+      "#backoffice",
+      "#34a",
+      "#streifendienst"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über die Live-Lage und die Objektverwaltung im Back Office für Sicherheitsdienste, mit zwei Screenshots.",
+    "story": {
+      "typ": "projekt",
+      "eyebrow": "Live-Lage",
+      "headline": "Ein Blick statt zehn Anrufe.",
+      "akzent": "",
+      "text": "",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": "bo-lage"
+    }
+  },
+  {
+    "id": "B11",
+    "thema": "Klartext: Ihr Steuerberater will keinen Schuhkarton",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office · Klartext",
+        "headline": "Ihr Steuerberater",
+        "akzent": "will keinen Schuhkarton.",
+        "text": "Und Sie wollen nicht jeden Monat einen Nachmittag Belege sortieren.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Mit dem Back Office",
+        "headline": "Berichte, die schon fertig sind.",
+        "akzent": "",
+        "text": "Umsatz, offene Posten und Auswertungen auf Abruf.",
+        "punkte": [],
+        "projekt": "bo-berichte"
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Was drin ist",
+        "headline": "Für Sie und die Steuerberatung",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Einnahmen-Überschuss-Rechnung",
+          "Umsatzsteuer-Übersicht",
+          "Belege hochladen und kategorisieren",
+          "DATEV-Export per Klick"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "zahl",
+        "eyebrow": "Am Monatsende",
+        "headline": "1",
+        "akzent": "Klick statt ein Nachmittag.",
+        "text": "Der DATEV-Export geht fertig an Ihre Steuerberatung.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Erstellen Sie einen DATEV-Export.",
+        "akzent": "In der Live-Demo.",
+        "text": "Ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Klartext: Ihr Steuerberater will keinen Schuhkarton.\n\nUnd Sie wollen nicht jeden Monat einen Nachmittag Belege sortieren, Rechnungen zusammensuchen und Listen abtippen.\n\nIm Back Office stehen die Zahlen schon bereit: Einnahmen-Überschuss-Rechnung, Umsatzsteuer-Übersicht und Belege mit Kategorien. Am Monatsende geht ein DATEV-Export fertig an Ihre Steuerberatung, ein Klick statt eines Nachmittags.\n\nErstellen Sie selbst einen DATEV-Export in der Live-Demo, ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#datev",
+      "#steuerberater",
+      "#buchhaltung",
+      "#eür",
+      "#backoffice",
+      "#kmu",
+      "#selbstständig",
+      "#kleinunternehmen",
+      "#digitalisierung"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold mit dem Titel „Ihr Steuerberater will keinen Schuhkarton“ über Berichte und DATEV-Export im Back Office, mit Screenshot.",
+    "story": {
+      "typ": "teaser",
+      "eyebrow": "Klartext",
+      "headline": "Ihr Steuerberater",
+      "akzent": "will keinen Schuhkarton.",
+      "text": "Ein Klick statt ein Nachmittag.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B12",
+    "thema": "Sicherheitsdienst: Planungstool im Abo – bezahlt pro Kopf",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Für Sicherheitsdienste",
+        "headline": "Mehr Wachleute,",
+        "akzent": "teureres Abo.",
+        "text": "Warum Software, die pro Mitarbeiter kostet, genau dann teuer wird, wenn Sie wachsen.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Das übliche Modell",
+        "headline": "4 bis 10 € pro Mitarbeiter und Monat.",
+        "akzent": "",
+        "text": "So kosten viele Dienstplan- und Wachbuch-Tools. Zusätzlich zur Buchhaltung.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "zahl",
+        "eyebrow": "Bei 20 Wachleuten",
+        "headline": "2.400 €",
+        "akzent": "pro Jahr, nur für die Planung.",
+        "text": "Im oberen Bereich. Rechenbeispiel mit üblichen Listenpreisen, netto. Ohne Rechnungen, ohne Buchhaltung.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Das Back Office",
+        "headline": "Einmal zahlen, alles drin",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Beliebig viele Mitarbeiter",
+          "Dienstplan, Wachbuch, Vorfälle, Fahrzeuge",
+          "Rechnungen, Mahnwesen, DATEV"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst rechnen",
+        "headline": "Was zahlen Sie heute?",
+        "akzent": "Vergleichen Sie selbst.",
+        "text": "Live-Demo ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Mehr Wachleute, teureres Abo. Software, die pro Mitarbeiter kostet, wird genau dann teuer, wenn Sie wachsen.\n\nViele Dienstplan- und Wachbuch-Tools kosten 4 bis 10 € pro Mitarbeiter und Monat. Bei 20 Wachleuten sind das bis zu 2.400 € im Jahr, nur für die Planung, ohne Rechnungen und Buchhaltung.\n\nDas Back Office für Sicherheitsunternehmen zahlen Sie einmal. Beliebig viele Mitarbeiter, und alles ist drin: Dienstplan, Wachbuch, Vorfälle, Fahrzeuge, Rechnungen, Mahnwesen und DATEV-Export.\n\nWas zahlen Sie heute? Vergleichen Sie selbst und testen Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.\n\n(Rechenbeispiel mit üblichen Listenpreisen, netto.)",
+    "hashtags": [
+      "#sicherheitsdienst",
+      "#softwareohneabo",
+      "#wachdienst",
+      "#dienstplan",
+      "#sicherheitsunternehmen",
+      "#kosten",
+      "#backoffice",
+      "#34a",
+      "#digitalisierung"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold: Planungstools mit 4 bis 10 € pro Mitarbeiter kosten bei 20 Wachleuten bis zu 2.400 € im Jahr, das Back Office gibt es mit Einmalpreis.",
+    "story": {
+      "typ": "fakt",
+      "eyebrow": "Rechenbeispiel",
+      "headline": "2.400 €",
+      "akzent": "pro Jahr nur für Planung.",
+      "text": "Bei 20 Wachleuten im Abo. Oder einmal zahlen.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B13",
+    "thema": "Datenschutz: Wo liegen Ihre Kundendaten?",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office · Datenschutz",
+        "headline": "Ihre Kundendaten.",
+        "akzent": "Auf wessen Server?",
+        "text": "Eine Frage, die sich bei Abo-Software selten jemand stellt.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Mit dem Back Office",
+        "headline": "Auf Ihrem eigenen.",
+        "akzent": "",
+        "text": "Das Back Office läuft auf Ihrem Server oder einem Server in Deutschland. Ihre Daten bleiben bei Ihnen.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Rollen",
+        "headline": "Jeder sieht, was er braucht.",
+        "akzent": "",
+        "text": "Geschäftsführung, Buchhaltung, Mitarbeiter.",
+        "punkte": [],
+        "projekt": "bo-benutzer"
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Dazu",
+        "headline": "Sicherheit eingebaut",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Zwei-Faktor-Anmeldung",
+          "Protokoll jeder Änderung",
+          "Backups"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Melden Sie sich als Buchhaltung an.",
+        "akzent": "Und sehen Sie, was fehlt.",
+        "text": "Live-Demo ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Ihre Kundendaten. Auf wessen Server liegen die eigentlich?\n\nBei Abo-Software stellt sich die Frage selten jemand. Beim Back Office ist die Antwort einfach: auf Ihrem eigenen Server oder einem Server in Deutschland. Ihre Daten bleiben bei Ihnen.\n\nUnd im Team sieht jeder nur, was er braucht: Die Geschäftsführung alles, die Buchhaltung Rechnungen, Ausgaben und DATEV, Mitarbeiter ihre Schichten und Aufgaben. Dazu Zwei-Faktor-Anmeldung, ein Protokoll jeder Änderung und Backups.\n\nMelden Sie sich in der Live-Demo als Buchhaltung an und sehen Sie selbst, was fehlt. Ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#datenschutz",
+      "#dsgvo",
+      "#backoffice",
+      "#datensicherheit",
+      "#kmu",
+      "#selbstständig",
+      "#serverindeutschland",
+      "#digitalisierung",
+      "#kleinunternehmen"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über Datenschutz im Back Office: eigener Server, Rollen, Zwei-Faktor-Anmeldung, Protokoll und Backups, mit Screenshot der Benutzerverwaltung.",
+    "story": {
+      "typ": "frage",
+      "eyebrow": "Kurze Frage",
+      "headline": "Wo liegen Ihre Kundendaten?",
+      "akzent": "",
+      "text": "Beim Back Office: bei Ihnen.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B14",
+    "thema": "Was kostet das Back Office? Die Pakete",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office · Preise",
+        "headline": "Was kostet das?",
+        "akzent": "Offen gesagt.",
+        "text": "Die Pakete im Überblick. Einmal zahlen, kein Abo, beliebig viele Nutzer.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "zahl",
+        "eyebrow": "Basis",
+        "headline": "1.500 €",
+        "akzent": "einmalig, netto.",
+        "text": "Software, Installation auf Ihrem Server, Firmendaten, Logo, Nummernkreise und eine Stunde Einweisung.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "zahl",
+        "eyebrow": "Business",
+        "headline": "2.490 €",
+        "akzent": "einmalig, netto.",
+        "text": "Basis plus Website-Formular, E-Mail-Versand, eigene Domain, Datenimport, Ihr Leistungskatalog und drei Stunden Schulung.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "zahl",
+        "eyebrow": "Mit Einsatzplanung",
+        "headline": "3.490 €",
+        "akzent": "einmalig, netto.",
+        "text": "Business plus fertig eingerichtete Einsatzplanung: Personal, Nachweise, Objekte, Zuschläge, Schulung der Einsatzleitung.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Optional",
+        "headline": "Wenn Sie möchten",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Hosting in Deutschland: 19–39 € im Monat",
+          "Wartung und Updates: 49–99 € im Monat",
+          "Premium mit Anpassungen: 3.900 €"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Erst testen",
+        "headline": "Dann entscheiden.",
+        "akzent": "Live-Demo ohne Anmeldung.",
+        "text": "Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Was kostet das Back Office? Offen gesagt:\n\nBasis: 1.500 € einmalig. Software, Installation auf Ihrem Server, Firmendaten, Logo, Nummernkreise und eine Stunde Einweisung.\n\nBusiness: 2.490 € einmalig. Dazu das Formular Ihrer Website, E-Mail-Versand, eigene Domain, Import Ihrer Kundendaten, Ihr Leistungskatalog und drei Stunden Schulung.\n\nMit Einsatzplanung: 3.490 € einmalig. Personal, Nachweise, Objekte und Zuschläge fertig eingerichtet, inklusive Schulung der Einsatzleitung.\n\nOptional: Hosting in Deutschland für 19 bis 39 € im Monat, Wartung und Updates für 49 bis 99 € im Monat, Premium mit individuellen Anpassungen für 3.900 €. Alle Preise netto.\n\nKein Abo für die Software, beliebig viele Nutzer. Erst testen, dann entscheiden: Live-Demo ohne Anmeldung über den Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#backoffice",
+      "#softwareohneabo",
+      "#preise",
+      "#kmu",
+      "#selbstständig",
+      "#dienstleister",
+      "#sicherheitsdienst",
+      "#digitalisierung",
+      "#kleinunternehmen"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold mit den Preisen des Back Office: Basis 1.500 €, Business 2.490 €, mit Einsatzplanung 3.490 €, jeweils einmalig und netto, plus optionalem Hosting und Wartung.",
+    "story": {
+      "typ": "fakt",
+      "eyebrow": "Back Office",
+      "headline": "1.500 €",
+      "akzent": "einmalig. Kein Abo.",
+      "text": "Alle Pakete offen im Beitrag.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  }
+]

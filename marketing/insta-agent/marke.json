@@ -113,7 +113,16 @@
       "Beliebig viele Nutzer",
       "Ihre Daten bleiben bei Ihnen"
     ],
-    "demo": "Live-Demo zum Ausprobieren über die Website"
+    "demo": "Live-Demo zum Ausprobieren über die Website",
+    "preise": {
+      "_quelle": "backoffice/docs/VERKAUF.md",
+      "basis": "1.500 € netto einmalig",
+      "business": "2.490 € netto",
+      "business_einsatzplanung": "3.490 € netto",
+      "premium": "3.900 € netto",
+      "wartung": "optional 49–99 €/Monat",
+      "hosting": "optional 19–39 €/Monat"
+    }
   },
   "usps": [
     "Ein Ansprechpartner für alles: keine Weiterreichung, keine Agentur-Kette. Sie sprechen mit der Person, die es auch umsetzt.",
@@ -178,5 +187,75 @@
     "schrift_titel": "Playfair Display",
     "schrift_text": "Manrope"
   },
-  "_hinweis_instagram": "Benutzername des Instagram-Kontos (ohne @). Der Agent veröffentlicht NUR, wenn das Token zu genau diesem Konto gehört. Falls der Name anders geschrieben ist (z. B. flowkit.de), hier anpassen."
+  "_hinweis_instagram": "Benutzername des Instagram-Kontos (ohne @). Der Agent veröffentlicht NUR, wenn das Token zu genau diesem Konto gehört. Falls der Name anders geschrieben ist (z. B. flowkit.de), hier anpassen.",
+  "backoffice_ansichten": [
+    {
+      "kuerzel": "bo-dashboard",
+      "label": "Back Office · Dashboard"
+    },
+    {
+      "kuerzel": "bo-rechnungen",
+      "label": "Back Office · Rechnungen"
+    },
+    {
+      "kuerzel": "bo-mahnwesen",
+      "label": "Back Office · Mahnwesen"
+    },
+    {
+      "kuerzel": "bo-anfragen",
+      "label": "Back Office · Anfragen & Vertrieb"
+    },
+    {
+      "kuerzel": "bo-dienstplan",
+      "label": "Back Office · Dienstplan"
+    },
+    {
+      "kuerzel": "bo-auswertung",
+      "label": "Back Office · Stundenauswertung"
+    },
+    {
+      "kuerzel": "bo-wiederkehrend",
+      "label": "Back Office · Wiederkehrende Rechnungen"
+    },
+    {
+      "kuerzel": "bo-projekte",
+      "label": "Back Office · Projekte"
+    },
+    {
+      "kuerzel": "bo-berichte",
+      "label": "Back Office · Berichte & DATEV"
+    },
+    {
+      "kuerzel": "bo-benutzer",
+      "label": "Back Office · Benutzer & Rollen"
+    },
+    {
+      "kuerzel": "bo-lage",
+      "label": "Back Office · Live-Lage"
+    },
+    {
+      "kuerzel": "bo-objekte",
+      "label": "Back Office · Objekte"
+    },
+    {
+      "kuerzel": "bo-vorfaelle",
+      "label": "Back Office · Vorfälle"
+    },
+    {
+      "kuerzel": "bo-personal",
+      "label": "Back Office · Personal & Nachweise"
+    },
+    {
+      "kuerzel": "bo-fahrzeuge",
+      "label": "Back Office · Fahrzeuge"
+    },
+    {
+      "kuerzel": "bo-waechter",
+      "label": "Back Office · Wächter-App"
+    },
+    {
+      "kuerzel": "bo-streife",
+      "label": "Back Office · Streife & Wachbuch"
+    }
+  ]
 }

@@ -27,6 +27,8 @@ function projektBild(kuerzel, art) {
 }
 
 function domainVon(marke, kuerzel) {
+  const ansicht = (marke.backoffice_ansichten ?? []).find((x) => x.kuerzel === kuerzel);
+  if (ansicht) return ansicht.label;
   const p = [...(marke.referenzen ?? []), ...(marke.projekte_in_arbeit?.liste ?? [])].find((x) => x.kuerzel === kuerzel);
   try {
     return p?.url ? new URL(p.url).hostname.replace(/^www\./, "") : kuerzel;
@@ -98,7 +100,7 @@ function folieHtml(f, i, anzahl, marke, story = false) {
     : istErste
     ? `<div class="wischen">Wischen <span class="pfeil">→</span></div>`
     : f.typ === "cta"
-      ? `<div class="cta-knopf">${esc(marke.website)}</div>`
+      ? `<div class="cta-knopf">${esc(f.hinweis || marke.website)}</div>`
       : "";
 
   return `
