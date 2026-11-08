@@ -68,3 +68,22 @@ node bank-bauen.js <Pfad zu diesem Ordner>
 
 Veröffentlichen: mehr als ein Bild → `create_carousel_post` mit `image_urls` (Reihenfolge wie in `images`),
 ein Bild → `create_image_post`. Danach `create_story` mit dem Story-Bild. URL-Basis wie oben.
+
+---
+
+# Back Office ab November 2026: neue Beitragsbank (`posts-backoffice.json`)
+
+Der Back-Office-Strang postet ab jetzt aus **`posts-backoffice.json`** (B01, B02 …) statt aus `posts.json`:
+Karussells im Website-Design (Schwarz/Gold), „Sie“-Ansprache, echte Screenshots aus den Demos,
+geprüft auf Zeichengrenzen, KI-Floskeln, UWG und Layout. Protokoll weiterhin in `posted.json`
+(die alten IDs 001 … bleiben als Verlauf). Die noch nicht geposteten Einträge der alten `posts.json`
+werden nicht mehr verwendet.
+
+| Datei | Inhalt |
+|---|---|
+| `posts-backoffice.json` | `id`, `thema`, `format`, `images` (Liste), `story`, `caption` (inkl. Hashtags), `alt_text` |
+| `backoffice/<id>/folie-*.jpg`, `story.jpg` | Feed 1080 × 1350, Story 1080 × 1920 |
+
+Veröffentlichen wie beim Webdesign-Strang: mehrere Bilder → `create_carousel_post`, eins → `create_image_post`,
+danach `create_story`. Erzeugt mit `node bank-bauen.js <dieser Ordner> backoffice` aus
+`marketing/insta-agent/backoffice-bank.json` (Branch `claude/upbeat-curie-td1txg`).
