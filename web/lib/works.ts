@@ -7,6 +7,8 @@ export interface WorkImage {
   width: number
   height: number
   caption: string
+  /** Optional video (MP4); the image then serves as its poster. */
+  video?: string
 }
 
 export interface WorkCategory {

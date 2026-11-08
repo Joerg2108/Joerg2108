@@ -155,6 +155,12 @@ export const metaZh: Meta = [
 ]
 
 export const captionsEn: Record<string, string> = {
+  "Leipzig bei Nacht": "Leipzig by night",
+  "Wandbild – Video": "Mural – video",
+  "Piratenschiff – Animation": "Pirate ship – animation",
+  "U-Boot – Animation": "Submarine – animation",
+  "Baum-Skulptur aus Edelstahl": "Stainless steel tree sculpture",
+  Signierstunde: "Book signing",
   Bibliothek: "Library",
   Bildermuseum: "Museum of Fine Arts",
   Brunnen: "Fountain",
@@ -201,6 +207,12 @@ export const captionsEn: Record<string, string> = {
 }
 
 export const captionsZh: Record<string, string> = {
+  "Leipzig bei Nacht": "夜色中的莱比锡",
+  "Wandbild – Video": "壁画——视频",
+  "Piratenschiff – Animation": "海盗船——动画",
+  "U-Boot – Animation": "潜水艇——动画",
+  "Baum-Skulptur aus Edelstahl": "不锈钢树形雕塑",
+  Signierstunde: "签售会",
   "Amy Winehouse": "艾米·怀恩豪斯",
   "Angela Merkel": "安格拉·默克尔",
   "Angelina Jolie": "安吉丽娜·朱莉",
