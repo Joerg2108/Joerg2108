@@ -36,7 +36,7 @@ export default async function DatenschutzPage({ params }: LocaleParams) {
         <S title="2. Grundsätze">
           <p>
             Diese Website setzt keine Cookies, verwendet keine Analyse- oder Trackingdienste und bindet Inhalte von Drittanbietern
-            nur nach Ihrer ausdrücklichen Zustimmung ein (YouTube-Videos, siehe Abschnitt 6). Schriftarten werden vom eigenen Server geladen, es findet keine Verbindung zu Google Fonts statt.
+            nur nach Ihrer ausdrücklichen Zustimmung ein (YouTube-Videos und Google Maps, siehe Abschnitte 6 und 7). Schriftarten werden vom eigenen Server geladen, es findet keine Verbindung zu Google Fonts statt.
           </p>
         </S>
         <S title="3. Server-Logfiles">
@@ -58,9 +58,9 @@ export default async function DatenschutzPage({ params }: LocaleParams) {
         </S>
         <S title="5. Links zu sozialen Netzwerken">
           <p>
-            Wir verlinken auf unsere Profile bei Instagram und Facebook (Meta Platforms Ireland Ltd.). Es handelt sich um einfache Links;
-            Daten werden erst übertragen, wenn Sie den Link anklicken und die Seite des Anbieters aufrufen. Dort gilt die
-            Datenschutzerklärung von Meta.
+            Wir verlinken auf unsere Profile bei Instagram und Facebook (Meta Platforms Ireland Ltd.) sowie bei TikTok (TikTok
+            Technology Limited, Irland). Es handelt sich um einfache Links; Daten werden erst übertragen, wenn Sie den Link anklicken
+            und die Seite des Anbieters aufrufen. Dort gilt die Datenschutzerklärung des jeweiligen Anbieters.
           </p>
         </S>
         <section id="youtube" className="scroll-mt-28">
@@ -80,7 +80,24 @@ export default async function DatenschutzPage({ params }: LocaleParams) {
           </p>
         </S>
         </section>
-        <S title="7. Ihre Rechte">
+        <section id="google-maps" className="scroll-mt-28">
+        <S title="7. Google Maps">
+          <p>
+            Im Kontaktbereich können Sie eine Karte von Google Maps (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4,
+            Irland) anzeigen lassen. Beim Seitenaufruf sehen Sie nur eine lokal gespeicherte Platzhaltergrafik, es besteht keine
+            Verbindung zu Google. Erst wenn Sie auf „Karte laden“ klicken, wird die Karte geladen. Dabei werden u. a. Ihre IP-Adresse
+            und technische Browserdaten an Google übertragen; eine Übermittlung in die USA ist möglich (Google ist nach dem EU-US Data
+            Privacy Framework zertifiziert). Google kann dabei Cookies bzw. lokalen Speicher nutzen.
+          </p>
+          <p>
+            Rechtsgrundlage ist Ihre Einwilligung durch den Klick (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Sie gilt nur für
+            den aktuellen Seitenaufruf. Der Link „Route in Google Maps“ öffnet Google Maps in einem neuen Fenster; erst dann werden
+            Daten an Google übertragen. Weitere Informationen:{" "}
+            <a className="underline" href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a>.
+          </p>
+        </S>
+        </section>
+        <S title="8. Ihre Rechte">
           <p>
             Sie haben das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung
             (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21). Außerdem können Sie sich bei einer

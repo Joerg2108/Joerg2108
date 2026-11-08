@@ -5,6 +5,7 @@ import { getContent } from "@/lib/content"
 import { lp, ui, type Locale } from "@/lib/i18n"
 import { Container } from "@/components/page-hero"
 import { Magnetic, SplitWords } from "@/components/motion"
+import { MapConsent } from "@/components/map-consent"
 
 // Kein Server nötig: Das Formular öffnet das E-Mail-Programm mit vorausgefüllter Nachricht.
 // Dadurch werden keine personenbezogenen Daten auf dem Webserver verarbeitet.
@@ -65,10 +66,11 @@ export function ContactSection({ locale }: { locale: Locale }) {
               <dd className="mt-2 text-muted">{contact.vatId}</dd>
             </div>
           </dl>
-          <div data-reveal className="mt-10 flex gap-3">
+          <div data-reveal className="mt-10 flex flex-wrap gap-3">
             {[
               ["Instagram", site.instagram],
               ["Facebook", site.facebook],
+              ["TikTok", site.tiktok],
             ].map(([l, h]) => (
               <Magnetic key={l}>
                 <a href={h} target="_blank" rel="noopener noreferrer" className="glass-soft inline-block rounded-full px-5 py-2.5 text-sm transition-colors hover:border-white/30">
@@ -122,6 +124,17 @@ export function ContactSection({ locale }: { locale: Locale }) {
             .
           </p>
         </form>
+
+        <div data-reveal className="lg:col-span-2">
+          <MapConsent
+            embedUrl={site.mapsEmbed}
+            openUrl={site.maps}
+            title={`${contact.atelier} · ${contact.street}, ${contact.city}`}
+            address={[contact.atelier, contact.place, contact.street, contact.city]}
+            privacyHref={`${lp(locale, "/datenschutz")}#google-maps`}
+            labels={{ load: t.mapLoad, consent: t.mapConsent, open: t.mapOpen, privacy: t.filmPrivacy, kicker: t.mapKicker }}
+          />
+        </div>
       </Container>
     </section>
   )

@@ -46,6 +46,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           links: [
             { label: "Instagram", href: site.instagram },
             { label: "Facebook", href: site.facebook },
+            { label: "TikTok", href: site.tiktok },
             { label: t.shop, href: site.shopUrl },
           ],
         },
