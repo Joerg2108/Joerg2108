@@ -1,0 +1,25 @@
+{
+  "name": "insta-agent",
+  "description": "KI-Agent für hochwertige Instagram-Posts zum Angebot Webseiten-Erstellung",
+  "main": "agent.js",
+  "scripts": {
+    "post": "node agent.js",
+    "auto": "node agent.js --auto",
+    "plan": "node agent.js --plan 12",
+    "demo": "node agent.js --demo"
+  },
+  "author": "Jörg Noack",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.6.0",
+    "@fontsource/inter": "^5.3.0",
+    "zod": "^4.6.7",
+    "playwright": "^1.63.0"
+  },
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "version": "1.0.0"
+}

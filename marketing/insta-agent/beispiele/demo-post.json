@@ -1,0 +1,73 @@
+{
+  "thema": "Demo – 5 Fehler, die Ihre Website Kunden kosten",
+  "format": "karussell",
+  "folien": [
+    {
+      "typ": "titel",
+      "eyebrow": "Website-Check · Webdesign",
+      "headline": "Ihre Website sieht gut aus?",
+      "akzent": "Trotzdem keine Anfragen.",
+      "text": "5 Fehler, die ich bei Betrieben immer wieder sehe – und wie Sie sie vermeiden.",
+      "punkte": []
+    },
+    {
+      "typ": "zahl",
+      "eyebrow": "Fehler 1",
+      "headline": "3 Sek.",
+      "akzent": "Länger wartet kaum jemand.",
+      "text": "Lädt Ihre Seite auf dem Handy zu langsam, ist der Besucher weg, bevor er Ihr Angebot gesehen hat.",
+      "punkte": []
+    },
+    {
+      "typ": "inhalt",
+      "eyebrow": "Fehler 2",
+      "headline": "Kein klarer nächster Schritt.",
+      "akzent": "",
+      "text": "Besucher müssen sofort sehen, wie sie Sie erreichen: ein sichtbarer Button, ein kurzes Formular, eine Telefonnummer.",
+      "punkte": []
+    },
+    {
+      "typ": "liste",
+      "eyebrow": "Fehler 3–5",
+      "headline": "Die stillen Kundenkiller",
+      "akzent": "",
+      "text": "",
+      "punkte": [
+        "Am Smartphone kaum bedienbar",
+        "Veraltete Inhalte und Preise",
+        "Anfragen landen im Spam statt bei Ihnen"
+      ]
+    },
+    {
+      "typ": "inhalt",
+      "eyebrow": "So mache ich es",
+      "headline": "Programmiert statt zusammengeklickt.",
+      "akzent": "Anfragen direkt im CRM.",
+      "text": "Schnell, mobil optimiert und mit einem Kontaktformular, das jede Anfrage automatisch in Ihr Back Office überträgt.",
+      "punkte": []
+    },
+    {
+      "typ": "cta",
+      "eyebrow": "Ihr nächster Schritt",
+      "headline": "Lassen Sie uns reden.",
+      "akzent": "Kostenlos & unverbindlich.",
+      "text": "Ich schaue mir Ihre aktuelle Website an und sage Ihnen ehrlich, was sie bremst. Link in Bio.",
+      "punkte": []
+    }
+  ],
+  "caption": "Schöne Website, aber das Telefon bleibt still? Daran liegt es oft.\n\nIch sehe bei Betrieben immer wieder dieselben 5 Fehler – und keiner davon hat mit dem Design zu tun.\n\n⚡ Zu langsam auf dem Handy\n👉 Kein klarer nächster Schritt\n📱 Am Smartphone kaum bedienbar\n🗓 Veraltete Inhalte\n📭 Anfragen, die nie ankommen\n\nDie gute Nachricht: Alles davon lässt sich beheben.\n\nSie wollen wissen, wo Ihre Website steht? Kostenloses Erstgespräch – Link in Bio.\n\nWelcher Fehler kommt Ihnen bekannt vor? Schreiben Sie es in die Kommentare.",
+  "hashtags": [
+    "#webdesign",
+    "#websiteerstellen",
+    "#webseite",
+    "#kmu",
+    "#handwerk",
+    "#selbstständig",
+    "#onlinemarketing",
+    "#webentwicklung",
+    "#unternehmer",
+    "#kundengewinnung"
+  ],
+  "alt_text": "Karussell mit sechs dunkelblauen Folien und orangefarbenen Akzenten: fünf häufige Website-Fehler, die Anfragen kosten, und ein Angebot für ein kostenloses Erstgespräch.",
+  "posting_tipp": "Dienstag oder Donnerstag zwischen 7 und 9 Uhr posten. In der Story Folie 2 teilen und eine Umfrage „Wie schnell lädt Ihre Seite?“ anhängen."
+}

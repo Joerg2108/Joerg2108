@@ -1,0 +1,83 @@
+{
+  "_hinweis": "Das ist das Gedächtnis des Agenten. Alles, was hier steht, darf er in Posts verwenden – und NUR das. Keine Zahlen, Preise oder Referenzen eintragen, die nicht stimmen.",
+
+  "name": "Jörg Noack",
+  "website": "joerg-noack.com",
+  "ansprache": "Sie",
+
+  "angebot": "Hochwertige, individuell entwickelte Webseiten für kleine und mittlere Unternehmen, Handwerk, Dienstleister und Selbstständige – kein Baukasten, sondern sauber programmiert.",
+
+  "zielgruppe": [
+    "Inhaber kleiner und mittlerer Betriebe (Handwerk, Dienstleistung, Sicherheit, Praxis, Beratung)",
+    "Selbstständige und Gründer, die professionell auftreten wollen",
+    "Unternehmen mit veralteter oder langsamer Website, die kaum Anfragen bringt"
+  ],
+
+  "leistungen": [
+    "Individuelles Design passend zur Marke statt Standard-Vorlage",
+    "Für Smartphone optimiert (Mobile First)",
+    "Schnelle Ladezeiten durch schlanken, sauberen Code",
+    "SEO-Grundlagen: saubere Struktur, Meta-Daten, lokale Auffindbarkeit",
+    "DSGVO-bewusste Umsetzung: Hosting in der EU, keine unnötigen Tracker, Cookie-Hinweis nur wo nötig",
+    "Kontaktformular, das Anfragen direkt in ein eigenes Back Office (CRM) überträgt",
+    "Leistungskatalog/Preisliste, die automatisch aus dem Back Office auf die Website kommt",
+    "Persönliche Betreuung: ein fester Ansprechpartner von der Idee bis zum Livegang",
+    "Optional: Hosting, Wartung und Pflege nach dem Start"
+  ],
+
+  "usps": [
+    "Ein Ansprechpartner statt Agentur-Pingpong",
+    "Website und Back Office aus einer Hand – Anfragen landen direkt im CRM",
+    "Programmiert statt zusammengeklickt: schnell, sicher, ohne Plugin-Chaos",
+    "Hintergrund in IT und Sicherheit – Datenschutz und Sicherheit werden von Anfang an mitgedacht"
+  ],
+
+  "ablauf": [
+    "Kostenloses Erstgespräch",
+    "Konzept und Design-Entwurf",
+    "Umsetzung mit Feedbackschleifen",
+    "Livegang inklusive Einweisung",
+    "Optional: laufende Betreuung"
+  ],
+
+  "preise": "auf Anfrage – individuelles Angebot nach dem Erstgespräch",
+
+  "cta": {
+    "standard": "Kostenloses Erstgespräch anfragen – Link in Bio",
+    "alternativen": [
+      "Schreiben Sie mir eine DM mit dem Wort „WEBSITE“",
+      "Link in Bio – Termin für ein kostenloses Erstgespräch sichern",
+      "Speichern Sie den Post für Ihren nächsten Website-Relaunch"
+    ]
+  },
+
+  "tonalitaet": "Klar, kompetent, bodenständig. Wie ein erfahrener Handwerker seines Fachs: ehrlich, direkt, ohne Marketing-Blabla und ohne übertriebene Versprechen. Kurze Sätze. Konkreter Nutzen statt Fachchinesisch.",
+
+  "verbotene_aussagen": [
+    "Garantien für Google-Platzierungen oder Umsatz",
+    "Superlative ohne Beleg (beste, günstigste, Nr. 1)",
+    "Erfundene Kundenzahlen, Bewertungen, Referenzen oder Prozentwerte",
+    "Rechtsberatung (z. B. „abmahnsicher“, „100 % DSGVO-konform“)"
+  ],
+
+  "themen_saeulen": [
+    "Fehler auf Websites, die Kunden kosten",
+    "Vorher/Nachher-Denken: Was eine gute Website ausmacht",
+    "Ablauf und Transparenz: So entsteht Ihre Website",
+    "Baukasten vs. individuell programmiert",
+    "Website + Back Office: Anfragen automatisch ins CRM",
+    "Ladezeit, Mobile, SEO – Technik einfach erklärt",
+    "Datenschutz und Sicherheit auf der Website",
+    "Mythen über Websites (zu teuer, zu aufwendig, braucht man nicht)"
+  ],
+
+  "design": {
+    "hintergrund": "#0b1120",
+    "verlauf": "#1b2a52",
+    "akzent": "#f5a623",
+    "text": "#ffffff",
+    "text_gedimmt": "#a9b4c8",
+    "badge": "#2563eb",
+    "kuerzel": "J"
+  }
+}
