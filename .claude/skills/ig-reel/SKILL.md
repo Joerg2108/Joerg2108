@@ -145,3 +145,15 @@ HOOKS  (scored)
 Shooting #5: the ratio is believable, it reads in one glance on screen,
 and the number is yours.
 ```
+
+## Deutsch (ergänzt)
+
+`hookscore.py` und `beats.py` verstehen deutsche Texte, eine Sprachwahl ist nicht nötig:
+Umlaute, Euro und deutsche Einheiten (Sek., Minuten, Prozent) zählen als konkret,
+dazu deutsche Spannungswörter (nie, kein, verloren, kostet, statt …), schwache
+Einstiege (Hallo, Heute, Kennen Sie das …), Ansprache mit du/ihr/Sie und
+Ausschlussgründe wie „In diesem Video zeige ich …“ oder „Hör auf zu scrollen“.
+Großgeschriebene Wörter gelten im Deutschen nicht als Namen.
+
+Deutsch wird meist etwas langsamer gesprochen. Für ein realistisches Timing:
+`python3 beats.py script.txt --target 30 --wpm 150`

@@ -3,6 +3,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
 import { Post, Review, Themenplan, Stories } from "./schema.js";
+import { floskelHinweis } from "./floskeln.js";
 
 const MODELL = process.env.INSTA_AGENT_MODEL || "claude-opus-5-5";
 let client; // erst bei Bedarf anlegen, damit --demo ohne API-Key läuft
@@ -25,11 +26,18 @@ ${JSON.stringify(marke, null, 2)}
 - Folie 1 ist ein Scroll-Stopper: konkretes Problem, überraschende Aussage oder klares Versprechen an die Zielgruppe. Kein „Heute zeige ich euch…“.
 - Jede Folie trägt genau EINEN Gedanken. Wenig Text, große Aussagen. Lieber eine Folie mehr als eine überladene.
 - Roter Faden: Problem → Folgen → Lösung/Wissen → Beweis aus dem Angebot → CTA.
-- Mehrwert zuerst: Der Leser soll auch ohne Kauf etwas mitnehmen (speichern-würdig).
+- Nutzen zuerst: Der Leser soll auch ohne Kauf etwas mitnehmen (speichern-würdig).
 - Die CTA-Folie nennt einen konkreten nächsten Schritt aus „cta“.
 - Caption: Hook in Zeile 1 (max. 125 Zeichen), dann kurze Absätze mit Leerzeilen, sparsam 1–3 Emojis, am Ende CTA und eine Frage für Kommentare.
 - Hashtags: 8–15, gemischt (z. B. #webdesign, #websiteerstellen, #kmu, #handwerk, regionale/Nischen-Tags). Keine Fantasie-Tags.
-- Halte die Zeichengrenzen aus den Feldbeschreibungen strikt ein – Texte, die nicht auf die Folie passen, sind wertlos.`;
+- Halte die Zeichengrenzen aus den Feldbeschreibungen strikt ein – Texte, die nicht auf die Folie passen, sind wertlos.
+
+# Klingt nach Mensch, nicht nach KI
+Schreib so, wie ${marke.name} spricht: konkret, mit Zahlen und Beispielen statt Adjektiven.
+Diese Floskeln und ihre Beugungsformen sind tabu (die Prüfung lehnt sie ab): ${floskelHinweis()}.
+Ebenfalls tabu: „nicht nur X, sondern auch Y“, „Es geht nicht um X, es geht um Y“, inszenierte Enthüllungen
+(„Das Ergebnis?“ als eigene Zeile), Fazit-Absätze, Emoji-Aufzählungen, 🚀🔥💡✨🎯, mehr als ein Ausrufezeichen,
+mehr als zwei Gedankenstriche pro Text, „Was denken Sie?“ und andere Allerwelts-Fragen.`;
 }
 
 async function frage(marke, inhalt, schema = Post, effort = "high") {
@@ -65,7 +73,7 @@ export async function ueberarbeite(marke, post, maengel) {
     marke,
     `Du bist jetzt ein strenger Creative Director. Prüfe diesen Instagram-Post und überarbeite ihn.
 
-Bewerte nach: Stärke des Hooks, ein Gedanke pro Folie, Klarheit, Mehrwert, Glaubwürdigkeit (keine erfundenen Fakten),
+Bewerte nach: Stärke des Hooks, ein Gedanke pro Folie, Klarheit, Nutzen für den Leser, Glaubwürdigkeit (keine erfundenen Fakten),
 Markenton, CTA, Caption-Aufbau, Hashtag-Qualität. Note 9–10 nur, wenn du den Post selbst sofort veröffentlichen würdest.
 
 ${maengel.length ? `Die automatische Prüfung hat diese Mängel gefunden – sie MÜSSEN alle behoben sein:\n- ${maengel.join("\n- ")}\n` : ""}

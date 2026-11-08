@@ -1,0 +1,1516 @@
+{
+  "version": "1.0-de",
+  "sprache": "de",
+  "note": "Deutsches Lexikon für humanize.py und detect.py (wird bei deutschen Texten automatisch gewählt). replace = Ersatz, \"\" = löschen, null = nur markieren (Umformulieren braucht Urteilsvermögen). Typografie: deutsche Anführungszeichen „…“ und der Gedankenstrich – bleiben erhalten. Frei anpassbar.",
+  "invisible": [
+    {
+      "cp": "U+200B",
+      "name": "ZERO WIDTH SPACE",
+      "action": "delete"
+    },
+    {
+      "cp": "U+200C",
+      "name": "ZERO WIDTH NON-JOINER",
+      "action": "delete"
+    },
+    {
+      "cp": "U+200D",
+      "name": "ZERO WIDTH JOINER",
+      "action": "delete"
+    },
+    {
+      "cp": "U+2060",
+      "name": "WORD JOINER",
+      "action": "delete"
+    },
+    {
+      "cp": "U+FEFF",
+      "name": "ZERO WIDTH NO-BREAK SPACE / BOM",
+      "action": "delete"
+    },
+    {
+      "cp": "U+00AD",
+      "name": "SOFT HYPHEN",
+      "action": "delete"
+    },
+    {
+      "cp": "U+180E",
+      "name": "MONGOLIAN VOWEL SEPARATOR",
+      "action": "delete"
+    },
+    {
+      "cp": "U+061C",
+      "name": "ARABIC LETTER MARK",
+      "action": "delete"
+    },
+    {
+      "cp": "U+200E",
+      "name": "LEFT-TO-RIGHT MARK",
+      "action": "delete"
+    },
+    {
+      "cp": "U+200F",
+      "name": "RIGHT-TO-LEFT MARK",
+      "action": "delete"
+    },
+    {
+      "cp": "U+E0000-U+E007F",
+      "name": "TAG CHARACTERS (invisible ASCII smuggling)",
+      "action": "delete"
+    },
+    {
+      "cp": "U+00A0",
+      "name": "NO-BREAK SPACE",
+      "action": "space"
+    },
+    {
+      "cp": "U+202F",
+      "name": "NARROW NO-BREAK SPACE",
+      "action": "space"
+    },
+    {
+      "cp": "U+2009",
+      "name": "THIN SPACE",
+      "action": "space"
+    },
+    {
+      "cp": "U+2007",
+      "name": "FIGURE SPACE",
+      "action": "space"
+    },
+    {
+      "cp": "U+2003",
+      "name": "EM SPACE",
+      "action": "space"
+    },
+    {
+      "cp": "U+2002",
+      "name": "EN SPACE",
+      "action": "space"
+    },
+    {
+      "cp": "U+2063",
+      "name": "INVISIBLE SEPARATOR",
+      "action": "delete"
+    }
+  ],
+  "typographic": [
+    {
+      "from": "—",
+      "name": "GEVIERTSTRICH (englischer Gedankenstrich)",
+      "to": " – "
+    },
+    {
+      "from": "”",
+      "name": "ENGLISCHES SCHLUSS-ANFÜHRUNGSZEICHEN",
+      "to": "“"
+    },
+    {
+      "from": "…",
+      "name": "AUSLASSUNGSZEICHEN",
+      "to": "..."
+    },
+    {
+      "from": "′",
+      "name": "PRIME",
+      "to": "'"
+    },
+    {
+      "from": "•",
+      "name": "AUFZÄHLUNGSPUNKT",
+      "to": "-"
+    }
+  ],
+  "words": [
+    {
+      "find": "maßgeschneidert",
+      "replace": "passend",
+      "family": "adjectives"
+    },
+    {
+      "find": "maßgeschneiderte",
+      "replace": "passende",
+      "family": "adjectives"
+    },
+    {
+      "find": "maßgeschneiderten",
+      "replace": "passenden",
+      "family": "adjectives"
+    },
+    {
+      "find": "maßgeschneiderter",
+      "replace": "passender",
+      "family": "adjectives"
+    },
+    {
+      "find": "maßgeschneidertes",
+      "replace": "passendes",
+      "family": "adjectives"
+    },
+    {
+      "find": "maßgeschneidertem",
+      "replace": "passendem",
+      "family": "adjectives"
+    },
+    {
+      "find": "ganzheitlich",
+      "replace": "vollständig",
+      "family": "adjectives"
+    },
+    {
+      "find": "ganzheitliche",
+      "replace": "vollständige",
+      "family": "adjectives"
+    },
+    {
+      "find": "ganzheitlichen",
+      "replace": "vollständigen",
+      "family": "adjectives"
+    },
+    {
+      "find": "ganzheitlicher",
+      "replace": "vollständiger",
+      "family": "adjectives"
+    },
+    {
+      "find": "ganzheitliches",
+      "replace": "vollständiges",
+      "family": "adjectives"
+    },
+    {
+      "find": "ganzheitlichem",
+      "replace": "vollständigem",
+      "family": "adjectives"
+    },
+    {
+      "find": "innovativ",
+      "replace": "neu",
+      "family": "adjectives"
+    },
+    {
+      "find": "innovative",
+      "replace": "neue",
+      "family": "adjectives"
+    },
+    {
+      "find": "innovativen",
+      "replace": "neuen",
+      "family": "adjectives"
+    },
+    {
+      "find": "innovativer",
+      "replace": "neuer",
+      "family": "adjectives"
+    },
+    {
+      "find": "innovatives",
+      "replace": "neues",
+      "family": "adjectives"
+    },
+    {
+      "find": "innovativem",
+      "replace": "neuem",
+      "family": "adjectives"
+    },
+    {
+      "find": "revolutionär",
+      "replace": "neu",
+      "family": "adjectives"
+    },
+    {
+      "find": "revolutionäre",
+      "replace": "neue",
+      "family": "adjectives"
+    },
+    {
+      "find": "revolutionären",
+      "replace": "neuen",
+      "family": "adjectives"
+    },
+    {
+      "find": "revolutionärer",
+      "replace": "neuer",
+      "family": "adjectives"
+    },
+    {
+      "find": "revolutionäres",
+      "replace": "neues",
+      "family": "adjectives"
+    },
+    {
+      "find": "revolutionärem",
+      "replace": "neuem",
+      "family": "adjectives"
+    },
+    {
+      "find": "bahnbrechend",
+      "replace": "neu",
+      "family": "adjectives"
+    },
+    {
+      "find": "bahnbrechende",
+      "replace": "neue",
+      "family": "adjectives"
+    },
+    {
+      "find": "bahnbrechenden",
+      "replace": "neuen",
+      "family": "adjectives"
+    },
+    {
+      "find": "bahnbrechender",
+      "replace": "neuer",
+      "family": "adjectives"
+    },
+    {
+      "find": "bahnbrechendes",
+      "replace": "neues",
+      "family": "adjectives"
+    },
+    {
+      "find": "bahnbrechendem",
+      "replace": "neuem",
+      "family": "adjectives"
+    },
+    {
+      "find": "wegweisend",
+      "replace": "wichtig",
+      "family": "adjectives"
+    },
+    {
+      "find": "wegweisende",
+      "replace": "wichtige",
+      "family": "adjectives"
+    },
+    {
+      "find": "wegweisenden",
+      "replace": "wichtigen",
+      "family": "adjectives"
+    },
+    {
+      "find": "wegweisender",
+      "replace": "wichtiger",
+      "family": "adjectives"
+    },
+    {
+      "find": "wegweisendes",
+      "replace": "wichtiges",
+      "family": "adjectives"
+    },
+    {
+      "find": "wegweisendem",
+      "replace": "wichtigem",
+      "family": "adjectives"
+    },
+    {
+      "find": "zukunftsweisend",
+      "replace": "modern",
+      "family": "adjectives"
+    },
+    {
+      "find": "zukunftsweisende",
+      "replace": "moderne",
+      "family": "adjectives"
+    },
+    {
+      "find": "zukunftsweisenden",
+      "replace": "modernen",
+      "family": "adjectives"
+    },
+    {
+      "find": "zukunftsweisender",
+      "replace": "moderner",
+      "family": "adjectives"
+    },
+    {
+      "find": "zukunftsweisendes",
+      "replace": "modernes",
+      "family": "adjectives"
+    },
+    {
+      "find": "zukunftsweisendem",
+      "replace": "modernem",
+      "family": "adjectives"
+    },
+    {
+      "find": "nahtlos",
+      "replace": "reibungslos",
+      "family": "adjectives"
+    },
+    {
+      "find": "nahtlose",
+      "replace": "reibungslose",
+      "family": "adjectives"
+    },
+    {
+      "find": "nahtlosen",
+      "replace": "reibungslosen",
+      "family": "adjectives"
+    },
+    {
+      "find": "nahtloser",
+      "replace": "reibungsloser",
+      "family": "adjectives"
+    },
+    {
+      "find": "nahtloses",
+      "replace": "reibungsloses",
+      "family": "adjectives"
+    },
+    {
+      "find": "nahtlosem",
+      "replace": "reibungslosem",
+      "family": "adjectives"
+    },
+    {
+      "find": "facettenreich",
+      "replace": "vielseitig",
+      "family": "adjectives"
+    },
+    {
+      "find": "facettenreiche",
+      "replace": "vielseitige",
+      "family": "adjectives"
+    },
+    {
+      "find": "facettenreichen",
+      "replace": "vielseitigen",
+      "family": "adjectives"
+    },
+    {
+      "find": "facettenreicher",
+      "replace": "vielseitiger",
+      "family": "adjectives"
+    },
+    {
+      "find": "facettenreiches",
+      "replace": "vielseitiges",
+      "family": "adjectives"
+    },
+    {
+      "find": "facettenreichem",
+      "replace": "vielseitigem",
+      "family": "adjectives"
+    },
+    {
+      "find": "vielschichtig",
+      "replace": "vielseitig",
+      "family": "adjectives"
+    },
+    {
+      "find": "vielschichtige",
+      "replace": "vielseitige",
+      "family": "adjectives"
+    },
+    {
+      "find": "vielschichtigen",
+      "replace": "vielseitigen",
+      "family": "adjectives"
+    },
+    {
+      "find": "vielschichtiger",
+      "replace": "vielseitiger",
+      "family": "adjectives"
+    },
+    {
+      "find": "vielschichtiges",
+      "replace": "vielseitiges",
+      "family": "adjectives"
+    },
+    {
+      "find": "vielschichtigem",
+      "replace": "vielseitigem",
+      "family": "adjectives"
+    },
+    {
+      "find": "essenziell",
+      "replace": "wichtig",
+      "family": "adjectives"
+    },
+    {
+      "find": "essenzielle",
+      "replace": "wichtige",
+      "family": "adjectives"
+    },
+    {
+      "find": "essenziellen",
+      "replace": "wichtigen",
+      "family": "adjectives"
+    },
+    {
+      "find": "essenzieller",
+      "replace": "wichtiger",
+      "family": "adjectives"
+    },
+    {
+      "find": "essenzielles",
+      "replace": "wichtiges",
+      "family": "adjectives"
+    },
+    {
+      "find": "essenziellem",
+      "replace": "wichtigem",
+      "family": "adjectives"
+    },
+    {
+      "find": "essentiell",
+      "replace": "wichtig",
+      "family": "adjectives"
+    },
+    {
+      "find": "essentielle",
+      "replace": "wichtige",
+      "family": "adjectives"
+    },
+    {
+      "find": "essentiellen",
+      "replace": "wichtigen",
+      "family": "adjectives"
+    },
+    {
+      "find": "essentieller",
+      "replace": "wichtiger",
+      "family": "adjectives"
+    },
+    {
+      "find": "essentielles",
+      "replace": "wichtiges",
+      "family": "adjectives"
+    },
+    {
+      "find": "essentiellem",
+      "replace": "wichtigem",
+      "family": "adjectives"
+    },
+    {
+      "find": "unerlässlich",
+      "replace": "nötig",
+      "family": "adjectives"
+    },
+    {
+      "find": "unerlässliche",
+      "replace": "nötige",
+      "family": "adjectives"
+    },
+    {
+      "find": "unerlässlichen",
+      "replace": "nötigen",
+      "family": "adjectives"
+    },
+    {
+      "find": "unerlässlicher",
+      "replace": "nötiger",
+      "family": "adjectives"
+    },
+    {
+      "find": "unerlässliches",
+      "replace": "nötiges",
+      "family": "adjectives"
+    },
+    {
+      "find": "unerlässlichem",
+      "replace": "nötigem",
+      "family": "adjectives"
+    },
+    {
+      "find": "transformativ",
+      "replace": "wirksam",
+      "family": "adjectives"
+    },
+    {
+      "find": "transformative",
+      "replace": "wirksame",
+      "family": "adjectives"
+    },
+    {
+      "find": "transformativen",
+      "replace": "wirksamen",
+      "family": "adjectives"
+    },
+    {
+      "find": "transformativer",
+      "replace": "wirksamer",
+      "family": "adjectives"
+    },
+    {
+      "find": "transformatives",
+      "replace": "wirksames",
+      "family": "adjectives"
+    },
+    {
+      "find": "transformativem",
+      "replace": "wirksamem",
+      "family": "adjectives"
+    },
+    {
+      "find": "bemerkenswert",
+      "replace": "auffällig",
+      "family": "adjectives"
+    },
+    {
+      "find": "bemerkenswerte",
+      "replace": "auffällige",
+      "family": "adjectives"
+    },
+    {
+      "find": "bemerkenswerten",
+      "replace": "auffälligen",
+      "family": "adjectives"
+    },
+    {
+      "find": "bemerkenswerter",
+      "replace": "auffälliger",
+      "family": "adjectives"
+    },
+    {
+      "find": "bemerkenswertes",
+      "replace": "auffälliges",
+      "family": "adjectives"
+    },
+    {
+      "find": "bemerkenswertem",
+      "replace": "auffälligem",
+      "family": "adjectives"
+    },
+    {
+      "find": "einzigartig",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "einzigartige",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "einzigartigen",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "einzigartiger",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "einzigartiges",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "einzigartigem",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "erstklassig",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "erstklassige",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "erstklassigen",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "erstklassiger",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "erstklassiges",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "erstklassigem",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "hochmodern",
+      "replace": "modern",
+      "family": "adjectives"
+    },
+    {
+      "find": "hochmoderne",
+      "replace": "moderne",
+      "family": "adjectives"
+    },
+    {
+      "find": "hochmodernen",
+      "replace": "modernen",
+      "family": "adjectives"
+    },
+    {
+      "find": "hochmoderner",
+      "replace": "moderner",
+      "family": "adjectives"
+    },
+    {
+      "find": "hochmodernes",
+      "replace": "modernes",
+      "family": "adjectives"
+    },
+    {
+      "find": "hochmodernem",
+      "replace": "modernem",
+      "family": "adjectives"
+    },
+    {
+      "find": "nachhaltig",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "nachhaltige",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "nachhaltigen",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "nachhaltiger",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "nachhaltiges",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "nachhaltigem",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "ultimativ",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "ultimative",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "ultimativen",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "ultimativer",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "ultimatives",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "ultimativem",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "unvergleichlich",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "unvergleichliche",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "unvergleichlichen",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "unvergleichlicher",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "unvergleichliches",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "unvergleichlichem",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "spannend",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "spannende",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "spannenden",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "spannender",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "spannendes",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "spannendem",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "faszinierend",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "faszinierende",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "faszinierenden",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "faszinierender",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "faszinierendes",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "faszinierendem",
+      "replace": null,
+      "family": "adjectives"
+    },
+    {
+      "find": "eintauchen",
+      "replace": "ansehen",
+      "family": "verbs"
+    },
+    {
+      "find": "tauchen wir ein",
+      "replace": "schauen wir",
+      "family": "verbs"
+    },
+    {
+      "find": "tauchen Sie ein",
+      "replace": "schauen Sie",
+      "family": "verbs"
+    },
+    {
+      "find": "tauch ein",
+      "replace": "schau",
+      "family": "verbs"
+    },
+    {
+      "find": "entfesseln",
+      "replace": "nutzen",
+      "family": "verbs"
+    },
+    {
+      "find": "entfesselt",
+      "replace": "nutzt",
+      "family": "verbs"
+    },
+    {
+      "find": "revolutionieren",
+      "replace": "verändern",
+      "family": "verbs"
+    },
+    {
+      "find": "revolutioniert",
+      "replace": "verändert",
+      "family": "verbs"
+    },
+    {
+      "find": "boosten",
+      "replace": "steigern",
+      "family": "verbs"
+    },
+    {
+      "find": "boostet",
+      "replace": "steigert",
+      "family": "verbs"
+    },
+    {
+      "find": "pushen",
+      "replace": "stärken",
+      "family": "verbs"
+    },
+    {
+      "find": "navigieren",
+      "replace": "sich zurechtfinden",
+      "family": "verbs"
+    },
+    {
+      "find": "beleuchten",
+      "replace": "zeigen",
+      "family": "verbs"
+    },
+    {
+      "find": "beleuchtet",
+      "replace": "zeigt",
+      "family": "verbs"
+    },
+    {
+      "find": "unterstreicht",
+      "replace": "zeigt",
+      "family": "verbs"
+    },
+    {
+      "find": "unterstreichen",
+      "replace": "zeigen",
+      "family": "verbs"
+    },
+    {
+      "find": "fungiert als",
+      "replace": "ist",
+      "family": "verbs"
+    },
+    {
+      "find": "fungieren als",
+      "replace": "sind",
+      "family": "verbs"
+    },
+    {
+      "find": "ermächtigen",
+      "replace": null,
+      "family": "verbs"
+    },
+    {
+      "find": "skalieren",
+      "replace": null,
+      "family": "verbs"
+    },
+    {
+      "find": "optimieren Sie Ihren Erfolg",
+      "replace": null,
+      "family": "verbs"
+    },
+    {
+      "find": "Gamechanger",
+      "replace": "Unterschied",
+      "family": "nouns"
+    },
+    {
+      "find": "Game-Changer",
+      "replace": "Unterschied",
+      "family": "nouns"
+    },
+    {
+      "find": "Game Changer",
+      "replace": "Unterschied",
+      "family": "nouns"
+    },
+    {
+      "find": "Mehrwert",
+      "replace": "Nutzen",
+      "family": "nouns"
+    },
+    {
+      "find": "Synergien",
+      "replace": null,
+      "family": "nouns"
+    },
+    {
+      "find": "Synergieeffekte",
+      "replace": null,
+      "family": "nouns"
+    },
+    {
+      "find": "Herzstück",
+      "replace": "Zentrum",
+      "family": "nouns"
+    },
+    {
+      "find": "Dreh- und Angelpunkt",
+      "replace": "Kern",
+      "family": "nouns"
+    },
+    {
+      "find": "Mindset",
+      "replace": null,
+      "family": "nouns"
+    },
+    {
+      "find": "Must-have",
+      "replace": null,
+      "family": "nouns"
+    },
+    {
+      "find": "Win-win-Situation",
+      "replace": null,
+      "family": "nouns"
+    },
+    {
+      "find": "Win-Win-Situation",
+      "replace": null,
+      "family": "nouns"
+    },
+    {
+      "find": "Erfolgsgeheimnis",
+      "replace": null,
+      "family": "nouns"
+    },
+    {
+      "find": "Schlüssel zum Erfolg",
+      "replace": null,
+      "family": "nouns"
+    },
+    {
+      "find": "Next Level",
+      "replace": null,
+      "family": "nouns"
+    },
+    {
+      "find": "nächste Level",
+      "replace": null,
+      "family": "nouns"
+    },
+    {
+      "find": "nächstes Level",
+      "replace": null,
+      "family": "nouns"
+    },
+    {
+      "find": "Reise",
+      "replace": null,
+      "family": "nouns"
+    },
+    {
+      "find": "Landschaft",
+      "replace": null,
+      "family": "nouns"
+    },
+    {
+      "find": "Paradigmenwechsel",
+      "replace": "Umbruch",
+      "family": "nouns"
+    },
+    {
+      "find": "Meilenstein",
+      "replace": "Schritt",
+      "family": "nouns"
+    },
+    {
+      "find": "Leuchtturm",
+      "replace": null,
+      "family": "nouns"
+    },
+    {
+      "find": "darüber hinaus",
+      "replace": "außerdem",
+      "family": "connectives"
+    },
+    {
+      "find": "des Weiteren",
+      "replace": "außerdem",
+      "family": "connectives"
+    },
+    {
+      "find": "ferner",
+      "replace": "außerdem",
+      "family": "connectives"
+    },
+    {
+      "find": "nichtsdestotrotz",
+      "replace": "trotzdem",
+      "family": "connectives"
+    },
+    {
+      "find": "nichtsdestoweniger",
+      "replace": "trotzdem",
+      "family": "connectives"
+    },
+    {
+      "find": "letztendlich",
+      "replace": "am Ende",
+      "family": "connectives"
+    },
+    {
+      "find": "letzten Endes",
+      "replace": "am Ende",
+      "family": "connectives"
+    },
+    {
+      "find": "zweifellos",
+      "replace": "",
+      "family": "connectives"
+    },
+    {
+      "find": "zweifelsohne",
+      "replace": "",
+      "family": "connectives"
+    },
+    {
+      "find": "ohne Zweifel",
+      "replace": "",
+      "family": "connectives"
+    },
+    {
+      "find": "im Wesentlichen",
+      "replace": "",
+      "family": "connectives"
+    },
+    {
+      "find": "grundsätzlich",
+      "replace": null,
+      "family": "connectives"
+    },
+    {
+      "find": "in der Tat",
+      "replace": "",
+      "family": "connectives"
+    },
+    {
+      "find": "tatsächlich",
+      "replace": "",
+      "family": "connectives"
+    },
+    {
+      "find": "insbesondere",
+      "replace": "vor allem",
+      "family": "connectives"
+    },
+    {
+      "find": "hinsichtlich",
+      "replace": null,
+      "family": "connectives"
+    },
+    {
+      "find": "bezüglich",
+      "replace": null,
+      "family": "connectives"
+    },
+    {
+      "find": "im Hinblick auf",
+      "replace": null,
+      "family": "connectives"
+    },
+    {
+      "find": "in Bezug auf",
+      "replace": null,
+      "family": "connectives"
+    },
+    {
+      "find": "seitens",
+      "replace": null,
+      "family": "connectives"
+    }
+  ],
+  "phrases": [
+    {
+      "find": "in der heutigen schnelllebigen Welt",
+      "replace": "heute",
+      "family": "openers"
+    },
+    {
+      "find": "in unserer schnelllebigen Welt",
+      "replace": "heute",
+      "family": "openers"
+    },
+    {
+      "find": "in der heutigen digitalen Welt",
+      "replace": "heute",
+      "family": "openers"
+    },
+    {
+      "find": "im digitalen Zeitalter",
+      "replace": "heute",
+      "family": "openers"
+    },
+    {
+      "find": "in Zeiten der Digitalisierung",
+      "replace": "heute",
+      "family": "openers"
+    },
+    {
+      "find": "in der heutigen Zeit",
+      "replace": "heute",
+      "family": "openers"
+    },
+    {
+      "find": "es ist kein Geheimnis, dass",
+      "replace": "",
+      "family": "openers"
+    },
+    {
+      "find": "es ist wichtig zu beachten, dass",
+      "replace": "",
+      "family": "openers"
+    },
+    {
+      "find": "es ist wichtig zu betonen, dass",
+      "replace": "",
+      "family": "openers"
+    },
+    {
+      "find": "es sei darauf hingewiesen, dass",
+      "replace": "",
+      "family": "openers"
+    },
+    {
+      "find": "es lässt sich nicht leugnen, dass",
+      "replace": "",
+      "family": "openers"
+    },
+    {
+      "find": "man kann mit Sicherheit sagen, dass",
+      "replace": "",
+      "family": "openers"
+    },
+    {
+      "find": "Hand aufs Herz",
+      "replace": "",
+      "family": "openers"
+    },
+    {
+      "find": "Lass uns gemeinsam",
+      "replace": null,
+      "family": "openers"
+    },
+    {
+      "find": "Lassen Sie uns gemeinsam",
+      "replace": null,
+      "family": "openers"
+    },
+    {
+      "find": "Stell dir vor",
+      "replace": null,
+      "family": "openers"
+    },
+    {
+      "find": "Stellen Sie sich vor",
+      "replace": null,
+      "family": "openers"
+    },
+    {
+      "find": "Kennst du das?",
+      "replace": null,
+      "family": "openers"
+    },
+    {
+      "find": "Kennen Sie das?",
+      "replace": null,
+      "family": "openers"
+    },
+    {
+      "find": "Wusstest du, dass",
+      "replace": null,
+      "family": "openers"
+    },
+    {
+      "find": "Wussten Sie, dass",
+      "replace": null,
+      "family": "openers"
+    },
+    {
+      "find": "in der Welt von",
+      "replace": "bei",
+      "family": "openers"
+    },
+    {
+      "find": "wenn es um",
+      "replace": null,
+      "family": "openers"
+    },
+    {
+      "find": "zusammenfassend lässt sich sagen",
+      "replace": "kurz",
+      "family": "closers"
+    },
+    {
+      "find": "abschließend lässt sich sagen",
+      "replace": "kurz",
+      "family": "closers"
+    },
+    {
+      "find": "alles in allem",
+      "replace": "kurz",
+      "family": "closers"
+    },
+    {
+      "find": "im Großen und Ganzen",
+      "replace": "",
+      "family": "closers"
+    },
+    {
+      "find": "last but not least",
+      "replace": "zuletzt",
+      "family": "closers"
+    },
+    {
+      "find": "auf das nächste Level",
+      "replace": "weiter",
+      "family": "closers"
+    },
+    {
+      "find": "auf ein neues Level",
+      "replace": "weiter",
+      "family": "closers"
+    },
+    {
+      "find": "auf die nächste Stufe",
+      "replace": "weiter",
+      "family": "closers"
+    },
+    {
+      "find": "das volle Potenzial",
+      "replace": "alles",
+      "family": "closers"
+    },
+    {
+      "find": "Ihr volles Potenzial",
+      "replace": "alles",
+      "family": "closers"
+    },
+    {
+      "find": "dein volles Potenzial",
+      "replace": "alles",
+      "family": "closers"
+    },
+    {
+      "find": "das volle Potential",
+      "replace": "alles",
+      "family": "closers"
+    },
+    {
+      "find": "Potenzial entfalten",
+      "replace": null,
+      "family": "closers"
+    },
+    {
+      "find": "Mehrwert schaffen",
+      "replace": "helfen",
+      "family": "closers"
+    },
+    {
+      "find": "Mehrwert bieten",
+      "replace": "helfen",
+      "family": "closers"
+    },
+    {
+      "find": "einen echten Unterschied machen",
+      "replace": "viel ändern",
+      "family": "closers"
+    },
+    {
+      "find": "den Unterschied machen",
+      "replace": "entscheiden",
+      "family": "closers"
+    },
+    {
+      "find": "spannende Einblicke",
+      "replace": "Einblicke",
+      "family": "closers"
+    },
+    {
+      "find": "wertvolle Einblicke",
+      "replace": "Einblicke",
+      "family": "closers"
+    },
+    {
+      "find": "wertvolle Tipps",
+      "replace": "Tipps",
+      "family": "closers"
+    },
+    {
+      "find": "Lass es mich in den Kommentaren wissen",
+      "replace": "Schreib es in die Kommentare",
+      "family": "closers"
+    },
+    {
+      "find": "Lassen Sie es mich in den Kommentaren wissen",
+      "replace": "Schreiben Sie es in die Kommentare",
+      "family": "closers"
+    },
+    {
+      "find": "Was denkst du?",
+      "replace": null,
+      "family": "closers"
+    },
+    {
+      "find": "Was denken Sie?",
+      "replace": null,
+      "family": "closers"
+    },
+    {
+      "find": "Folge mir für mehr",
+      "replace": null,
+      "family": "closers"
+    },
+    {
+      "find": "Folgen Sie mir für mehr",
+      "replace": null,
+      "family": "closers"
+    },
+    {
+      "find": "Markiere jemanden, der",
+      "replace": null,
+      "family": "closers"
+    },
+    {
+      "find": "Teile diesen Beitrag",
+      "replace": null,
+      "family": "closers"
+    },
+    {
+      "find": "Content ist King",
+      "replace": null,
+      "family": "closers"
+    },
+    {
+      "find": "Ich hoffe, das hilft",
+      "replace": "",
+      "family": "closers"
+    },
+    {
+      "find": "Ich hoffe, dieser Beitrag",
+      "replace": null,
+      "family": "closers"
+    },
+    {
+      "find": "in diesem Sinne",
+      "replace": "",
+      "family": "closers"
+    },
+    {
+      "find": "bleib dran",
+      "replace": null,
+      "family": "closers"
+    },
+    {
+      "find": "bleiben Sie dran",
+      "replace": null,
+      "family": "closers"
+    }
+  ],
+  "structures": [
+    {
+      "id": "rocket",
+      "regex": "[\\U0001F680\\U0001F525\\U0001F4A1\\u2728\\U0001F3AF]",
+      "name": "Raketen-/Feuer-/Glühbirnen-Emoji",
+      "fix": "Höchstens ein Emoji, und nicht eines dieser fünf (🚀🔥💡✨🎯)."
+    },
+    {
+      "id": "hashtag-wall",
+      "regex": "(?:#\\w+[ \\t]*){5,}",
+      "name": "Hashtag-Wand",
+      "fix": "Hashtags gehören ans Ende oder in den ersten Kommentar, nicht als Wand in den Text."
+    },
+    {
+      "id": "emoji-bullets",
+      "regex": "(?m)^\\s*[\\U0001F300-\\U0001FAFF✅➡⬅✔✨]\\s*\\S",
+      "name": "Emoji-Aufzählung",
+      "fix": "Bindestrich oder Zeilenumbruch statt Emoji-Aufzählung. Wirkt sonst wie eine Vorlage."
+    },
+    {
+      "id": "caps-shout",
+      "regex": "\\b[A-Z]{3,}\\b(?:\\s+\\b[A-Z]{3,}\\b){2,}",
+      "name": "Mehrere Wörter in Großbuchstaben",
+      "fix": "Großbuchstaben sind ein Lautstärkeregler. Höchstens ein Wort."
+    },
+    {
+      "id": "nicht-nur-sondern",
+      "regex": "(?i)\\bnicht nur\\b[^.!?\\n]{2,80}\\bsondern\\b",
+      "name": "„nicht nur X, sondern auch Y“",
+      "fix": "Sag das eine, was du wirklich meinst. Oder zwei Sätze daraus machen."
+    },
+    {
+      "id": "es-geht-nicht-um",
+      "regex": "(?i)\\b(?:es|das) geht (?:hier )?nicht (?:nur )?um [^.!?\\n]{2,60}[.!,–-]\\s*(?:es geht um|sondern um|sondern)\\b",
+      "name": "„Es geht nicht um X. Es geht um Y.“",
+      "fix": "Mit Y anfangen. Die Umkehrung ist das Erkennungszeichen."
+    },
+    {
+      "id": "ist-nicht-ist",
+      "regex": "(?i)\\b(?:das|es) ist nicht (?:nur |einfach )?[^.!?\\n]{2,50}[.,–-]\\s*(?:es|das) ist\\b",
+      "name": "„Das ist nicht X – das ist Y“",
+      "fix": "Direkt sagen, was es ist."
+    },
+    {
+      "id": "enthuellung",
+      "regex": "(?im)^\\s*(?:das ergebnis|das beste daran|der clou|der haken|die lösung|und jetzt kommt's|und das beste)\\?\\s*$",
+      "name": "Inszenierte Enthüllung („Das Ergebnis?“)",
+      "fix": "Die Antwort direkt in den Satz schreiben statt eine Pause zu inszenieren."
+    },
+    {
+      "id": "dreierkette",
+      "regex": "(?i)\\b[\\wäöüß]+, [\\wäöüß]+ und [\\wäöüß]+\\.",
+      "name": "Dreierkette „X, Y und Z.“",
+      "fix": "Zwei oder vier Dinge. Drei ist der Standard-Rhythmus von KI-Texten."
+    },
+    {
+      "id": "fazit",
+      "regex": "(?im)^\\s*(?:fazit|zusammenfassend|abschließend|zum schluss)\\b",
+      "name": "Fazit-Absatz",
+      "fix": "Ein Post braucht kein Fazit. Mit der stärksten Aussage aufhören."
+    },
+    {
+      "id": "frage-koeder",
+      "regex": "(?im)(?:wer kennt das\\?|geht es nur mir so\\?|wer noch\\?|seht ihr das auch so\\?|stimmt's\\?)\\s*$",
+      "name": "Allgemeiner Kommentar-Köder",
+      "fix": "Eine Frage stellen, die nur du stellen kannst, zum konkreten Inhalt darüber."
+    },
+    {
+      "id": "nicht-scrollen",
+      "regex": "(?im)^\\s*(?:hör auf zu scrollen|stopp[,!]? nicht (?:weiter)?scrollen|scroll nicht weiter)\\b",
+      "name": "„Hör auf zu scrollen“",
+      "fix": "Der Scroll-Stopper muss die Aussage selbst sein. Um Aufmerksamkeit bitten zeigt, dass man sie nicht verdient hat."
+    },
+    {
+      "id": "in-diesem-video",
+      "regex": "(?i)\\b(?:in diesem (?:video|reel|beitrag|post)|heute zeige ich (?:dir|euch|ihnen)|ich zeige (?:dir|euch|ihnen) heute)\\b",
+      "name": "Vorrede („In diesem Video zeige ich …“)",
+      "fix": "Streichen und mit der Pointe anfangen. Die ersten zwei Sekunden entscheiden."
+    },
+    {
+      "id": "als-ki",
+      "regex": "(?i)\\bals (?:eine )?(?:ki|künstliche intelligenz|sprachmodell)\\b",
+      "name": "„Als KI …“",
+      "fix": "Den Satz löschen."
+    },
+    {
+      "id": "gedankenstrich-flut",
+      "regex": "(?s)\\A(?=(?:.*?\\s–\\s){4})",
+      "name": "Viele Gedankenstriche (4+)",
+      "fix": "Gedankenstriche sind korrekt, aber KI-Texte übertreiben sie. Zwei pro Text reichen, Rest durch Punkt oder Komma ersetzen."
+    },
+    {
+      "id": "ausrufe-flut",
+      "regex": "(?s)!{2,}|\\A(?=(?:.*?!){4})",
+      "name": "Zu viele Ausrufezeichen",
+      "fix": "Höchstens eins. Begeisterung entsteht durch Inhalt, nicht durch Satzzeichen."
+    }
+  ]
+}

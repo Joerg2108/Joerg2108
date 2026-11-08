@@ -39,6 +39,25 @@ LEX = os.path.join(HERE, "slop.json")
 URL_RE = re.compile(r"https?://\S+|www\.\S+|\S+@\S+\.\S+")
 SENT_RE = re.compile(r"[^.!?\n]+[.!?]*")
 
+# --- Deutsch (ergänzt) --------------------------------------------------------
+# Bei deutschem Text wird automatisch slop.de.json verwendet (außer --lexicon ist gesetzt).
+LEX_DE = os.path.join(HERE, "slop.de.json")
+_DE_RE = re.compile(
+    r"[äöüßÄÖÜ]|\b(?:der|die|das|und|ist|nicht|ich|sie|du|wir|mit|für|auf|ein|eine|kein|auch|sich)\b",
+    re.IGNORECASE)
+_EN_RE = re.compile(r"\b(?:the|and|is|not|you|your|with|for|this|that|it's|i'm)\b", re.IGNORECASE)
+
+
+def ist_deutsch(text):
+    return len(_DE_RE.findall(text)) > len(_EN_RE.findall(text))
+
+
+def lexikon_fuer(text, pfad):
+    """Standard-Lexikon → bei deutschem Text das deutsche nehmen."""
+    if os.path.abspath(pfad) == os.path.abspath(LEX) and ist_deutsch(text) and os.path.exists(LEX_DE):
+        return LEX_DE
+    return pfad
+
 
 def load_lexicon(path=LEX):
     with open(path, encoding="utf-8") as fh:
@@ -101,7 +120,10 @@ def pass_typographic(text, lex):
         if not n:
             continue
         hits.append({"name": f"{ch} {entry['name']}", "count": n, "to": entry["to"].strip() or "(space)"})
-        if ch == "—":
+        if ch == "—" and entry["to"].strip() == "–":
+            # Deutsch (ergänzt): Geviertstrich → deutscher Gedankenstrich mit Leerzeichen
+            text = re.sub(r"\s*—\s*", " – ", text)
+        elif ch == "—":
             # " word — word " and "word—word" both collapse to a comma + space.
             text = re.sub(r"\s*—\s*", ", ", text)
         elif ch == "–":
@@ -137,6 +159,11 @@ def pass_lexical(text, lex):
                              re.IGNORECASE)
         found = pattern.findall(text)
         if not found:
+            continue
+        if entry["replace"] is None:
+            # Deutsch (ergänzt): null = nur markieren, nicht automatisch ersetzen
+            hits.append({"find": find, "replace": "(nur markiert – selbst umformulieren)",
+                         "count": len(found), "family": entry["family"]})
             continue
         hits.append({"find": find, "replace": entry["replace"] or "(deleted)",
                      "count": len(found), "family": entry["family"]})
@@ -196,10 +223,10 @@ def restore_capitals(original, text):
     a deliberately lower-case voice is a style, not an artefact, and shouting
     over it would be exactly the kind of thing this script exists to stop.
     """
-    starts = re.findall(r"(?:^|[.!?]\s+|\n)\s*([A-Za-z])", original)
+    starts = re.findall(r"(?:^|[.!?]\s+|\n)\s*([A-Za-zÄÖÜäöü])", original)  # Deutsch (ergänzt)
     if not starts or sum(1 for c in starts if c.isupper()) * 2 < len(starts):
         return text
-    return re.sub(r"(?:^|(?<=[.!?] )|(?<=[.!?]\n)|(?<=\n))\s*([a-z])",
+    return re.sub(r"(?:^|(?<=[.!?] )|(?<=[.!?]\n)|(?<=\n))\s*([a-zäöü])",
                   lambda m: m.group(0)[:-1] + m.group(1).upper(), text)
 
 
@@ -263,7 +290,7 @@ def main():
     args = ap.parse_args()
 
     raw = sys.stdin.read() if args.input == "-" else open(args.input, encoding="utf-8").read()
-    lex = load_lexicon(args.lexicon)
+    lex = load_lexicon(lexikon_fuer(raw, args.lexicon))  # Deutsch (ergänzt): passend zur Sprache
     clean, report = humanize(raw, lex)
 
     if args.json:

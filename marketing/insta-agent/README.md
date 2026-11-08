@@ -14,7 +14,7 @@ und auf Wunsch **jeden Tag automatisch einen Beitrag plus Stories veröffentlich
 Thema ──► 1. Entwurf (Claude, Texter-Rolle)
               │
               ▼
-          2. Automatische Prüfung ──── Zeichengrenzen, Folienaufbau, Hashtags,
+          2. Automatische Prüfung ──── Zeichengrenzen, Folienaufbau, Hashtags, KI-Floskeln,
               │                         heikle Werbeaussagen (UWG), Text-Überlauf im echten Layout
               ▼
           3. Creative-Director-Review ── Note 1–10 + überarbeitete Fassung
@@ -255,6 +255,9 @@ Spielt Hosting, Token-Erneuerung sowie Karussell- und Story-Veröffentlichung ge
 - **`marke.json`** – Angebot, Leistungen, USPs, Zielgruppe, Tonalität, CTAs, Themen-Säulen, Farben.
   Je konkreter und ehrlicher, desto besser die Posts. Echte Referenzen/Kundenstimmen hier eintragen, dann nutzt der Agent sie.
 - **`src/pruefung.js`** – harte Regeln (Zeichengrenzen, verbotene Aussagen).
+- **`src/floskeln.de.json`** – deutsche KI-Floskeln und -Satzmuster („maßgeschneidert“, „Mehrwert“, „nicht nur …, sondern auch …“, „Das Ergebnis?“ …).
+  Jeder Treffer geht als Mangel zurück an Claude und wird umgeschrieben. Dieselbe Liste nutzt der Skill `/ig-human` (`.claude/skills/ig-human/slop.de.json`).
+  Beim Erweitern beide Dateien ändern, `npm test` prüft, ob sie übereinstimmen.
 - **`src/render.js`** – Folien-Design (CSS).
 
 ## Kosten

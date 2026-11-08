@@ -36,12 +36,16 @@ import re
 import statistics
 import sys
 
-WORD_RE = re.compile(r"[A-Za-z0-9$%'’-]+")
+WORD_RE = re.compile(r"[A-Za-zÄÖÜäöüß0-9$€%'’-]+")  # Deutsch (ergänzt): Umlaute, €
 NUMBER_RE = re.compile(
     r"\$\s?\d[\d,]*(?:\.\d+)?"                       # money, whole
     r"|\b\d[\d,]*(?:\.\d+)?\s?"                      # a figure, with or
     r"(?:%|k\b|x\b|hrs?\b|hours?\b|mins?\b|minutes?\b"  # without a unit
-    r"|days?\b|weeks?\b|months?\b|years?\b)?",
+    r"|days?\b|weeks?\b|months?\b|years?\b"
+    # Deutsch (ergänzt): Einheiten und Euro
+    r"|€|euro\b|prozent\b|sek(?:\.|unden?)?\b|min(?:\.|uten?)?\b|std\.?|stunden?\b"
+    r"|tagen?\b|wochen?\b|monaten?\b|jahren?\b)?"
+    r"|\d[\d.,]*\s?€",
     re.IGNORECASE)
 PROPER_RE = re.compile(r"(?<!^)\b[A-Z][a-z]{2,}\b")
 HASHTAG_RE = re.compile(r"(?:^|\s)#\w+")
@@ -95,6 +99,58 @@ IMPERATIVES = {
     "never", "always", "don't", "dont", "do", "put", "run", "check",
 }
 
+# --- Deutsch (ergänzt) --------------------------------------------------------
+# Die Listen werden mit den englischen vereinigt. So funktionieren beide Sprachen,
+# ohne dass man einen Schalter setzen muss.
+SPOKEN_NUMBERS |= {
+    "null", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun",
+    "zehn", "elf", "zwölf", "fünfzehn", "zwanzig", "dreißig", "vierzig", "fünfzig",
+    "hundert", "tausend", "million", "millionen", "milliarde", "dutzend", "hälfte",
+    "doppelt", "dreifach", "halb",
+}
+MONEY_WORDS |= {
+    "euro", "prozent", "umsatz", "gewinn", "gehalt", "miete", "kosten", "rechnung",
+    "honorar", "angebot", "preis", "budget",
+}
+STAKES |= {
+    "nie", "niemals", "falsch", "fehler", "verloren", "verlieren", "verliert",
+    "kostet", "kosten", "gekostet", "pleite", "kaputt", "gescheitert", "scheitern",
+    "niemand", "keiner", "keine", "kein", "keinen", "nicht", "nichts", "ohne",
+    "aufhören", "hör", "gekündigt", "gelöscht", "löschen", "ersetzt", "statt",
+    "anstatt", "kostenlos", "gratis", "bezahlt", "verschwendet", "verschwenden",
+    "betrug", "lüge", "wahrheit", "geheim", "versteckt", "vorher", "bevor", "bis",
+    "aber", "trotzdem", "außer", "problem", "risiko", "gefahr", "warnung",
+    "bereue", "bereut", "sollten", "solltest", "noch", "schon", "nur", "eigentlich",
+    "weg", "verpasst", "abmahnung", "strafe", "teuer", "zu",
+}
+WEAK_OPENERS += [
+    "also", "hallo", "hey leute", "hi leute", "servus", "moin", "willkommen", "heute",
+    "ich wollte", "ich will", "ich möchte", "kennst du", "kennen sie", "hast du",
+    "haben sie", "weißt du", "wissen sie", "in diesem", "in meinem", "das thema",
+    "es gibt", "das ist", "es ist", "na ja", "ähm", "ok leute", "lass uns",
+    "lassen sie uns", "stell dir", "stellen sie sich",
+]
+IMPERATIVES |= {
+    "hör", "hören", "stopp", "lösch", "löschen", "kopier", "kopieren", "probier",
+    "speicher", "speichern", "nutz", "nutzen", "bau", "schreib", "schreiben",
+    "schick", "prüf", "prüfen", "mach", "vergiss", "vergessen", "teste", "testen",
+    "öffne", "öffnen", "schau", "schauen",
+}
+DEUTSCH_RE = re.compile(
+    r"[äöüß]|\b(?:der|die|das|und|ist|nicht|ich|sie|ihre?|du|dein|wir|mit|für|auf|kein|keine)\b",
+    re.IGNORECASE)
+
+
+def ist_deutsch(text):
+    """Grobe Erkennung. Im Deutschen ist jedes Nomen großgeschrieben, deshalb zählen
+    großgeschriebene Wörter dort NICHT als Name/konkretes Detail."""
+    return len(DEUTSCH_RE.findall(text)) >= 2
+
+
+def namen(text):
+    return set() if ist_deutsch(text) else set(PROPER_RE.findall(text))
+
+
 DEALBREAKERS = [
     (re.compile(r"(?i)^\s*(?:stop scrolling|don'?t scroll)"),
      "Opens with \"stop scrolling\". Asking for attention proves you have not earned it."),
@@ -102,6 +158,13 @@ DEALBREAKERS = [
      "Video preamble. Delete it and open on the payoff."),
     (re.compile(r"(?i)^\s*(?:hey |hi |what'?s up |welcome )"),
      "Greeting. Nobody came to the feed to be greeted."),
+    # Deutsch (ergänzt)
+    (re.compile(r"(?i)^\s*(?:hör auf zu scrollen|nicht weiterscrollen|scroll nicht weiter|stopp,? nicht scrollen)"),
+     "Beginnt mit „Hör auf zu scrollen“. Wer um Aufmerksamkeit bittet, hat sie noch nicht verdient."),
+    (re.compile(r"(?i)\b(?:in diesem (?:video|reel|beitrag)|heute zeige ich (?:dir|euch|ihnen)|ich zeige (?:dir|euch|ihnen) heute)\b"),
+     "Video-Vorrede. Streichen und direkt mit der Pointe anfangen."),
+    (re.compile(r"(?i)^\s*(?:hallo|hey leute|hi leute|servus|moin|willkommen)\b"),
+     "Begrüßung. Niemand öffnet den Feed, um begrüßt zu werden."),
     (HASHTAG_RE,
      "Hashtag in the hook. Hashtags belong at the bottom of the caption, if anywhere."),
     (EMOJI_RE,
@@ -138,7 +201,7 @@ def check_length(text):
 def check_specificity(text):
     """One concrete thing beats three abstract ones."""
     nums = [n.strip() for n in NUMBER_RE.findall(text) if n.strip()]
-    propers = set(PROPER_RE.findall(text))
+    propers = namen(text)  # Deutsch (ergänzt)
     low = [w.lower().strip("'’") for w in words(text)]
     spoken = [w for w in low if w in SPOKEN_NUMBERS or w in MONEY_WORDS]
     hits = len(nums) + len(propers) + len(spoken)
@@ -178,7 +241,8 @@ def check_frontload(text):
     payload = None
     for i, token in enumerate(low):
         if (token in STAKES or token in SPOKEN_NUMBERS or token in MONEY_WORDS
-                or NUMBER_RE.match(w[i]) or (i and PROPER_RE.match(w[i]))):
+                or NUMBER_RE.match(w[i])
+                or (i and not ist_deutsch(text) and PROPER_RE.match(w[i]))):  # Deutsch (ergänzt)
             payload = i
             break
     if payload is None:
@@ -203,9 +267,14 @@ def check_address(text):
     w = [x.lower().strip("'’") for x in words(text)]
     if re.search(r"\b(you|your|you're|youre|yourself)\b", low):
         return 100.0, "speaks to the viewer"
+    # Deutsch (ergänzt): du/ihr und das großgeschriebene Sie (nicht am Satzanfang = Höflichkeitsform)
+    if (re.search(r"\b(du|dich|dir|dein|deine|deinen|deinem|deiner|ihr|euch|euer|eure)\b", low)
+            or re.search(r"(?<![.!?]\s)(?<!^)\b(Sie|Ihnen|Ihr|Ihre|Ihren|Ihrem|Ihrer)\b", text)
+            or re.match(r"\s*\w+\s+Sie\b", text)):
+        return 100.0, "spricht den Zuschauer an"
     if w and w[0] in IMPERATIVES:
         return 90.0, f"imperative opener (\"{w[0]}\")"
-    if re.search(r"\b(i|my|me|we|our)\b", low):
+    if re.search(r"\b(i|my|me|we|our|ich|mein|meine|mir|mich|wir|uns|unser|unsere)\b", low):
         return 70.0, "first person, no viewer named"
     return 35.0, "third person, nobody in the room"
 

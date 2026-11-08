@@ -39,6 +39,32 @@ PRONOUNS = re.compile(r"\b(i|me|my|mine|we|us|our|you|your)\b", re.IGNORECASE)
 NUMBERS = re.compile(r"\b\d[\d,.]*%?\b|\$\d")
 PROPER = re.compile(r"(?<![.!?]\s)(?<!^)\b[A-Z][a-z]{2,}\b", re.MULTILINE)
 
+# --- Deutsch (ergänzt) --------------------------------------------------------
+# Bei deutschem Text wird automatisch slop.de.json verwendet (außer --lexicon ist gesetzt).
+LEX_DE = os.path.join(HERE, "slop.de.json")
+_DE_RE = re.compile(
+    r"[äöüßÄÖÜ]|\b(?:der|die|das|und|ist|nicht|ich|sie|du|wir|mit|für|auf|ein|eine|kein|auch|sich)\b",
+    re.IGNORECASE)
+_EN_RE = re.compile(r"\b(?:the|and|is|not|you|your|with|for|this|that|it's|i'm)\b", re.IGNORECASE)
+
+
+def ist_deutsch(text):
+    return len(_DE_RE.findall(text)) > len(_EN_RE.findall(text))
+
+
+def lexikon_fuer(text, pfad):
+    """Standard-Lexikon → bei deutschem Text das deutsche nehmen."""
+    if os.path.abspath(pfad) == os.path.abspath(LEX) and ist_deutsch(text) and os.path.exists(LEX_DE):
+        return LEX_DE
+    return pfad
+
+WORD_RE_DE = re.compile(r"[A-Za-zÄÖÜäöüß']+")
+PRONOUNS_DE = re.compile(
+    r"\b(ich|mir|mich|mein|meine|meinen|wir|uns|unser|unsere|du|dich|dir|dein|deine|ihr|euch|euer)\b"
+    r"|(?<![.!?]\s)\b(Sie|Ihnen|Ihr|Ihre|Ihren|Ihrem|Ihrer)\b", re.IGNORECASE)
+NUMBERS_DE = re.compile(r"\b\d[\d.,]*\s?(?:%|€|Euro|Prozent|Sek|Min|Std|km|kg|GB|MB)?|@\w+", re.IGNORECASE)
+DEUTSCH = False  # wird in run() gesetzt
+
 
 def clamp(n):
     return max(0.0, min(100.0, n))
@@ -56,7 +82,7 @@ def sentences(text):
 
 
 def words(text):
-    return WORD_RE.findall(text)
+    return (WORD_RE_DE if DEUTSCH else WORD_RE).findall(text)  # Deutsch (ergänzt)
 
 
 def check_burstiness(text):
@@ -76,7 +102,11 @@ def check_specificity(text):
     if len(w) < 25:
         return 50.0, "too short to judge"
     per100 = 100 / len(w)
-    hits = len(NUMBERS.findall(text)) + len(set(PROPER.findall(text)))
+    if DEUTSCH:
+        # Deutsch (ergänzt): Nomen sind großgeschrieben, also zählen nur Zahlen, Beträge, Einheiten, @Namen
+        hits = len(NUMBERS_DE.findall(text))
+    else:
+        hits = len(NUMBERS.findall(text)) + len(set(PROPER.findall(text)))
     density = hits * per100
     score = scale(density, human=6.0, machine=0.5)
     return score, f"{hits} concrete markers, {density:.1f} per 100 words (want 4+)"
@@ -107,7 +137,8 @@ def check_fingerprint(text):
     """Characters a phone keyboard does not produce."""
     invisible = sum(1 for c in text if unicodedata.category(c) == "Cf")
     em = text.count("—")
-    curly = sum(text.count(c) for c in "‘’“”")
+    # Deutsch (ergänzt): „…“ und ‚…‘ sind im Deutschen korrekt, nur das englische ” zählt
+    curly = text.count("”") if DEUTSCH else sum(text.count(c) for c in "‘’“”")
     ellip = text.count("…")
     nbsp = sum(text.count(c) for c in "   ")
     total = invisible * 4 + em * 2 + curly + ellip + nbsp
@@ -138,9 +169,16 @@ def check_voice(text, lex):
             names.append(s["id"])
     bullets = [len(b.split()) for b in re.findall(r"(?m)^\s*[-*•]\s+(.+)$", text)]
     uniform = (len(bullets) >= 3 and statistics.pstdev(bullets) < 1.6)
-    score = (scale(contractions, human=3.0, machine=0.0) * 0.35
-             + scale(person, human=8.0, machine=1.0) * 0.35
-             + clamp(100 - tells * 22) * 0.30)
+    if DEUTSCH:
+        # Deutsch (ergänzt): Zusammenziehungen („gibt's“) sind in der Sie-Form unüblich, deshalb
+        # zählen nur persönliche Ansprache und Strukturmuster.
+        person = len(PRONOUNS_DE.findall(text)) * per100
+        score = (scale(person, human=8.0, machine=1.0) * 0.55
+                 + clamp(100 - tells * 22) * 0.45)
+    else:
+        score = (scale(contractions, human=3.0, machine=0.0) * 0.35
+                 + scale(person, human=8.0, machine=1.0) * 0.35
+                 + clamp(100 - tells * 22) * 0.30)
     if uniform:
         score -= 12
         names.append("uniform-bullets")
@@ -155,6 +193,8 @@ CHECKS = ["BURSTINESS", "SPECIFICITY", "SLOP DENSITY", "FINGERPRINT", "VOICE"]
 
 
 def run(text, lex):
+    global DEUTSCH
+    DEUTSCH = lex.get("sprache") == "de"  # Deutsch (ergänzt)
     results = {}
     results["BURSTINESS"] = check_burstiness(text)
     results["SPECIFICITY"] = check_specificity(text)
@@ -198,10 +238,11 @@ def main():
     ap.add_argument("--lexicon", default=LEX)
     args = ap.parse_args()
 
-    lex = json.load(open(args.lexicon, encoding="utf-8"))
     read = lambda p: sys.stdin.read() if p == "-" else open(p, encoding="utf-8").read()
 
     targets = [(args.input, read(args.input))]
+    # Deutsch (ergänzt): Lexikon passend zur Sprache des (ersten) Textes
+    lex = json.load(open(lexikon_fuer(targets[0][1], args.lexicon), encoding="utf-8"))
     if args.compare:
         targets.append((args.compare, read(args.compare)))
 

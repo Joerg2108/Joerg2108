@@ -1,5 +1,6 @@
 // Harte, regelbasierte Qualitätsprüfung. Alles, was hier gefunden wird, geht
 // als Mängelliste zurück an Claude, bis der Post sauber ist.
+import { pruefeFloskeln } from "./floskeln.js";
 
 const GRENZEN = {
   eyebrow: 40,
@@ -70,6 +71,15 @@ export function pruefePost(post) {
   const alles = JSON.stringify([folien, caption]);
   for (const [re, grund] of VERBOTEN) if (re.test(alles)) m.push(`Heikle Aussage: ${grund}.`);
 
+  // KI-Floskeln und typische KI-Satzmuster (deutsches Lexikon aus /ig-human)
+  m.push(...pruefeFloskeln([
+    ...folien.flatMap((f, i) => [
+      { ort: `Folie ${i + 1}`, text: f.eyebrow, strukturenPruefen: false },
+      { ort: `Folie ${i + 1}`, text: [f.headline, f.akzent, f.text, ...(f.punkte ?? [])].filter(Boolean).join("\n") },
+    ]),
+    { ort: "Caption", text: caption },
+  ]));
+
   return m;
 }
 
@@ -89,5 +99,9 @@ export function pruefeStories(stories, anzahl) {
   });
   const alles = JSON.stringify(frames);
   for (const [re, grund] of VERBOTEN) if (re.test(alles)) m.push(`Heikle Aussage: ${grund}.`);
+  m.push(...pruefeFloskeln(frames.map((f, i) => ({
+    ort: `Story ${i + 1}`,
+    text: [f.headline, f.akzent, f.text, f.hinweis].filter(Boolean).join("\n"),
+  }))));
   return m;
 }

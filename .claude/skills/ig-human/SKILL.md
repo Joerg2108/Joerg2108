@@ -109,3 +109,23 @@ do not tell a user their text is undetectable.
    again. Two rounds is normal. Five means the draft was written by formula,
    and the fix is a different draft, not more passes.
 5. Show the user the cleaned text and the score. Never the score alone.
+
+## Deutsch (ergänzt)
+
+Deutsche Texte werden automatisch erkannt. Beide Skripte nehmen dann `slop.de.json`
+statt `slop.json` (mit `--lexicon` lässt sich das überschreiben):
+
+- **Typografie:** „…“, ‚…‘ und der Gedankenstrich – sind im Deutschen korrekt und
+  bleiben stehen. Nur der englische Geviertstrich — wird zu „ – “, das englische ” zu “.
+- **Lexikon:** gut 200 Wortformen und 57 Phrasen (z. B. „maßgeschneidert“,
+  „Mehrwert“, „in der heutigen digitalen Welt“, „Lassen Sie es mich in den
+  Kommentaren wissen“), alle Beugungsformen. Ersatzwörter haben dasselbe
+  grammatische Geschlecht. Einträge mit `"replace": null` werden nur markiert,
+  weil ein automatischer Ersatz die Grammatik beschädigen würde. Diese
+  Stellen formulierst du selbst um.
+- **Muster:** „nicht nur X, sondern auch Y“, „Es geht nicht um X“, „Das Ergebnis?“,
+  Fazit-Absätze, Kommentar-Köder, Gedanken- und Ausrufezeichen-Fluten.
+- **detect.py:** Großgeschriebene Wörter zählen im Deutschen nicht als Namen (jedes
+  Nomen ist groß). Konkret sind Zahlen, Beträge, Einheiten und @Namen. Die
+  Stimme misst persönliche Ansprache (ich/wir/Sie/du) statt englischer
+  Zusammenziehungen.

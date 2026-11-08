@@ -26,7 +26,7 @@ import json
 import re
 import sys
 
-WORD_RE = re.compile(r"[A-Za-z0-9$%'’-]+")
+WORD_RE = re.compile(r"[A-Za-zÄÖÜäöüß0-9$€%'’-]+")  # Deutsch (ergänzt): Umlaute, €
 SENT_RE = re.compile(r"[^.!?]+[.!?]*")
 CONCRETE_RE = re.compile(r"\$\s?\d|\b\d[\d,.]*\b|(?<!^)\b[A-Z][a-z]{2,}\b", re.MULTILINE)
 STOPWORDS = {
@@ -35,6 +35,13 @@ STOPWORDS = {
     "you", "your", "i", "my", "me", "we", "our", "they", "them", "he", "she",
     "so", "just", "not", "no", "do", "did", "does", "have", "has", "had",
     "will", "can", "at", "as", "by", "from", "out", "up", "off", "one", "all",
+    # Deutsch (ergänzt)
+    "der", "die", "das", "den", "dem", "des", "ein", "eine", "einen", "einem", "einer",
+    "und", "oder", "aber", "wenn", "von", "zu", "im", "in", "an", "auf", "für", "mit",
+    "ist", "sind", "war", "waren", "sein", "hat", "haben", "hatte", "ich", "mein", "mir",
+    "mich", "wir", "uns", "sie", "ihr", "ihre", "ihnen", "du", "dein", "dir", "dich",
+    "es", "er", "so", "nur", "nicht", "kein", "keine", "noch", "schon", "auch", "dann",
+    "denn", "da", "wie", "was", "bei", "aus", "nach", "um", "am", "man", "sich",
 }
 
 HOOK_WINDOW = 3.0        # seconds. Past this, the thumb has already decided.
