@@ -8,6 +8,15 @@ import path from "node:path";
 const require = createRequire(import.meta.url);
 const B = 1080;
 const H = 1350;
+const STORY_H = 1920;
+
+// Story-Frame → gleiche Bausteine wie eine Feed-Folie
+const STORY_TYP = { teaser: "titel", tipp: "inhalt", fakt: "zahl", frage: "inhalt" };
+const alsFolie = (s) => ({ ...s, typ: STORY_TYP[s.typ] ?? "inhalt", punkte: [] });
+
+const feedHtml = (post, marke) => post.folien.map((f, i) => folieHtml(f, i, post.folien.length, marke)).join("\n");
+const storyHtml = (stories, marke) =>
+  stories.frames.map((s, i) => folieHtml(alsFolie(s), i, stories.frames.length, marke, true)).join("\n");
 
 // Inter lokal einbetten → identisches Ergebnis ohne Internet/Google Fonts.
 async function schriften() {
@@ -33,9 +42,9 @@ function groesse(text, typ) {
   return 70;
 }
 
-function folieHtml(f, i, anzahl, marke) {
+function folieHtml(f, i, anzahl, marke, story = false) {
   const d = marke.design;
-  const istErste = i === 0 && anzahl > 1;
+  const istErste = i === 0 && anzahl > 1 && !story;
   const hGr = groesse(f.headline, f.typ);
   const aGr = f.typ === "zahl" ? 64 : Math.min(hGr, groesse(f.akzent, "titel"));
 
@@ -43,14 +52,16 @@ function folieHtml(f, i, anzahl, marke) {
     ? `<ul class="punkte">${f.punkte.map((p) => `<li><span class="haken">✓</span><span>${esc(p)}</span></li>`).join("")}</ul>`
     : "";
 
-  const unten = istErste
+  const unten = story
+    ? `<div class="cta-knopf">${esc(f.hinweis)}</div>`
+    : istErste
     ? `<div class="wischen"><span class="pfeil">→</span>Wischen</div>`
     : f.typ === "cta"
       ? `<div class="cta-knopf">${esc(marke.website)}</div>`
       : "";
 
   return `
-  <section class="folie typ-${f.typ}" style="--h:${hGr}px;--a:${aGr}px">
+  <section class="folie typ-${f.typ}${story ? " story" : ""}" style="--h:${hGr}px;--a:${aGr}px">
     <div class="inhalt">
       ${f.eyebrow ? `<div class="eyebrow">${esc(f.eyebrow)}</div>` : ""}
       <h1 class="headline">${esc(f.headline)}</h1>
@@ -62,13 +73,13 @@ function folieHtml(f, i, anzahl, marke) {
       ${unten}
       <div class="leiste">
         <div class="autor"><span class="badge">${esc(d.kuerzel)}</span>${esc(marke.name)}</div>
-        ${anzahl > 1 ? `<div class="seite">${i + 1} / ${anzahl}</div>` : ""}
+        ${anzahl > 1 && !story ? `<div class="seite">${i + 1} / ${anzahl}</div>` : ""}
       </div>
     </div>
   </section>`;
 }
 
-async function seitenHtml(post, marke) {
+async function seitenHtml(abschnitte, marke) {
   const d = marke.design;
   return `<!doctype html><html lang="de"><head><meta charset="utf-8"><style>
 ${await schriften()}
@@ -97,9 +108,12 @@ body{font-family:Inter,system-ui,sans-serif;background:#000}
 .cta-knopf{align-self:flex-start;background:${d.akzent};color:${d.hintergrund};font-weight:800;font-size:36px;padding:26px 44px;border-radius:999px}
 .leiste{display:flex;justify-content:space-between;align-items:center;color:${d.text_gedimmt};font-size:26px;font-weight:500}
 .autor{display:flex;align-items:center;gap:16px}
+.story{height:${STORY_H}px;padding:250px 88px 400px}
+.story .text{font-size:42px}
+.story .eyebrow{position:static}
 .badge{width:40px;height:40px;border-radius:9px;background:${d.badge};color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:22px}
 </style></head><body>
-${post.folien.map((f, i) => folieHtml(f, i, post.folien.length, marke)).join("\n")}
+${abschnitte}
 </body></html>`;
 }
 
@@ -118,39 +132,57 @@ async function ueberlauf(page) {
 }
 
 let browser;
-async function seite(post, marke) {
+async function seite(abschnitte, marke) {
   browser ??= await chromium.launch();
-  const page = await browser.newPage({ viewport: { width: B, height: H }, deviceScaleFactor: 1 });
-  await page.setContent(await seitenHtml(post, marke), { waitUntil: "load" });
+  const page = await browser.newPage({ viewport: { width: B, height: STORY_H }, deviceScaleFactor: 1 });
+  await page.setContent(await seitenHtml(abschnitte, marke), { waitUntil: "load" });
   await page.evaluate(() => document.fonts.ready);
   return page;
 }
 
-export async function pruefeLayout(post, marke) {
-  const page = await seite(post, marke);
+async function pruefe(abschnitte, marke, name) {
+  const page = await seite(abschnitte, marke);
   try {
-    return await ueberlauf(page);
+    return (await ueberlauf(page)).map((m) => m.replace(/^Folie/, name));
   } finally {
     await page.close();
   }
 }
 
-export async function rendere(post, marke, ordner) {
+export const pruefeLayout = (post, marke) => pruefe(feedHtml(post, marke), marke, "Folie");
+export const pruefeStoryLayout = (stories, marke) => pruefe(storyHtml(stories, marke), marke, "Story");
+
+// Schreibt PNG (zum Ansehen/manuellen Posten) und JPEG (die Instagram-API akzeptiert nur JPEG).
+async function fotografiere(abschnitte, marke, ordner, praefix) {
   await mkdir(ordner, { recursive: true });
-  const page = await seite(post, marke);
-  const dateien = [];
+  const page = await seite(abschnitte, marke);
+  const png = [];
+  const jpg = [];
   try {
-    const folien = await page.$$(".folie");
-    for (let i = 0; i < folien.length; i++) {
-      const datei = path.join(ordner, `folie-${i + 1}.png`);
-      await folien[i].screenshot({ path: datei });
-      dateien.push(datei);
+    const els = await page.$$(".folie");
+    for (let i = 0; i < els.length; i++) {
+      const basis = path.join(ordner, `${praefix}-${i + 1}`);
+      await els[i].screenshot({ path: `${basis}.png` });
+      await els[i].screenshot({ path: `${basis}.jpg`, type: "jpeg", quality: 92 });
+      png.push(`${basis}.png`);
+      jpg.push(`${basis}.jpg`);
     }
-    await writeFile(path.join(ordner, "vorschau.html"), await page.content());
+    await writeFile(path.join(ordner, `${praefix}-vorschau.html`), await page.content());
   } finally {
     await page.close();
   }
-  return dateien;
+  return { png, jpg };
+}
+
+// Rückgabe: PNG-Pfade als Array, die JPEG-Pfade hängen als .jpg daran
+export async function rendere(post, marke, ordner) {
+  const { png, jpg } = await fotografiere(feedHtml(post, marke), marke, ordner, "folie");
+  return Object.assign(png, { jpg });
+}
+
+export async function rendereStories(stories, marke, ordner) {
+  const { png, jpg } = await fotografiere(storyHtml(stories, marke), marke, ordner, "story");
+  return Object.assign(png, { jpg });
 }
 
 export async function schliessen() {

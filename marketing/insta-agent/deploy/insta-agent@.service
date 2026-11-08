@@ -1,0 +1,25 @@
+# Ein Lauf des Instagram-Agenten. %i = feed oder story
+# Gestartet von insta-agent-feed.timer / insta-agent-story.timer
+[Unit]
+Description=Instagram-Agent (%i)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=insta-agent
+Group=insta-agent
+WorkingDirectory=/opt/insta-agent
+EnvironmentFile=/etc/insta-agent.env
+Environment=NODE_ENV=production
+Environment=INSTA_AUSGABE=/var/lib/insta-agent/ausgabe
+Environment=INSTA_WARTESCHLANGE=/var/lib/insta-agent/warteschlange.txt
+Environment=PLAYWRIGHT_BROWSERS_PATH=/opt/insta-agent/browsers
+ExecStart=/usr/bin/env node --no-warnings /opt/insta-agent/taeglich.js --nur %i
+TimeoutStartSec=30min
+# Absicherung
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/insta-agent

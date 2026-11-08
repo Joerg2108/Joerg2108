@@ -1,0 +1,11 @@
+# Themen-Warteschlange für die tägliche Automatik.
+# Kopieren nach warteschlange.txt. Pro Tag wird die oberste Zeile gepostet und danach entfernt.
+# Ist die Datei leer oder fehlt sie, wählt der Agent selbst ein Thema aus den Themen-Säulen.
+# Format:  [karussell|einzelbild] | Thema     (ohne Format → Karussell)
+# Zeilen mit # werden ignoriert.
+
+karussell | 5 Fehler, die Ihre Website Kunden kosten
+einzelbild | Baukasten oder programmiert – was ist der Unterschied?
+karussell | So läuft ein Website-Projekt bei mir ab – in 5 Schritten
+Warum Ladezeit über Anfragen entscheidet
+karussell | Kontaktformular mit Back Office: Keine Anfrage geht mehr verloren

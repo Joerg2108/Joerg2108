@@ -1,0 +1,13 @@
+# Feed-Beitrag: täglich morgens (deutsche Zeit), mit bis zu 20 Min. Zufallsversatz,
+# damit die Posts nicht roboterhaft immer zur selben Sekunde erscheinen.
+[Unit]
+Description=Instagram-Agent: täglicher Feed-Beitrag
+
+[Timer]
+OnCalendar=*-*-* 07:20:00 Europe/Berlin
+RandomizedDelaySec=20min
+Persistent=true
+Unit=insta-agent@feed.service
+
+[Install]
+WantedBy=timers.target

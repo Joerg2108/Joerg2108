@@ -1,0 +1,20 @@
+{
+  "frames": [
+    {
+      "typ": "teaser",
+      "eyebrow": "Neu im Feed",
+      "headline": "Schöne Website,",
+      "akzent": "aber keine Anfragen?",
+      "text": "Ich zeige Ihnen die 5 Fehler, die ich am häufigsten sehe.",
+      "hinweis": "Neuer Beitrag im Feed ↗"
+    },
+    {
+      "typ": "tipp",
+      "eyebrow": "Tipp des Tages",
+      "headline": "Öffnen Sie Ihre Website am Handy.",
+      "akzent": "Jetzt gleich.",
+      "text": "Finden Sie in 5 Sekunden Telefonnummer oder Kontaktbutton? Wenn nicht, suchen Ihre Kunden auch nicht weiter.",
+      "hinweis": "Fragen? Schreiben Sie mir"
+    }
+  ]
+}

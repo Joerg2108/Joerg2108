@@ -6,20 +6,25 @@
     "post": "node agent.js",
     "auto": "node agent.js --auto",
     "plan": "node agent.js --plan 12",
-    "demo": "node agent.js --demo"
+    "demo": "node agent.js --demo",
+    "taeglich": "node taeglich.js",
+    "trocken": "node taeglich.js --trocken",
+    "pruefen": "node taeglich.js --pruefen",
+    "test": "node --test tests/*.test.js"
   },
   "author": "Jörg Noack",
   "license": "UNLICENSED",
   "dependencies": {
     "@anthropic-ai/sdk": "^1.6.0",
+    "@aws-sdk/client-s3": "^3.1164.0",
     "@fontsource/inter": "^5.3.0",
-    "zod": "^4.6.7",
-    "playwright": "^1.63.0"
+    "playwright": "^1.63.0",
+    "zod": "^4.6.7"
   },
   "type": "module",
   "private": true,
   "engines": {
-    "node": ">=20"
+    "node": ">=20.12"
   },
   "version": "1.0.0"
 }

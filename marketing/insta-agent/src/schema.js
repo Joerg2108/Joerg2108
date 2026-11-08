@@ -51,3 +51,21 @@ export const Themenplan = z.object({
     })
   ),
 });
+
+// Story-Frames (1080×1920). Interaktive Sticker (Umfrage, Link) gibt es über die API nicht –
+// deshalb arbeiten Stories mit klaren Text-Hinweisen („Link in Bio“, „Schreiben Sie mir“).
+export const StoryFrame = z.object({
+  typ: z.enum(["teaser", "tipp", "fakt", "frage"]).describe(
+    "teaser = macht neugierig auf den heutigen Feed-Beitrag, tipp = ein schneller Praxistipp, " +
+      "fakt = eine große Zahl/ein Schlagwort mit Erklärung, frage = Denkanstoß mit Aufforderung zur DM"
+  ),
+  eyebrow: z.string().describe("Dachzeile in Großbuchstaben, max. 30 Zeichen"),
+  headline: z.string().describe("Hauptzeile, max. 50 Zeichen"),
+  akzent: z.string().describe("Zeile in Orange, max. 35 Zeichen, darf leer sein"),
+  text: z.string().describe("Kurzer Text, max. 160 Zeichen, darf leer sein"),
+  hinweis: z.string().describe("Handlungsaufforderung unten, max. 40 Zeichen, z. B. „Neuer Beitrag im Feed ↗“ oder „Link in Bio“"),
+});
+
+export const Stories = z.object({
+  frames: z.array(StoryFrame).describe("Die Story-Frames in Reihenfolge"),
+});

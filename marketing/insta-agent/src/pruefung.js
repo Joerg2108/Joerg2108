@@ -72,3 +72,22 @@ export function pruefePost(post) {
 
   return m;
 }
+
+const STORY_GRENZEN = { eyebrow: 30, headline: 50, akzent: 35, text: 160, hinweis: 40 };
+
+export function pruefeStories(stories, anzahl) {
+  const m = [];
+  const frames = stories.frames ?? [];
+  if (frames.length !== anzahl) m.push(`Es sollen genau ${anzahl} Story-Frames sein, es sind ${frames.length}.`);
+  frames.forEach((f, i) => {
+    for (const [feld, max] of Object.entries(STORY_GRENZEN)) {
+      const len = (f[feld] ?? "").length;
+      if (len > max) m.push(`Story ${i + 1}: ${feld} hat ${len} Zeichen (max. ${max}).`);
+    }
+    if (!f.headline?.trim()) m.push(`Story ${i + 1}: headline fehlt.`);
+    if (!f.hinweis?.trim()) m.push(`Story ${i + 1}: hinweis (CTA) fehlt.`);
+  });
+  const alles = JSON.stringify(frames);
+  for (const [re, grund] of VERBOTEN) if (re.test(alles)) m.push(`Heikle Aussage: ${grund}.`);
+  return m;
+}

@@ -1,0 +1,12 @@
+# Stories: täglich mittags (deutsche Zeit) – Teaser auf den Beitrag vom Morgen + Tipp.
+[Unit]
+Description=Instagram-Agent: tägliche Stories
+
+[Timer]
+OnCalendar=*-*-* 12:10:00 Europe/Berlin
+RandomizedDelaySec=20min
+Persistent=true
+Unit=insta-agent@story.service
+
+[Install]
+WantedBy=timers.target

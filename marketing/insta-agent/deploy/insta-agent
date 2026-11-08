@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Bequemer Aufruf auf dem Server mit denselben Einstellungen wie der Zeitplan, z. B.:
+#   sudo insta-agent --pruefen     sudo insta-agent --trocken     sudo insta-agent --nur feed
+# Wird von deploy/einrichten.sh nach /usr/local/bin/insta-agent installiert.
+exec sudo -u insta-agent bash -c '
+  set -a; . /etc/insta-agent.env; set +a
+  export INSTA_AUSGABE=/var/lib/insta-agent/ausgabe INSTA_WARTESCHLANGE=/var/lib/insta-agent/warteschlange.txt
+  export PLAYWRIGHT_BROWSERS_PATH=/opt/insta-agent/browsers
+  cd /opt/insta-agent && exec node --no-warnings taeglich.js "$@"' _ "$@"

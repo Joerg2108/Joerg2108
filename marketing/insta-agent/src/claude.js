@@ -2,7 +2,7 @@
 // Themenplan erstellen. Structured Outputs garantieren gültiges JSON.
 import Anthropic from "@anthropic-ai/sdk";
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
-import { Post, Review, Themenplan } from "./schema.js";
+import { Post, Review, Themenplan, Stories } from "./schema.js";
 
 const MODELL = process.env.INSTA_AGENT_MODEL || "claude-opus-5-5";
 let client; // erst bei Bedarf anlegen, damit --demo ohne API-Key läuft
@@ -32,7 +32,7 @@ ${JSON.stringify(marke, null, 2)}
 - Halte die Zeichengrenzen aus den Feldbeschreibungen strikt ein – Texte, die nicht auf die Folie passen, sind wertlos.`;
 }
 
-async function frage(marke, inhalt, schema, effort = "high") {
+async function frage(marke, inhalt, schema = Post, effort = "high") {
   client ??= new Anthropic();
   const res = await client.messages.parse({
     model: MODELL,
@@ -82,6 +82,23 @@ export async function planeThemen(marke, anzahl, bisherige) {
 überwiegend Karussells, ca. jede vierte Idee als Einzelbild.
 ${bisherige?.length ? `Bereits gepostet (nicht wiederholen):\n- ${bisherige.join("\n- ")}` : ""}`,
     Themenplan,
+    "medium"
+  );
+}
+
+export async function schreibeStories(marke, { post, anzahl, maengel = [], vorher }) {
+  return frage(
+    marke,
+    `Erstelle ${anzahl} Instagram-Story-Frames (Hochformat 9:16) für heute.
+${post ? `Heute erscheint dieser Feed-Beitrag – Frame 1 ist ein Teaser dafür (Hinweis z. B. „Neuer Beitrag im Feed ↗“):
+Thema: ${post.thema}
+Hook: ${post.folien[0]?.headline} ${post.folien[0]?.akzent}` : "Heute gibt es keinen Feed-Beitrag – erstelle eigenständige Stories."}
+Die weiteren Frames liefern einen schnellen Tipp, einen Fakt oder einen Denkanstoß aus dem Markenprofil und enden mit einem CTA
+(„Link in Bio“ oder „Schreiben Sie mir eine DM“). Stories sind persönlicher und lockerer als der Feed, aber genauso ehrlich.
+Wenig Text – eine Story wird ca. 5 Sekunden angesehen. Halte die Zeichengrenzen strikt ein.
+${vorher ? `\nVorherige Fassung:\n${JSON.stringify(vorher, null, 2)}` : ""}
+${maengel.length ? `\nDiese Mängel MÜSSEN behoben werden:\n- ${maengel.join("\n- ")}` : ""}`,
+    Stories,
     "medium"
   );
 }
