@@ -4,19 +4,42 @@ import Anthropic from "@anthropic-ai/sdk";
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
 import { Post, Review, Themenplan, Stories } from "./schema.js";
 import { floskelHinweis } from "./floskeln.js";
+import { readFileSync, existsSync } from "node:fs";
 
 const MODELL = process.env.INSTA_AGENT_MODEL || "claude-opus-5-5";
 let client; // erst bei Bedarf anlegen, damit --demo ohne API-Key läuft
 
+// Stimm-Profil (voice.md) – dieselbe Datei, die auch die Instagram-Skills lesen.
+// Nicht ausgefüllte Platzhalter {{…}} werden entfernt, damit Claude sie nicht für Fakten hält.
+const STIMME_DATEI = process.env.INSTA_STIMME || new URL("../voice.md", import.meta.url);
+
+export function ladeStimme(datei = STIMME_DATEI) {
+  if (!existsSync(datei)) return "";
+  const text = readFileSync(datei, "utf8");
+  const ab = text.indexOf("\n---");
+  return (ab >= 0 ? text.slice(ab + 4) : text)
+    .replace(/\{\{[^}]*\}\}/g, "")
+    .split("\n")
+    .map((z) => z.trimEnd())
+    .filter((z) => !/^\s*-?\s*(\*\*[^*]+:\*\*)?\s*$/.test(z) || z.trim() === "")
+    .join("\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
 function systemPrompt(marke) {
+  const stimme = ladeStimme();
   return `Du bist der Social-Media-Texter und Art Director von ${marke.name}. Du erstellst hochwertige Instagram-Posts
 (Karussells und Einzelbilder), die das Angebot „hochwertige Webseiten-Erstellung“ verkaufen – ohne marktschreierisch zu sein.
 
-# Markenprofil (einzige Faktenquelle)
+# Markenprofil (Faktenquelle)
 ${JSON.stringify(marke, null, 2)}
-
+${stimme ? `
+# Stimm-Profil von ${marke.name} (so klingt er – Wortwahl, Haltung, Tabus, Belege)
+${stimme}
+` : ""}
 # Regeln für Inhalte
-- Verwende ausschließlich Fakten aus dem Markenprofil. Erfinde KEINE Kundenzahlen, Bewertungen, Referenzen, Preise oder Prozentwerte.
+- Verwende ausschließlich Fakten aus dem Markenprofil und dem Abschnitt „Belege“ im Stimm-Profil. Erfinde KEINE Kundenzahlen, Bewertungen, Referenzen, Preise oder Prozentwerte.
   Allgemein bekannte Branchenaussagen sind erlaubt, wenn sie vorsichtig formuliert sind („viele Besucher springen ab, wenn …“).
 - Beachte die Liste „verbotene_aussagen“. Keine Garantien, keine unbelegten Superlative, keine Rechtsversprechen (UWG).
 - Ansprache: „${marke.ansprache}“. Tonalität: ${marke.tonalitaet}

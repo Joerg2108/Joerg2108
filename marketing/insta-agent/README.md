@@ -252,6 +252,15 @@ Spielt Hosting, Token-Erneuerung sowie Karussell- und Story-Veröffentlichung ge
 
 ## Anpassen
 
+- **`voice.md`** – dein Stimm-Profil: wie du klingst, deine Positionen, Tabus und **echte Belege** (Zahlen, Kundenergebnisse).
+  Der Agent und die Instagram-Skills (`/ig-reel`, `/ig-caption` …) lesen dieselbe Datei. Unausgefüllte `{{…}}`-Platzhalter werden ignoriert.
+  Damit die Skills sie finden, einmalig verlinken:
+
+  ```bash
+  mkdir -p ~/.claude/instagram && ln -sfn "$PWD/voice.md" ~/.claude/instagram/voice.md
+  ```
+
+  Unter Windows stattdessen die Datei nach `%USERPROFILE%\.claude\instagram\voice.md` kopieren.
 - **`marke.json`** – Angebot, Leistungen, USPs, Zielgruppe, Tonalität, CTAs, Themen-Säulen, Farben.
   Je konkreter und ehrlicher, desto besser die Posts. Echte Referenzen/Kundenstimmen hier eintragen, dann nutzt der Agent sie.
 - **`src/pruefung.js`** – harte Regeln (Zeichengrenzen, verbotene Aussagen).
