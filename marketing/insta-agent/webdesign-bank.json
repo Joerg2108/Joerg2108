@@ -177,69 +177,73 @@
   },
   {
     "id": "W03",
-    "thema": "Was eine Website für Gastronomie braucht",
+    "thema": "Klartext: Eine PDF-Speisekarte kostet Sie Reservierungen",
     "format": "karussell",
     "folien": [
       {
         "typ": "titel",
-        "eyebrow": "Gastronomie",
-        "headline": "Hunger entscheidet schnell.",
-        "akzent": "Ihre Website auch?",
-        "text": "Was eine Website für Bar oder Restaurant leisten muss, damit aus Besuchern Gäste werden.",
+        "eyebrow": "Klartext",
+        "headline": "Eine PDF-Speisekarte",
+        "akzent": "kostet Sie Reservierungen.",
+        "text": "Warum Ihre Karte auf die Website gehört und nicht in den Download-Ordner.",
         "punkte": [],
         "projekt": ""
       },
       {
         "typ": "liste",
-        "eyebrow": "Das Wichtigste zuerst",
-        "headline": "Was Gäste suchen",
+        "eyebrow": "Was am Handy passiert",
+        "headline": "Der Gast will nur essen",
         "akzent": "",
         "text": "",
         "punkte": [
-          "Die Speisekarte, ohne PDF-Download",
-          "Öffnungszeiten und Lage",
-          "Einen schnellen Weg zur Reservierung"
+          "Erst herunterladen, dann warten",
+          "Zoomen und hin und her wischen",
+          "Bei Preisänderung ist das PDF oft veraltet"
         ],
         "projekt": ""
       },
       {
-        "typ": "projekt",
-        "eyebrow": "Entsteht gerade",
-        "headline": "Milly's Bar & Restaurant",
-        "akzent": "",
-        "text": "Speisekarte, Atmosphäre und Reservierungsanfrage auf einen Blick.",
-        "punkte": [],
-        "projekt": "millys"
-      },
-      {
         "typ": "inhalt",
-        "eyebrow": "Atmosphäre zählt",
-        "headline": "Gäste buchen ein Gefühl.",
+        "eyebrow": "Und dann?",
+        "headline": "Er schaut beim nächsten Lokal.",
         "akzent": "",
-        "text": "Gute Bilder vom Ort, von Speisen und Abenden zeigen mehr als jede Beschreibung. Sie gehören nach oben, nicht ans Ende.",
+        "text": "Hungrige Gäste vergleichen schnell. Wer seine Karte nicht in Sekunden zeigt, bekommt den Tisch nicht.",
         "punkte": [],
         "projekt": ""
       },
       {
-        "typ": "inhalt",
-        "eyebrow": "Events",
-        "headline": "Was diese Woche los ist.",
+        "typ": "projekt",
+        "eyebrow": "So geht es besser",
+        "headline": "Milly's Bar & Restaurant",
         "akzent": "",
-        "text": "Livemusik, Themenabende, Feiertage: Eine aktuelle Event-Übersicht gibt Gästen einen Grund, genau jetzt zu kommen.",
+        "text": "Speisekarte direkt auf der Seite, Reservierung ohne Umwege.",
         "punkte": [],
+        "projekt": "millys"
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Die Lösung",
+        "headline": "Karte auf die Seite",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Lesbar am Handy, ohne Zoomen",
+          "Preise in Minuten geändert",
+          "Reservieren direkt darunter"
+        ],
         "projekt": ""
       },
       {
         "typ": "cta",
         "eyebrow": "Für Ihr Lokal",
-        "headline": "Mehr Gäste über Ihre Website?",
-        "akzent": "Lassen Sie uns reden.",
-        "text": "Schreiben Sie mir per WhatsApp, was Ihr Lokal besonders macht.",
+        "headline": "Ihre Karte verdient mehr als ein PDF.",
+        "akzent": "Schreiben Sie mir.",
+        "text": "Per WhatsApp. Ich schaue mir Ihre Website an und sage Ihnen ehrlich, was ich sehe.",
         "punkte": [],
         "projekt": ""
       }
     ],
-    "caption": "Wer hungrig ist, entscheidet schnell. Ihre Website hat dafür ein paar Sekunden.\n\nGäste suchen auf der Website eines Restaurants fast immer dasselbe: die Speisekarte, die Öffnungszeiten, den Weg dorthin und eine Möglichkeit zu reservieren. Alles andere kommt danach.\n\nGerade entsteht die Website für Milly's Bar & Restaurant: Speisekarte direkt auf der Seite, viel Atmosphäre und eine Reservierungsanfrage ohne Umwege.\n\nSie führen ein Lokal und Ihre Website könnte mehr Tische füllen? Schreiben Sie mir per WhatsApp. Link in Bio.\n\nWas schauen Sie sich zuerst an, wenn Sie ein neues Restaurant suchen?",
+    "caption": "Klartext: Eine PDF-Speisekarte kostet Sie Reservierungen.\n\nAm Handy heißt PDF: herunterladen, warten, zoomen, hin und her wischen. Und wenn sich Preise geändert haben, ist die Datei oft veraltet. Hungrige Gäste machen das nicht lange mit, sie schauen beim nächsten Lokal.\n\nBesser: Die Karte steht direkt auf der Website, lesbar am Handy und in Minuten aktualisiert. Darunter gleich die Reservierung.\n\nSo entsteht gerade die Website für Milly's Bar & Restaurant.\n\nIhre Speisekarte ist noch ein PDF? Schreiben Sie mir per WhatsApp, ich schaue mir Ihre Website an. Link in Bio.\n\nÖffnen Sie Speisekarten-PDFs am Handy, oder suchen Sie dann lieber weiter?",
     "hashtags": [
       "#webdesign",
       "#gastronomie",
@@ -252,15 +256,15 @@
       "#selbstständig",
       "#onlinemarketing"
     ],
-    "alt_text": "Karussell in Schwarz und Gold über Websites für Gastronomie mit einem Screenshot der entstehenden Website von Milly's Bar & Restaurant.",
+    "alt_text": "Karussell in Schwarz und Gold mit dem Titel „Eine PDF-Speisekarte kostet Sie Reservierungen“: warum Speisekarten als PDF am Handy Gäste verlieren und wie es besser geht, mit Screenshot der entstehenden Website von Milly's Bar & Restaurant.",
     "story": {
-      "typ": "projekt",
-      "eyebrow": "Entsteht gerade",
-      "headline": "Milly's am Handy.",
-      "akzent": "",
-      "text": "",
+      "typ": "teaser",
+      "eyebrow": "Klartext",
+      "headline": "PDF-Speisekarte?",
+      "akzent": "Kostet Reservierungen.",
+      "text": "Warum Ihre Karte auf die Website gehört.",
       "hinweis": "Zum Beitrag ↗",
-      "projekt": "millys"
+      "projekt": ""
     }
   },
   {
