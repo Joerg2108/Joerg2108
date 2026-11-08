@@ -3,6 +3,7 @@
   "name": "Jörg Noack",
   "marke": "Jörg Noack · Art-Consultant",
   "website": "joerg-noack.com",
+  "instagram": "flowkit",
   "standort": "Leipzig – Projekte in Mitteldeutschland und an der kenianischen Südküste (Diani Beach, Mombasa)",
   "ansprache": "Sie",
   "sprachen": "Websites auf Deutsch und Englisch, auf Wunsch mehrsprachig",
@@ -176,5 +177,6 @@
     "kuerzel": "JN",
     "schrift_titel": "Playfair Display",
     "schrift_text": "Manrope"
-  }
+  },
+  "_hinweis_instagram": "Benutzername des Instagram-Kontos (ohne @). Der Agent veröffentlicht NUR, wenn das Token zu genau diesem Konto gehört. Falls der Name anders geschrieben ist (z. B. flowkit.de), hier anpassen."
 }

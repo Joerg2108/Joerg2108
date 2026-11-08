@@ -69,6 +69,19 @@ async function userId() {
   return igUserId;
 }
 
+// Sicherung: Nur veröffentlichen, wenn das Token zum erwarteten Konto gehört (marke.json → "instagram").
+const normal = (n) => String(n ?? "").trim().replace(/^@/, "").toLowerCase();
+let kontoGeprueft = false;
+export async function pruefeKonto(erwartet) {
+  if (kontoGeprueft || !erwartet) return;
+  const { username } = await api("GET", "me", { fields: "username" });
+  if (normal(username) !== normal(erwartet)) {
+    throw new Error(`Token gehört zu @${username}, erwartet ist @${normal(erwartet)} (marke.json → "instagram"). Es wurde NICHTS veröffentlicht.`);
+  }
+  kontoGeprueft = true;
+}
+export const kontoPasst = (username, erwartet) => !erwartet || normal(username) === normal(erwartet);
+
 export async function konto() {
   const me = await api("GET", "me", { fields: "user_id,username,account_type,followers_count,media_count" });
   let limit = null;

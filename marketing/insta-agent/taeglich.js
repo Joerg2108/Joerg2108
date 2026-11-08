@@ -116,7 +116,8 @@ async function feed(marke) {
     return post;
   }
 
-  const { postFeed } = await import("./src/instagram.js");
+  const { postFeed, pruefeKonto } = await import("./src/instagram.js");
+  await pruefeKonto(marke.instagram);
   const ergebnis = await veroeffentlichen(bilder.jpg, (urls) => postFeed(urls, caption, post.alt_text));
   await eintrag({ art: "feed", thema: post.thema, ordner: rel, media_id: ergebnis.id, permalink: ergebnis.permalink, note: bewertung });
   await quelle.erledigt?.();
@@ -142,7 +143,8 @@ async function stories(marke, post) {
   }
   if (arg.trocken) return log(`🧪 Trockenlauf: ${bilder.length} Story-Bild(er) erzeugt, nichts veröffentlicht.`);
 
-  const { postStory } = await import("./src/instagram.js");
+  const { postStory, pruefeKonto } = await import("./src/instagram.js");
+  await pruefeKonto(marke.instagram);
   const ids = await veroeffentlichen(bilder.jpg, async (urls) => {
     const ergebnisse = [];
     for (const url of urls) ergebnisse.push(await postStory(url)); // Reihenfolge einhalten
@@ -154,9 +156,15 @@ async function stories(marke, post) {
 
 // ---------------------------------------------------------------- Einrichtung prüfen
 async function pruefen() {
-  const { konto } = await import("./src/instagram.js");
+  const { konto, kontoPasst } = await import("./src/instagram.js");
+  const marke = await ladeMarke();
   const k = await konto();
   log(`👤 Verbunden mit @${k.username} (${k.account_type}, ${k.followers_count ?? "?"} Follower, ${k.media_count ?? "?"} Beiträge)`);
+  if (!kontoPasst(k.username, marke.instagram)) {
+    throw new Error(`Das Token gehört zu @${k.username}, in marke.json steht aber @${marke.instagram}. Token vom richtigen Konto erzeugen oder marke.json anpassen.`);
+  }
+  log(`✅ Richtiges Konto: @${k.username}`);
+  if (k.account_type && k.account_type !== "BUSINESS") log(`⚠️  Kontotyp ${k.account_type}: Stories per API gehen nur mit Business-Konten (Instagram → Kontotyp → Unternehmen).`);
   if (k.limit) log(`📊 Veröffentlichungen in den letzten 24 h: ${k.limit.quota_usage} von ${k.limit.config?.quota_total ?? "?"}`);
 
   const { hochladen, pruefeErreichbar } = await import("./src/hosting.js");

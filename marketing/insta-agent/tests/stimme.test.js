@@ -10,7 +10,8 @@ test("voice.md: Platzhalter und leere Felder fliegen raus, echte Angaben bleiben
   const s = ladeStimme();
   assert.ok(s.includes("Jörg Noack"));
   assert.ok(s.includes("Meine Positionen"));
-  assert.doesNotMatch(s, /\{\{|\*\*Handle:\*\*|\n\s*\n\s*\n/);
+  assert.ok(s.includes("@flowkit"));
+  assert.doesNotMatch(s, /\{\{|\*\*Gesicht vor der Kamera:\*\*|\n\s*\n\s*\n/); // leere Felder sind weg
 });
 
 test("fehlende Datei → leerer Text, kein Absturz", () => {

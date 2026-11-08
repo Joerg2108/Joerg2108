@@ -91,3 +91,11 @@ test("Nicht erreichbares Bild wird vor dem Posten erkannt", async () => {
   const { pruefeErreichbar } = await import("../src/hosting.js");
   await assert.rejects(pruefeErreichbar(`${process.env.BILD_BASIS_URL}/gibtsnicht.jpg`), /nicht öffentlich erreichbar/);
 });
+
+test("Konto-Sicherung: falsches Konto wird vor dem Posten gestoppt, richtiges durchgelassen", async () => {
+  const { pruefeKonto, kontoPasst } = await import("../src/instagram.js");
+  await assert.rejects(pruefeKonto("flowkit"), /gehört zu @test.*NICHTS veröffentlicht/);
+  await pruefeKonto("@Test"); // Groß-/Kleinschreibung und @ egal
+  assert.ok(kontoPasst("Flowkit", "@flowkit"));
+  assert.ok(!kontoPasst("flowkit.de", "flowkit"));
+});
