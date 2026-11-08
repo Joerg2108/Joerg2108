@@ -299,7 +299,7 @@ Spielt Hosting, Token-Erneuerung sowie Karussell- und Story-Veröffentlichung ge
   Damit die Skills sie finden, einmalig verlinken:
 
   ```bash
-  mkdir -p ~/.claude/instagram && ln -sfn "$PWD/voice.md" ~/.claude/instagram/voice.md
+  mkdir -p ~/.claude/instagram && ln -sfn "$PWD/voice.md" ~/.claude/instagram/voice.md && ln -sfn "$PWD/swipe.md" ~/.claude/instagram/swipe.md
   ```
 
   Unter Windows stattdessen die Datei nach `%USERPROFILE%\.claude\instagram\voice.md` kopieren.
