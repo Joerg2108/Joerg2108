@@ -21,8 +21,6 @@ async function walk(dir) {
   return out
 }
 
-const exists = (p) => fs.access(p).then(() => true, () => false)
-
 const files = await walk(SRC)
 const manifest = {}
 let made = 0
@@ -38,7 +36,9 @@ for (let i = 0; i < files.length; i += 6) {
       for (const w of WIDTHS) {
         if (w >= width) continue // größer als das Original: Original wird verwendet
         const target = path.join(OUT, rel.replace(/^\/images\//, "").replace(/\.\w+$/, `-${w}.webp`))
-        if (await exists(target)) continue
+        // vorhandene Variante nur behalten, wenn sie neuer ist als das Original (Bild ausgetauscht → neu erzeugen)
+        const [src, out] = await Promise.all([fs.stat(file), fs.stat(target).catch(() => null)])
+        if (out && out.mtimeMs >= src.mtimeMs) continue
         await fs.mkdir(path.dirname(target), { recursive: true })
         await sharp(file).resize({ width: w }).webp({ quality: w <= 640 ? 70 : 74, effort: 5 }).toFile(target)
         made++
