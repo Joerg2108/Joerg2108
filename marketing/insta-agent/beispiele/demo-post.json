@@ -1,73 +1,75 @@
 {
-  "thema": "Demo – 5 Fehler, die Ihre Website Kunden kosten",
+  "thema": "Projekt-Einblick: Safari Adventure Tour – eine Website für drei Märkte",
   "format": "karussell",
   "folien": [
     {
       "typ": "titel",
-      "eyebrow": "Website-Check · Webdesign",
-      "headline": "Ihre Website sieht gut aus?",
-      "akzent": "Trotzdem keine Anfragen.",
-      "text": "5 Fehler, die ich bei Betrieben immer wieder sehe – und wie Sie sie vermeiden.",
+      "eyebrow": "Projekt-Einblick",
+      "headline": "Eine Website. Drei Märkte.",
+      "akzent": "Deutschland, Schweiz, Kenia.",
+      "text": "Wie die Website von Safari Adventure Tour Gäste aus drei Ländern zur passenden Tour führt.",
       "punkte": []
     },
     {
       "typ": "zahl",
-      "eyebrow": "Fehler 1",
-      "headline": "3 Sek.",
-      "akzent": "Länger wartet kaum jemand.",
-      "text": "Lädt Ihre Seite auf dem Handy zu langsam, ist der Besucher weg, bevor er Ihr Angebot gesehen hat.",
+      "eyebrow": "Die Aufgabe",
+      "headline": "8+",
+      "akzent": "Touren, ein Auftritt.",
+      "text": "Jede Tour braucht Platz für Route, Dauer und Details. Ohne dass der Besucher den Überblick verliert.",
       "punkte": []
     },
     {
       "typ": "inhalt",
-      "eyebrow": "Fehler 2",
-      "headline": "Kein klarer nächster Schritt.",
+      "eyebrow": "Die Lösung",
+      "headline": "Jede Tour bekommt eine eigene Seite.",
       "akzent": "",
-      "text": "Besucher müssen sofort sehen, wie sie Sie erreichen: ein sichtbarer Button, ein kurzes Formular, eine Telefonnummer.",
+      "text": "Klar gegliedert und immer gleich aufgebaut. Wer eine Tour kennt, findet sich in allen anderen sofort zurecht.",
       "punkte": []
     },
     {
       "typ": "liste",
-      "eyebrow": "Fehler 3–5",
-      "headline": "Die stillen Kundenkiller",
+      "eyebrow": "Was dahintersteckt",
+      "headline": "Gebaut für Gäste von weit weg",
       "akzent": "",
       "text": "",
       "punkte": [
-        "Am Smartphone kaum bedienbar",
-        "Veraltete Inhalte und Preise",
-        "Anfragen landen im Spam statt bei Ihnen"
+        "Inhalte für Gäste aus Deutschland, der Schweiz und Kenia",
+        "Ein Tourenkonzept statt loser Einzelangebote",
+        "Website und Social Media aus einer Hand",
+        "Echte Gästestimmen statt Werbesprüche"
       ]
     },
     {
       "typ": "inhalt",
-      "eyebrow": "So mache ich es",
-      "headline": "Programmiert statt zusammengeklickt.",
-      "akzent": "Anfragen direkt im CRM.",
-      "text": "Schnell, mobil optimiert und mit einem Kontaktformular, das jede Anfrage automatisch in Ihr Back Office überträgt.",
+      "eyebrow": "Und bei Ihnen?",
+      "headline": "Gutes Angebot, aber online unsichtbar?",
+      "akzent": "Das lässt sich ändern.",
+      "text": "Ich übernehme Konzept, Website und Texte. Sie sprechen dabei immer mit der Person, die es auch umsetzt.",
       "punkte": []
     },
     {
       "typ": "cta",
       "eyebrow": "Ihr nächster Schritt",
-      "headline": "Lassen Sie uns reden.",
-      "akzent": "Kostenlos & unverbindlich.",
-      "text": "Ich schaue mir Ihre aktuelle Website an und sage Ihnen ehrlich, was sie bremst. Link in Bio.",
+      "headline": "Schreiben Sie mir.",
+      "akzent": "Per WhatsApp, Link in Bio.",
+      "text": "Erzählen Sie mir, woran Sie gerade arbeiten. Ich melde mich persönlich, ohne Formular-Pingpong.",
       "punkte": []
     }
   ],
-  "caption": "Schöne Website, aber das Telefon bleibt still? Daran liegt es oft.\n\nIch sehe bei Betrieben immer wieder dieselben 5 Fehler – und keiner davon hat mit dem Design zu tun.\n\n- Zu langsam auf dem Handy\n- Kein klarer nächster Schritt\n- Am Smartphone kaum bedienbar\n- Veraltete Inhalte\n- Anfragen, die nie ankommen\n\nDie gute Nachricht: Alles davon lässt sich beheben.\n\nSie wollen wissen, wo Ihre Website steht? Kostenloses Erstgespräch – Link in Bio.\n\nWelcher Fehler kommt Ihnen bekannt vor? Schreiben Sie es in die Kommentare.",
+  "caption": "Acht Touren, drei Märkte, eine Website. So haben wir das gelöst.\n\nSafari Adventure Tour bietet individuelle Safaris ab Diani Beach und Mombasa an. Die Gäste kommen aus Deutschland, der Schweiz und Kenia, und jeder will schnell die Tour finden, die zu ihm passt.\n\nDie Lösung war keine aufwendige Technik, sondern Ordnung: Jede Tour hat eine eigene Seite, alle sind gleich aufgebaut. Dazu ein Tourenkonzept und ein Social-Media-Auftritt, der zur Website passt.\n\nDas Prinzip funktioniert für jeden Betrieb mit mehreren Angeboten, ob Touren, Leistungen oder Speisekarte.\n\nSie haben ein gutes Angebot, das online kaum jemand findet? Schreiben Sie mir per WhatsApp, woran Sie gerade arbeiten. Link in Bio.\n\nWie viele Angebote hat Ihre Website, und findet man jedes in zwei Klicks?",
   "hashtags": [
     "#webdesign",
+    "#webdesignleipzig",
     "#websiteerstellen",
-    "#webseite",
+    "#leipzig",
+    "#tourismusmarketing",
+    "#reisebranche",
+    "#kenia",
+    "#safari",
     "#kmu",
-    "#handwerk",
     "#selbstständig",
-    "#onlinemarketing",
-    "#webentwicklung",
-    "#unternehmer",
-    "#kundengewinnung"
+    "#onlinemarketing"
   ],
-  "alt_text": "Karussell mit sechs dunkelblauen Folien und orangefarbenen Akzenten: fünf häufige Website-Fehler, die Anfragen kosten, und ein Angebot für ein kostenloses Erstgespräch.",
-  "posting_tipp": "Dienstag oder Donnerstag zwischen 7 und 9 Uhr posten. In der Story Folie 2 teilen und eine Umfrage „Wie schnell lädt Ihre Seite?“ anhängen."
+  "alt_text": "Karussell in Schwarz und Gold mit sechs Folien: Projekt-Einblick in die Website von Safari Adventure Tour, die über acht Touren für Gäste aus Deutschland, der Schweiz und Kenia übersichtlich präsentiert, und eine Einladung zur Zusammenarbeit.",
+  "posting_tipp": "Dienstag oder Donnerstag gegen 7:30 Uhr posten. In der Story einen Screenshot der echten Tourenseite zeigen und auf den Beitrag verweisen."
 }

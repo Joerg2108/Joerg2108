@@ -26,7 +26,8 @@ Thema ──► 1. Entwurf (Claude, Texter-Rolle)
 
 - **Faktenquelle ist nur `marke.json`.** Der Agent erfindet keine Kundenzahlen, Preise oder Bewertungen.
 - **Verlauf:** Jeder Post landet in `ausgabe/verlauf.json`, damit sich Themen und Hooks nicht wiederholen.
-- **Design** wie dein bestehendes Karussell (Navy, Orange, Inter). Schrift ist lokal eingebettet, funktioniert also offline.
+- **Design** wie joerg-noack.com: Schwarz und Gold, Überschriften in Playfair Display, Text in Manrope. Schriften sind lokal eingebettet, funktionieren also offline.
+- **Inhalte** von joerg-noack.com: echte Referenzen (Diani Home Hosting, Safari Adventure Tour, Security Factory, Saiko Tour & Safaris), Leistungen, Tonalität. Schwerpunkt Webdesign.
 
 ## Einrichtung (einmalig)
 

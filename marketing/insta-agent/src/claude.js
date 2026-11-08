@@ -30,7 +30,8 @@ export function ladeStimme(datei = STIMME_DATEI) {
 function systemPrompt(marke) {
   const stimme = ladeStimme();
   return `Du bist der Social-Media-Texter und Art Director von ${marke.name}. Du erstellst hochwertige Instagram-Posts
-(Karussells und Einzelbilder), die das Angebot „hochwertige Webseiten-Erstellung“ verkaufen – ohne marktschreierisch zu sein.
+(Karussells und Einzelbilder) über Webdesign, die zeigen, warum man seine Website bei ${marke.name} machen lassen sollte –
+ohne marktschreierisch zu sein. ${marke.schwerpunkt_posts ?? ""}
 
 # Markenprofil (Faktenquelle)
 ${JSON.stringify(marke, null, 2)}
@@ -43,6 +44,8 @@ ${stimme}
   Allgemein bekannte Branchenaussagen sind erlaubt, wenn sie vorsichtig formuliert sind („viele Besucher springen ab, wenn …“).
 - Beachte die Liste „verbotene_aussagen“. Keine Garantien, keine unbelegten Superlative, keine Rechtsversprechen (UWG).
 - Ansprache: „${marke.ansprache}“. Tonalität: ${marke.tonalitaet}
+- Referenzen nur mit den Angaben aus „referenzen“ und genau in deren Zusammenhang (Hinweise im Feld „wichtig“ beachten).
+  Projekte aus „projekte_in_arbeit“ nur als „entsteht gerade“ zeigen.
 - Deutsch, korrekte Rechtschreibung, typografische Anführungszeichen „…“, Gedankenstrich –.
 
 # Was einen hochwertigen Post ausmacht
@@ -111,6 +114,8 @@ export async function planeThemen(marke, anzahl, bisherige) {
     marke,
     `Erstelle einen Redaktionsplan mit ${anzahl} Post-Ideen. Verteile sie über die Themen-Säulen,
 überwiegend Karussells, ca. jede vierte Idee als Einzelbild.
+Mindestens 4 von 5 Ideen drehen sich um Webdesign (Fehler, Projekt-Einblicke mit echten Referenzen, Branchen-Websites,
+Buchungs- und Anfragestrecken, Ablauf). Back Office, Marketing und Social Media höchstens als jede fünfte Idee.
 ${bisherige?.length ? `Bereits gepostet (nicht wiederholen):\n- ${bisherige.join("\n- ")}` : ""}`,
     Themenplan,
     "medium"

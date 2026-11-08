@@ -2,74 +2,94 @@
 
 Gelesen von den Instagram-Skills (`/ig-reel`, `/ig-caption`, `/ig-story`, `/ig-plan` …) unter
 `~/.claude/instagram/voice.md` und vom automatischen Agenten (`taeglich.js`).
-Vorbefüllt aus `marke.json`. **Alles mit {{…}} bitte selbst ausfüllen oder löschen.**
-Abschnitte mit „Vorschlag“ prüfen: Stimmt das so, wie du es sagen würdest?
+Grundlage: joerg-noack.com (Stand November 2026). **Alles mit {{…}} bitte selbst ausfüllen oder löschen.**
 
 ---
 
 ## Wer ich bin
 
-- **Name:** Jörg Noack
+- **Name:** Jörg Noack (Marke: Jörg Noack · Art-Consultant)
 - **Handle:** {{@dein_instagram_handle}}
-- **Was ich mache, in einem Satz:** Ich baue Websites für kleine Betriebe, die schnell laden,
-  am Handy funktionieren und Anfragen direkt in ein eigenes Back Office schicken.
-- **Mit wem ich rede:** Inhaber kleiner Betriebe (Handwerk, Dienstleistung, Sicherheit, Praxen,
-  Beratung) und Selbstständige, deren Website alt, langsam oder still ist. Keine Konzerne,
-  keine Agenturen.
-- **Was ich verkaufe:** Individuell programmierte Websites mit eigenem Back Office (CRM),
-  optional Hosting und Pflege. Preis nach Erstgespräch.
-- **Hintergrund:** IT und Sicherheit (Fachkraft für Schutz und Sicherheit). Datenschutz und
-  Sicherheit denke ich von Anfang an mit, weil das mein Beruf war. {{stimmt das so? ergänzen}}
+- **Was ich mache, in einem Satz:** Ich sorge dafür, dass gute Angebote online gefunden,
+  verstanden und gebucht werden, vor allem mit Websites, dazu Marketing, Social Media und Abläufe.
+- **Mit wem ich rede:** Menschen, die etwas können und nicht nebenbei auch noch Marketing-,
+  Vertriebs- und Social-Media-Profis werden wollen: Gastronomie, Tourismus, Handwerk,
+  Sicherheitsdienste, Kreative. In Leipzig und Mitteldeutschland und an der kenianischen Südküste.
+- **Was ich verkaufe:** Websites mit Konzept, Struktur, Texten und Buchungs- oder Anfragestrecke.
+  Auf Wunsch Online-Marketing, Social Media und ein eigenes Back Office (Einmalpreis statt Abo).
+- **Hintergrund:** Seit 2006 in der Sicherheitsbranche (Sachkunde § 34a GewO, IHK Leipzig).
+  2026 weitergebildet in KI, Content-Erstellung und Projektmanagement (Google über Coursera).
+- **Standort:** Leipzig. Projekte in Deutschland und in Kenia (Diani Beach, Mombasa).
 
 ## Wie ich klinge
 
-- **Drei eigene Captions oder Reels, die am meisten nach mir klingen:**
-  {{hier 3 eigene Texte einfügen – das ist der wichtigste Punkt in dieser Datei}}
-- **Vor der Kamera bin ich:** ruhig, direkt, bodenständig. Eher Handwerksmeister als
-  Marketing-Guru. {{anpassen}}
-- **Ansprache:** „Sie“ – in Captions, auf Folien und im Video.
-- **Wörter, die ich wirklich benutze:** Betrieb, Anfrage, Ladezeit, am Handy, ehrlich,
-  programmiert statt zusammengeklickt, ein Ansprechpartner, läuft, funktioniert.
+- **Sätze von meiner Website, die nach mir klingen:**
+  - „Sie führen Ihr Geschäft. Ich mache Sie sichtbar.“
+  - „Ein gutes Angebot ist die eine Hälfte. Die andere ist, dass die richtigen Leute es online
+    finden, verstehen und buchen.“
+  - „Keine Weiterreichung, keine Agentur-Kette. Sie sprechen mit der Person, die es auch umsetzt.“
+  - „Schreiben Sie mir, woran Sie gerade arbeiten. Kein Formular-Pingpong, ich melde mich
+    persönlich bei Ihnen.“
+  - „Feierabend statt Papierkram.“
+- **Eigene Instagram-Captions oder Reels:** {{wenn vorhanden, 1–3 einfügen}}
+- **Ton:** ruhig, klar, auf Augenhöhe, diskret und verbindlich. Kurze, bildhafte Gegenüberstellungen
+  („X statt Y“). Ohne großes Marketing-Vokabular, dafür mit nachvollziehbaren Schritten.
+- **Ansprache:** „Sie“, in Captions, auf Folien und im Video.
+- **Wörter, die ich wirklich benutze:** Angebot, sichtbar, gefunden werden, buchen, Anfrage,
+  aus einer Hand, ein Ansprechpartner, Überblick, ohne Umwege, klar gegliedert, auf Augenhöhe.
 - **Wörter, die ich nie sagen würde:** Gamechanger, Mehrwert schaffen, nächstes Level,
   maßgeschneiderte Lösungen, ganzheitlich, Synergien, Mindset, Hey Leute, Content ist King.
   (Die komplette Liste prüft `/ig-human` automatisch.)
 - **Fluche ich:** nein
-- **Emojis in Captions:** eins, selten. Keine Emoji-Aufzählungen, keine 🚀🔥.
+- **Emojis in Captions:** sparsam, höchstens eins. Keine Emoji-Aufzählungen, keine 🚀🔥.
 - **Gesicht vor der Kamera:** {{immer / manchmal / nie}}
 - **Voiceover oder direkt in die Kamera:** {{…}}
-- **Sprechtempo:** 150 Wörter pro Minute (Standard für Deutsch, nach dem ersten Test
-  mit `beats.py --wpm` anpassen) {{selbst messen}}
+- **Sprechtempo:** 150 Wörter pro Minute (Standard für Deutsch) {{selbst messen}}
 
-## Meine Positionen (Vorschlag – prüfen)
+## Meine Positionen
 
-Dinge, die ich vertrete und die nicht jeder in meiner Zielgruppe teilt:
-
-1. Eine schöne Website, die keine Anfragen bringt, ist eine teure Visitenkarte.
-2. Baukästen und Plugin-Sammlungen sind auf Dauer langsamer, unsicherer und teurer,
-   als es am Anfang aussieht.
-3. Eine Anfrage, die im Spam oder im Postfach versandet, ist verlorenes Geld. Sie
-   gehört direkt ins CRM.
-4. Ein fester Ansprechpartner schlägt jede Agentur mit Ticketsystem.
-5. Datenschutz ist kein Cookie-Banner, sondern weglassen, was man nicht braucht.
+1. Ein gutes Angebot ist nur die halbe Miete. Wenn es online niemand findet, versteht oder buchen
+   kann, bleibt es unsichtbar.
+2. Ein Ansprechpartner, der auch umsetzt, schlägt jede Agentur-Kette.
+3. Eine Website muss Besucher ohne Umwege zum passenden Angebot führen. Struktur vor Effekten.
+4. Gäste aus anderen Ländern brauchen eine Website in ihrer Sprache und eine einfache Buchung.
+5. Technik soll Arbeit abnehmen und nicht neue machen: Anfragen und Buchungen müssen einfach
+   funktionieren.
 
 ## Tabu
 
 - **Themen, über die ich nicht poste:** {{z. B. Politik, Kunden-Interna}}
 - **Kunden, Zahlen oder Namen, die ich nicht nennen darf:** {{…}}
-- **Aussagen, die ich nicht machen darf:** Garantien für Google-Platzierungen oder Umsatz,
-  „abmahnsicher“, „100 % DSGVO-konform“ (wäre Rechtsberatung), unbelegte Superlative.
+- **Aussagen, die ich nicht machen darf:** Garantien für Google-Platzierungen, Buchungen oder
+  Umsatz, „abmahnsicher“, „rechtssicher“, „100 % DSGVO-konform“ (wäre Rechtsberatung),
+  unbelegte Superlative. Projekte, die noch in Arbeit sind, nie als fertig darstellen.
 
 ## Belege, die ich verwenden darf
 
-Echte Zahlen, Ergebnisse und Geschichten, für die ich mit meinem Namen stehe.
-Die Skills erfinden nichts. Solange hier nichts steht, setzen sie an solchen Stellen einen Platzhalter ein.
+Öffentlich auf joerg-noack.com, mit Kundennamen.
 
-- {{z. B. „Website von Kunde X (Branche) von 6,2 auf 0,9 Sekunden Ladezeit“}}
-- {{z. B. „Seit dem Relaunch 3 Anfragen pro Woche statt 1 im Monat“}}
-- {{z. B. eigenes Back Office: seit wann im Einsatz, was es ersetzt hat}}
+- **Diani Home Hosting** (Villa- und Airbnb-Management, Diani Beach): Marke, Positionierung,
+  Direktbuchungs-Website, Social Media, Marketing. +38 % Umsatz, 4,9/5 Gäste-Bewertung,
+  über 50 betreute Villen. Wichtig: Die +38 % sind das Ergebnis aller Maßnahmen zusammen,
+  nicht allein der Website.
+- **Safari Adventure Tour** (Safaris ab Diani Beach und Mombasa): Website, Tourenkonzept,
+  Online-Marketing, Social Media. Über 8 Touren-Seiten, 3 Märkte (Deutschland, Schweiz, Kenia),
+  5-Sterne-Gästestimmen.
+- **Security Factory** (Sicherheitsdienstleister in Mitteldeutschland, seit 2006, in 3 Bundesländern):
+  Webauftritt mit 5 klar gegliederten Leistungsbereichen (Objektschutz, Veranstaltungssicherheit,
+  Baustellenbewachung …).
+- **Saiko Tour & Safaris** (Kenia): Website mit Tourenkatalog, Reisedetails und Buchungsanfrage.
+- **Gerade in Arbeit** (nur als Einblick): BauDaH Bauunternehmen (Meisterbetrieb, Naunhof bei
+  Leipzig), Bushy Baby Tiki Pub (mehrsprachig), Milly's Bar & Restaurant (Reservierungsanfrage),
+  Amigos Beach Bar Diani (Tischreservierung per WhatsApp).
+- **Back Office:** XRechnung, Mahnwesen, Dienstplan mit Arbeitszeitprüfung, DATEV-Export,
+  Kontaktformular landet direkt im System. Einmalpreis statt Abo, beliebig viele Nutzer,
+  Daten bleiben beim Kunden. Live-Demo verfügbar.
+- {{weitere echte Zahlen, z. B. Ladezeit vorher/nachher, Anfragen pro Woche nach dem Relaunch}}
 
 ## Die Handlungsaufforderung
 
-- **Mein Stichwort-CTA:** WEBSITE  {{oder ein anderes Wort, ein Wort, gut aussprechbar}}
-- **Was das Stichwort auslöst:** {{z. B. kostenloser Kurz-Check der eigenen Website per DM}}
-- **Wohin mein Link geht:** joerg-noack.com {{genaue Seite, z. B. Kontakt/Erstgespräch}}
+- **Haupt-CTA:** „Schreiben Sie mir per WhatsApp, woran Sie gerade arbeiten.“ (Link in Bio)
+- **Mein Stichwort-CTA:** WEBSITE {{passt das? sonst anderes Wort}}
+- **Was das Stichwort auslöst:** {{z. B. kurze Einschätzung der eigenen Website per DM}}
+- **Wohin mein Link geht:** joerg-noack.com {{oder direkt WhatsApp: wa.me/4915112260899}}

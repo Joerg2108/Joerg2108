@@ -4,8 +4,18 @@
 # Format:  [karussell|einzelbild] | Thema     (ohne Format → Karussell)
 # Zeilen mit # werden ignoriert.
 
-karussell | 5 Fehler, die Ihre Website Kunden kosten
-einzelbild | Baukasten oder programmiert – was ist der Unterschied?
-karussell | So läuft ein Website-Projekt bei mir ab – in 5 Schritten
-Warum Ladezeit über Anfragen entscheidet
-karussell | Kontaktformular mit Back Office: Keine Anfrage geht mehr verloren
+karussell | Projekt-Einblick: Safari Adventure Tour – eine Website für drei Märkte
+karussell | 5 Website-Fehler, die Buchungen kosten
+einzelbild | Sie führen Ihr Geschäft. Ich mache Sie sichtbar.
+karussell | Direktbuchung statt Portal: Was die Website von Diani Home Hosting leisten muss
+karussell | Was eine Website für Gastronomie braucht: Speisekarte, Events, Reservierung
+karussell | Hinter den Kulissen: Website für einen Meisterbetrieb bei Leipzig entsteht
+einzelbild | Ein Ansprechpartner statt Agentur-Kette
+karussell | Mehrsprachige Websites: Warum Gäste aus dem Ausland sonst woanders buchen
+karussell | Projekt-Einblick: Security Factory – fünf Leistungsbereiche klar gegliedert
+karussell | Tischreservierung per WhatsApp: So einfach kann Buchen sein
+karussell | So läuft ein Website-Projekt mit mir ab – in 5 Schritten
+karussell | Was eine Website für Handwerksbetriebe braucht
+einzelbild | Ein gutes Angebot ist die halbe Miete
+karussell | Tourenkatalog richtig aufbauen: Lehren aus zwei Safari-Websites
+karussell | Kontaktformular, das direkt im Back Office landet
