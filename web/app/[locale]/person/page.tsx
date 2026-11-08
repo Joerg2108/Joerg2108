@@ -1,15 +1,15 @@
 import type { Metadata } from "next"
+import { pageMeta } from "@/lib/seo"
 import Image from "next/image"
 import { getContent } from "@/lib/content"
 import { lp, ui } from "@/lib/i18n"
-import { alternates, getLocale, type LocaleParams } from "@/lib/locale-params"
+import { getLocale, type LocaleParams } from "@/lib/locale-params"
 import { ButtonLink, Container, PageHero } from "@/components/page-hero"
 import { Tilt } from "@/components/motion"
 
 export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
   const locale = await getLocale(params)
-  const { person } = getContent(locale)
-  return { title: ui[locale].person, description: person.text.slice(0, 160), alternates: alternates(locale, "/person") }
+  return pageMeta(locale, "/person")
 }
 
 export default async function PersonPage({ params }: LocaleParams) {

@@ -34,11 +34,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       canonical: `/${locale}/`,
       languages: { de: "/de/", en: "/en/", "zh-Hans": "/zh/", "x-default": "/de/" },
     },
+    twitter: { card: "summary_large_image" },
     openGraph: {
       type: "website",
       locale: localeNames[locale].ogLocale,
       siteName: site.name,
-      images: ["/media/hero-poster.webp"],
+      url: `/${locale}/`,
+      images: [{ url: "/og/default.jpg", width: 1200, height: 630 }],
     },
   }
 }

@@ -95,8 +95,12 @@ Auf Netlify kommen Brotli/Gzip dazu (lokal rund 800 KB unkomprimiert), live soll
 14. **Kontaktformular über Netlify Forms**: kein Backend nötig, Spam-Schutz per Honeypot. Muss dann in den Datenschutz aufgenommen werden.
 15. **Statistik** nur mit Consent-Banner, oder cookielos (z. B. Plausible bzw. Netlify Analytics serverseitig) und dann ohne Banner.
 16. **Videos weiter verkleinern:** Hero mobil nur als Poster, Film erst ab WLAN bzw. Desktop.
-17. **Strukturierte Daten** (Schema.org `Person`/`VisualArtwork`) für bessere Google-Darstellung.
-18. **Open-Graph-Bilder pro Seite**, damit Teilen auf WhatsApp/Facebook schön aussieht.
+17. ~~Strukturierte Daten~~ ✅ erledigt: `Person`, `LocalBusiness/ArtGallery` mit Adresse und Social-Profilen, `WebSite` und Breadcrumbs (`lib/seo.ts`).
+18. ~~Open-Graph-Bilder pro Seite~~ ✅ erledigt: JPGs mit 1200×630 px in `public/og/`.
+19. **SEO-Texte pflegen:** Alle Titel und Beschreibungen stehen zentral in `web/lib/seo.ts`. Neue Seite = neuer Eintrag dort, sonst bricht der Build mit einem Hinweis ab.
+20. **Nach dem Launch:**
+    - Google Business Profile für das Atelier anlegen bzw. prüfen; dieselbe Adresse wie auf der Website verwenden.
+    - Backlinks von Partnern, Presse und Städten mit Fassadenprojekten auf die neue Domain umstellen lassen.
 
 ---
 

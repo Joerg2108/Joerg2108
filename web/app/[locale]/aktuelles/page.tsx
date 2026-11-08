@@ -1,12 +1,13 @@
 import type { Metadata } from "next"
+import { pageMeta } from "@/lib/seo"
 import { getContent } from "@/lib/content"
 import { localeNames, ui } from "@/lib/i18n"
-import { alternates, getLocale, type LocaleParams } from "@/lib/locale-params"
+import { getLocale, type LocaleParams } from "@/lib/locale-params"
 import { Container, PageHero } from "@/components/page-hero"
 
 export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
   const locale = await getLocale(params)
-  return { title: ui[locale].news, alternates: alternates(locale, "/aktuelles") }
+  return pageMeta(locale, "/aktuelles")
 }
 
 export default async function NewsPage({ params }: LocaleParams) {

@@ -1,16 +1,16 @@
 import type { Metadata } from "next"
+import { pageMeta } from "@/lib/seo"
 import { getContent } from "@/lib/content"
 import { getWork } from "@/lib/works"
 import { localeNames, ui, type Locale } from "@/lib/i18n"
-import { alternates, getLocale, type LocaleParams } from "@/lib/locale-params"
+import { getLocale, type LocaleParams } from "@/lib/locale-params"
 import { Container, PageHero } from "@/components/page-hero"
 import { Gallery } from "@/components/gallery"
 import { Counter } from "@/components/motion"
 
 export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
   const locale = await getLocale(params)
-  const { kunstAmBau } = getContent(locale)
-  return { title: ui[locale].kunstAmBau, description: kunstAmBau.lead, alternates: alternates(locale, "/kunst-am-bau") }
+  return pageMeta(locale, "/kunst-am-bau")
 }
 
 const units: Record<Locale, { pre: string[]; unit: string[] }> = {

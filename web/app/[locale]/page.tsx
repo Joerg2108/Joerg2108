@@ -3,7 +3,8 @@ import Link from "next/link"
 import { getContent } from "@/lib/content"
 import { getWorks } from "@/lib/works"
 import { localeNames, lp, ui, type Locale } from "@/lib/i18n"
-import { getLocale, alternates, type LocaleParams } from "@/lib/locale-params"
+import { getLocale, type LocaleParams } from "@/lib/locale-params"
+import { homeJsonLd, jsonLdProps, pageMeta } from "@/lib/seo"
 import { ButtonLink, Container, SectionTitle } from "@/components/page-hero"
 import { ContactSection } from "@/components/contact-section"
 import { CinemaVideo } from "@/components/cinema-video"
@@ -15,7 +16,7 @@ import { YouTubeConsent } from "@/components/youtube-consent"
 import { Counter, Magnetic, SplitWords, Tilt } from "@/components/motion"
 
 export async function generateMetadata({ params }: LocaleParams) {
-  return { alternates: alternates(await getLocale(params), "/") }
+  return pageMeta(await getLocale(params), "/")
 }
 
 const statUnits: Record<Locale, { pre: string[]; unit: string[] }> = {
@@ -66,6 +67,7 @@ export default async function Home({ params }: LocaleParams) {
 
   return (
     <>
+      <script {...jsonLdProps(homeJsonLd(locale, getContent(locale)))} />
       {/* ───── Hero: Film + 3D + Typografie ───── */}
       <section aria-labelledby="hero-title" className="relative isolate flex min-h-svh items-end overflow-hidden pb-16 pt-32 sm:items-center sm:pb-0">
         <CinemaVideo film={{ base: "/media/hero" }} className="-z-20 opacity-40" />

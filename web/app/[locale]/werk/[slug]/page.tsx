@@ -1,10 +1,10 @@
 import type { Metadata } from "next"
+import { breadcrumbJsonLd, jsonLdProps, pageMeta } from "@/lib/seo"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { getWork, getWorks, workSlugs } from "@/lib/works"
 import { getContent } from "@/lib/content"
 import { locales, lp, ui, isLocale } from "@/lib/i18n"
-import { alternates } from "@/lib/locale-params"
 import { ButtonLink, Container, PageHero } from "@/components/page-hero"
 import { Gallery } from "@/components/gallery"
 
@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: P): Promise<Metadata> {
   const { locale, slug } = await params
   if (!isLocale(locale)) return {}
   const w = getWork(locale, slug)
-  return w ? { title: w.title, description: w.text[0], alternates: alternates(locale, `/werk/${slug}`), openGraph: { images: w.images[0] ? [w.images[0].src] : [] } } : {}
+  return w ? pageMeta(locale, `/werk/${slug}`) : {}
 }
 
 export default async function WorkPage({ params }: P) {
@@ -29,13 +29,18 @@ export default async function WorkPage({ params }: P) {
   const w = getWork(locale, slug)
   if (!w) notFound()
   const t = ui[locale]
-  const { contact } = getContent(locale)
+  const { contact, site } = getContent(locale)
   const works = getWorks(locale)
   const i = works.findIndex((x) => x.slug === w.slug)
   const next = works[(i + 1) % works.length]
   const nextHref = lp(locale, next.slug === "kunst-am-bau" ? "/kunst-am-bau" : `/werk/${next.slug}`)
+  const crumbs = breadcrumbJsonLd(site.url, [
+    { name: site.name, path: `/${locale}/` },
+    { name: w.title, path: `/${locale}/werk/${w.slug}/` },
+  ])
   return (
     <>
+      <script {...jsonLdProps(crumbs)} />
       <PageHero kicker={`${t.chapter} ${String(i + 1).padStart(2, "0")} · ${t.work}`} title={w.title}>
         {w.text.map((p) => (
           <p key={p} className="mb-4">

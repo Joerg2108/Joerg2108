@@ -1,14 +1,14 @@
 import type { Metadata } from "next"
+import { pageMeta } from "@/lib/seo"
 import { getContent } from "@/lib/content"
 import { ui } from "@/lib/i18n"
-import { alternates, getLocale, type LocaleParams } from "@/lib/locale-params"
+import { getLocale, type LocaleParams } from "@/lib/locale-params"
 import { Container, PageHero } from "@/components/page-hero"
 import { Gallery } from "@/components/gallery"
 
 export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
   const locale = await getLocale(params)
-  const { publications } = getContent(locale)
-  return { title: ui[locale].publications, description: publications.text.slice(0, 160), alternates: alternates(locale, "/publikationen") }
+  return pageMeta(locale, "/publikationen")
 }
 
 export default async function PublicationsPage({ params }: LocaleParams) {
