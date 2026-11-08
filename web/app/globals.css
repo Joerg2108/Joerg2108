@@ -265,12 +265,12 @@ body {
 @keyframes nc-intro-rise { from { opacity: 0.01; transform: translate3d(0, 24px, 0); } }
 @keyframes nc-intro-word { from { transform: translate3d(0, 110%, 0) rotate(4deg); } }
 p.nc-intro, div.nc-intro {
-  animation: nc-intro-rise 1s var(--nc-ease-out) both;
+  animation: nc-intro-rise 1s var(--nc-ease-out) backwards;
   animation-delay: calc(var(--i, 0) * 90ms + 120ms);
 }
 .nc-split.nc-intro .nc-word > span {
   transform: none;
-  animation: nc-intro-word 1.3s var(--nc-ease-out) both;
+  animation: nc-intro-word 1.3s var(--nc-ease-out) backwards;
   animation-delay: calc(var(--w, 0) * 55ms + var(--d, 0ms) + 80ms);
 }
 
