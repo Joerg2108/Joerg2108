@@ -1,8 +1,15 @@
 "use client"
 
 import WildHuntFooter from "@/components/ui/wild-hunt-footer"
+import imageLoader from "@/lib/image-loader"
 import { getContent } from "@/lib/content"
 import { lp, ui, type Locale } from "@/lib/i18n"
+
+const FOOTER_IMG = "/images/werk/originale/originale-14.webp"
+const footerSrcSet = [320, 640, 960]
+  .map((w) => `${imageLoader({ src: FOOTER_IMG, width: w })} ${w}w`)
+  .filter((v, i, a) => a.findIndex((x) => x.split(" ")[0] === v.split(" ")[0]) === i)
+  .join(", ")
 
 export function SiteFooter({ locale }: { locale: Locale }) {
   const { contact, site, nav } = getContent(locale)
@@ -14,7 +21,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
     <WildHuntFooter
       wordmark="FISCHER-ART"
       preset="vermilion"
-      image={{ src: "/images/werk/originale/originale-14.webp", alt: "", position: "50% 45%" }}
+      image={{ src: FOOTER_IMG, srcSet: footerSrcSet, sizes: "100vw", alt: "", position: "50% 45%" }}
       imageHeight={0.55}
       height="min(100svh, 860px)"
       tagline={f.tagline}

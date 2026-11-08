@@ -39,6 +39,9 @@ export interface WildHuntImage {
    * picture dissolves.
    */
   cutout?: string
+  /** Optional responsive sources for `src` (img srcset / sizes). */
+  srcSet?: string
+  sizes?: string
 }
 
 export interface FooterLink {
@@ -898,7 +901,7 @@ export default function WildHuntFooter({
     >
       <style>{WHF_CSS}</style>
       <div className="whf-picture" ref={pictureRef} aria-hidden="true">
-        <img src={image.src} alt="" draggable={false} style={{ objectPosition: image.position || "50% 26%" }} />
+        <img src={image.src} srcSet={image.srcSet} sizes={image.sizes} alt="" draggable={false} loading="lazy" decoding="async" style={{ objectPosition: image.position || "50% 26%" }} />
         <div className="whf-tint" />
         <canvas className="whf-dither" ref={ditherRef} />
         {image.cutout ? (

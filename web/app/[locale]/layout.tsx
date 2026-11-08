@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     metadataBase: new URL(site.url),
     title: { default: `${site.name} | ${site.claim}`, template: `%s | ${site.name}` },
     description: descriptions[locale],
-    icons: { icon: "/images/logo.webp" },
+    icons: { icon: [{ url: "/favicon-48.png", sizes: "48x48", type: "image/png" }], apple: "/apple-touch-icon.png" },
     alternates: {
       canonical: `/${locale}/`,
       languages: { de: "/de/", en: "/en/", "zh-Hans": "/zh/", "x-default": "/de/" },

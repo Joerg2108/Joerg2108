@@ -81,9 +81,10 @@ Auf Netlify kommen Brotli/Gzip dazu (lokal rund 800 KB unkomprimiert), live soll
    - „Aktuelles“ steht auf 04/2026
 9. **Google Search Console:** Domain verifizieren und `https://www.fischer-art.de/sitemap.xml` einreichen. Dasselbe in den Bing Webmaster Tools.
 10. **Test auf echten Geräten:** iPhone (Safari), Android (Chrome), iPad, ein langsames Gerät. Simulatoren ersetzen das nicht.
-11. **Bilder responsiv ausliefern.** Derzeit gibt es pro Bild nur eine Größe, wegen `images.unoptimized` beim statischen Export.
-    - Per sharp-Skript zusätzlich 640/1280-px-Varianten und `srcset` erzeugen
-    - Bringt mobil geschätzt weitere 15–20 Performance-Punkte
+11. ~~Bilder responsiv ausliefern~~ ✅ erledigt: Jedes Bild gibt es in 320/640/960/1280/1920 px, `srcset` über `lib/image-loader.ts`.
+    Ergebnis: Bilddaten am Desktop 68–82 % weniger, am Handy je nach Seite 0–41 %. Hochauflösende Handys laden bewusst große Varianten.
+    Der Lighthouse-Wert ändert sich dadurch kaum; mobil bremsen JavaScript und das Hero-Video, nicht die Bilder.
+    Neue Bilder einfach nach `public/images/` legen, die Varianten entstehen beim Build automatisch.
 
 12a. ~~YouTube-Titel eintragen~~ ✅ erledigt (Titel, Kanal und Original-Vorschaubilder lokal).
 
