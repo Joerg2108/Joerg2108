@@ -106,6 +106,29 @@ Eigene Änderungen: `post.json` bearbeiten und neu rendern:
 node agent.js --rendern ausgabe/2026-11-08-…/post.json
 ```
 
+## Veröffentlichen über Windsor.ai (aktueller Betrieb)
+
+Gepostet wird **nicht** mit `taeglich.js`, sondern über den bestehenden Windsor.ai-Weg auf dem Branch
+`claude/instagram-agent` (Konto **@flowkit5**, keine Meta-App und kein Token nötig):
+
+| Uhrzeit (Berlin) | Geplante Aufgabe | Inhalt |
+|---|---|---|
+| 11:32 | Instagram-Agent Back Office | Back-Office-Beitrag + Story aus `posts.json` |
+| 17:34 | Instagram-Agent Webdesign | Webdesign-Karussell/Einzelbild + Story aus `posts-webdesign.json` |
+
+Dieser Ordner ist die **Content-Fabrik** für den Webdesign-Strang:
+
+1. Neue Beiträge in `webdesign-bank.json` ergänzen (gleiches Format wie die vorhandenen, IDs fortlaufend W13, W14 …).
+2. Prüfen und rendern direkt in den Veröffentlichungs-Ordner (Checkout von `claude/instagram-agent`):
+
+   ```bash
+   node bank-bauen.js /pfad/zu/claude-instagram-agent/marketing/instagram-agent
+   ```
+
+3. Dort committen und auf `claude/instagram-agent` pushen. Bereits gepostete IDs (`posted-webdesign.json`) werden nicht erneut gepostet.
+
+`taeglich.js` bleibt als Alternative für einen eigenen Server bestehen. **Nicht zusätzlich einschalten**, sonst wird doppelt gepostet.
+
 ## Projekt-Screenshots
 
 Echte Projekte verkaufen besser als jede Behauptung. Der Folientyp **„projekt“** zeigt eine Kunden-Website im Browserfenster plus Handy-Ansicht – in Stories nur das Handy.

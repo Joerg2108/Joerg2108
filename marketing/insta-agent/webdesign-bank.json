@@ -1,0 +1,936 @@
+[
+  {
+    "id": "W01",
+    "thema": "Projekt-Einblick: Security Factory – fünf Leistungsbereiche klar gegliedert",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Projekt-Einblick",
+        "headline": "Fünf Leistungen. Eine klare Seite.",
+        "akzent": "Security Factory",
+        "text": "Wie ein Sicherheitsdienst aus Mitteldeutschland online so auftritt, dass Kunden in Sekunden finden, was sie suchen.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Die Ausgangslage",
+        "headline": "Viel Angebot, wenig Überblick.",
+        "akzent": "",
+        "text": "Objektschutz, Veranstaltungssicherheit, Baustellenbewachung und mehr. Wer alles auf einmal zeigt, zeigt am Ende nichts.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Die Lösung",
+        "headline": "Jede Leistung bekommt ihren Platz.",
+        "akzent": "",
+        "text": "Klar gegliedert, am Rechner und am Handy.",
+        "punkte": [],
+        "projekt": "security-factory"
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Worauf es ankam",
+        "headline": "Was Kunden sofort sehen",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Welche Leistungen es gibt",
+          "In welchen Regionen der Dienst tätig ist",
+          "Wie man schnell Kontakt aufnimmt"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Seit 2006 im Geschäft",
+        "headline": "Erfahrung, die man online sieht.",
+        "akzent": "",
+        "text": "Ein Betrieb mit fast 20 Jahren Geschichte verdient einen Auftritt, der genauso verlässlich wirkt.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Ihr nächster Schritt",
+        "headline": "Ihre Leistungen, klar gezeigt.",
+        "akzent": "Schreiben Sie mir.",
+        "text": "Per WhatsApp oder DM. Ich melde mich persönlich, ohne Formular-Pingpong.",
+        "punkte": [],
+        "projekt": ""
+      }
+    ],
+    "caption": "Fünf Leistungsbereiche auf einer Website, ohne dass jemand den Überblick verliert.\n\nSecurity Factory ist ein Sicherheitsdienstleister aus Mitteldeutschland, seit 2006 im Geschäft und in drei Bundesländern unterwegs. Objektschutz, Veranstaltungssicherheit, Baustellenbewachung: Das Angebot ist breit.\n\nDie Aufgabe für die Website war deshalb vor allem Ordnung. Jede Leistung hat ihren eigenen Platz, und der Weg zum Kontakt ist von überall kurz.\n\nIhr Angebot ist gut, aber online schwer zu durchschauen? Schreiben Sie mir per WhatsApp, woran Sie gerade arbeiten. Link in Bio.\n\nWie viele Klicks braucht ein Kunde auf Ihrer Website bis zu Ihrer wichtigsten Leistung?",
+    "hashtags": [
+      "#webdesign",
+      "#webdesignleipzig",
+      "#websiteerstellen",
+      "#leipzig",
+      "#sicherheitsdienst",
+      "#mitteldeutschland",
+      "#kmu",
+      "#selbstständig",
+      "#webentwicklung",
+      "#onlinemarketing"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold: Projekt-Einblick in die Website von Security Factory mit Screenshot am Rechner und am Handy sowie einer Einladung zur Zusammenarbeit.",
+    "story": {
+      "typ": "projekt",
+      "eyebrow": "Projekt-Einblick",
+      "headline": "Security Factory am Handy.",
+      "akzent": "",
+      "text": "",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": "security-factory"
+    }
+  },
+  {
+    "id": "W02",
+    "thema": "5 Website-Fehler, die Anfragen kosten",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Website-Check",
+        "headline": "Schöne Website. Keine Anfragen.",
+        "akzent": "Fünf Gründe dafür.",
+        "text": "Die häufigsten Fehler, die ich bei Betrieben sehe. Keiner davon hat mit Farben zu tun.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Fehler 1",
+        "headline": "Man versteht nicht, was Sie anbieten.",
+        "akzent": "",
+        "text": "Besucher entscheiden in wenigen Sekunden. Wenn die erste Zeile nicht sagt, was Sie tun und für wen, sind sie weg.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Fehler 2",
+        "headline": "Kein klarer nächster Schritt.",
+        "akzent": "",
+        "text": "Anrufen, schreiben, buchen? Ein sichtbarer Weg zum Kontakt gehört auf jede Seite, nicht nur ins Impressum.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Fehler 3 bis 5",
+        "headline": "Die stillen Kundenkiller",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Am Handy kaum bedienbar",
+          "Veraltete Preise, Zeiten oder Angebote",
+          "Nur auf Deutsch, obwohl Gäste aus dem Ausland kommen"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Die gute Nachricht",
+        "headline": "Alles davon lässt sich beheben.",
+        "akzent": "",
+        "text": "Meist braucht es keine neue Technik, sondern eine klare Struktur und Texte, die Ihre Kunden verstehen.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Ihr nächster Schritt",
+        "headline": "Wo steht Ihre Website?",
+        "akzent": "Fragen Sie mich.",
+        "text": "Schreiben Sie mir per WhatsApp, woran Sie gerade arbeiten. Ich sage Ihnen ehrlich, was ich sehe.",
+        "punkte": [],
+        "projekt": ""
+      }
+    ],
+    "caption": "Schöne Website, aber das Telefon bleibt still? Daran liegt es oft.\n\nIch sehe bei Betrieben immer wieder dieselben fünf Fehler:\n\n- Man versteht nicht sofort, was angeboten wird\n- Es gibt keinen klaren nächsten Schritt\n- Am Handy ist die Seite kaum bedienbar\n- Preise, Zeiten oder Angebote sind veraltet\n- Gäste aus dem Ausland finden keine Version in ihrer Sprache\n\nKeiner davon hat mit dem Design zu tun, und alle lassen sich beheben.\n\nSie wollen wissen, wo Ihre Website steht? Schreiben Sie mir per WhatsApp. Link in Bio.\n\nWelcher dieser Fehler kommt Ihnen bekannt vor?",
+    "hashtags": [
+      "#webdesign",
+      "#webdesignleipzig",
+      "#websiteerstellen",
+      "#websitecheck",
+      "#leipzig",
+      "#kmu",
+      "#selbstständig",
+      "#kundengewinnung",
+      "#onlinemarketing",
+      "#webentwicklung"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold mit fünf häufigen Website-Fehlern, die Anfragen kosten, und dem Angebot einer ehrlichen Einschätzung.",
+    "story": {
+      "typ": "tipp",
+      "eyebrow": "Kurz-Check",
+      "headline": "Öffnen Sie Ihre Website am Handy.",
+      "akzent": "Jetzt gleich.",
+      "text": "Finden Sie in fünf Sekunden Telefon oder Kontakt? Wenn nicht, suchen Ihre Kunden auch nicht weiter.",
+      "hinweis": "Neuer Beitrag im Feed ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "W03",
+    "thema": "Was eine Website für Gastronomie braucht",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Gastronomie",
+        "headline": "Hunger entscheidet schnell.",
+        "akzent": "Ihre Website auch?",
+        "text": "Was eine Website für Bar oder Restaurant leisten muss, damit aus Besuchern Gäste werden.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Das Wichtigste zuerst",
+        "headline": "Was Gäste suchen",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Die Speisekarte, ohne PDF-Download",
+          "Öffnungszeiten und Lage",
+          "Einen schnellen Weg zur Reservierung"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Entsteht gerade",
+        "headline": "Milly's Bar & Restaurant",
+        "akzent": "",
+        "text": "Speisekarte, Atmosphäre und Reservierungsanfrage auf einen Blick.",
+        "punkte": [],
+        "projekt": "millys"
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Atmosphäre zählt",
+        "headline": "Gäste buchen ein Gefühl.",
+        "akzent": "",
+        "text": "Gute Bilder vom Ort, von Speisen und Abenden zeigen mehr als jede Beschreibung. Sie gehören nach oben, nicht ans Ende.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Events",
+        "headline": "Was diese Woche los ist.",
+        "akzent": "",
+        "text": "Livemusik, Themenabende, Feiertage: Eine aktuelle Event-Übersicht gibt Gästen einen Grund, genau jetzt zu kommen.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Für Ihr Lokal",
+        "headline": "Mehr Gäste über Ihre Website?",
+        "akzent": "Lassen Sie uns reden.",
+        "text": "Schreiben Sie mir per WhatsApp, was Ihr Lokal besonders macht.",
+        "punkte": [],
+        "projekt": ""
+      }
+    ],
+    "caption": "Wer hungrig ist, entscheidet schnell. Ihre Website hat dafür ein paar Sekunden.\n\nGäste suchen auf der Website eines Restaurants fast immer dasselbe: die Speisekarte, die Öffnungszeiten, den Weg dorthin und eine Möglichkeit zu reservieren. Alles andere kommt danach.\n\nGerade entsteht die Website für Milly's Bar & Restaurant: Speisekarte direkt auf der Seite, viel Atmosphäre und eine Reservierungsanfrage ohne Umwege.\n\nSie führen ein Lokal und Ihre Website könnte mehr Tische füllen? Schreiben Sie mir per WhatsApp. Link in Bio.\n\nWas schauen Sie sich zuerst an, wenn Sie ein neues Restaurant suchen?",
+    "hashtags": [
+      "#webdesign",
+      "#gastronomie",
+      "#restaurantwebsite",
+      "#websiteerstellen",
+      "#webdesignleipzig",
+      "#gastro",
+      "#restaurant",
+      "#bar",
+      "#selbstständig",
+      "#onlinemarketing"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über Websites für Gastronomie mit einem Screenshot der entstehenden Website von Milly's Bar & Restaurant.",
+    "story": {
+      "typ": "projekt",
+      "eyebrow": "Entsteht gerade",
+      "headline": "Milly's am Handy.",
+      "akzent": "",
+      "text": "",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": "millys"
+    }
+  },
+  {
+    "id": "W04",
+    "thema": "Sie führen Ihr Geschäft. Ich mache Sie sichtbar.",
+    "format": "einzelbild",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Webdesign · Jörg Noack",
+        "headline": "Sie führen Ihr Geschäft.",
+        "akzent": "Ich mache Sie sichtbar.",
+        "text": "Website, Struktur und Texte aus einer Hand. Damit die richtigen Leute Ihr Angebot finden, verstehen und buchen.",
+        "punkte": [],
+        "projekt": ""
+      }
+    ],
+    "caption": "Ein gutes Angebot ist die eine Hälfte. Die andere ist, dass die richtigen Leute es online finden, verstehen und buchen.\n\nDiese zweite Hälfte übernehme ich: Konzept, Website, Texte und der Weg bis zur Anfrage. Ohne großes Marketing-Vokabular und mit einem festen Ansprechpartner, der es auch umsetzt.\n\nSo können Sie sich um das kümmern, was Sie wirklich gut machen.\n\nSie haben ein Angebot, das mehr Sichtbarkeit verdient? Schreiben Sie mir per WhatsApp, woran Sie gerade arbeiten. Link in Bio.",
+    "hashtags": [
+      "#webdesign",
+      "#webdesignleipzig",
+      "#websiteerstellen",
+      "#leipzig",
+      "#kmu",
+      "#selbstständig",
+      "#unternehmer",
+      "#sichtbarkeit",
+      "#onlinemarketing"
+    ],
+    "alt_text": "Schwarzes Bild mit goldener Schrift: Sie führen Ihr Geschäft. Ich mache Sie sichtbar. Darunter ein kurzer Text zum Webdesign-Angebot von Jörg Noack.",
+    "story": {
+      "typ": "teaser",
+      "eyebrow": "Neu im Feed",
+      "headline": "Sie führen Ihr Geschäft.",
+      "akzent": "Ich mache Sie sichtbar.",
+      "text": "Wie das konkret aussieht, zeige ich in meinen Projekten.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "W05",
+    "thema": "Tischreservierung per WhatsApp: Amigos Beach Bar",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Entsteht gerade",
+        "headline": "Reservieren in einer Nachricht.",
+        "akzent": "Per WhatsApp.",
+        "text": "Wie die Website der Amigos Beach Bar in Diani Beach Gäste direkt an den Tisch bringt.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Die Idee",
+        "headline": "Gäste schreiben, wo sie ohnehin sind.",
+        "akzent": "",
+        "text": "Viele Urlauber haben kein Telefonguthaben, aber WhatsApp. Also führt der Reservieren-Knopf direkt in den Chat.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "So sieht's aus",
+        "headline": "Amigos Beach Bar Diani",
+        "akzent": "",
+        "text": "Speisekarte, Events, Galerie und Reservierung per WhatsApp.",
+        "punkte": [],
+        "projekt": "amigos"
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Was sonst noch drin ist",
+        "headline": "Gebaut für Strandgäste",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Mehrsprachig für Gäste aus aller Welt",
+          "Speisekarte direkt auf der Seite",
+          "Events und Galerie für die Stimmung"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Für Ihren Betrieb",
+        "headline": "Buchen so einfach wie schreiben.",
+        "akzent": "Fragen Sie mich.",
+        "text": "Ob WhatsApp, Formular oder Direktbuchung: Ich finde den Weg, der zu Ihren Gästen passt.",
+        "punkte": [],
+        "projekt": ""
+      }
+    ],
+    "caption": "Reservieren in einer Nachricht. Für eine Strandbar ist das der kürzeste Weg zum Gast.\n\nGerade entsteht die Website der Amigos Beach Bar in Diani Beach. Die Gäste sind Urlauber aus vielen Ländern, und fast alle haben WhatsApp auf dem Handy. Also führt der Reservieren-Knopf direkt in den Chat.\n\nDazu kommen eine mehrsprachige Seite, die Speisekarte, Events und eine Galerie, die zeigt, wie es am Strand aussieht.\n\nWelcher Weg zur Buchung passt zu Ihren Kunden? Schreiben Sie mir, dann finden wir es heraus. Link in Bio.\n\nReservieren Sie lieber per Anruf, Formular oder WhatsApp?",
+    "hashtags": [
+      "#webdesign",
+      "#gastronomie",
+      "#whatsapp",
+      "#beachbar",
+      "#dianibeach",
+      "#kenia",
+      "#websiteerstellen",
+      "#mehrsprachig",
+      "#webdesignleipzig",
+      "#tourismus"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über die entstehende Website der Amigos Beach Bar in Diani Beach mit Tischreservierung per WhatsApp, inklusive Screenshot.",
+    "story": {
+      "typ": "projekt",
+      "eyebrow": "Entsteht gerade",
+      "headline": "Reservieren per WhatsApp.",
+      "akzent": "",
+      "text": "",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": "amigos"
+    }
+  },
+  {
+    "id": "W06",
+    "thema": "So läuft ein Website-Projekt mit mir ab",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Zusammenarbeit",
+        "headline": "Von der Idee zur Website.",
+        "akzent": "In fünf Schritten.",
+        "text": "So läuft ein Projekt mit mir ab, ohne Agentur-Kette und ohne Fachchinesisch.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "zahl",
+        "eyebrow": "Schritt 1",
+        "headline": "01",
+        "akzent": "Sie erzählen, ich höre zu.",
+        "text": "Per WhatsApp oder E-Mail: Woran arbeiten Sie gerade, und was soll die Website leisten?",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Schritt 2 und 3",
+        "headline": "Erst die Struktur, dann das Design.",
+        "akzent": "",
+        "text": "Wir klären, was Besucher wo finden. Danach entstehen Design und Texte, mit Feedback-Runden statt Überraschungen.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Schritt 4",
+        "headline": "Livegang.",
+        "akzent": "",
+        "text": "Die Website geht online, und Sie wissen, wie alles funktioniert. Auf Wunsch mit Social Media, Marketing und Back Office.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Schritt 5",
+        "headline": "Ein Ansprechpartner bleibt.",
+        "akzent": "",
+        "text": "Keine Weiterreichung. Sie sprechen immer mit der Person, die es auch umsetzt.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Schritt 1 beginnt hier",
+        "headline": "Erzählen Sie mir davon.",
+        "akzent": "Per WhatsApp, Link in Bio.",
+        "text": "Ich melde mich persönlich bei Ihnen.",
+        "punkte": [],
+        "projekt": ""
+      }
+    ],
+    "caption": "Wie läuft eigentlich ein Website-Projekt ab? Bei mir so.\n\n1. Sie erzählen mir per WhatsApp oder E-Mail, woran Sie gerade arbeiten.\n2. Wir klären, was die Website leisten soll und was Besucher wo finden.\n3. Design und Texte entstehen, mit Feedback-Runden.\n4. Die Website geht online, und Sie wissen, wie alles funktioniert.\n5. Danach bleibt ein Ansprechpartner. Keine Agentur-Kette, keine Weiterreichung.\n\nKlingt nach einem Plan für Ihr Projekt? Schreiben Sie mir per WhatsApp. Link in Bio.",
+    "hashtags": [
+      "#webdesign",
+      "#webdesignleipzig",
+      "#websiteerstellen",
+      "#leipzig",
+      "#zusammenarbeit",
+      "#kmu",
+      "#selbstständig",
+      "#webentwicklung",
+      "#unternehmer"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold, das in fünf Schritten zeigt, wie ein Website-Projekt mit Jörg Noack abläuft.",
+    "story": {
+      "typ": "fakt",
+      "eyebrow": "Zusammenarbeit",
+      "headline": "5",
+      "akzent": "Schritte zur Website.",
+      "text": "Und ein Ansprechpartner von Anfang bis Ende.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "W07",
+    "thema": "Mehrsprachige Websites für Gäste aus dem Ausland",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Mehrsprachigkeit",
+        "headline": "Ihre Gäste sprechen Englisch.",
+        "akzent": "Ihre Website auch?",
+        "text": "Warum Betriebe mit internationalen Gästen eine zweite Sprache brauchen.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Das Problem",
+        "headline": "Wer nichts versteht, bucht woanders.",
+        "akzent": "",
+        "text": "Ein Gast aus London oder Zürich vergleicht mehrere Anbieter. Die Seite, die er versteht, bekommt die Anfrage.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "zahl",
+        "eyebrow": "Aus meinen Projekten",
+        "headline": "3",
+        "akzent": "Märkte, eine Website.",
+        "text": "Safari Adventure Tour spricht Gäste aus Deutschland, der Schweiz und Kenia an.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Entsteht gerade",
+        "headline": "Bushy Baby Tiki Pub",
+        "akzent": "",
+        "text": "Mehrsprachig, mit Speisekarte, Events und Kontakt.",
+        "punkte": [],
+        "projekt": "bushy-baby"
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Worauf es ankommt",
+        "headline": "Gut gemacht heißt",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Sprachwechsel sofort sichtbar",
+          "Texte übersetzt, nicht nur übertragen",
+          "Buchung in jeder Sprache möglich"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Für Ihren Betrieb",
+        "headline": "Gäste aus aller Welt?",
+        "akzent": "Dann reden wir.",
+        "text": "Schreiben Sie mir per WhatsApp, welche Gäste Sie erreichen wollen.",
+        "punkte": [],
+        "projekt": ""
+      }
+    ],
+    "caption": "Ihre Gäste sprechen Englisch. Spricht Ihre Website es auch?\n\nWer Urlauber oder internationale Kunden hat, verliert ohne zweite Sprache Anfragen. Ein Gast vergleicht mehrere Anbieter, und die Seite, die er versteht, bekommt die Buchung.\n\nIn meinen Projekten kommt das oft vor: Safari Adventure Tour spricht Gäste aus Deutschland, der Schweiz und Kenia an. Gerade entsteht der Bushy Baby Tiki Pub, ebenfalls mehrsprachig.\n\nWichtig dabei: Der Sprachwechsel muss sofort sichtbar sein, und die Buchung muss in jeder Sprache funktionieren.\n\nWelche Gäste wollen Sie erreichen? Schreiben Sie mir per WhatsApp. Link in Bio.",
+    "hashtags": [
+      "#webdesign",
+      "#mehrsprachig",
+      "#tourismus",
+      "#gastronomie",
+      "#websiteerstellen",
+      "#webdesignleipzig",
+      "#internationalegäste",
+      "#kenia",
+      "#selbstständig",
+      "#onlinemarketing"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über mehrsprachige Websites mit Beispielen aus Projekten in Kenia und einem Screenshot des Bushy Baby Tiki Pub.",
+    "story": {
+      "typ": "projekt",
+      "eyebrow": "Entsteht gerade",
+      "headline": "Bushy Baby am Handy.",
+      "akzent": "",
+      "text": "",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": "bushy-baby"
+    }
+  },
+  {
+    "id": "W08",
+    "thema": "Was eine Website für Handwerksbetriebe braucht",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Handwerk",
+        "headline": "Gute Arbeit allein reicht nicht.",
+        "akzent": "Man muss sie auch finden.",
+        "text": "Was die Website eines Handwerksbetriebs zeigen muss, damit Bauherren anrufen.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Das suchen Bauherren",
+        "headline": "Die vier Fragen",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Was machen Sie genau?",
+          "Wo sind Sie tätig?",
+          "Haben Sie das schon mal gemacht?",
+          "Wie erreiche ich Sie schnell?"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Referenzen",
+        "headline": "Zeigen statt erzählen.",
+        "akzent": "",
+        "text": "Fotos fertiger Projekte überzeugen mehr als jeder Satz über Qualität. Sie gehören gut sichtbar auf die Startseite.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Entsteht gerade",
+        "headline": "BauDaH Bauunternehmen",
+        "akzent": "",
+        "text": "Meisterbetrieb in Naunhof bei Leipzig: Leistungen, Referenzen, Kontakt.",
+        "punkte": [],
+        "projekt": "baudah"
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Am Handy",
+        "headline": "Anruf mit einem Tipp.",
+        "akzent": "",
+        "text": "Viele Kunden suchen unterwegs. Die Telefonnummer muss am Handy sofort antippbar sein.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Für Ihren Betrieb",
+        "headline": "Ihr Handwerk verdient mehr.",
+        "akzent": "Schreiben Sie mir.",
+        "text": "Per WhatsApp, auch gern nach Feierabend. Ich melde mich persönlich.",
+        "punkte": [],
+        "projekt": ""
+      }
+    ],
+    "caption": "Gute Arbeit allein reicht nicht. Man muss sie auch online finden.\n\nBauherren stellen beim Blick auf eine Handwerker-Website fast immer dieselben vier Fragen: Was machen Sie genau, wo sind Sie tätig, haben Sie das schon mal gemacht, und wie erreiche ich Sie schnell?\n\nGenau darauf ist die Website ausgelegt, die gerade für BauDaH entsteht, einen Meisterbetrieb in Naunhof bei Leipzig. Leistungen, Referenzen und Kontakt stehen dort, wo man sie sucht.\n\nSie haben einen Handwerksbetrieb und Ihre Website zeigt nicht, was Sie können? Schreiben Sie mir per WhatsApp. Link in Bio.",
+    "hashtags": [
+      "#webdesign",
+      "#handwerk",
+      "#handwerker",
+      "#meisterbetrieb",
+      "#webdesignleipzig",
+      "#leipzig",
+      "#naunhof",
+      "#websiteerstellen",
+      "#bauunternehmen",
+      "#kmu"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über Websites für Handwerksbetriebe mit einem Screenshot der entstehenden Website von BauDaH aus Naunhof bei Leipzig.",
+    "story": {
+      "typ": "projekt",
+      "eyebrow": "Entsteht gerade",
+      "headline": "BauDaH am Handy.",
+      "akzent": "",
+      "text": "",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": "baudah"
+    }
+  },
+  {
+    "id": "W09",
+    "thema": "Direktbuchung statt Portal: Diani Home Hosting",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Projekt-Einblick",
+        "headline": "Direkt buchen statt über Portale.",
+        "akzent": "Diani Home Hosting",
+        "text": "Wie eine eigene Buchungs-Website Teil des Erfolgs eines Villenmanagements an der Diani Beach wurde.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Die Aufgabe",
+        "headline": "Über 50 Villen, ein Auftritt.",
+        "akzent": "",
+        "text": "Ein Fünf-Sterne-Villenmanagement braucht eine Website, die Gäste direkt erreicht und Vertrauen schafft.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Was wir gemacht haben",
+        "headline": "Mehr als eine Website",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Marke und Positionierung",
+          "Direktbuchungs-Website",
+          "Social Media und Marketing"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "zahl",
+        "eyebrow": "Das Ergebnis aller Maßnahmen",
+        "headline": "+38 %",
+        "akzent": "mehr Umsatz.",
+        "text": "Erreicht mit Positionierung, Website und Marketing zusammen. Die Gäste bewerten mit 4,9 von 5.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Die Lehre",
+        "headline": "Die Website ist ein Baustein.",
+        "akzent": "Kein Zaubertrick.",
+        "text": "Sie wirkt am stärksten, wenn Marke, Inhalte und Marketing zusammenpassen.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Für Ihren Betrieb",
+        "headline": "Mehr Direktbuchungen?",
+        "akzent": "Lassen Sie uns reden.",
+        "text": "Schreiben Sie mir per WhatsApp, wie Ihre Gäste heute buchen.",
+        "punkte": [],
+        "projekt": ""
+      }
+    ],
+    "caption": "Direkt buchen statt über Portale. Für ein Villenmanagement macht das einen Unterschied.\n\nDiani Home Hosting betreut über 50 Villen an der Diani Beach in Kenia. Gemeinsam haben wir Marke und Positionierung geschärft, eine Direktbuchungs-Website gebaut und Social Media und Marketing aufgesetzt.\n\nDas Ergebnis aller Maßnahmen zusammen: 38 Prozent mehr Umsatz, bei einer Gäste-Bewertung von 4,9 von 5.\n\nDie Website allein war dabei kein Zaubertrick. Sie wirkt am stärksten, wenn Marke, Inhalte und Marketing zusammenpassen.\n\nSie möchten mehr Direktbuchungen? Schreiben Sie mir per WhatsApp. Link in Bio.",
+    "hashtags": [
+      "#webdesign",
+      "#direktbuchung",
+      "#ferienvermietung",
+      "#airbnb",
+      "#tourismus",
+      "#dianibeach",
+      "#kenia",
+      "#websiteerstellen",
+      "#webdesignleipzig",
+      "#onlinemarketing"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold: Projekt-Einblick Diani Home Hosting mit Direktbuchungs-Website und dem Ergebnis von 38 Prozent mehr Umsatz durch alle Maßnahmen zusammen.",
+    "story": {
+      "typ": "fakt",
+      "eyebrow": "Projekt-Einblick",
+      "headline": "+38 %",
+      "akzent": "mehr Umsatz.",
+      "text": "Mit Positionierung, Website und Marketing zusammen.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "W10",
+    "thema": "Tourenkatalog richtig aufbauen: Saiko Tour & Safaris",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Projekt-Einblick",
+        "headline": "Die richtige Safari in zwei Klicks.",
+        "akzent": "Saiko Tour & Safaris",
+        "text": "Wie ein Tourenkatalog aufgebaut sein muss, damit Interessenten das passende Angebot ohne Umwege finden.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Die Herausforderung",
+        "headline": "Viele Touren, viele Fragen.",
+        "akzent": "",
+        "text": "Dauer, Route, Unterkunft, Preis: Wer eine Safari plant, will vergleichen können, ohne sich durch Textwüsten zu kämpfen.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Die Lösung",
+        "headline": "Übersicht, Details, Anfrage.",
+        "akzent": "",
+        "text": "Tourenkatalog mit Reisedetails und Buchungsanfrage.",
+        "punkte": [],
+        "projekt": "saiko-tour-safaris"
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Der Aufbau",
+        "headline": "Drei Ebenen",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Übersicht aller Touren auf einen Blick",
+          "Pro Tour eine Seite mit allen Details",
+          "Anfrage direkt aus der Tour heraus"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Gilt für jede Branche",
+        "headline": "Touren, Leistungen, Menüs.",
+        "akzent": "",
+        "text": "Das Prinzip funktioniert überall, wo es mehrere Angebote gibt: erst Überblick, dann Details, dann der nächste Schritt.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Für Ihr Angebot",
+        "headline": "Viele Angebote, wenig Übersicht?",
+        "akzent": "Das lässt sich ändern.",
+        "text": "Schreiben Sie mir per WhatsApp, was Sie anbieten.",
+        "punkte": [],
+        "projekt": ""
+      }
+    ],
+    "caption": "Die richtige Safari in zwei Klicks finden. Darum ging es bei Saiko Tour & Safaris.\n\nWer eine Safari plant, vergleicht Dauer, Route, Unterkunft und Preis. Deshalb ist die Website in drei Ebenen aufgebaut: eine Übersicht aller Touren, pro Tour eine Seite mit allen Details und die Anfrage direkt aus der Tour heraus.\n\nDas Prinzip funktioniert für jeden Betrieb mit mehreren Angeboten, ob Touren, Leistungen oder Menüs: erst Überblick, dann Details, dann der nächste Schritt.\n\nIhr Angebot ist umfangreich und Ihre Website unübersichtlich? Schreiben Sie mir per WhatsApp. Link in Bio.\n\nFinden Ihre Kunden Ihr wichtigstes Angebot in zwei Klicks?",
+    "hashtags": [
+      "#webdesign",
+      "#tourismus",
+      "#safari",
+      "#kenia",
+      "#reisebranche",
+      "#websiteerstellen",
+      "#webdesignleipzig",
+      "#tourenanbieter",
+      "#onlinemarketing",
+      "#selbstständig"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold: Projekt-Einblick in den Tourenkatalog von Saiko Tour & Safaris mit Screenshot am Rechner und am Handy.",
+    "story": {
+      "typ": "projekt",
+      "eyebrow": "Projekt-Einblick",
+      "headline": "Saiko am Handy.",
+      "akzent": "",
+      "text": "",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": "saiko-tour-safaris"
+    }
+  },
+  {
+    "id": "W11",
+    "thema": "Ein Ansprechpartner statt Agentur-Kette",
+    "format": "einzelbild",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "So arbeite ich",
+        "headline": "Keine Agentur-Kette.",
+        "akzent": "Ein Ansprechpartner.",
+        "text": "Sie sprechen mit der Person, die Ihre Website auch umsetzt. Von der ersten Nachricht bis zum Livegang.",
+        "punkte": [],
+        "projekt": ""
+      }
+    ],
+    "caption": "Vier Ansprechpartner bei der Agentur, und keiner hat den ganzen Überblick?\n\nProjektleiter, Designer, Texter, Entwickler: So läuft es oft.\n\nBei mir ist das anders. Sie sprechen mit der Person, die Ihre Website auch umsetzt. Keine Weiterreichung, kein Formular-Pingpong, keine Missverständnisse zwischen Abteilungen.\n\nDas spart Zeit und Nerven, und Ihre Wünsche kommen genau da an, wo sie umgesetzt werden.\n\nLust auf eine Zusammenarbeit auf Augenhöhe? Schreiben Sie mir per WhatsApp, woran Sie gerade arbeiten. Link in Bio.",
+    "hashtags": [
+      "#webdesign",
+      "#webdesignleipzig",
+      "#websiteerstellen",
+      "#leipzig",
+      "#freelancer",
+      "#kmu",
+      "#selbstständig",
+      "#zusammenarbeit",
+      "#unternehmer"
+    ],
+    "alt_text": "Schwarzes Bild mit goldener Schrift: Keine Agentur-Kette. Ein Ansprechpartner. Darunter ein kurzer Text zur Zusammenarbeit mit Jörg Noack.",
+    "story": {
+      "typ": "frage",
+      "eyebrow": "Kurze Frage",
+      "headline": "Wie viele Ansprechpartner hat Ihre Agentur?",
+      "akzent": "",
+      "text": "Bei mir mit einem. Mit dem, der es umsetzt.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "W12",
+    "thema": "Kontaktformular, das direkt im Back Office landet",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Website + Back Office",
+        "headline": "Keine Anfrage geht mehr verloren.",
+        "akzent": "",
+        "text": "Was passiert, wenn das Kontaktformular Ihrer Website direkt in Ihr Back Office schreibt.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Das kennen viele",
+        "headline": "Anfrage im Postfach. Und dann?",
+        "akzent": "",
+        "text": "Zwischen Werbung und Rechnungen geht eine Kundenanfrage schnell unter. Oder sie landet im Spam.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Die Lösung",
+        "headline": "Direkt ins System.",
+        "akzent": "",
+        "text": "Jede Anfrage von der Website landet automatisch in Ihrem Back Office, mit Name, Kontakt und Anliegen.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Was Sie davon haben",
+        "headline": "Weniger suchen, mehr antworten",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Alle Anfragen an einem Ort",
+          "Aus der Anfrage wird mit einem Klick ein Angebot",
+          "Ihre Daten bleiben bei Ihnen"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Website und Back Office",
+        "headline": "Beides aus einer Hand.",
+        "akzent": "Fragen Sie mich.",
+        "text": "Schreiben Sie mir per WhatsApp. Die Live-Demo des Back Office finden Sie über den Link in Bio.",
+        "punkte": [],
+        "projekt": ""
+      }
+    ],
+    "caption": "Eine Kundenanfrage im Postfach, zwischen Werbung und Rechnungen. Wie lange bleibt sie dort unbemerkt?\n\nBei den Websites, die ich baue, kann das Kontaktformular direkt in Ihr eigenes Back Office schreiben. Jede Anfrage landet dort mit Name, Kontakt und Anliegen, und aus der Anfrage wird mit einem Klick ein Angebot.\n\nDazu: Einmalpreis statt Abo, beliebig viele Nutzer, und Ihre Daten bleiben bei Ihnen.\n\nWebsite und Back Office aus einer Hand? Schreiben Sie mir per WhatsApp. Die Live-Demo finden Sie über den Link in Bio.",
+    "hashtags": [
+      "#webdesign",
+      "#backoffice",
+      "#kontaktformular",
+      "#crm",
+      "#digitalisierung",
+      "#websiteerstellen",
+      "#webdesignleipzig",
+      "#kmu",
+      "#selbstständig",
+      "#kundengewinnung"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold darüber, wie Anfragen aus dem Kontaktformular der Website direkt im Back Office landen.",
+    "story": {
+      "typ": "tipp",
+      "eyebrow": "Kurz gefragt",
+      "headline": "Wo landen Ihre Website-Anfragen?",
+      "akzent": "Im Postfach oder im System?",
+      "text": "Eine Anfrage, die untergeht, ist ein verlorener Kunde.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  }
+]
