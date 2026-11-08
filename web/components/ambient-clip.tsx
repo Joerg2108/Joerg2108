@@ -3,13 +3,14 @@
 // Single-file ambient loop (e.g. the portrait atelier clip): loads and plays only near the viewport.
 import { useEffect, useRef, useState } from "react"
 import { prefersReducedMotion } from "@/components/motion"
+import { isPhone } from "@/components/cinema-video"
 
 export function AmbientClip({ src, poster, className = "" }: { src: string; poster: string; className?: string }) {
   const ref = useRef<HTMLVideoElement>(null)
   const [on, setOn] = useState(false)
   useEffect(() => {
     const v = ref.current
-    if (!v || prefersReducedMotion()) return
+    if (!v || prefersReducedMotion() || isPhone()) return // Handy: nur Standbild
     const io = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) {

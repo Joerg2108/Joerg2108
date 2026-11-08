@@ -3,7 +3,8 @@
 // Ambient cinematic video: muted, looping, inline, lazy.
 // - nothing is downloaded until the element comes near the viewport
 // - plays only while visible, pauses otherwise (saves battery and CPU)
-// - small screens get the 540p file, larger screens WebM (VP9) or MP4 1080p
+// - phones (< 768 px) get the poster only, with a slow Ken-Burns zoom (saves 1–1.5 MB per film)
+// - larger screens get WebM (VP9) or MP4 1080p
 // - "prefers-reduced-motion" and "Save-Data" show the poster only
 import { useEffect, useRef, useState } from "react"
 import { prefersReducedMotion } from "@/components/motion"
@@ -13,10 +14,14 @@ export interface Film {
   base: string
 }
 
+/** Phones get stills instead of films: background video is the biggest download on mobile. */
+export const isPhone = () => typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches
+
 export function CinemaVideo({ film, className = "", overlay = true }: { film: Film; className?: string; overlay?: boolean }) {
   const ref = useRef<HTMLVideoElement>(null)
   const [load, setLoad] = useState(false)
   const [still, setStill] = useState(false)
+  const [phone, setPhone] = useState(false)
 
   useEffect(() => {
     const v = ref.current
@@ -24,6 +29,11 @@ export function CinemaVideo({ film, className = "", overlay = true }: { film: Fi
     const saveData = (navigator as unknown as { connection?: { saveData?: boolean } }).connection?.saveData
     if (prefersReducedMotion() || saveData) {
       setStill(true)
+      return
+    }
+    if (isPhone()) {
+      setStill(true)
+      setPhone(true)
       return
     }
     const io = new IntersectionObserver(
@@ -47,7 +57,7 @@ export function CinemaVideo({ film, className = "", overlay = true }: { film: Fi
     <div className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`} aria-hidden="true">
       <video
         ref={ref}
-        className="h-full w-full scale-[1.02] object-cover"
+        className={`h-full w-full scale-[1.02] object-cover ${phone ? "animate-[nc-kenburns_24s_ease-in-out_infinite_alternate]" : ""}`}
         poster={`${film.base}-poster.webp`}
         muted
         loop
@@ -59,7 +69,6 @@ export function CinemaVideo({ film, className = "", overlay = true }: { film: Fi
       >
         {load && !still ? (
           <>
-            <source src={`${film.base}-540.mp4`} type="video/mp4" media="(max-width: 767px)" />
             <source src={`${film.base}-1080.webm`} type="video/webm" />
             <source src={`${film.base}-1080.mp4`} type="video/mp4" />
           </>

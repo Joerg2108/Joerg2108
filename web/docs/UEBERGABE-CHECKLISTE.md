@@ -94,7 +94,7 @@ Auf Netlify kommen Brotli/Gzip dazu (lokal rund 800 KB unkomprimiert), live soll
 13. **Kundenstimmen** nur mit schriftlicher Freigabe der zitierten Personen.
 14. **Kontaktformular über Netlify Forms**: kein Backend nötig, Spam-Schutz per Honeypot. Muss dann in den Datenschutz aufgenommen werden.
 15. **Statistik** nur mit Consent-Banner, oder cookielos (z. B. Plausible bzw. Netlify Analytics serverseitig) und dann ohne Banner.
-16. **Videos weiter verkleinern:** Hero mobil nur als Poster, Film erst ab WLAN bzw. Desktop.
+16. ~~Videos am Handy~~ ✅ erledigt: Unter 768 px Breite nur Standbild mit langsamem Zoom, keine Videodownloads mehr (Startseite mobil 3,1 → 1,6 MB).
 17. ~~Strukturierte Daten~~ ✅ erledigt: `Person`, `LocalBusiness/ArtGallery` mit Adresse und Social-Profilen, `WebSite` und Breadcrumbs (`lib/seo.ts`).
 18. ~~Open-Graph-Bilder pro Seite~~ ✅ erledigt: JPGs mit 1200×630 px in `public/og/`.
 19. **SEO-Texte pflegen:** Alle Titel und Beschreibungen stehen zentral in `web/lib/seo.ts`. Neue Seite = neuer Eintrag dort, sonst bricht der Build mit einem Hinweis ab.
