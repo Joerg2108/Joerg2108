@@ -9,7 +9,7 @@ Grundlage: joerg-noack.com (Stand November 2026). **Alles mit {{…}} bitte selb
 ## Wer ich bin
 
 - **Name:** Jörg Noack (Marke: Jörg Noack · Art-Consultant)
-- **Handle:** @flowkit {{genaue Schreibweise prüfen}}
+- **Handle:** @flowkit5
 - **Was ich mache, in einem Satz:** Ich sorge dafür, dass gute Angebote online gefunden,
   verstanden und gebucht werden, vor allem mit Websites, dazu Marketing, Social Media und Abläufe.
 - **Mit wem ich rede:** Menschen, die etwas können und nicht nebenbei auch noch Marketing-,

@@ -19,7 +19,12 @@ const warte = (ms) => new Promise((r) => setTimeout(r, ms));
 // und merken uns das neue Token in ausgabe/zustand/instagram-token.json (nicht ins Git!).
 let token;
 
+// Sonderfall Cloud-Sitzung: Das Token wird vom Netzwerk-Proxy als „Authorization: Bearer“ eingefügt,
+// der Code sieht es nie (INSTAGRAM_TOKEN_UEBER_PROXY=1). Dann keine Erneuerung und kein access_token-Parameter.
+const UEBER_PROXY = process.env.INSTAGRAM_TOKEN_UEBER_PROXY === "1";
+
 async function holeToken() {
+  if (UEBER_PROXY) return null;
   if (token) return token;
   const gespeichert = await ladeJson(TOKEN_DATEI, null);
   const ausEnv = process.env.INSTAGRAM_ACCESS_TOKEN;
@@ -51,9 +56,12 @@ async function erneuereToken(quelle) {
 
 // --- API-Aufrufe --------------------------------------------------------------
 async function api(methode, pfad, params = {}) {
-  const daten = new URLSearchParams({ ...params, access_token: await holeToken() });
+  const t = await holeToken();
+  const daten = new URLSearchParams(t ? { ...params, access_token: t } : params);
   const url = `${HOST}/${VERSION}/${pfad}`;
-  const res = methode === "GET" ? await fetch(`${url}?${daten}`) : await fetch(url, { method: "POST", body: daten });
+  // Im Proxy-Modus ein Platzhalter-Header, den der Proxy durch das echte Token ersetzt
+  const headers = UEBER_PROXY ? { Authorization: "Bearer platzhalter" } : {};
+  const res = methode === "GET" ? await fetch(`${url}?${daten}`, { headers }) : await fetch(url, { method: "POST", body: daten, headers });
   const json = await res.json().catch(() => ({}));
   if (!res.ok || json.error) {
     const e = json.error ?? {};

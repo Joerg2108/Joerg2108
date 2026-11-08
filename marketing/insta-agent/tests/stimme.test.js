@@ -10,7 +10,7 @@ test("voice.md: Platzhalter und leere Felder fliegen raus, echte Angaben bleiben
   const s = ladeStimme();
   assert.ok(s.includes("Jörg Noack"));
   assert.ok(s.includes("Meine Positionen"));
-  assert.ok(s.includes("@flowkit"));
+  assert.ok(s.includes("@flowkit5"));
   assert.doesNotMatch(s, /\{\{|\*\*Gesicht vor der Kamera:\*\*|\n\s*\n\s*\n/); // leere Felder sind weg
 });
 
