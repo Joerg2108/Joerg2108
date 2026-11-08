@@ -35,8 +35,8 @@ export default async function DatenschutzPage({ params }: LocaleParams) {
         </S>
         <S title="2. Grundsätze">
           <p>
-            Diese Website setzt keine Cookies, verwendet keine Analyse- oder Trackingdienste und bindet keine Inhalte von Drittanbietern
-            ein. Schriftarten werden vom eigenen Server geladen, es findet keine Verbindung zu Google Fonts statt.
+            Diese Website setzt keine Cookies, verwendet keine Analyse- oder Trackingdienste und bindet Inhalte von Drittanbietern
+            nur nach Ihrer ausdrücklichen Zustimmung ein (YouTube-Videos, siehe Abschnitt 6). Schriftarten werden vom eigenen Server geladen, es findet keine Verbindung zu Google Fonts statt.
           </p>
         </S>
         <S title="3. Server-Logfiles">
@@ -63,7 +63,24 @@ export default async function DatenschutzPage({ params }: LocaleParams) {
             Datenschutzerklärung von Meta.
           </p>
         </S>
-        <S title="6. Ihre Rechte">
+        <section id="youtube" className="scroll-mt-28">
+        <S title="6. YouTube-Videos">
+          <p>
+            Auf der Startseite zeigen wir Videos von YouTube (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland). Wir
+            nutzen den erweiterten Datenschutzmodus (youtube-nocookie.com) und eine Zwei-Klick-Lösung: Beim Seitenaufruf wird nur ein
+            lokales Vorschaubild angezeigt, es besteht keine Verbindung zu YouTube. Erst wenn Sie auf „Video abspielen“ klicken, wird der
+            Player geladen. Dabei werden u. a. Ihre IP-Adresse, die aufgerufene Seite und technische Browserdaten an Google übertragen;
+            eine Übermittlung in die USA ist möglich (Google ist nach dem EU-US Data Privacy Framework zertifiziert). YouTube kann
+            dabei Cookies bzw. lokalen Speicher nutzen.
+          </p>
+          <p>
+            Rechtsgrundlage ist Ihre Einwilligung durch den Klick (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Die Einwilligung gilt
+            nur für das angeklickte Video und den aktuellen Seitenaufruf; sie endet, wenn Sie die Seite verlassen oder neu laden. Weitere
+            Informationen: <a className="underline" href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a>.
+          </p>
+        </S>
+        </section>
+        <S title="7. Ihre Rechte">
           <p>
             Sie haben das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung
             (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21). Außerdem können Sie sich bei einer

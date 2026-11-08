@@ -11,6 +11,7 @@ import { HeroScene } from "@/components/hero-scene"
 import { HorizontalWorks } from "@/components/horizontal-works"
 import { Faq } from "@/components/faq"
 import { AmbientClip } from "@/components/ambient-clip"
+import { YouTubeConsent } from "@/components/youtube-consent"
 import { Counter, Magnetic, SplitWords, Tilt } from "@/components/motion"
 
 export async function generateMetadata({ params }: LocaleParams) {
@@ -55,6 +56,12 @@ export default async function Home({ params }: LocaleParams) {
   const latest = news[0]
   const units = statUnits[locale]
   const stats = [30000, 600, 100]
+  // title optional: ohne Titel erscheint "Film 1", "Film 2" …
+  const films: { id: string; poster: string; title?: string }[] = [
+    { id: "xxYlNeUwyns", poster: "/images/werk/kunst-am-bau/kunst-am-bau-06.webp" },
+    { id: "LNdfSqG9ciE", poster: "/images/werk/events/events-03.webp" },
+    { id: "gRqQbvGbAlI", poster: "/images/werk/originale/originale-03.webp" },
+  ]
   const dots = ["#ff5b3a", "#8b7bff", "#3ee6c8", "#f2c66d"]
 
   return (
@@ -256,6 +263,24 @@ export default async function Home({ params }: LocaleParams) {
                 {t.vita}
               </ButtonLink>
             </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* ───── Filme (YouTube, Zwei-Klick-Lösung) ───── */}
+      <section id="filme" aria-labelledby="filme-titel" className="relative py-28 sm:py-40">
+        <Container>
+          <SectionTitle kicker={t.filmsKicker} title={t.filmsTitle} id="filme-titel" lead={t.filmsLead} />
+          <div className="mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+            {films.map((f, i) => (
+              <div key={f.id} data-reveal style={{ ["--i" as string]: i }}>
+                <YouTubeConsent
+                  film={{ ...f, title: f.title ?? `${t.film} ${i + 1}` }}
+                  privacyHref={`${lp(locale, "/datenschutz")}#youtube`}
+                  labels={{ play: t.filmPlay, consent: t.filmConsent, privacy: t.filmPrivacy, onYoutube: t.filmOnYoutube }}
+                />
+              </div>
+            ))}
           </div>
         </Container>
       </section>
