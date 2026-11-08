@@ -4,6 +4,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
 import { Post, Review, Themenplan, Stories } from "./schema.js";
 import { floskelHinweis } from "./floskeln.js";
+import { projektVorhanden } from "./pruefung.js";
 import { readFileSync, existsSync } from "node:fs";
 
 const MODELL = process.env.INSTA_AGENT_MODEL || "claude-opus-5-5";
@@ -27,8 +28,17 @@ export function ladeStimme(datei = STIMME_DATEI) {
     .trim();
 }
 
+// Projekte mit vorhandenen Screenshots (node screenshots.js) für den Folientyp „projekt“
+function projektListe(marke) {
+  const fertig = (marke.referenzen ?? []).filter((p) => projektVorhanden(p.kuerzel)).map((p) => `- ${p.kuerzel}: ${p.name} (${p.branche}) – fertig`);
+  const inArbeit = (marke.projekte_in_arbeit?.liste ?? []).filter((p) => projektVorhanden(p.kuerzel))
+    .map((p) => `- ${p.kuerzel}: ${p.name} (${p.branche}) – IN ARBEIT, nur als „Entsteht gerade“ zeigen`);
+  return [...fertig, ...inArbeit].join("\n");
+}
+
 function systemPrompt(marke) {
   const stimme = ladeStimme();
+  const projekte = projektListe(marke);
   return `Du bist der Social-Media-Texter und Art Director von ${marke.name}. Du erstellst hochwertige Instagram-Posts
 (Karussells und Einzelbilder) über Webdesign, die zeigen, warum man seine Website bei ${marke.name} machen lassen sollte –
 ohne marktschreierisch zu sein. ${marke.schwerpunkt_posts ?? ""}
@@ -58,7 +68,14 @@ ${stimme}
 - Hashtags: 8–15, gemischt (z. B. #webdesign, #websiteerstellen, #kmu, #handwerk, regionale/Nischen-Tags). Keine Fantasie-Tags.
 - Halte die Zeichengrenzen aus den Feldbeschreibungen strikt ein – Texte, die nicht auf die Folie passen, sind wertlos.
 
-# Klingt nach Mensch, nicht nach KI
+${projekte ? `# Echte Projekt-Screenshots (Folientyp „projekt“, Kürzel ins Feld „projekt“)
+${projekte}
+- Echte Projekte verkaufen besser als Behauptungen: Bei Projekt-Einblicken und passenden Themen 1–2 Projekt-Folien einbauen,
+  höchstens 2 pro Karussell. Auf Projekt-Folien kurze Überschrift und höchstens ein kurzer Satz Text (max. 120 Zeichen),
+  die Screenshots sprechen für sich. Bei Projekten „IN ARBEIT“ in der Dachzeile „Entsteht gerade“ o. ä. schreiben.
+- Das Feld „projekt“ bei allen anderen Folientypen leer lassen.
+
+` : ""}# Klingt nach Mensch, nicht nach KI
 Schreib so, wie ${marke.name} spricht: konkret, mit Zahlen und Beispielen statt Adjektiven.
 Diese Floskeln und ihre Beugungsformen sind tabu (die Prüfung lehnt sie ab): ${floskelHinweis()}.
 Ebenfalls tabu: „nicht nur X, sondern auch Y“, „Es geht nicht um X, es geht um Y“, inszenierte Enthüllungen
@@ -132,6 +149,8 @@ Hook: ${post.folien[0]?.headline} ${post.folien[0]?.akzent}` : "Heute gibt es ke
 Die weiteren Frames liefern einen schnellen Tipp, einen Fakt oder einen Denkanstoß aus dem Markenprofil und enden mit einem CTA
 („Link in Bio“ oder „Schreiben Sie mir eine DM“). Stories sind persönlicher und lockerer als der Feed, aber genauso ehrlich.
 Wenig Text – eine Story wird ca. 5 Sekunden angesehen. Halte die Zeichengrenzen strikt ein.
+Passt ein echtes Projekt zum Thema, darf ein Frame vom Typ „projekt“ sein (Handy-Screenshot, Kürzel aus der Projektliste,
+kurze Überschrift, Text leer lassen).
 ${vorher ? `\nVorherige Fassung:\n${JSON.stringify(vorher, null, 2)}` : ""}
 ${maengel.length ? `\nDiese Mängel MÜSSEN behoben werden:\n- ${maengel.join("\n- ")}` : ""}`,
     Stories,

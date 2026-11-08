@@ -2,6 +2,7 @@
 // Design wie joerg-noack.com: fast schwarz, Gold, Überschriften in Playfair Display, Text in Manrope.
 import { chromium } from "playwright";
 import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { readFileSync, existsSync } from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
 
@@ -11,7 +12,39 @@ const H = 1350;
 const STORY_H = 1920;
 
 // Story-Frame → gleiche Bausteine wie eine Feed-Folie
-const STORY_TYP = { teaser: "titel", tipp: "inhalt", fakt: "zahl", frage: "inhalt" };
+const STORY_TYP = { teaser: "titel", tipp: "inhalt", fakt: "zahl", frage: "inhalt", projekt: "projekt" };
+
+// Screenshots der Kundenprojekte (erzeugt mit: node screenshots.js) als data-URL einbetten
+const PROJEKTE = new URL("../projekte/", import.meta.url);
+const bildCache = new Map();
+function projektBild(kuerzel, art) {
+  const url = new URL(`${kuerzel}/${art}.jpg`, PROJEKTE);
+  const schluessel = url.href;
+  if (!bildCache.has(schluessel)) {
+    bildCache.set(schluessel, existsSync(url) ? `data:image/jpeg;base64,${readFileSync(url).toString("base64")}` : "");
+  }
+  return bildCache.get(schluessel);
+}
+
+function domainVon(marke, kuerzel) {
+  const p = [...(marke.referenzen ?? []), ...(marke.projekte_in_arbeit?.liste ?? [])].find((x) => x.kuerzel === kuerzel);
+  try {
+    return p?.url ? new URL(p.url).hostname.replace(/^www\./, "") : kuerzel;
+  } catch {
+    return kuerzel;
+  }
+}
+
+function mockupHtml(f, marke, story) {
+  if (f.typ !== "projekt" || !f.projekt) return "";
+  const desktop = projektBild(f.projekt, "desktop");
+  const mobil = projektBild(f.projekt, "mobil");
+  return `<div class="mockup">
+    ${story ? "" : `<div class="browser"><div class="browserleiste"><i></i><i></i><i></i><span>${esc(domainVon(marke, f.projekt))}</span></div>
+      <img src="${desktop}" alt=""></div>`}
+    <div class="handy"><img src="${mobil}" alt=""></div>
+  </div>`;
+}
 const alsFolie = (s) => ({ ...s, typ: STORY_TYP[s.typ] ?? "inhalt", punkte: [] });
 
 const feedHtml = (post, marke) => post.folien.map((f, i) => folieHtml(f, i, post.folien.length, marke)).join("\n");
@@ -53,7 +86,7 @@ function groesse(text, typ) {
 function folieHtml(f, i, anzahl, marke, story = false) {
   const d = marke.design;
   const istErste = i === 0 && anzahl > 1 && !story;
-  const hGr = groesse(f.headline, f.typ);
+  const hGr = Math.round(groesse(f.headline, f.typ) * (f.typ === "projekt" ? 0.8 : 1));
   const aGr = f.typ === "zahl" ? 62 : Math.round(Math.min(hGr, groesse(f.akzent, "titel")) * 0.82);
 
   const punkte = f.typ === "liste" && f.punkte.length
@@ -77,6 +110,7 @@ function folieHtml(f, i, anzahl, marke, story = false) {
       ${f.akzent ? `<h2 class="akzent">${esc(f.akzent)}</h2>` : ""}
       ${f.text ? `<p class="text">${esc(f.text)}</p>` : ""}
       ${punkte}
+      ${mockupHtml(f, marke, story)}
     </div>
     <div class="fuss">
       ${unten}
@@ -128,6 +162,23 @@ body{font-family:${text};background:#000}
 .logo{display:flex;flex-direction:column;gap:4px;line-height:1}
 .logo b{font-family:${titel};font-weight:600;color:${d.text};font-size:26px;letter-spacing:.16em;text-transform:uppercase}
 .logo small{color:${d.akzent};font-size:15px;letter-spacing:.34em;text-transform:uppercase}
+/* Projekt-Folie: Text oben, Browser + Handy darunter */
+.typ-projekt .inhalt{justify-content:flex-start}
+.typ-projekt .eyebrow{margin-bottom:40px}
+.typ-projekt .akzent{margin-top:16px}
+.typ-projekt .text{margin-top:26px;font-size:30px}
+.mockup{position:relative;margin-top:auto;height:600px;flex:none}
+.browser{position:absolute;left:0;top:0;width:740px;border-radius:14px;overflow:hidden;background:#15110b;
+  border:1px solid ${d.akzent}55;box-shadow:0 30px 70px #000c, 0 0 40px ${d.akzent}22}
+.browserleiste{height:42px;display:flex;align-items:center;gap:9px;padding:0 18px;background:#1c170f;border-bottom:1px solid ${d.akzent}33}
+.browserleiste i{width:12px;height:12px;border-radius:50%;background:${d.akzent}66}
+.browserleiste span{margin-left:18px;font-size:18px;color:${d.text_gedimmt};letter-spacing:.04em}
+.browser img{display:block;width:100%;height:462px;object-fit:cover;object-position:top}
+.handy{position:absolute;right:0;bottom:0;width:250px;height:520px;border-radius:42px;overflow:hidden;background:#000;
+  border:10px solid #1c170f;box-shadow:0 0 0 2px ${d.akzent}88, 0 30px 70px #000d}
+.handy img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.story.typ-projekt .mockup{height:780px;margin-top:40px}
+.story .handy{left:50%;right:auto;transform:translateX(-50%);width:380px;height:770px;border-radius:54px;border-width:12px}
 .story{height:${STORY_H}px;padding:250px 96px 400px 120px}
 .story .text{font-size:42px}
 .story .eyebrow{position:static}

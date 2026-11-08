@@ -1,6 +1,21 @@
 // Harte, regelbasierte Qualitätsprüfung. Alles, was hier gefunden wird, geht
 // als Mängelliste zurück an Claude, bis der Post sauber ist.
 import { pruefeFloskeln } from "./floskeln.js";
+import { existsSync } from "node:fs";
+
+// Gibt es Screenshots für dieses Projekt? (erzeugt mit: node screenshots.js)
+const PROJEKTE = new URL("../projekte/", import.meta.url);
+export const projektVorhanden = (k) =>
+  !!k && /^[a-z0-9-]+$/.test(k) && existsSync(new URL(`${k}/desktop.jpg`, PROJEKTE)) && existsSync(new URL(`${k}/mobil.jpg`, PROJEKTE));
+
+function pruefeProjekt(ort, f, m) {
+  if (f.typ === "projekt") {
+    if (!projektVorhanden(f.projekt)) m.push(`${ort}: Projekt „${f.projekt}“ hat keine Screenshots – ein Kürzel aus der Projektliste verwenden.`);
+    if ((f.text ?? "").length > 120) m.push(`${ort}: Bei Projekt-Folien höchstens 120 Zeichen Text (Platz für die Screenshots).`);
+  } else if (f.projekt) {
+    m.push(`${ort}: „projekt“ nur bei typ „projekt“ verwenden.`);
+  }
+}
 
 const GRENZEN = {
   eyebrow: 40,
@@ -29,6 +44,7 @@ export function pruefePost(post) {
 
   if (post.format === "karussell") {
     if (folien.length < 5 || folien.length > 8) m.push(`Karussell hat ${folien.length} Folien – erlaubt sind 5–8.`);
+    if (folien.filter((f) => f.typ === "projekt").length > 2) m.push("Höchstens 2 Projekt-Folien pro Karussell.");
     if (folien[0]?.typ !== "titel") m.push("Folie 1 muss vom Typ „titel“ sein (Hook).");
     if (folien.at(-1)?.typ !== "cta") m.push("Letzte Folie muss vom Typ „cta“ sein.");
   } else if (folien.length !== 1) {
@@ -42,6 +58,7 @@ export function pruefePost(post) {
       if (len > GRENZEN[feld]) m.push(`${n}: ${feld} hat ${len} Zeichen (max. ${GRENZEN[feld]}).`);
     }
     if (!f.headline?.trim()) m.push(`${n}: headline fehlt.`);
+    pruefeProjekt(n, f, m);
     if (f.typ === "liste") {
       if (f.punkte.length < 2 || f.punkte.length > 5) m.push(`${n}: Liste braucht 2–5 Punkte (hat ${f.punkte.length}).`);
       f.punkte.forEach((p, j) => {
@@ -96,6 +113,7 @@ export function pruefeStories(stories, anzahl) {
     }
     if (!f.headline?.trim()) m.push(`Story ${i + 1}: headline fehlt.`);
     if (!f.hinweis?.trim()) m.push(`Story ${i + 1}: hinweis (CTA) fehlt.`);
+    pruefeProjekt(`Story ${i + 1}`, f, m);
   });
   const alles = JSON.stringify(frames);
   for (const [re, grund] of VERBOTEN) if (re.test(alles)) m.push(`Heikle Aussage: ${grund}.`);

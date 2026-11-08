@@ -1,20 +1,15 @@
 {
   "_hinweis": "Gedächtnis des Agenten. Alles hier darf in Posts verwendet werden – und NUR das. Quelle: joerg-noack.com (Stand November 2026). Keine Zahlen oder Referenzen eintragen, die nicht stimmen.",
-
   "name": "Jörg Noack",
   "marke": "Jörg Noack · Art-Consultant",
   "website": "joerg-noack.com",
   "standort": "Leipzig – Projekte in Mitteldeutschland und an der kenianischen Südküste (Diani Beach, Mombasa)",
   "ansprache": "Sie",
   "sprachen": "Websites auf Deutsch und Englisch, auf Wunsch mehrsprachig",
-
   "claim": "Sie führen Ihr Geschäft. Ich mache Sie sichtbar.",
   "unterzeile": "Damit Ihr Angebot online gefunden wird.",
-
   "angebot": "Webdesign für Unternehmen, die online gefunden, verstanden und gebucht werden wollen: Website, Struktur, Texte und der Weg bis zur Anfrage oder Buchung – aus einer Hand, mit einem festen Ansprechpartner. Dazu auf Wunsch Online-Marketing, Social Media und ein eigenes Back Office.",
-
   "schwerpunkt_posts": "Webdesign. Rund 80 % der Posts drehen sich um Websites: was gute Websites ausmachen, typische Fehler, Einblicke in echte Projekte, der Ablauf. Back Office, Marketing und Social Media nur als Ergänzung.",
-
   "zielgruppe": [
     "Kleine und mittlere Betriebe mit einem guten Angebot, die online kaum gefunden werden",
     "Handwerk und Meisterbetriebe (z. B. Bau)",
@@ -23,7 +18,6 @@
     "Sicherheitsdienstleister",
     "Selbstständige, Kreative und Künstler, die den Kopf für ihre eigentliche Arbeit frei haben wollen"
   ],
-
   "leistungen_webdesign": [
     "Website-Konzept und Struktur: was der Besucher wo findet, damit er ohne Umwege zum passenden Angebot kommt",
     "Individuelles Design passend zur Marke",
@@ -35,44 +29,73 @@
     "Impressum und Datenschutz klar aufbereitet (keine Rechtsberatung)",
     "Social-Media-Auftritt und Online-Marketing passend zur Website, wenn gewünscht"
   ],
-
   "referenzen": [
     {
       "name": "Diani Home Hosting",
       "branche": "Villa- und Airbnb-Management, Diani Beach (Kenia)",
       "leistung": "Marke, Positionierung, Direktbuchungs-Website, Konzept, Social Media, datenbasiertes Marketing",
       "zahlen": "+38 % Umsatz, 4,9/5 Gäste-Bewertung, über 50 betreute Villen",
-      "wichtig": "Die +38 % sind das Ergebnis von Positionierung, Website UND Marketing zusammen – nie allein der Website zuschreiben. 4,9/5 und 50+ Villen sind Kennzahlen des Kunden, keine Website-Ergebnisse."
+      "wichtig": "Die +38 % sind das Ergebnis von Positionierung, Website UND Marketing zusammen – nie allein der Website zuschreiben. 4,9/5 und 50+ Villen sind Kennzahlen des Kunden, keine Website-Ergebnisse.",
+      "kuerzel": "diani-home-hosting",
+      "url": "https://www.dianihomehosting.org"
     },
     {
       "name": "Safari Adventure Tour",
       "branche": "Safari-Anbieter ab Diani Beach und Mombasa",
       "leistung": "Website, Tourenkonzept, Online-Marketing, Social Media",
-      "zahlen": "über 8 Touren-Seiten, 3 Märkte (Deutschland, Schweiz, Kenia), 5-Sterne-Gästestimmen"
+      "zahlen": "über 8 Touren-Seiten, 3 Märkte (Deutschland, Schweiz, Kenia), 5-Sterne-Gästestimmen",
+      "kuerzel": "safari-adventure-tour",
+      "url": "https://www.safari-adventure-tour.com"
     },
     {
       "name": "Security Factory",
       "branche": "Sicherheitsdienstleister in Mitteldeutschland (gegründet 2006, tätig in 3 Bundesländern)",
       "leistung": "Webauftritt, Struktur, Rechtstexte – Objektschutz, Veranstaltungssicherheit und Baustellenbewachung klar gegliedert",
-      "zahlen": "5 Leistungsbereiche übersichtlich aufbereitet"
+      "zahlen": "5 Leistungsbereiche übersichtlich aufbereitet",
+      "kuerzel": "security-factory",
+      "url": "https://sprightly-crepe-4dc4d6.netlify.app"
     },
     {
       "name": "Saiko Tour & Safaris",
       "branche": "Safari-Anbieter in Kenia",
-      "leistung": "Website, Tourenkatalog, Reisedetails, Buchungsanfrage – so aufbereitet, dass Interessenten das passende Angebot ohne Umwege finden"
+      "leistung": "Website, Tourenkatalog, Reisedetails, Buchungsanfrage – so aufbereitet, dass Interessenten das passende Angebot ohne Umwege finden",
+      "kuerzel": "saiko-tour-safaris",
+      "url": "https://saiko-tour-and-safaris.com"
     }
   ],
-
   "projekte_in_arbeit": {
     "_hinweis": "Noch nicht fertig. Nur als „gerade in Arbeit“ / Einblick hinter die Kulissen erwähnen, nie als fertiges Ergebnis.",
     "liste": [
-      "BauDaH Bauunternehmen – Meisterbetrieb in Naunhof bei Leipzig: Leistungen, Referenzen, Kontakt",
-      "Bushy Baby Tiki Pub – mehrsprachige Website mit Speisekarte, Events und Kontakt",
-      "Milly's Bar & Restaurant – Speisekarte, Atmosphäre, Reservierungsanfrage",
-      "Amigos Beach Bar Diani – mehrsprachig, Speisekarte, Events, Galerie, Tischreservierung direkt per WhatsApp"
+      {
+        "name": "BauDaH Bauunternehmen",
+        "kuerzel": "baudah",
+        "url": "https://jocular-dasik-028f36.netlify.app/",
+        "branche": "Handwerk – Meisterbetrieb in Naunhof bei Leipzig",
+        "leistung": "Website mit Leistungen, Referenzen und Kontakt"
+      },
+      {
+        "name": "Bushy Baby Tiki Pub",
+        "kuerzel": "bushy-baby",
+        "url": "https://bushybaby-tikipub.netlify.app/en",
+        "branche": "Gastronomie – Tiki-Pub",
+        "leistung": "Mehrsprachige Website mit Speisekarte, Events und Kontakt"
+      },
+      {
+        "name": "Milly's Bar & Restaurant",
+        "kuerzel": "millys",
+        "url": "https://milly-s-bar-restaurant-cd-ed1ac63e6d.netlify.app/",
+        "branche": "Gastronomie – Bar mit Restaurant",
+        "leistung": "Speisekarte, Atmosphäre, Reservierungsanfrage"
+      },
+      {
+        "name": "Amigos Beach Bar Diani",
+        "kuerzel": "amigos",
+        "url": "https://amigos-beach-bar-diani-cd-d3b508c377.netlify.app/",
+        "branche": "Gastronomie – Strandbar in Diani Beach",
+        "leistung": "Mehrsprachig, Speisekarte, Events, Galerie, Tischreservierung per WhatsApp"
+      }
     ]
   },
-
   "back_office": {
     "beschreibung": "Eigenes Back Office für Betriebe: „Feierabend statt Papierkram.“",
     "funktionen": [
@@ -84,10 +107,13 @@
       "E-Mail-Versand, eigene Domain mit HTTPS",
       "Übernahme vorhandener Kundendaten (CSV-Import), eigener Leistungskatalog"
     ],
-    "vorteile": ["Einmalpreis statt Abo", "Beliebig viele Nutzer", "Ihre Daten bleiben bei Ihnen"],
+    "vorteile": [
+      "Einmalpreis statt Abo",
+      "Beliebig viele Nutzer",
+      "Ihre Daten bleiben bei Ihnen"
+    ],
     "demo": "Live-Demo zum Ausprobieren über die Website"
   },
-
   "usps": [
     "Ein Ansprechpartner für alles: keine Weiterreichung, keine Agentur-Kette. Sie sprechen mit der Person, die es auch umsetzt.",
     "Von der Strategie bis zur fertigen Buchung: Konzept, Website, Sichtbarkeit und Abläufe greifen ineinander",
@@ -97,7 +123,6 @@
     "Seit 2006 in der Sicherheitsbranche (Sachkunde § 34a GewO, IHK Leipzig) – Sorgfalt und Verlässlichkeit sind Berufsalltag",
     "Weitergebildet in KI, Content-Erstellung und Projektmanagement (Google-Zertifikate über Coursera, 2026)"
   ],
-
   "ablauf": [
     "Sie schreiben, woran Sie gerade arbeiten – per WhatsApp oder E-Mail",
     "Gemeinsam klären, was die Website leisten soll: gefunden werden, verstanden werden, gebucht werden",
@@ -105,15 +130,12 @@
     "Design und Texte, mit Feedback-Runden",
     "Livegang – auf Wunsch mit Social Media, Marketing und Back Office"
   ],
-
   "preise": "auf Anfrage – individuelles Angebot nach dem Gespräch. Back Office: Einmalpreis statt Abo.",
-
   "kontakt": {
     "whatsapp": "0151 12260899",
     "email": "joerg210870@gmail.com",
     "website": "joerg-noack.com"
   },
-
   "cta": {
     "standard": "Schreiben Sie mir per WhatsApp, woran Sie gerade arbeiten – Link in Bio",
     "alternativen": [
@@ -123,9 +145,7 @@
       "Back Office live testen – Link in Bio"
     ]
   },
-
   "tonalitaet": "Ruhig, klar, auf Augenhöhe. Diskret und verbindlich. Ohne großes Marketing-Vokabular, mit konkreten Schritten. Kurze, bildhafte Sätze wie auf der Website: „Sie führen Ihr Geschäft. Ich mache Sie sichtbar.“ – „Ein Kopf, der alles zusammenhält.“ – „Kein Formular-Pingpong.“ – „Feierabend statt Papierkram.“",
-
   "verbotene_aussagen": [
     "Garantien für Google-Platzierungen, Buchungen oder Umsatz",
     "Superlative ohne Beleg (beste, günstigste, Nr. 1)",
@@ -134,7 +154,6 @@
     "Projekte „in Arbeit“ als fertig darstellen",
     "Rechtsberatung (z. B. „abmahnsicher“, „rechtssicher“, „100 % DSGVO-konform“)"
   ],
-
   "themen_saeulen": [
     "Website-Fehler, die Anfragen und Buchungen kosten",
     "Projekt-Einblicke: echte Referenzen und was dort gelöst wurde (Diani Home Hosting, Safari Adventure Tour, Security Factory, Saiko Tour & Safaris)",
@@ -146,7 +165,6 @@
     "Ein Ansprechpartner statt Agentur-Kette: so läuft die Zusammenarbeit",
     "Website + Back Office: Anfragen landen direkt im System (gelegentlich)"
   ],
-
   "design": {
     "hintergrund": "#070504",
     "verlauf": "#1c160c",

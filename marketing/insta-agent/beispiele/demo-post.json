@@ -8,7 +8,8 @@
       "headline": "Eine Website. Drei Märkte.",
       "akzent": "Deutschland, Schweiz, Kenia.",
       "text": "Wie die Website von Safari Adventure Tour Gäste aus drei Ländern zur passenden Tour führt.",
-      "punkte": []
+      "punkte": [],
+      "projekt": ""
     },
     {
       "typ": "zahl",
@@ -16,15 +17,17 @@
       "headline": "8+",
       "akzent": "Touren, ein Auftritt.",
       "text": "Jede Tour braucht Platz für Route, Dauer und Details. Ohne dass der Besucher den Überblick verliert.",
-      "punkte": []
+      "punkte": [],
+      "projekt": ""
     },
     {
-      "typ": "inhalt",
+      "typ": "projekt",
       "eyebrow": "Die Lösung",
       "headline": "Jede Tour bekommt eine eigene Seite.",
       "akzent": "",
-      "text": "Klar gegliedert und immer gleich aufgebaut. Wer eine Tour kennt, findet sich in allen anderen sofort zurecht.",
-      "punkte": []
+      "text": "Klar gegliedert und immer gleich aufgebaut.",
+      "punkte": [],
+      "projekt": "safari-adventure-tour"
     },
     {
       "typ": "liste",
@@ -37,7 +40,8 @@
         "Ein Tourenkonzept statt loser Einzelangebote",
         "Website und Social Media aus einer Hand",
         "Echte Gästestimmen statt Werbesprüche"
-      ]
+      ],
+      "projekt": ""
     },
     {
       "typ": "inhalt",
@@ -45,7 +49,8 @@
       "headline": "Gutes Angebot, aber online unsichtbar?",
       "akzent": "Das lässt sich ändern.",
       "text": "Ich übernehme Konzept, Website und Texte. Sie sprechen dabei immer mit der Person, die es auch umsetzt.",
-      "punkte": []
+      "punkte": [],
+      "projekt": ""
     },
     {
       "typ": "cta",
@@ -53,7 +58,8 @@
       "headline": "Schreiben Sie mir.",
       "akzent": "Per WhatsApp, Link in Bio.",
       "text": "Erzählen Sie mir, woran Sie gerade arbeiten. Ich melde mich persönlich, ohne Formular-Pingpong.",
-      "punkte": []
+      "punkte": [],
+      "projekt": ""
     }
   ],
   "caption": "Acht Touren, drei Märkte, eine Website. So haben wir das gelöst.\n\nSafari Adventure Tour bietet individuelle Safaris ab Diani Beach und Mombasa an. Die Gäste kommen aus Deutschland, der Schweiz und Kenia, und jeder will schnell die Tour finden, die zu ihm passt.\n\nDie Lösung war keine aufwendige Technik, sondern Ordnung: Jede Tour hat eine eigene Seite, alle sind gleich aufgebaut. Dazu ein Tourenkonzept und ein Social-Media-Auftritt, der zur Website passt.\n\nDas Prinzip funktioniert für jeden Betrieb mit mehreren Angeboten, ob Touren, Leistungen oder Speisekarte.\n\nSie haben ein gutes Angebot, das online kaum jemand findet? Schreiben Sie mir per WhatsApp, woran Sie gerade arbeiten. Link in Bio.\n\nWie viele Angebote hat Ihre Website, und findet man jedes in zwei Klicks?",

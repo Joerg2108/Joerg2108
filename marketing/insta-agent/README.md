@@ -106,6 +106,24 @@ Eigene Änderungen: `post.json` bearbeiten und neu rendern:
 node agent.js --rendern ausgabe/2026-11-08-…/post.json
 ```
 
+## Projekt-Screenshots
+
+Echte Projekte verkaufen besser als jede Behauptung. Der Folientyp **„projekt“** zeigt eine Kunden-Website im Browserfenster plus Handy-Ansicht – in Stories nur das Handy.
+
+```bash
+node screenshots.js
+```
+
+```bash
+node screenshots.js safari-adventure-tour
+```
+
+- Fotografiert alle Projekte aus `marke.json` (`referenzen` und `projekte_in_arbeit`, jeweils mit `url` und `kuerzel`) als Desktop (1440×900) und iPhone-Ansicht.
+- Cookie-Banner werden weggeklickt oder ausgeblendet, Seiten, die Inhalte erst beim Scrollen zeigen, werden durchgescrollt.
+- Ergebnis: `projekte/<kuerzel>/desktop.jpg` und `mobil.jpg` – eingecheckt, damit der Server beim Posten nicht fremde Websites abrufen muss.
+- **Jedes Bild einmal ansehen**, bevor es online geht. Nach Änderungen an einer Kunden-Website einfach neu fotografieren.
+- Neues Projekt: in `marke.json` mit `name`, `kuerzel`, `url`, `branche`, `leistung` eintragen, `node screenshots.js <kuerzel>` ausführen. Der Agent kennt es ab dann automatisch.
+
 ## Tägliche Automatik: Beitrag + Stories
 
 `taeglich.js` erledigt jeden Tag alles allein:

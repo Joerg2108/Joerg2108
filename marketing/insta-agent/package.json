@@ -10,7 +10,8 @@
     "taeglich": "node taeglich.js",
     "trocken": "node taeglich.js --trocken",
     "pruefen": "node taeglich.js --pruefen",
-    "test": "node --test tests/*.test.js"
+    "test": "node --test tests/*.test.js",
+    "screenshots": "node screenshots.js"
   },
   "author": "Jörg Noack",
   "license": "UNLICENSED",

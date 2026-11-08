@@ -6,7 +6,17 @@
       "headline": "Acht Touren. Drei Märkte.",
       "akzent": "Eine Website.",
       "text": "Wie Gäste aus drei Ländern die passende Safari finden.",
-      "hinweis": "Zum Beitrag ↗"
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    },
+    {
+      "typ": "projekt",
+      "eyebrow": "Projekt-Einblick",
+      "headline": "So sieht's am Handy aus.",
+      "akzent": "",
+      "text": "",
+      "hinweis": "Ganzen Beitrag ansehen ↗",
+      "projekt": "safari-adventure-tour"
     },
     {
       "typ": "tipp",
@@ -14,7 +24,8 @@
       "headline": "Zählen Sie die Klicks bis zu Ihrem Angebot.",
       "akzent": "Mehr als zwei? Zu viele.",
       "text": "Öffnen Sie Ihre Website am Handy und suchen Sie Ihr wichtigstes Angebot. So geht es Ihren Kunden jeden Tag.",
-      "hinweis": "Fragen? Schreiben Sie mir"
+      "hinweis": "Fragen? Schreiben Sie mir",
+      "projekt": ""
     }
   ]
 }

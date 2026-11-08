@@ -4,12 +4,13 @@
 // unterstützt nicht alle Zod-Einschränkungen).
 import { z } from "zod";
 
-export const FolienTyp = z.enum(["titel", "inhalt", "liste", "zahl", "cta"]);
+export const FolienTyp = z.enum(["titel", "inhalt", "liste", "zahl", "projekt", "cta"]);
 
 export const Folie = z.object({
   typ: FolienTyp.describe(
     "titel = Hook-Folie (immer Folie 1), inhalt = Überschrift + kurzer Text, " +
       "liste = Überschrift + 2–5 Punkte, zahl = eine große Kennzahl/ein Schlagwort in 'headline' + Erklärung in 'text', " +
+      "projekt = echter Screenshot eines Kundenprojekts (Browser + Handy) mit kurzer Überschrift, Kürzel in 'projekt', " +
       "cta = Abschluss mit Handlungsaufforderung (immer letzte Folie im Karussell)"
   ),
   eyebrow: z.string().describe("Kleine Dachzeile in Großbuchstaben, max. 40 Zeichen, z. B. 'WEBSITE-CHECK · TEIL 1'. Darf leer sein."),
@@ -17,6 +18,7 @@ export const Folie = z.object({
   akzent: z.string().describe("Zweite Zeile in Akzentfarbe (Orange), max. 40 Zeichen. Darf leer sein."),
   text: z.string().describe("Fließtext, max. 220 Zeichen. Darf leer sein (bei 'liste' meist leer)."),
   punkte: z.array(z.string()).describe("Nur bei typ 'liste': 2–5 Punkte, je max. 70 Zeichen. Sonst leeres Array."),
+  projekt: z.string().describe("Nur bei typ 'projekt': Kürzel eines Projekts aus der Projektliste im Prompt. Sonst leerer String."),
 });
 
 export const Post = z.object({
@@ -55,15 +57,17 @@ export const Themenplan = z.object({
 // Story-Frames (1080×1920). Interaktive Sticker (Umfrage, Link) gibt es über die API nicht –
 // deshalb arbeiten Stories mit klaren Text-Hinweisen („Link in Bio“, „Schreiben Sie mir“).
 export const StoryFrame = z.object({
-  typ: z.enum(["teaser", "tipp", "fakt", "frage"]).describe(
+  typ: z.enum(["teaser", "tipp", "fakt", "frage", "projekt"]).describe(
     "teaser = macht neugierig auf den heutigen Feed-Beitrag, tipp = ein schneller Praxistipp, " +
-      "fakt = eine große Zahl/ein Schlagwort mit Erklärung, frage = Denkanstoß mit Aufforderung zur DM"
+      "fakt = eine große Zahl/ein Schlagwort mit Erklärung, frage = Denkanstoß mit Aufforderung zur DM, " +
+      "projekt = Handy-Screenshot eines Kundenprojekts mit kurzer Zeile darüber (Kürzel in 'projekt')"
   ),
   eyebrow: z.string().describe("Dachzeile in Großbuchstaben, max. 30 Zeichen"),
   headline: z.string().describe("Hauptzeile, max. 50 Zeichen"),
   akzent: z.string().describe("Zeile in Orange, max. 35 Zeichen, darf leer sein"),
   text: z.string().describe("Kurzer Text, max. 160 Zeichen, darf leer sein"),
   hinweis: z.string().describe("Handlungsaufforderung unten, max. 40 Zeichen, z. B. „Neuer Beitrag im Feed ↗“ oder „Link in Bio“"),
+  projekt: z.string().describe("Nur bei typ 'projekt': Kürzel aus der Projektliste. Sonst leerer String."),
 });
 
 export const Stories = z.object({
