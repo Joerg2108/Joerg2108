@@ -85,8 +85,7 @@ Auf Netlify kommen Brotli/Gzip dazu (lokal rund 800 KB unkomprimiert), live soll
     - Per sharp-Skript zusätzlich 640/1280-px-Varianten und `srcset` erzeugen
     - Bringt mobil geschätzt weitere 15–20 Performance-Punkte
 
-12a. **YouTube-Videos: echte Titel eintragen.** Derzeit „Film 1–3“, weil YouTube aus der Testumgebung nicht erreichbar war.
-    → `web/app/[locale]/page.tsx`, Konstante `films`, und dort jeweils `title: "…"` ergänzen. Ein passenderes Vorschaubild geht über `poster`.
+12a. ~~YouTube-Titel eintragen~~ ✅ erledigt (Titel, Kanal und Original-Vorschaubilder lokal).
 
 ### 🟢 Optional / Ausbau
 

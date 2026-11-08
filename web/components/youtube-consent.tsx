@@ -7,7 +7,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
 
-export type YouTubeFilm = { id: string; title: string; poster: string }
+export type YouTubeFilm = { id: string; title: string; poster: string; channel?: string }
 
 export function YouTubeConsent({
   film,
@@ -60,8 +60,11 @@ export function YouTubeConsent({
         )}
       </div>
       <figcaption className="mt-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <span className="font-display text-xl italic text-text">{film.title}</span>
-        <span className="flex gap-4 text-sm">
+        <span className="min-w-0">
+          <span className="block font-display text-xl italic leading-tight text-text">{film.title}</span>
+          {film.channel && <span className="mt-1 block font-mono text-[0.68rem] uppercase tracking-widest text-muted">YouTube · {film.channel}</span>}
+        </span>
+        <span className="flex shrink-0 gap-4 text-sm">
           <Link href={privacyHref} className="text-muted underline underline-offset-4 hover:text-text">
             {labels.privacy}
           </Link>

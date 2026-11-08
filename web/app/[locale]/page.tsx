@@ -56,11 +56,11 @@ export default async function Home({ params }: LocaleParams) {
   const latest = news[0]
   const units = statUnits[locale]
   const stats = [30000, 600, 100]
-  // title optional: ohne Titel erscheint "Film 1", "Film 2" …
-  const films: { id: string; poster: string; title?: string }[] = [
-    { id: "xxYlNeUwyns", poster: "/images/werk/kunst-am-bau/kunst-am-bau-06.webp" },
-    { id: "LNdfSqG9ciE", poster: "/images/werk/events/events-03.webp" },
-    { id: "gRqQbvGbAlI", poster: "/images/werk/originale/originale-03.webp" },
+  // Titel, Kanal und Vorschaubild von YouTube (Vorschaubilder lokal gespeichert: kein Google-Kontakt vor dem Klick)
+  const films: { id: string; poster: string; title?: string; channel?: string }[] = [
+    { id: "xxYlNeUwyns", poster: "/images/filme/xxYlNeUwyns.webp", title: "Michael Fischer-Art", channel: "Sportstadt Leipzig" },
+    { id: "LNdfSqG9ciE", poster: "/images/filme/LNdfSqG9ciE.webp", title: "Michael Fischer-Art | Sunshine Art Factory", channel: "tmcMedien" },
+    { id: "gRqQbvGbAlI", poster: "/images/filme/gRqQbvGbAlI.webp", title: "20 Jahre LaVita – 20 Etiketten: Michael Fischer-Art", channel: "LaVita" },
   ]
   const dots = ["#ff5b3a", "#8b7bff", "#3ee6c8", "#f2c66d"]
 
