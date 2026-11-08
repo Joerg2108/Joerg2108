@@ -56,11 +56,19 @@ export default async function DatenschutzPage({ params }: LocaleParams) {
             Aufbewahrungsfristen entgegenstehen.
           </p>
         </S>
-        <S title="5. Links zu sozialen Netzwerken">
+        <S title="5. Links zu sozialen Netzwerken und WhatsApp">
           <p>
             Wir verlinken auf unsere Profile bei Instagram und Facebook (Meta Platforms Ireland Ltd.) sowie bei TikTok (TikTok
             Technology Limited, Irland). Es handelt sich um einfache Links; Daten werden erst übertragen, wenn Sie den Link anklicken
             und die Seite des Anbieters aufrufen. Dort gilt die Datenschutzerklärung des jeweiligen Anbieters.
+          </p>
+          <p>
+            Über die WhatsApp-Links (wa.me) können Sie uns eine Nachricht über WhatsApp (WhatsApp Ireland Limited, Merrion Road,
+            Dublin 4, Irland) schicken. Auch das ist ein einfacher Link: Erst wenn Sie ihn anklicken, öffnet sich WhatsApp, und erst
+            wenn Sie eine Nachricht absenden, verarbeiten WhatsApp und wir Ihre Telefonnummer, Ihren Namen und den Inhalt der Nachricht
+            zur Beantwortung Ihrer Anfrage (Art. 6 Abs. 1 lit. b bzw. f DSGVO). WhatsApp verschlüsselt Nachrichten Ende-zu-Ende,
+            verarbeitet aber Metadaten; eine Übermittlung in die USA ist möglich (Meta ist nach dem EU-US Data Privacy Framework
+            zertifiziert). Wenn Sie das nicht möchten, schreiben Sie uns bitte per E-Mail oder rufen Sie an.
           </p>
         </S>
         <section id="youtube" className="scroll-mt-28">

@@ -11,6 +11,8 @@ export const site = {
   instagram: "https://www.instagram.com/fischerart/",
   facebook: "https://www.facebook.com/fischerart/",
   tiktok: "https://www.tiktok.com/@michael_fischer_art",
+  // WhatsApp-Chat (Click-to-Chat) mit der Handynummer aus `contact.phone`
+  whatsapp: "https://wa.me/491723426684",
   maps: "https://www.google.com/maps/search/?api=1&query=Am+Steigerhain+13%2C+04552+Borna",
   mapsEmbed: "https://www.google.com/maps?q=Am+Steigerhain+13,+04552+Borna&z=15&output=embed",
 }

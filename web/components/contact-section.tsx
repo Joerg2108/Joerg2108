@@ -6,6 +6,7 @@ import { lp, ui, type Locale } from "@/lib/i18n"
 import { Container } from "@/components/page-hero"
 import { Magnetic, SplitWords } from "@/components/motion"
 import { MapConsent } from "@/components/map-consent"
+import { waLink } from "@/lib/whatsapp"
 
 // Kein Server nötig: Das Formular öffnet das E-Mail-Programm mit vorausgefüllter Nachricht.
 // Dadurch werden keine personenbezogenen Daten auf dem Webserver verarbeitet.
@@ -71,6 +72,7 @@ export function ContactSection({ locale }: { locale: Locale }) {
               ["Instagram", site.instagram],
               ["Facebook", site.facebook],
               ["TikTok", site.tiktok],
+              ["WhatsApp", waLink(site.whatsapp, t.whatsappText)],
             ].map(([l, h]) => (
               <Magnetic key={l}>
                 <a href={h} target="_blank" rel="noopener noreferrer" className="glass-soft inline-block rounded-full px-5 py-2.5 text-sm transition-colors hover:border-white/30">

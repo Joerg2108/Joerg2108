@@ -2,6 +2,7 @@
 
 import WildHuntFooter from "@/components/ui/wild-hunt-footer"
 import imageLoader from "@/lib/image-loader"
+import { waLink } from "@/lib/whatsapp"
 import { getContent } from "@/lib/content"
 import { lp, ui, type Locale } from "@/lib/i18n"
 
@@ -55,6 +56,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           links: [
             { label: contact.email, href: `mailto:${contact.email}` },
             { label: contact.phone, href: contact.phoneHref },
+            { label: t.whatsapp, href: waLink(site.whatsapp, t.whatsappText) },
             { label: t.imprint, href: lp(locale, "/impressum") },
             { label: t.privacy, href: lp(locale, "/datenschutz") },
           ],

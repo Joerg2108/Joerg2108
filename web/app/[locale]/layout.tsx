@@ -3,6 +3,8 @@ import { notFound } from "next/navigation"
 import "../globals.css"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
+import { WhatsAppButton } from "@/components/whatsapp-button"
+import { waLink } from "@/lib/whatsapp"
 import { RevealObserver, SmoothScroll } from "@/components/motion"
 import { getContent } from "@/lib/content"
 import { isLocale, localeNames, locales, ui, type Locale } from "@/lib/i18n"
@@ -64,6 +66,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
           {children}
         </main>
         <SiteFooter locale={locale} />
+        <WhatsAppButton href={waLink(getContent(locale).site.whatsapp, ui[locale].whatsappText)} label={ui[locale].whatsappLabel} />
       </body>
     </html>
   )
