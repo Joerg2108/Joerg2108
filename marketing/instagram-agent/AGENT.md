@@ -43,3 +43,28 @@ werden nicht erneut gepostet.
 ## Stoppen
 
 In Claude unter **Geplante Aufgaben** die Aufgabe „Instagram-Agent Back Office“ pausieren oder löschen.
+
+---
+
+# Zweiter Strang: Webdesign (täglich zusätzlich zum Back-Office-Beitrag)
+
+Täglich **ein** Webdesign-Beitrag (Karussell oder Einzelbild) **plus eine Story**, ebenfalls auf **flowkit5** über
+Windsor.ai. Läuft als eigene geplante Aufgabe „Instagram-Agent Webdesign“ (abends), unabhängig vom
+Back-Office-Strang oben. Die Back-Office-Dateien (`posts.json`, `posted.json`) bleiben unberührt.
+
+| Datei | Inhalt |
+|---|---|
+| `posts-webdesign.json` | Beitragsbank: `id` (W01 …), `thema`, `format` (`karussell`/`einzelbild`), `images` (Liste), `story`, `caption` (inkl. Hashtags), `alt_text` |
+| `webdesign/<id>/folie-*.jpg` | Feed-Bilder 1080 × 1350, JPEG |
+| `webdesign/<id>/story.jpg` | Story 1080 × 1920, JPEG |
+| `posted-webdesign.json` | Protokoll (`id`, `date`, `media_id`, `story_media_id`) |
+
+Erzeugt und geprüft (Zeichengrenzen, KI-Floskeln, Layout, Projekt-Screenshots) mit dem Agenten in
+`marketing/insta-agent/` (Branch `claude/upbeat-curie-td1txg`): Beiträge in `webdesign-bank.json` ergänzen, dann
+
+```bash
+node bank-bauen.js <Pfad zu diesem Ordner>
+```
+
+Veröffentlichen: mehr als ein Bild → `create_carousel_post` mit `image_urls` (Reihenfolge wie in `images`),
+ein Bild → `create_image_post`. Danach `create_story` mit dem Story-Bild. URL-Basis wie oben.
