@@ -4,6 +4,7 @@
 import fs from "node:fs/promises"
 import path from "node:path"
 import sharp from "sharp"
+import { createHash } from "node:crypto"
 
 export const WIDTHS = [320, 640, 960, 1280, 1920]
 const ROOT = path.resolve("public")
@@ -32,7 +33,9 @@ for (let i = 0; i < files.length; i += 6) {
     files.slice(i, i + 6).map(async (file) => {
       const rel = "/" + path.relative(ROOT, file).split(path.sep).join("/")
       const { width } = await sharp(file).metadata()
-      manifest[rel] = width
+      // Breite + Inhalts-Fingerabdruck: ändert sich das Bild, ändert sich die URL (?v=…) → kein alter Browser-Cache
+      const hash = createHash("sha1").update(await fs.readFile(file)).digest("hex").slice(0, 8)
+      manifest[rel] = [width, hash]
       for (const w of WIDTHS) {
         if (w >= width) continue // größer als das Original: Original wird verwendet
         const target = path.join(OUT, rel.replace(/^\/images\//, "").replace(/\.\w+$/, `-${w}.webp`))
