@@ -124,10 +124,19 @@ export function Gallery({ images, title, t }: { images: GalleryImage[]; title: s
                 playsInline
                 preload="metadata"
                 aria-label={current.caption || title}
-                className="absolute inset-0 h-full w-full object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,.6)]"
+                className="absolute inset-0 h-full w-full object-contain"
               />
             ) : (
-              <Image key={current.src} src={current.src} alt={current.caption || title} fill sizes="100vw" className="animate-[nc-float_8s_ease-in-out_infinite] object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,.6)]" priority />
+              <Image
+                key={current.src}
+                src={current.src}
+                alt={current.caption || title}
+                fill
+                sizes="100vw"
+                quality={90}
+                className="object-contain [image-rendering:auto]"
+                priority
+              />
             )}
           </div>
           <div className="flex justify-center gap-3" onClick={(e) => e.stopPropagation()}>
