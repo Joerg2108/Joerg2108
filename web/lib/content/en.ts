@@ -225,6 +225,13 @@ export const publications: typeof DE.publications = {
 export const news: typeof DE.news = [
   {
     ...de.news[0],
+    title: "Kranzzauber – workshops with Fischer-Art",
+    text: "Your picture. Your colours. Your art moment. On 11 and 18 November 2026 at the pop-up store in Leipzig city centre: let your creativity run free and create your own picture with the help of Michael Fischer-Art. For everyone who loves art and wants to get creative.",
+    image: { ...de.news[0].image!, alt: "Flyer “Kranzzauber”: workshops with Fischer-Art on 11 and 18 November 2026 at the pop-up store in Leipzig city centre. Booking via kranzzauber.de." },
+    link: { href: "https://kranzzauber.de", label: "Book your place at kranzzauber.de" },
+  },
+  {
+    ...de.news[1],
     title: "Spring salon at the Borna studio, 18 April 2026",
     text: "Spring salon at the studio in Borna: 18 April 2026, 10 am – 8 pm. Come along and enjoy the art!",
   },

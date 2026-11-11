@@ -16,14 +16,14 @@ export function PageHero({ kicker, title, children, film }: { kicker?: string; t
       )}
       <Container>
         {kicker ? (
-          <p data-reveal className="kicker mb-8 flex items-center gap-3">
+          <p className="nc-intro kicker mb-8 flex items-center gap-3">
             <span className="h-px w-10 bg-[image:var(--nc-gradient-metal)]" />
             {kicker}
           </p>
         ) : null}
-        <SplitWords as="h1" text={title} className="max-w-5xl font-display text-[clamp(3rem,9vw,8.5rem)] font-medium leading-[0.92] tracking-[-0.02em]" />
+        <SplitWords as="h1" text={title} className="nc-intro max-w-5xl font-display text-[clamp(3rem,9vw,8.5rem)] font-medium leading-[0.92] tracking-[-0.02em]" />
         {children ? (
-          <div data-reveal style={{ ["--i" as string]: 3 }} className="mt-10 max-w-3xl text-lg leading-relaxed text-muted sm:text-xl">
+          <div style={{ ["--i" as string]: 3 }} className="nc-intro mt-10 max-w-3xl text-lg leading-relaxed text-muted sm:text-xl">
             {children}
           </div>
         ) : null}

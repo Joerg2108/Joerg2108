@@ -86,6 +86,10 @@
 html {
   background: var(--nc-bg);
   scroll-padding-top: 6rem;
+  scroll-behavior: smooth; /* Touch-Geräte ohne Lenis: Sprungmarken gleiten trotzdem */
+}
+html.lenis {
+  scroll-behavior: auto !important; /* Desktop: Lenis übernimmt */
 }
 html.lenis,
 html.lenis body {

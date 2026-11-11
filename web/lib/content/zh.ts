@@ -261,6 +261,13 @@ export const publications: typeof DE.publications = {
 export const news: typeof DE.news = [
   {
     ...de.news[0],
+    title: "Kranzzauber——与 Fischer-Art 一起的工作坊",
+    text: "你的画，你的色彩，你的艺术时刻。2026 年 11 月 11 日和 18 日，莱比锡市中心快闪店：在 Michael Fischer-Art 的指导下尽情发挥创意，创作属于你自己的画作。适合所有热爱艺术并想亲自动手创作的人。",
+    image: { ...de.news[0].image!, alt: "“Kranzzauber”传单：2026 年 11 月 11 日和 18 日，与 Fischer-Art 一起的工作坊，莱比锡市中心快闪店。报名：kranzzauber.de。" },
+    link: { href: "https://kranzzauber.de", label: "在 kranzzauber.de 预订名额" },
+  },
+  {
+    ...de.news[1],
     title: "博尔纳工作室春季沙龙 2026 年 4 月 18 日",
     text: "博尔纳工作室春季沙龙：2026 年 4 月 18 日 10:00 – 20:00。欢迎前来欣赏艺术！",
   },

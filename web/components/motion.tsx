@@ -18,6 +18,9 @@ export const prefersReducedMotion = () =>
 export function SmoothScroll() {
   useEffect(() => {
     if (prefersReducedMotion()) return
+    // Touch-Geräte scrollen von Haus aus weich: Lenis + GSAP (~115 KB) werden dort nicht geladen.
+    // Sprungmarken gleiten dann über CSS (scroll-behavior: smooth, siehe globals.css).
+    if (window.matchMedia("(hover: none), (pointer: coarse)").matches) return
     let destroyed = false
     let cleanup = () => {}
     ;(async () => {

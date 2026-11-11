@@ -225,7 +225,29 @@ export const publications = {
   ],
 }
 
-export const news = [
+export type NewsItem = {
+  date: string
+  title: string
+  text: string
+  video?: string
+  /** Flyer oder Foto; `alt` beschreibt den Inhalt für Screenreader. */
+  image?: { src: string; width: number; height: number; alt: string }
+  link?: { href: string; label: string }
+}
+
+export const news: NewsItem[] = [
+  {
+    date: "2026-11-11",
+    title: "Kranzzauber – Workshops mit Fischer-Art",
+    text: "Dein Bild. Deine Farben. Dein Kunstmoment. Am 11.11.2026 und 18.11.2026 im Pop-up Store in der Leipziger Innenstadt: Lass deiner Kreativität freien Lauf und gestalte mit Unterstützung von Michael Fischer-Art dein eigenes Bild. Für alle, die Kunst lieben und selbst kreativ werden möchten.",
+    image: {
+      src: "/images/aktuelles/kranzzauber-2026.webp",
+      width: 1810,
+      height: 1206,
+      alt: "Flyer „Kranzzauber“: Workshops mit Fischer-Art am 11.11.2026 und 18.11.2026 im Pop-up Store, Leipzig Innenstadt. Anmeldung über kranzzauber.de.",
+    },
+    link: { href: "https://kranzzauber.de", label: "Platz buchen auf kranzzauber.de" },
+  },
   {
     date: "2026-04-14",
     title: "Frühlingssalon Atelier Borna 18.04.2026",

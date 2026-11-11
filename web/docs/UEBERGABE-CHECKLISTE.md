@@ -117,3 +117,27 @@ npx lighthouse http://localhost:3124/de/ --view
 ```
 
 Online, nach dem Domain-Umzug: https://pagespeed.web.dev und https://validator.w3.org/checklink
+
+---
+
+## 5. Abschluss-Stand (11.11.2026)
+
+**Geprüft, alles grün:** 55 Seiten, 0 kaputte Links/Anker, 0 fehlende Dateien, 0 JS-Fehler, 0 axe-Verstöße, kein seitlicher Überlauf, keine doppelten Titel/Beschreibungen.
+
+**Lighthouse mobil (mit Kompression wie auf Netlify):** Startseite 80 · Porträts 74 · Kunst am Bau 88 – Barrierefreiheit, Best Practices und SEO jeweils 100.
+
+**Zuletzt verbessert:**
+- Unterseiten: Überschrift und Einleitung erscheinen sofort (vorher erst nach ~2,4 s, weil sie auf JavaScript warteten).
+- Handy/Tablet: Lenis und GSAP (~115 KB JavaScript) werden nicht mehr geladen; Sprungmarken gleiten per CSS.
+- Kunst am Bau: 27 von 33 Bildern hochaufgelöst, doppeltes China-Bild entfernt, Großansicht scharf.
+- Bild-URLs mit Fingerabdruck (`?v=…`): ausgetauschte Bilder erscheinen sofort, ohne Cache-Leeren.
+- Aktuelles: Kranzzauber-Workshops (11.11. und 18.11.2026) mit Flyer und Buchungslink.
+
+**Bitte noch klären (KI-verbesserte Fotos):**
+- Bild 25 (Georgius Agricola): Im Original steht „Bibliothek“, im neuen Bild „Gymnasium“ – was stimmt?
+- Bild 21: Vermerk „G. Wächtler für Leipzig-Album“ – Nutzungserlaubnis des Fotografen vorhanden?
+- Bild 12 (Brühl-Arkaden): Die KI hatte Schriftzüge erfunden (u. a. „CacauShow“); der Bereich ist abgeschnitten.
+- Kunst am Bau 32 und Videos 31/33 sind KI-generiert bzw. KI-animiert (Gemini-Symbol sichtbar).
+- Generell: KI-verbesserte Fotos vor Veröffentlichung auf veränderte Schriftzüge und Details prüfen.
+
+**Noch klein (unscharf in der Großansicht):** Kunst am Bau 22, 27, 28, 29 sowie viele Bilder in Reisen und Friends (teils nur 200–450 px).
