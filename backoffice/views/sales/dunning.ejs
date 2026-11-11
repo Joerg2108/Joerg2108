@@ -1,16 +1,16 @@
-<div class="page-head"><div><h1>Mahnwesen</h1><div class="sub"><%= rows.length %> überfällige Rechnung(en) · <%= h.eur(rows.reduce((a, r) => a + r.gross_total - r.paid_total, 0)) %> offen</div></div></div>
+<div class="page-head" data-list><div><h1>Mahnwesen</h1><div class="sub"><%= rows.length %> überfällige Rechnung(en) · <%= h.eur(rows.reduce((a, r) => a + r.gross_total - r.paid_total, 0)) %> offen</div></div></div>
 <div class="card flush"><div class="table-wrap">
-<% if (!rows.length) { %><div class="empty">Keine überfälligen Rechnungen 🎉</div><% } else { %>
-<table>
+<% if (!rows.length) { %><div class="empty"><strong>Keine überfälligen Rechnungen.</strong><br>Alle offenen Rechnungen liegen noch im Zahlungsziel.<div class="empty-actions"><a class="btn" href="/belege/rechnungen?status=offen">Offene Rechnungen ansehen</a></div></div><% } else { %>
+<table class="dense stack-sm">
   <thead><tr><th>Rechnung</th><th>Kunde</th><th>Fällig seit</th><th class="num">Tage</th><th class="num">Offen</th><th>Stufe</th><th>Letzte Mahnung</th><th></th></tr></thead>
   <tbody><% for (const r of rows) { %>
     <tr>
-      <td class="mono"><a href="/belege/<%= r.id %>"><%= r.number %></a></td><td><%= h.customerName(r) %><div class="small muted"><%= r.customer_email || '' %></div></td>
-      <td><%= h.date(r.due_date) %></td><td class="num neg"><%= Math.floor(r.days_over) %></td><td class="num"><%= h.eur(r.gross_total - r.paid_total) %></td>
-      <td><%= r.dunning_level ? 'Mahnung ' + r.dunning_level : 'keine' %></td><td><%= r.last_dunning_at ? h.dateTime(r.last_dunning_at) : '–' %></td>
-      <td class="nowrap">
-        <% if (r.dunning_level < 3) { %><form method="post" action="/belege/<%= r.id %>/mahnen" class="inline-form" data-confirm="Mahnstufe <%= r.dunning_level + 1 %> erstellen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm primary">Stufe <%= r.dunning_level + 1 %> erstellen</button></form><% } %>
-        <% if (r.dunning_level) { %><a class="btn sm" href="/belege/<%= r.id %>/mahnung/<%= r.dunning_level %>/pdf" target="_blank">PDF</a><% } %>
+      <td class="mono nowrap" data-label="Rechnung"><a href="/belege/<%= r.id %>"><%= r.number %></a></td><td class="cell-main" data-label="Kunde"><strong><%= h.customerName(r) %></strong><div class="small muted"><%= r.customer_email || '' %></div></td>
+      <td class="nowrap" data-label="Fällig seit"><%= h.date(r.due_date) %></td><td class="num neg" data-label="Tage"><%= Math.floor(r.days_over) %></td><td class="num strong" data-label="Offen"><%= h.eur(r.gross_total - r.paid_total) %></td>
+      <td data-label="Stufe"><%= r.dunning_level ? 'Mahnstufe ' + r.dunning_level : 'noch nicht gemahnt' %></td><td class="nowrap" data-label="Letzte Mahnung"><%= r.last_dunning_at ? h.dateTime(r.last_dunning_at) : '–' %></td>
+      <td class="nowrap cell-actions">
+        <% if (r.dunning_level < 3) { %><form method="post" action="/belege/<%= r.id %>/mahnen" class="inline-form" data-confirm="Mahnstufe <%= r.dunning_level + 1 %> erstellen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="back" value="mahnwesen"><button class="btn sm primary">Mahnstufe <%= r.dunning_level + 1 %> erstellen</button></form><% } %>
+        <% if (r.dunning_level) { %><a class="btn sm" href="/belege/<%= r.id %>/mahnung/<%= r.dunning_level %>/pdf" target="_blank" rel="noopener">Mahnschreiben (PDF)</a><% } %>
       </td>
     </tr>
   <% } %></tbody>

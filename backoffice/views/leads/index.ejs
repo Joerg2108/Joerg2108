@@ -1,12 +1,24 @@
+<% const filtered = !!(query.q || query.status); const open = (counts.neu || 0) + (counts.kontaktiert || 0) + (counts.qualifiziert || 0); %>
 <div class="page-head">
-  <div><h1>Anfragen &amp; Vertrieb</h1><div class="sub"><%= stats.total %> Anfragen · Abschlussquote <%= stats.rate %> %</div></div>
+  <div><h1>Anfragen</h1><div class="sub"><%= open %> in Bearbeitung · <%= counts.neu || 0 %> neu · Abschlussquote <%= stats.rate %> %</div></div>
   <div class="actions">
-    <div class="btn-group"><a class="btn <%= view === 'board' ? 'active' : '' %>" href="?ansicht=board">Board</a><a class="btn <%= view === 'liste' ? 'active' : '' %>" href="?ansicht=liste">Liste</a></div>
+    <div class="btn-group" role="group" aria-label="Ansicht"><a class="btn <%= view === 'board' ? 'active' : '' %>" href="?ansicht=board"<%= view === 'board' ? ' aria-current="true"' : '' %>>Board</a><a class="btn <%= view === 'liste' ? 'active' : '' %>" href="?ansicht=liste"<%= view === 'liste' ? ' aria-current="true"' : '' %>>Liste</a></div>
     <a class="btn primary" href="/anfragen/neu"><%- h.icon('plus') %> Anfrage erfassen</a>
   </div>
 </div>
-<form class="filters"><input type="hidden" name="ansicht" value="<%= view %>"><input type="search" name="q" value="<%= query.q || '' %>" placeholder="Name, Firma, E-Mail, Betreff"><button class="btn">Suchen</button></form>
-<% if (view === 'board') { %>
+<form class="filters" data-list>
+  <input type="hidden" name="ansicht" value="<%= view %>">
+  <label class="field grow"><span>Suche</span><input type="search" name="q" value="<%= query.q || '' %>" placeholder="Name, Firma, E-Mail oder Betreff"></label>
+  <% if (view === 'liste') { %><%- h.select('status', 'Status', query.status, STATUSES.map((x) => [x, h.label(x) + ' (' + (counts[x] || 0) + ')']), { empty: 'Alle' }) %><% } %>
+  <button class="btn">Filtern</button>
+  <% if (filtered) { %><a class="btn ghost" href="?ansicht=<%= view %>">Zurücksetzen</a><% } %>
+</form>
+<% if (!rows.length) { %>
+<div class="card"><div class="empty">
+  <% if (filtered) { %><strong>Keine Anfrage in dieser Auswahl.</strong><br><%= query.q ? 'Für „' + query.q + '“ gibt es keinen Treffer.' : 'In diesem Status liegt gerade nichts.' %><div class="empty-actions"><a class="btn primary" href="?ansicht=<%= view %>">Alle Anfragen anzeigen</a></div>
+  <% } else { %><strong>Noch keine Anfragen.</strong><br>Anfragen kommen über das Kontaktformular Ihrer Website herein oder werden von Hand erfasst.<div class="empty-actions"><a class="btn primary" href="/anfragen/neu">Anfrage erfassen</a></div><% } %>
+</div></div>
+<% } else if (view === 'board') { %>
 <div class="board" data-board="/anfragen/{id}/status">
   <% for (const col of columns) { %>
     <div class="column" data-status="<%= col.status %>">
@@ -15,21 +27,28 @@
         <% for (const l of col.items) { %>
           <a class="kcard" href="/anfragen/<%= l.id %>" draggable="true" data-id="<%= l.id %>">
             <strong><%= l.name %></strong>
-            <small><%= l.company || l.email || '' %></small>
-            <small><%= l.subject %></small>
-            <small><%= h.date(l.created_at) %> · <%= l.source %><%= l.value ? ' · ' + h.eur(l.value) : '' %><%= l.assignee ? ' · ' + l.assignee : '' %></small>
+            <% if (l.company) { %><small><%= l.company %></small><% } %>
+            <span class="kcard-subject"><%= l.subject || 'ohne Betreff' %></span>
+            <small><%= h.date(l.created_at) %><%= l.value ? ' · ' + h.eur(l.value) : '' %><%= l.assignee ? ' · ' + l.assignee : '' %></small>
           </a>
         <% } %>
       </div>
     </div>
   <% } %>
 </div>
-<p class="small muted">Tipp: Karten per Drag &amp; Drop in eine andere Spalte ziehen, um den Status zu ändern.</p>
+<p class="small muted">Karten lassen sich mit der Maus in eine andere Spalte ziehen. Per Tastatur ändern Sie den Status in der Anfrage selbst oder in der Listenansicht.</p>
 <% } else { %>
-<div class="card flush"><div class="table-wrap"><table>
-  <thead><tr><th>Eingang</th><th>Name</th><th>Betreff</th><th>Quelle</th><th>Status</th><th class="num">Wert</th><th>Zuständig</th></tr></thead>
+<div class="card flush"><div class="table-wrap"><table class="dense stack-sm">
+  <thead><tr><th>Name / Betreff</th><th>Eingang</th><th>Quelle</th><th>Status</th><th class="num">Wert</th><th>Zuständig</th></tr></thead>
   <tbody><% for (const l of rows) { %>
-    <tr class="row-link" data-href="/anfragen/<%= l.id %>"><td class="nowrap"><%= h.dateTime(l.created_at) %></td><td><a href="/anfragen/<%= l.id %>"><strong><%= l.name %></strong></a><div class="small muted"><%= l.company || '' %> <%= l.email || '' %></div></td><td><%= l.subject %></td><td><span class="tag"><%= l.source %></span></td><td><%- h.badge(l.status) %></td><td class="num"><%= l.value ? h.eur(l.value) : '' %></td><td><%= l.assignee || '' %></td></tr>
+    <tr class="row-link" data-href="/anfragen/<%= l.id %>">
+      <td class="cell-main" data-label="Name"><span class="clip"><a href="/anfragen/<%= l.id %>"><strong><%= l.name %></strong></a><%= l.company ? ' · ' + l.company : '' %></span><span class="clip muted small" title="<%= l.subject || '' %>"><%= l.subject || 'ohne Betreff' %></span></td>
+      <td class="nowrap" data-label="Eingang"><%= h.dateTime(l.created_at) %></td>
+      <td data-label="Quelle"><span class="tag"><%= l.source %></span></td>
+      <td data-label="Status"><%- h.badge(l.status) %></td>
+      <td class="num" data-label="Wert"><%= l.value ? h.eur(l.value) : '–' %></td>
+      <td data-label="Zuständig"><%= l.assignee || '–' %></td>
+    </tr>
   <% } %></tbody>
-</table><% if (!rows.length) { %><div class="empty">Keine Anfragen.</div><% } %></div></div>
+</table></div></div>
 <% } %>

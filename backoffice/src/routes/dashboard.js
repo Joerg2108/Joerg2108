@@ -12,25 +12,11 @@ router.get('/', (req, res) => {
   const month = today.slice(0, 7);
   const kpi = {
     revenueMonth: db.get("SELECT COALESCE(SUM(net_total),0) AS s FROM documents_sales WHERE kind IN ('rechnung','storno') AND finalized_at IS NOT NULL AND substr(issue_date,1,7) = ?", month).s,
-    revenueYear: db.get("SELECT COALESCE(SUM(net_total),0) AS s FROM documents_sales WHERE kind IN ('rechnung','storno') AND finalized_at IS NOT NULL AND substr(issue_date,1,4) = ?", year).s,
     open: db.get("SELECT COALESCE(SUM(gross_total - paid_total),0) AS s, COUNT(*) AS n FROM documents_sales WHERE kind='rechnung' AND status IN ('offen','teilbezahlt')"),
     overdue: db.get("SELECT COALESCE(SUM(gross_total - paid_total),0) AS s, COUNT(*) AS n FROM documents_sales WHERE kind='rechnung' AND status IN ('offen','teilbezahlt') AND due_date < ?", today),
-    expensesYear: db.get('SELECT COALESCE(SUM(net_amount),0) AS s FROM expenses WHERE substr(date,1,4) = ?', year).s,
     quotesOpen: db.get("SELECT COALESCE(SUM(net_total),0) AS s, COUNT(*) AS n FROM documents_sales WHERE kind='angebot' AND status IN ('entwurf','versendet')"),
     leadsNew: db.get("SELECT COUNT(*) AS n FROM leads WHERE status='neu'").n,
-    pipeline: db.get("SELECT COALESCE(SUM(value),0) AS s FROM leads WHERE status IN ('neu','kontaktiert','qualifiziert')").s,
-    hoursMonth: db.get('SELECT COALESCE(SUM(minutes),0) AS s FROM time_entries WHERE substr(date,1,7) = ? AND user_id = ?', month, req.user.id).s,
-    customers: db.get("SELECT COUNT(*) AS n FROM customers WHERE status != 'inaktiv' AND anonymized = 0").n,
   };
-
-  // Umsatz vs. Ausgaben der letzten 12 Monate
-  const months = [];
-  for (let i = 11; i >= 0; i--) months.push(f.addMonths(month + '-15', -i).slice(0, 7));
-  const rev = Object.fromEntries(db.all(
-    "SELECT substr(issue_date,1,7) AS m, SUM(net_total) AS s FROM documents_sales WHERE kind IN ('rechnung','storno') AND finalized_at IS NOT NULL AND issue_date >= ? GROUP BY m", months[0] + '-01',
-  ).map((r) => [r.m, r.s]));
-  const exp = Object.fromEntries(db.all('SELECT substr(date,1,7) AS m, SUM(net_amount) AS s FROM expenses WHERE date >= ? GROUP BY m', months[0] + '-01').map((r) => [r.m, r.s]));
-  const chart = months.map((m) => ({ m, label: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'][Number(m.slice(5)) - 1], revenue: rev[m] || 0, expenses: exp[m] || 0 }));
 
   const tasks = db.all(
     `SELECT t.*, p.name AS project_name FROM tasks t LEFT JOIN projects p ON p.id = t.project_id
@@ -55,7 +41,34 @@ router.get('/', (req, res) => {
     open: db.get("SELECT COUNT(*) AS n FROM shifts WHERE staff_id IS NULL AND status != 'abgesagt' AND starts_at >= ? AND starts_at < ?", today, f.addDays(today, 14)).n,
     expiring: shiftsLib.expiringQualifications(30),
   } : null;
-  res.render('dashboard', { title: 'Dashboard', kpi, chart, tasks, appointments, leads, overdueList, today, myShifts, roster });
+  // „Heute zu tun“: nur Einträge, aus denen sich direkt eine Handlung ergibt – in Reihenfolge der Dringlichkeit
+  const todo = [];
+  const cust = 'c.company, c.first_name, c.last_name';
+  if (sec.can(req.user, 'sales')) {
+    for (const d of overdueList) {
+      const days = Math.max(1, Math.round((Date.parse(today) - Date.parse(d.due_date)) / 864e5));
+      todo.push({ tone: 'red', kind: 'Rechnung überfällig', title: `${d.number} · ${f.customerName(d)}`, sub: `seit ${days} Tag${days === 1 ? '' : 'en'} fällig${d.dunning_level ? ' · Mahnstufe ' + d.dunning_level : ' · noch nicht gemahnt'}`, amount: d.gross_total - d.paid_total, href: `/belege/${d.id}`, action: d.dunning_level < 3 ? 'Mahnen' : 'Ansehen' });
+    }
+  }
+  if (sec.can(req.user, 'leads')) {
+    for (const l of leads) todo.push({ tone: 'blue', kind: 'Neue Anfrage', title: [l.name, l.company].filter(Boolean).join(' · '), sub: l.subject || 'ohne Betreff', amount: l.value || null, href: `/anfragen/${l.id}`, action: 'Beantworten' });
+  }
+  if (sec.can(req.user, 'sales')) {
+    const docs = (where, ...params) => db.all(`SELECT d.*, ${cust} FROM documents_sales d JOIN customers c ON c.id = d.customer_id WHERE ${where} ORDER BY d.issue_date LIMIT 5`, ...params);
+    for (const d of docs("d.kind='angebot' AND d.status='angenommen' AND NOT EXISTS (SELECT 1 FROM documents_sales x WHERE x.ref_id = d.id)")) {
+      todo.push({ tone: 'green', kind: 'Angebot angenommen', title: `${d.number} · ${f.customerName(d)}`, sub: 'noch nicht abgerechnet', amount: d.gross_total, href: `/belege/${d.id}`, action: 'Rechnung erstellen' });
+    }
+    for (const d of docs("d.kind='rechnung' AND d.status='entwurf' AND NOT EXISTS (SELECT 1 FROM recurring_invoices r WHERE r.template_id = d.id)")) {
+      todo.push({ tone: 'amber', kind: 'Rechnung im Entwurf', title: `${f.customerName(d)} · ${d.title || 'ohne Titel'}`, sub: 'noch nicht festgeschrieben und versendet', amount: d.gross_total, href: `/belege/${d.id}`, action: 'Fertigstellen' });
+    }
+    for (const d of docs("d.kind='angebot' AND d.status='versendet' AND d.issue_date <= ?", f.addDays(today, -5))) {
+      todo.push({ tone: 'amber', kind: 'Angebot ohne Antwort', title: `${d.number} · ${f.customerName(d)}`, sub: `versendet am ${f.date(d.issue_date)}${d.valid_until ? ' · gültig bis ' + f.date(d.valid_until) : ''}`, amount: d.gross_total, href: `/belege/${d.id}`, action: 'Nachfassen' });
+    }
+    for (const d of docs("d.kind='angebot' AND d.status='entwurf'")) {
+      todo.push({ tone: 'grey', kind: 'Angebot im Entwurf', title: `${f.customerName(d)} · ${d.title || 'ohne Titel'}`, sub: 'noch nicht versendet', amount: d.gross_total, href: `/belege/${d.id}`, action: 'Senden' });
+    }
+  }
+  res.render('dashboard', { title: 'Übersicht', kpi, todo, tasks, appointments, today, myShifts, roster });
 });
 
 // Globale Suche über alle Bereiche

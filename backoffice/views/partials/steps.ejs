@@ -1,0 +1,9 @@
+<%# Vorgangsleiste: zeigt, wo ein Vorgang steht. steps = [{ label, state: 'done' | 'current' | 'todo', href, note }] %>
+<ol class="steps" aria-label="Stand des Vorgangs">
+  <% steps.forEach((st, i) => { %>
+  <li class="<%= st.state %>"<%= st.state === 'current' ? ' aria-current="step"' : '' %>>
+    <span class="step-mark" aria-hidden="true"><%= st.state === 'done' ? '✓' : i + 1 %></span>
+    <span class="step-text"><% if (st.href) { %><a href="<%= st.href %>"><%= st.label %></a><% } else { %><%= st.label %><% } %><% if (st.note) { %><small><%= st.note %></small><% } %></span>
+  </li>
+  <% }) %>
+</ol>
