@@ -13,6 +13,7 @@ import { HorizontalWorks } from "@/components/horizontal-works"
 import { Faq } from "@/components/faq"
 import { AmbientClip } from "@/components/ambient-clip"
 import { YouTubeConsent } from "@/components/youtube-consent"
+import { SneakerSection } from "@/components/sneaker-section"
 import { Counter, Magnetic, SplitWords, Tilt } from "@/components/motion"
 
 export async function generateMetadata({ params }: LocaleParams) {
@@ -206,6 +207,9 @@ export default async function Home({ params }: LocaleParams) {
           </div>
         </Container>
       </section>
+
+      {/* ───── Kunst trifft Sneaker ───── */}
+      <SneakerSection locale={locale} />
 
       {/* ───── Leistungen + Atelier-Film ───── */}
       <section id="leistungen" aria-labelledby="leistungen-titel" className="relative py-28 sm:py-40">
