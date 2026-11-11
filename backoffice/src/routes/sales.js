@@ -20,6 +20,15 @@ const ROUTE_OF = Object.fromEntries(Object.entries(KIND_ROUTES).map(([k, v]) => 
 
 router.get('/', (req, res) => res.redirect('/belege/rechnungen'));
 
+// Verlauf in Klartext statt technischer Ereignisnamen
+const HISTORY_LABELS = {
+  'angebot.angelegt': 'Angebot angelegt', 'auftrag.angelegt': 'Auftragsbestätigung angelegt', 'rechnung.angelegt': 'Rechnung angelegt',
+  'beleg.geaendert': 'Geändert', 'beleg.festgeschrieben': 'Festgeschrieben', 'beleg.status': 'Status geändert', 'beleg.versendet': 'Per E-Mail versendet',
+  'beleg.umgewandelt': 'Aus Vorgängerbeleg erstellt', 'beleg.dupliziert': 'Als Kopie erstellt', 'beleg.xrechnung_export': 'XRechnung exportiert',
+  'zahlung.erfasst': 'Zahlung erfasst', 'zahlung.geloescht': 'Zahlung entfernt', 'rechnung.gemahnt': 'Mahnung erstellt', 'rechnung.storniert': 'Storniert',
+  'abo.angelegt': 'Wiederkehrende Rechnung eingerichtet',
+};
+
 // ---------- Listen ----------
 router.get('/:kind(angebote|auftraege|rechnungen|stornos)', (req, res) => {
   const kind = KIND_ROUTES[req.params.kind];
@@ -35,6 +44,11 @@ router.get('/:kind(angebote|auftraege|rechnungen|stornos)', (req, res) => {
   if (req.query.von) { where.push('d.issue_date >= ?'); params.push(req.query.von); }
   if (req.query.bis) { where.push('d.issue_date <= ?'); params.push(req.query.bis); }
   const w = where.join(' AND ');
+  // Zähler für die Status-Reiter
+  const counts = Object.fromEntries(db.all('SELECT status, COUNT(*) AS n FROM documents_sales WHERE kind = ? GROUP BY status', kind).map((r) => [r.status, r.n]));
+  counts.alle = Object.values(counts).reduce((a, n) => a + n, 0);
+  if (kind === 'rechnung') counts.ueberfaellig = db.get("SELECT COUNT(*) AS n FROM documents_sales WHERE kind = 'rechnung' AND status IN ('offen','teilbezahlt') AND due_date < ?", today).n;
+  const filtered = !!(req.query.status || req.query.q || req.query.von || req.query.bis);
   const total = db.get(`SELECT COUNT(*) AS n FROM documents_sales d JOIN customers c ON c.id = d.customer_id WHERE ${w}`, ...params).n;
   const p = paginate(total, req.query.page, 30);
   const rows = db.all(
@@ -42,7 +56,7 @@ router.get('/:kind(angebote|auftraege|rechnungen|stornos)', (req, res) => {
      WHERE ${w} ORDER BY d.issue_date DESC, d.id DESC LIMIT ? OFFSET ?`, ...params, p.limit, p.offset,
   );
   const sums = db.get(`SELECT COALESCE(SUM(d.net_total),0) AS net, COALESCE(SUM(d.gross_total),0) AS gross, COALESCE(SUM(d.gross_total - d.paid_total),0) AS open FROM documents_sales d JOIN customers c ON c.id = d.customer_id WHERE ${w}`, ...params);
-  res.render('sales/index', { title: KIND_PLURAL[kind], kind, route: req.params.kind, rows, p, sums, today, statuses: sales.STATUS[kind] });
+  res.render('sales/index', { title: KIND_PLURAL[kind], kind, route: req.params.kind, rows, p, sums, today, counts, filtered, statuses: sales.STATUS[kind] });
 });
 
 // ---------- Neu / Bearbeiten ----------
@@ -76,7 +90,9 @@ function lookups() {
 
 router.get('/:kind(angebote|auftraege|rechnungen)/neu', (req, res) => {
   const kind = KIND_ROUTES[req.params.kind];
-  const d = formData(kind, { customer_id: Number(req.query.kunde) || '', project_id: Number(req.query.projekt) || '' });
+  // Aus einer Anfrage heraus: Betreff als Titel vorbelegen
+  const lead = req.query.anfrage && sec.can(req.user, 'leads') ? db.get('SELECT subject FROM leads WHERE id = ?', Number(req.query.anfrage) || 0) : null;
+  const d = formData(kind, { customer_id: Number(req.query.kunde) || '', project_id: Number(req.query.projekt) || '', title: lead && lead.subject ? lead.subject : undefined });
   res.render('sales/form', { title: `${sales.KIND_LABELS[kind]} erstellen`, d, route: req.params.kind, ...lookups() });
 });
 
@@ -119,7 +135,8 @@ router.get('/:id(\\d+)', wrap((req, res) => {
   const related = db.all('SELECT id, kind, number, status, issue_date FROM documents_sales WHERE ref_id = ? OR id = ?', d.id, d.ref_id || 0);
   const recurring = db.get('SELECT * FROM recurring_invoices WHERE template_id = ?', d.id);
   const history = db.all("SELECT * FROM audit_log WHERE entity = 'document' AND entity_id = ? ORDER BY id DESC LIMIT 30", d.id);
-  res.render('sales/show', { title: `${sales.KIND_LABELS[d.kind]} ${d.number || '(Entwurf)'}`, d, related, recurring, history, route: ROUTE_OF[d.kind], mailEnabled: mailer.enabled(), recipient: sales.recipientFor(d) });
+  const follow = related.filter((r) => r.id !== d.id && r.id !== d.ref_id && r.kind !== 'storno');
+  res.render('sales/show', { title: `${sales.KIND_LABELS[d.kind]} ${d.number || '(Entwurf)'}`, d, related, follow, recurring, history, HISTORY_LABELS, route: ROUTE_OF[d.kind], listTitle: KIND_PLURAL[d.kind], mailEnabled: mailer.enabled(), recipient: sales.recipientFor(d) });
 }));
 
 router.get('/:id(\\d+)/bearbeiten', wrap((req, res) => {
@@ -150,10 +167,12 @@ router.post('/:id(\\d+)/festschreiben', sec.requirePerm('sales.finalize'), wrap(
 router.post('/:id(\\d+)/status', wrap((req, res) => {
   const docId = id(req.params.id);
   const d = db.get('SELECT * FROM documents_sales WHERE id = ?', docId);
+  if (!d) return notFound(res, 'Beleg');
   const allowed = { angebot: ['entwurf', 'versendet', 'angenommen', 'abgelehnt', 'abgelaufen'], auftrag: ['entwurf', 'versendet', 'in_bearbeitung', 'abgeschlossen'] }[d.kind];
   if (!allowed || !allowed.includes(req.body.status)) throw new UserError('Status kann hier nicht gesetzt werden.');
   db.run("UPDATE documents_sales SET status = ?, updated_at = datetime('now') WHERE id = ?", req.body.status, docId);
   audit.log(req, 'beleg.status', 'document', docId, { status: req.body.status });
+  req.flash('success', `Status geändert: ${sales.STATUS_LABELS[req.body.status]}.`);
   res.redirect(`/belege/${docId}`);
 }));
 
@@ -222,13 +241,15 @@ router.post('/:id(\\d+)/zahlungen', sec.requirePerm('payments'), wrap((req, res)
   const docId = id(req.params.id);
   sales.addPayment(docId, { amount: f.parseMoney(req.body.amount), paid_at: req.body.paid_at, method: req.body.method, note: req.body.note }, req.user.id);
   audit.log(req, 'zahlung.erfasst', 'document', docId, { amount: req.body.amount });
-  req.flash('success', 'Zahlung erfasst.');
+  const after = db.get('SELECT status, gross_total - paid_total AS open FROM documents_sales WHERE id = ?', docId);
+  req.flash('success', after.status === 'bezahlt' ? 'Zahlung erfasst. Die Rechnung ist vollständig bezahlt.' : `Zahlung erfasst. Noch offen: ${f.eur(after.open)}.`);
   res.redirect(`/belege/${docId}`);
 }));
 
 router.post('/zahlungen/:pid/loeschen', sec.requirePerm('payments'), wrap((req, res) => {
   const docId = sales.deletePayment(id(req.params.pid));
   audit.log(req, 'zahlung.geloescht', 'document', docId, { payment: req.params.pid });
+  req.flash('success', 'Zahlung entfernt.');
   res.redirect(`/belege/${docId}`);
 }));
 
@@ -259,8 +280,9 @@ router.post('/:id(\\d+)/mahnen', wrap((req, res) => {
   const docId = id(req.params.id);
   const level = sales.createDunning(docId, req.user.id);
   audit.log(req, 'rechnung.gemahnt', 'document', docId, { level });
-  req.flash('success', `Mahnstufe ${level} erstellt.`);
-  res.redirect(`/belege/${docId}`);
+  const nr = db.get('SELECT number FROM documents_sales WHERE id = ?', docId).number;
+  req.flash('success', `Mahnstufe ${level} für ${nr} erstellt. Das Mahnschreiben steht als PDF bereit.`);
+  res.redirect(req.body.back === 'mahnwesen' ? '/belege/mahnwesen' : `/belege/${docId}`);
 }));
 
 // ---------- Wiederkehrende Rechnungen ----------

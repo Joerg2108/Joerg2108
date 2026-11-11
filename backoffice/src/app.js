@@ -35,6 +35,8 @@ function createApp() {
       },
     },
     crossOriginEmbedderPolicy: false,
+    // Referrer nur innerhalb der eigenen Anwendung: nach einem Eingabefehler geht es zurück ins Formular statt auf die Startseite
+    referrerPolicy: { policy: 'same-origin' },
   }));
 
   app.use('/static', express.static(path.join(__dirname, '..', 'public'), { maxAge: config.isProd ? '7d' : 0 }));

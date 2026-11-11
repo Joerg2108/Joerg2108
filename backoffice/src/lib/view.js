@@ -54,7 +54,7 @@ const LABELS = {
   laeuft: 'läuft', ob: 'o.B.', vorfall: 'Vorfall', abgebrochen: 'Abgebrochen',
   verfuegbar: 'Verfügbar', im_einsatz: 'Im Einsatz', werkstatt: 'Werkstatt', stillgelegt: 'Stillgelegt',
   in_bearbeitung: 'In Bearbeitung', rundgang: 'Rundgang', kontrollpunkt: 'Kontrollpunkt', vorkommnis: 'Vorkommnis', notiz: 'Notiz',
-  mittel: 'Mittel',
+  mittel: 'Mittel', anruf: 'Anruf', email: 'E-Mail', termin: 'Termin', besuch: 'Besuch',
   // Vorfall-Kategorien
   diebstahl: 'Diebstahl', sachbeschaedigung: 'Sachbeschädigung', ruhestoerung: 'Ruhestörung', hausverbot: 'Hausverbot',
   koerperverletzung: 'Körperverletzung', brand: 'Brand', notfall: 'Medizinischer Notfall', defekt: 'Technischer Defekt',

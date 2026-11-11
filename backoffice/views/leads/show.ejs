@@ -1,31 +1,67 @@
+<%
+  const KIND = { angebot: 'Angebot', auftrag: 'Auftragsbestätigung', rechnung: 'Rechnung' };
+  const quote = docs.find((x) => x.kind === 'angebot');
+  const invoice = docs.find((x) => x.kind === 'rechnung');
+  const lost = l.status === 'verloren';
+  const steps = [
+    { label: 'Anfrage', state: l.status === 'neu' ? 'current' : 'done', note: h.date(l.created_at) },
+    { label: 'Kontakt', state: l.status === 'neu' ? 'todo' : (l.status === 'kontaktiert' ? 'current' : 'done'), note: activities.length ? activities.length + (activities.length === 1 ? ' Eintrag' : ' Einträge') : '' },
+    { label: 'Angebot', state: quote ? (quote.status === 'entwurf' ? 'current' : 'done') : (l.status === 'qualifiziert' ? 'current' : 'todo'), href: quote ? '/belege/' + quote.id : null, note: quote ? (quote.number || 'Entwurf') : '' },
+    { label: 'Gewonnen', state: l.status === 'gewonnen' ? 'done' : 'todo', note: lost ? 'verloren' : '' },
+  ];
+  let next;
+  if (lost) next = { text: 'Diese Anfrage ist als verloren markiert.', done: true };
+  else if (l.status === 'gewonnen') next = invoice ? { text: 'Gewonnen. Abgerechnet wird über die Belege des Kunden.', label: 'Zur Rechnung ' + (invoice.number || '(Entwurf)'), href: '/belege/' + invoice.id, done: true } : { text: 'Gewonnen.', done: true };
+  else if (quote && quote.status === 'entwurf') next = { text: 'Das Angebot ist angelegt, aber noch nicht versendet.', label: 'Angebot fertigstellen', href: '/belege/' + quote.id };
+  else if (quote) next = { text: 'Angebot ' + quote.number + ' liegt beim Kunden. Nach der Zusage wird daraus die Rechnung.', label: 'Zum Angebot ' + quote.number, href: '/belege/' + quote.id };
+  else if (l.status === 'neu') next = { text: 'Neu eingegangen und noch unbeantwortet. Halten Sie den ersten Kontakt unten im Verlauf fest – oder erstellen Sie direkt das Angebot.', label: can('sales') ? 'Angebot erstellen' : null, post: '/anfragen/' + l.id + '/angebot' };
+  else next = { text: 'Im Gespräch. Der nächste Schritt ist ein Angebot' + (l.customer_id ? '.' : ' – der Kunde wird dabei automatisch aus der Anfrage angelegt.'), label: can('sales') ? 'Angebot erstellen' : null, post: '/anfragen/' + l.id + '/angebot' };
+%>
+<nav class="crumbs" aria-label="Brotkrumen"><a href="/anfragen" data-back>← Anfragen</a></nav>
 <div class="page-head">
-  <div><h1><%= l.name %> <%- h.badge(l.status) %></h1><div class="sub">Eingang <%= h.dateTime(l.created_at) %> · Quelle: <%= l.source %></div></div>
+  <div><h1><%= l.name %> <%- h.badge(l.status) %></h1><div class="sub"><%= l.company ? l.company + ' · ' : '' %>Eingang <%= h.dateTime(l.created_at) %> über <%= l.source %><%= l.value ? ' · geschätzter Wert ' + h.eur(l.value) : '' %></div></div>
   <div class="actions">
-    <% if (l.customer_id) { %><a class="btn" href="/kunden/<%= l.customer_id %>">Zum Kunden →</a><% } else { %>
-    <form method="post" action="/anfragen/<%= l.id %>/zu-kunde"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn primary">Als Kunde übernehmen</button></form><% } %>
-    <% if (l.customer_id && can('sales')) { %><a class="btn primary" href="/belege/angebote/neu?kunde=<%= l.customer_id %>">Angebot erstellen</a><% } %>
     <a class="btn" href="/anfragen/<%= l.id %>/bearbeiten">Bearbeiten</a>
-    <form method="post" action="/anfragen/<%= l.id %>/loeschen" data-confirm="Anfrage löschen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn danger">Löschen</button></form>
+    <details class="dropdown"><summary class="btn">Weitere Aktionen ▾</summary>
+      <div class="menu-pop">
+        <% if (!l.customer_id) { %><form method="post" action="/anfragen/<%= l.id %>/zu-kunde"><input type="hidden" name="_csrf" value="<%= csrf %>"><button>Nur als Kunde übernehmen</button></form><% } %>
+        <% for (const st of STATUSES) { if (st === l.status) continue; %><form method="post" action="/anfragen/<%= l.id %>/status"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="status" value="<%= st %>"><button>Status: <%= h.label(st) %></button></form><% } %>
+        <form method="post" action="/anfragen/<%= l.id %>/loeschen" data-confirm="Anfrage löschen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="neg">Löschen</button></form>
+      </div>
+    </details>
   </div>
 </div>
+
+<%- include('../partials/steps', { steps }) %>
+
+<section class="next-step <%= next.done ? 'done' : '' %>" aria-label="Nächster Schritt">
+  <div><span class="next-label"><%= next.done ? 'Stand' : 'Nächster Schritt' %></span><p><%= next.text %></p></div>
+  <div class="actions">
+    <% if (!next.done && l.status !== 'verloren') { %><form method="post" action="/anfragen/<%= l.id %>/status"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="status" value="verloren"><button class="btn">Kein Interesse</button></form><% } %>
+    <% if (quote && !['gewonnen', 'verloren'].includes(l.status)) { %><form method="post" action="/anfragen/<%= l.id %>/status"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="status" value="gewonnen"><button class="btn">Als gewonnen markieren</button></form><% } %>
+    <% if (next.label && next.post) { %><form method="post" action="<%= next.post %>"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn primary"><%= next.label %></button></form>
+    <% } else if (next.label) { %><a class="btn <%= next.done ? '' : 'primary' %>" href="<%= next.href %>"><%= next.label %></a><% } %>
+  </div>
+</section>
+
 <div class="grid side">
   <div>
     <div class="card">
       <h2><%= l.subject || 'Anfrage' %></h2>
-      <p style="white-space:pre-line"><%= l.message || '–' %></p>
+      <p class="pre"><%= l.message || 'Keine Nachricht hinterlegt.' %></p>
     </div>
     <div class="card">
       <h2>Verlauf &amp; Notizen</h2>
       <form method="post" action="/anfragen/<%= l.id %>/notiz" class="form-grid">
         <input type="hidden" name="_csrf" value="<%= csrf %>">
         <%- h.select('type', 'Art', 'anruf', { notiz: 'Notiz', anruf: 'Anruf', email: 'E-Mail', termin: 'Termin', besuch: 'Besuch' }, { cls: 'span-3' }) %>
-        <%- h.input('subject', 'Betreff', '', { required: true, cls: 'span-9' }) %>
+        <%- h.input('subject', 'Was ist passiert?', '', { required: true, cls: 'span-9', placeholder: 'z. B. Rückruf, Termin vereinbart' }) %>
         <%- h.input('body', 'Details', '', { type: 'textarea', rows: 2, cls: 'span-12' }) %>
         <div class="span-12"><button class="btn">Eintragen</button></div>
       </form>
       <hr>
-      <ul class="timeline"><% for (const a of activities) { %><li><strong><%= a.subject %></strong> <span class="tag"><%= a.type %></span><br><small><%= h.dateTime(a.created_at) %> · <%= a.user_name %></small><% if (a.body) { %><div><%= a.body %></div><% } %></li><% } %>
-      <% if (!activities.length) { %><li class="muted">Noch keine Einträge.</li><% } %></ul>
+      <ul class="timeline"><% for (const a of activities) { %><li><strong><%= a.subject %></strong> <span class="tag"><%= h.label(a.type) %></span><br><small><%= h.dateTime(a.created_at) %> · <%= a.user_name %></small><% if (a.body) { %><div><%= a.body %></div><% } %></li><% } %>
+      <li>Anfrage eingegangen<br><small><%= h.dateTime(l.created_at) %> · <%= l.source %></small></li></ul>
     </div>
   </div>
   <div>
@@ -35,17 +71,19 @@
         <% if (l.company) { %><dt>Firma</dt><dd><%= l.company %></dd><% } %>
         <% if (l.email) { %><dt>E-Mail</dt><dd><a href="mailto:<%= l.email %>?subject=<%= encodeURIComponent('Re: ' + (l.subject || 'Ihre Anfrage')) %>"><%= l.email %></a></dd><% } %>
         <% if (l.phone) { %><dt>Telefon</dt><dd><a href="tel:<%= l.phone %>"><%= l.phone %></a></dd><% } %>
-        <dt>Wert</dt><dd><%= l.value ? h.eur(l.value) : '–' %></dd>
+        <% if (customer) { %><dt>Kunde</dt><dd><a href="/kunden/<%= customer.id %>"><%= h.customerName(customer) %></a> <span class="mono muted"><%= customer.number %></span></dd><% } %>
         <dt>Einwilligung</dt><dd><%= l.consent ? 'Datenschutz akzeptiert' : '–' %></dd>
       </dl>
     </div>
+    <% if (docs.length) { %>
     <div class="card">
-      <h2>Status ändern</h2>
-      <div class="actions">
-        <% for (const st of STATUSES) { %>
-          <form method="post" action="/anfragen/<%= l.id %>/status"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="status" value="<%= st %>"><button class="btn sm <%= l.status === st ? 'primary' : '' %>"><%= h.label(st) %></button></form>
+      <h2>Belege des Kunden</h2>
+      <ul class="plain-list">
+        <% for (const x of docs) { const over = x.kind === 'rechnung' && ['offen', 'teilbezahlt'].includes(x.status) && x.due_date && x.due_date < today; %>
+        <li><a href="/belege/<%= x.id %>"><%= KIND[x.kind] %> <span class="mono"><%= x.number || '(Entwurf)' %></span></a> <%- over ? h.badge('ueberfaellig') : h.badge(x.status) %><small><%= h.date(x.issue_date) %> · <%= h.eur(x.gross_total) %></small></li>
         <% } %>
-      </div>
+      </ul>
     </div>
+    <% } %>
   </div>
 </div>

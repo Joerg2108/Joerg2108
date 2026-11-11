@@ -3,34 +3,66 @@
   const locked = d.finalized_at && ['rechnung', 'storno'].includes(d.kind);
   const fees = d.dunnings.reduce((a, x) => a + x.fee, 0);
 %>
+<%
+  // ---- Vorgangsleiste: Angebot → Auftrag → Rechnung → Zahlung ----
+  const KINDS = ['angebot', 'auftrag', 'rechnung'];
+  const idx = KINDS.indexOf(d.kind);
+  const rel = (k) => related.find((r) => r.kind === k && r.id !== d.id);
+  const invoice = d.kind === 'rechnung' ? d : rel('rechnung');
+  const steps = d.kind === 'storno' ? [] : ['Angebot', 'Auftrag', 'Rechnung'].map((lbl, i) => {
+    const other = rel(KINDS[i]);
+    if (i === idx) {
+      const done = (d.kind === 'angebot' && d.status === 'angenommen') || (d.kind === 'auftrag' && (d.status === 'abgeschlossen' || invoice)) || (d.kind === 'rechnung' && d.finalized_at);
+      return { label: lbl, state: done ? 'done' : 'current', note: d.number || 'Entwurf' };
+    }
+    if (other) return { label: lbl, state: i < idx || other.status !== 'entwurf' ? 'done' : 'current', href: '/belege/' + other.id, note: other.number || 'Entwurf' };
+    return { label: lbl, state: 'todo', note: i < idx ? 'übersprungen' : '' };
+  });
+  if (steps.length) steps.push({ label: 'Zahlung', state: invoice && invoice.status === 'bezahlt' ? 'done' : (d.kind === 'rechnung' && ['offen', 'teilbezahlt'].includes(d.status) ? 'current' : 'todo'), note: d.kind === 'rechnung' && d.paid_total ? h.eur(d.paid_total) + ' erhalten' : '' });
+
+  // ---- Nächster Schritt: genau eine Hauptaktion je Zustand ----
+  const post = (action, fields = {}) => ({ action: '/belege/' + d.id + action, fields });
+  let next = null;
+  if (d.kind === 'angebot') {
+    if (d.status === 'entwurf') next = recipient
+      ? { text: 'Dieses Angebot ist noch nicht beim Kunden.', label: 'Angebot per E-Mail senden', form: post('/senden', { to: recipient }), alt: [{ label: 'Als versendet markieren', form: post('/status', { status: 'versendet' }) }] }
+      : { text: 'Dieses Angebot ist noch nicht beim Kunden. Beim Kunden ist keine E-Mail-Adresse hinterlegt.', label: 'Als versendet markieren', form: post('/status', { status: 'versendet' }) };
+    else if (d.status === 'versendet') next = { text: 'Das Angebot liegt beim Kunden' + (d.valid_until ? ' und ist bis ' + h.date(d.valid_until) + ' gültig' : '') + '. Hat er zugesagt?', label: 'Angenommen – Rechnung erstellen', form: post('/umwandeln', { target: 'rechnung' }), alt: [{ label: 'Auftragsbestätigung erstellen', form: post('/umwandeln', { target: 'auftrag' }) }, { label: 'Abgelehnt', form: post('/status', { status: 'abgelehnt' }) }] };
+    else if (d.status === 'angenommen' && !follow.length) next = { text: 'Der Kunde hat zugesagt. Die Leistung ist noch nicht abgerechnet.', label: 'Rechnung erstellen', form: post('/umwandeln', { target: 'rechnung' }), alt: [{ label: 'Auftragsbestätigung erstellen', form: post('/umwandeln', { target: 'auftrag' }) }] };
+    else if (d.status === 'angenommen') next = { text: 'Angenommen. Weiter geht es im Folgebeleg.', label: (follow[0].kind === 'rechnung' ? 'Zur Rechnung ' : 'Zur Auftragsbestätigung ') + (follow[0].number || '(Entwurf)'), href: '/belege/' + follow[0].id };
+  } else if (d.kind === 'auftrag') {
+    if (invoice) next = { text: 'Dieser Auftrag ist bereits abgerechnet.', label: 'Zur Rechnung ' + (invoice.number || '(Entwurf)'), href: '/belege/' + invoice.id };
+    else next = { text: 'Ist die Leistung erbracht, wird aus dem Auftrag die Rechnung.', label: 'Rechnung erstellen', form: post('/umwandeln', { target: 'rechnung' }) };
+  } else if (d.kind === 'rechnung') {
+    if (!d.finalized_at) next = can('sales.finalize')
+      ? { text: 'Entwurf. Erst mit dem Festschreiben erhält die Rechnung ihre Nummer und ist unveränderlich (GoBD).', label: 'Festschreiben', form: post('/festschreiben'), confirm: 'Rechnung festschreiben? Danach ist sie unveränderlich und erhält ihre endgültige Nummer (GoBD).', alt: [{ label: 'Bearbeiten', href: '/belege/' + d.id + '/bearbeiten' }] }
+      : { text: 'Entwurf. Das Festschreiben übernimmt die Buchhaltung oder Geschäftsführung.' };
+    else if (d.overdue && d.dunning_level < 3) next = { text: 'Seit ' + h.date(d.due_date) + ' überfällig, offen sind ' + h.eur(d.open_amount) + (d.dunning_level ? '. Zuletzt gemahnt mit Stufe ' + d.dunning_level + '.' : '. Noch nicht gemahnt.'), label: 'Mahnung erstellen (Stufe ' + (d.dunning_level + 1) + ')', form: post('/mahnen'), confirm: 'Mahnstufe ' + (d.dunning_level + 1) + ' erstellen?', alt: can('payments') ? [{ label: 'Zahlung erfassen', href: '#zahlungen' }] : [], tone: 'red' };
+    else if (['offen', 'teilbezahlt'].includes(d.status) && !d.sent_at && recipient) next = { text: 'Festgeschrieben, aber noch nicht versendet. Fällig am ' + h.date(d.due_date) + '.', label: 'Rechnung per E-Mail senden', form: post('/senden', { to: recipient }), alt: can('payments') ? [{ label: 'Zahlung erfassen', href: '#zahlungen' }] : [] };
+    else if (['offen', 'teilbezahlt'].includes(d.status)) next = { text: 'Offen sind ' + h.eur(d.open_amount) + (d.overdue ? ', überfällig seit ' : ', fällig am ') + h.date(d.due_date) + '.', label: can('payments') ? 'Zahlung erfassen' : null, href: '#zahlungen', tone: d.overdue ? 'red' : '' };
+    else if (d.status === 'bezahlt') next = { text: 'Vollständig bezahlt. Dieser Vorgang ist abgeschlossen.', done: true };
+  }
+%>
+<nav class="crumbs" aria-label="Brotkrumen"><a href="/belege/<%= route %>" data-back>← <%= listTitle %></a></nav>
 <div class="page-head">
   <div>
     <h1><%= label %> <span class="mono"><%= d.number || '(Entwurf)' %></span> <%- d.overdue ? h.badge('ueberfaellig') : h.badge(d.status) %></h1>
-    <div class="sub"><a href="/kunden/<%= d.customer_id %>"><%= d.snapshot.name %></a> · <%= h.date(d.issue_date) %><% if (locked) { %> · 🔒 festgeschrieben am <%= h.dateTime(d.finalized_at) %><% } %></div>
+    <div class="sub"><a href="/kunden/<%= d.customer_id %>"><%= d.snapshot.name %></a> · <%= h.date(d.issue_date) %> · <strong><%= h.eur(d.gross_total) %></strong><% if (locked) { %> · festgeschrieben am <%= h.dateTime(d.finalized_at) %><% } %></div>
   </div>
   <div class="actions">
-    <a class="btn" href="/belege/<%= d.id %>/pdf" target="_blank">PDF ansehen</a>
-    <a class="btn" href="/belege/<%= d.id %>/pdf?download=1">PDF ⤓</a>
-    <% if (locked) { %><a class="btn" href="/belege/<%= d.id %>/xrechnung.xml" title="E-Rechnung nach EN 16931">XRechnung ⤓</a><% } %>
-    <% if (!locked) { %><a class="btn" href="/belege/<%= d.id %>/bearbeiten">Bearbeiten</a><% } %>
-    <% if (d.kind === 'rechnung' && !d.finalized_at && can('sales.finalize')) { %>
-      <form method="post" action="/belege/<%= d.id %>/festschreiben" data-confirm="Rechnung festschreiben? Danach ist sie unveränderlich und erhält ihre endgültige Nummer (GoBD)."><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn primary">🔒 Festschreiben</button></form>
-    <% } %>
-    <details class="dropdown"><summary class="btn">Aktionen ▾</summary>
+    <a class="btn" href="/belege/<%= d.id %>/pdf" target="_blank" rel="noopener">PDF ansehen</a>
+    <details class="dropdown"><summary class="btn">Weitere Aktionen ▾</summary>
       <div class="menu-pop">
+        <a href="/belege/<%= d.id %>/pdf?download=1">PDF herunterladen</a>
+        <% if (locked) { %><a href="/belege/<%= d.id %>/xrechnung.xml" title="E-Rechnung nach EN 16931">XRechnung herunterladen</a><% } %>
+        <% if (!locked) { %><a href="/belege/<%= d.id %>/bearbeiten">Bearbeiten</a><% } %>
         <% if (d.kind === 'angebot') { %>
-          <form method="post" action="/belege/<%= d.id %>/umwandeln"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="target" value="auftrag"><button>→ Auftragsbestätigung erstellen</button></form>
-          <form method="post" action="/belege/<%= d.id %>/umwandeln"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="target" value="rechnung"><button>→ Rechnung erstellen</button></form>
-          <% for (const st of ['versendet', 'angenommen', 'abgelehnt']) { %><form method="post" action="/belege/<%= d.id %>/status"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="status" value="<%= st %>"><button>Status: <%= h.label(st) %></button></form><% } %>
+          <% for (const st of ['versendet', 'angenommen', 'abgelehnt']) { if (st === d.status) continue; %><form method="post" action="/belege/<%= d.id %>/status"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="status" value="<%= st %>"><button>Status: <%= h.label(st) %></button></form><% } %>
         <% } %>
         <% if (d.kind === 'auftrag') { %>
-          <form method="post" action="/belege/<%= d.id %>/umwandeln"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="target" value="rechnung"><button>→ Rechnung erstellen</button></form>
-          <% for (const st of ['in_bearbeitung', 'abgeschlossen']) { %><form method="post" action="/belege/<%= d.id %>/status"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="status" value="<%= st %>"><button>Status: <%= h.label(st) %></button></form><% } %>
+          <% for (const st of ['in_bearbeitung', 'abgeschlossen']) { if (st === d.status) continue; %><form method="post" action="/belege/<%= d.id %>/status"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="status" value="<%= st %>"><button>Status: <%= h.label(st) %></button></form><% } %>
         <% } %>
         <form method="post" action="/belege/<%= d.id %>/duplizieren"><input type="hidden" name="_csrf" value="<%= csrf %>"><button>Duplizieren</button></form>
-        <% if (d.kind === 'rechnung' && locked && ['offen', 'teilbezahlt'].includes(d.status)) { %>
-          <form method="post" action="/belege/<%= d.id %>/mahnen" data-confirm="Nächste Mahnstufe erzeugen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button>Mahnung erstellen (Stufe <%= Math.min(d.dunning_level + 1, 3) %>)</button></form>
-        <% } %>
         <% if (d.kind === 'rechnung' && locked && d.status !== 'storniert' && can('sales.finalize')) { %>
           <form method="post" action="/belege/<%= d.id %>/stornieren" data-confirm="Stornorechnung erzeugen? Die Rechnung wird dadurch vollständig storniert."><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="neg">Stornieren (Stornorechnung)</button></form>
         <% } %>
@@ -41,6 +73,24 @@
     </details>
   </div>
 </div>
+
+<% if (steps.length) { %><%- include('../partials/steps', { steps }) %><% } %>
+
+<% if (next) { %>
+<section class="next-step <%= next.tone || '' %> <%= next.done ? 'done' : '' %>" aria-label="Nächster Schritt">
+  <div><span class="next-label"><%= next.done ? 'Erledigt' : 'Nächster Schritt' %></span><p><%= next.text %></p></div>
+  <div class="actions">
+    <% for (const a of (next.alt || [])) { %>
+      <% if (a.href) { %><a class="btn" href="<%= a.href %>"><%= a.label %></a><% } else { %>
+      <form method="post" action="<%= a.form.action %>"><input type="hidden" name="_csrf" value="<%= csrf %>"><% for (const [k, v] of Object.entries(a.form.fields)) { %><input type="hidden" name="<%= k %>" value="<%= v %>"><% } %><button class="btn"><%= a.label %></button></form>
+      <% } %>
+    <% } %>
+    <% if (next.label && next.href) { %><a class="btn primary" href="<%= next.href %>"><%= next.label %></a><% } else if (next.label) { %>
+      <form method="post" action="<%= next.form.action %>"<% if (next.confirm) { %> data-confirm="<%= next.confirm %>"<% } %>><input type="hidden" name="_csrf" value="<%= csrf %>"><% for (const [k, v] of Object.entries(next.form.fields)) { %><input type="hidden" name="<%= k %>" value="<%= v %>"><% } %><button class="btn primary"><%= next.label %></button></form>
+    <% } %>
+  </div>
+</section>
+<% } %>
 
 <div class="grid side">
   <div>
@@ -80,12 +130,12 @@
 
   <div>
     <% if (d.kind === 'rechnung' && locked) { %>
-    <div class="card">
+    <div class="card" id="zahlungen">
       <h2>Zahlungen</h2>
       <% for (const pm of d.payments) { %>
         <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border)">
           <div><strong class="pos"><%= h.eur(pm.amount) %></strong> <span class="small muted">am <%= h.date(pm.paid_at) %> · <%= { ueberweisung: 'Überweisung', bar: 'Bar', karte: 'Karte', paypal: 'PayPal', lastschrift: 'Lastschrift', verrechnung: 'Verrechnung' }[pm.method] || pm.method %><%= pm.note ? ' · ' + pm.note : '' %></span></div>
-          <% if (can('payments')) { %><form method="post" action="/belege/zahlungen/<%= pm.id %>/loeschen" data-confirm="Zahlung entfernen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm ghost">✕</button></form><% } %>
+          <% if (can('payments')) { %><form method="post" action="/belege/zahlungen/<%= pm.id %>/loeschen" data-confirm="Zahlung entfernen?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm ghost" aria-label="Zahlung entfernen">✕</button></form><% } %>
         </div>
       <% } %>
       <% if (!d.payments.length) { %><p class="muted">Noch keine Zahlung erfasst.</p><% } %>
@@ -96,7 +146,7 @@
         <%- h.input('paid_at', 'Datum', h.today(), { type: 'date', required: true }) %>
         <%- h.select('method', 'Zahlungsart', 'ueberweisung', { ueberweisung: 'Überweisung', bar: 'Bar', karte: 'EC/Kreditkarte', paypal: 'PayPal', lastschrift: 'Lastschrift', verrechnung: 'Verrechnung' }) %>
         <%- h.input('note', 'Notiz', '') %>
-        <div class="span-12"><button class="btn primary">Zahlung erfassen</button></div>
+        <div class="span-12"><button class="btn">Zahlung erfassen</button></div>
       </form>
       <% } %>
     </div>
@@ -112,21 +162,21 @@
     <% } %>
 
     <% if (d.finalized_at || !['rechnung', 'storno'].includes(d.kind)) { %>
-    <div class="card">
+    <div class="card" id="senden">
       <h2>Per E-Mail senden</h2>
       <% if (!mailEnabled) { %><p class="alert warning small">SMTP ist nicht eingerichtet – Versand wird nur simuliert. Siehe README → E-Mail.</p><% } %>
       <form method="post" action="/belege/<%= d.id %>/senden" class="form-grid">
         <input type="hidden" name="_csrf" value="<%= csrf %>">
         <%- h.input('to', 'Empfänger', recipient, { type: 'email', multiple: true, required: true, cls: 'span-12', hint: 'Mehrere Adressen mit Komma trennen' }) %>
         <% if (d.kind === 'rechnung') { %><div class="span-12"><%- h.checkbox('xrechnung', 'XRechnung (XML) zusätzlich anhängen', !!d.snapshot.leitweg_id) %></div><% } %>
-        <div class="span-12"><button class="btn primary">Senden</button><% if (d.sent_at) { %> <span class="small muted">zuletzt versendet <%= h.dateTime(d.sent_at) %></span><% } %></div>
+        <div class="span-12"><button class="btn">Senden</button><% if (d.sent_at) { %> <span class="small muted">zuletzt versendet <%= h.dateTime(d.sent_at) %></span><% } %></div>
       </form>
     </div>
     <% } %>
 
     <% if (d.kind === 'rechnung') { %>
-    <div class="card">
-      <h2>Wiederkehrend</h2>
+    <details class="card"<%= recurring ? ' open' : '' %>>
+      <summary>Wiederkehrende Rechnung<%= recurring ? '' : ' einrichten' %></summary>
       <% if (recurring) { %>
         <p>Diese Rechnung dient als Vorlage: <strong><%= recurring.interval %></strong>, nächste am <strong><%= h.date(recurring.next_date) %></strong><%= recurring.end_date ? ', endet ' + h.date(recurring.end_date) : '' %>. <%- recurring.active ? h.badge('aktiv') : h.badge('pausiert') %></p>
         <form method="post" action="/belege/wiederkehrend/<%= recurring.id %>/umschalten" class="inline-form"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn sm"><%= recurring.active ? 'Pausieren' : 'Aktivieren' %></button></form>
@@ -142,7 +192,7 @@
         <div class="span-12"><button class="btn">Einrichten</button></div>
       </form>
       <% } %>
-    </div>
+    </details>
     <% } %>
 
     <% if (related.length) { %>
@@ -152,7 +202,10 @@
     <% } %>
 
     <div class="card"><h2>Verlauf</h2>
-      <ul class="timeline"><% for (const a of history) { %><li><%= a.action %><br><small><%= h.dateTime(a.created_at) %> · <%= a.user_name %></small></li><% } %></ul>
+      <ul class="timeline">
+        <% for (const a of history) { %><li><%= HISTORY_LABELS[a.action] || a.action %><br><small><%= h.dateTime(a.created_at) %> · <%= a.user_name %></small></li><% } %>
+        <% if (!history.some((a) => /angelegt|umgewandelt|dupliziert/.test(a.action))) { %><li>Angelegt<br><small><%= h.dateTime(d.created_at) %></small></li><% } %>
+      </ul>
     </div>
   </div>
 </div>

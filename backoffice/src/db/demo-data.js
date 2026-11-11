@@ -127,6 +127,8 @@ function seed({ adminEmail, password = PASSWORD } = {}) {
   for (const [name, company, email, subject, message, status, value, d] of leads) {
     db.run("INSERT INTO leads (name, company, email, subject, message, status, value, source, consent, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, 'website', 1, datetime('now', ?))", name, company, email, subject, message, status, value, `-${d} days`);
   }
+  // Anfragen, aus denen bereits Kunden wurden, mit diesen verknüpfen – so zeigt die Anfrage ihre Angebote und Rechnungen
+  db.run("UPDATE leads SET customer_id = (SELECT c.id FROM customers c WHERE lower(c.email) = lower(leads.email)) WHERE status IN ('qualifiziert', 'gewonnen')");
 
   // Aufgaben, Termine, Zeiten, Ausgaben
   const task = (title, status, priority, due, proj, user) => db.run('INSERT INTO tasks (title, status, priority, due_date, project_id, assigned_to, created_by) VALUES (?, ?, ?, ?, ?, ?, ?)', title, status, priority, due, proj, user, admin);

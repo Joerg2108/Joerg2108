@@ -135,3 +135,86 @@ test('Demo: Anmeldeseite zeigt die Leistungen des Back Office', async () => {
   assert.match(html, /Back Office für Dienstleistungsunternehmen/);
   assert.match(html, /Dienstplan &amp; Einsatzplanung/);
 });
+
+test('Übersicht: „Heute zu tun“ listet nur Vorgänge mit Handlung, je Rolle passend', async () => {
+  const c = client(base);
+  await c.login(chefin.email, demoData.PASSWORD);
+  const dash = await (await c.req('/')).text();
+  assert.match(dash, /Heute zu tun/);
+  for (const kind of ['Rechnung überfällig', 'Neue Anfrage', 'Angebot angenommen', 'Rechnung im Entwurf', 'Angebot im Entwurf']) assert.match(dash, new RegExp(kind), kind);
+  assert.match(dash, /Mahnen/);
+  // Die Monatspauschale ist Vorlage einer wiederkehrenden Rechnung und kein offener Entwurf
+  assert.doesNotMatch(dash, /Website-Pflege Monatspauschale/);
+
+  const m = client(base);
+  await m.login(mitarbeiter.email, demoData.PASSWORD);
+  const own = await (await m.req('/')).text();
+  // Mitarbeiter bearbeiten Anfragen, sehen aber keine Rechnungen und Angebote
+  assert.match(own, /Neue Anfrage/);
+  assert.doesNotMatch(own, /Rechnung überfällig|Angebot angenommen|Rechnung im Entwurf|Offene Posten/);
+  assert.match(own, /Meine Aufgaben/);
+});
+
+test('Anfrage → Angebot in einem Schritt: Kunde wird angelegt, Betreff übernommen', async () => {
+  const c = client(base);
+  await c.login(chefin.email, demoData.PASSWORD);
+  const lead = db.get("SELECT * FROM leads WHERE name = 'Andrea Hoffmann'");
+  const before = db.get('SELECT COUNT(*) AS n FROM customers').n;
+  const page = await (await c.req(`/anfragen/${lead.id}`)).text();
+  assert.match(page, /Nächster Schritt/);
+  assert.match(page, /Angebot erstellen/);
+  const r = await c.req(`/anfragen/${lead.id}/angebot`, { method: 'POST', body: new URLSearchParams({ _csrf: await c.csrf('/') }) });
+  assert.equal(r.status, 302);
+  const after = db.get('SELECT * FROM leads WHERE id = ?', lead.id);
+  assert.ok(after.customer_id, 'Anfrage ist mit einem Kunden verknüpft');
+  assert.equal(after.status, 'qualifiziert');
+  assert.equal(db.get('SELECT COUNT(*) AS n FROM customers').n, before + 1);
+  assert.equal(r.headers.get('location'), `/belege/angebote/neu?kunde=${after.customer_id}&anfrage=${lead.id}`);
+  const form = await (await c.req(r.headers.get('location'))).text();
+  assert.match(form, /value="Wartungsvertrag Haustechnik"/);
+  // Zweiter Aufruf legt keinen zweiten Kunden an
+  await c.req(`/anfragen/${lead.id}/angebot`, { method: 'POST', body: new URLSearchParams({ _csrf: await c.csrf('/') }) });
+  assert.equal(db.get('SELECT COUNT(*) AS n FROM customers').n, before + 1);
+});
+
+test('Anfrage mit bekannter E-Mail-Adresse wird mit dem bestehenden Kunden verknüpft', async () => {
+  const c = client(base);
+  await c.login(chefin.email, demoData.PASSWORD);
+  const existing = db.get("SELECT id FROM customers WHERE company = 'Café Morgenrot'");
+  const id = Number(db.run("INSERT INTO leads (name, email, subject, status, source, consent) VALUES ('Klaus Krume', 'HALLO@cafe-morgenrot.example', 'Mehr Reichweite', 'neu', 'website', 1)").lastInsertRowid);
+  const before = db.get('SELECT COUNT(*) AS n FROM customers').n;
+  await c.req(`/anfragen/${id}/angebot`, { method: 'POST', body: new URLSearchParams({ _csrf: await c.csrf('/') }) });
+  assert.equal(db.get('SELECT customer_id FROM leads WHERE id = ?', id).customer_id, existing.id);
+  assert.equal(db.get('SELECT COUNT(*) AS n FROM customers').n, before);
+});
+
+test('Beleg: Vorgangsleiste und genau eine Hauptaktion je Zustand', async () => {
+  const c = client(base);
+  await c.login(chefin.email, demoData.PASSWORD);
+  const primary = (html) => (html.match(/<section class="next-step[\s\S]*?<\/section>/) || [''])[0].match(/class="btn primary"[^>]*>([^<]+)</g) || [];
+  const quote = db.get("SELECT id FROM documents_sales WHERE kind = 'angebot' AND status = 'versendet'");
+  const q = await (await c.req(`/belege/${quote.id}`)).text();
+  assert.match(q, /class="steps"/);
+  assert.equal(primary(q).length, 1);
+  assert.match(primary(q)[0], /Angenommen – Rechnung erstellen/);
+  const overdue = db.get("SELECT id FROM documents_sales WHERE kind = 'rechnung' AND status = 'teilbezahlt'");
+  const o = await (await c.req(`/belege/${overdue.id}`)).text();
+  assert.equal(primary(o).length, 1);
+  assert.match(primary(o)[0], /Mahnung erstellen \(Stufe 2\)/);
+  const paid = db.get("SELECT id FROM documents_sales WHERE kind = 'rechnung' AND status = 'bezahlt'");
+  const p = await (await c.req(`/belege/${paid.id}`)).text();
+  assert.equal(primary(p).length, 0);
+  assert.match(p, /Vollständig bezahlt/);
+});
+
+test('Listen: leere Suche zeigt den Weg zurück, Statuswechsel wird bestätigt', async () => {
+  const c = client(base);
+  await c.login(chefin.email, demoData.PASSWORD);
+  const empty = await (await c.req('/belege/rechnungen?status=offen&q=gibtsnicht')).text();
+  assert.match(empty, /Für „gibtsnicht“ gibt es keinen Treffer im Status „Offen“/);
+  assert.match(empty, /In allen Rechnungen suchen/);
+  assert.match(empty, /Alle Rechnungen anzeigen/);
+  const quote = db.get("SELECT id FROM documents_sales WHERE kind = 'angebot' AND status = 'entwurf'");
+  await c.req(`/belege/${quote.id}/status`, { method: 'POST', body: new URLSearchParams({ _csrf: await c.csrf('/'), status: 'versendet' }) });
+  assert.match(await (await c.req(`/belege/${quote.id}`)).text(), /Status geändert: Versendet\./);
+});

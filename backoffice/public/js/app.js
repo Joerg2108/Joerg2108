@@ -241,6 +241,80 @@
     } catch (err) { /* Zwischenablage nicht verfügbar */ }
   });
 
+  // ---------- Listen: Filter und Position bleiben erhalten ----------
+  // Eine Liste (Kennzeichen data-list) merkt sich ihre Adresse samt Filtern und die Scrollposition.
+  // „← Zurück“-Links (data-back) in der Detailansicht führen genau dorthin zurück.
+  const store = {
+    get(k) { try { return JSON.parse(sessionStorage.getItem(k)); } catch (e) { return null; } },
+    set(k, v) { try { sessionStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* Speicher evtl. blockiert */ } },
+    drop(k) { try { sessionStorage.removeItem(k); } catch (e) { /* ignorieren */ } },
+  };
+  if ($('[data-list]')) {
+    const remember = () => store.set('list:' + location.pathname, { search: location.search, y: window.scrollY });
+    window.addEventListener('pagehide', remember);
+    document.addEventListener('click', (e) => { if (e.target.closest('a, tr[data-href]')) remember(); }, true);
+    const back = store.get('list:restore');
+    if (back && back.path === location.pathname && back.search === location.search) {
+      store.drop('list:restore');
+      requestAnimationFrame(() => window.scrollTo(0, back.y || 0));
+    }
+  }
+  $$('a[data-back]').forEach((a) => {
+    const base = new URL(a.href).pathname;
+    const st = store.get('list:' + base);
+    if (st) a.href = base + (st.search || '');
+    a.addEventListener('click', () => { if (st) store.set('list:restore', { path: base, search: st.search || '', y: st.y || 0 }); });
+  });
+
+  // ---------- Formulare: Eingaben überstehen einen Speicherfehler ----------
+  // Vor dem Absenden werden die Eingaben im Browser zwischengespeichert (nur für diese Sitzung, keine Passwörter).
+  // Kommt die Seite mit einer Fehlermeldung zurück, werden sie wiederhergestellt; nach erfolgreichem Speichern verworfen.
+  const formKey = (form) => 'form:' + location.pathname + ':' + (form.getAttribute('action') || '');
+  const keepable = (el) => el.name && el.name !== '_csrf' && !['password', 'file', 'hidden', 'submit'].includes(el.type);
+  document.addEventListener('submit', (e) => {
+    const form = e.target;
+    const content = $('.content');
+    if (e.defaultPrevented || (form.getAttribute('method') || '').toLowerCase() !== 'post' || !content || !content.contains(form)) return;
+    const data = [];
+    $$('input, select, textarea', form).forEach((el) => { if (keepable(el)) data.push([el.name, el.type === 'checkbox' || el.type === 'radio' ? el.checked : el.value]); });
+    if (data.length > 1) store.set(formKey(form), data);
+  });
+  const hasError = !!$('.alert.error');
+  $$('.content form[method="post"]').forEach((form) => {
+    const key = formKey(form);
+    const data = store.get(key);
+    if (!data) return;
+    store.drop(key);
+    if (!hasError) return;
+    // Belegeditor: fehlende Positionszeilen zuerst wieder anlegen
+    const rows = data.filter(([n]) => n === 'item_name').length;
+    const tbody = $('[data-items-editor] tbody', form);
+    const tplRow = $('#item-template');
+    if (tbody && tplRow) while ($$('tr', tbody).length < rows) tbody.append(tplRow.content.firstElementChild.cloneNode(true));
+    const seen = {};
+    for (const [name, value] of data) {
+      seen[name] = (seen[name] === undefined ? -1 : seen[name]) + 1;
+      const el = $$('[name="' + CSS.escape(name) + '"]', form).filter(keepable)[seen[name]];
+      if (!el) continue;
+      if (el.type === 'checkbox' || el.type === 'radio') el.checked = !!value; else el.value = value;
+    }
+    form.dispatchEvent(new Event('input', { bubbles: true }));
+    $$('.col-pos', form).forEach((td, i) => { td.textContent = i + 1; });
+  });
+
+  // ---------- Rückmeldungen: Meldung in den Blick holen ----------
+  const flashEl = $('[data-flash]');
+  if (flashEl && flashEl.getBoundingClientRect().top < 0) flashEl.scrollIntoView({ block: 'center' });
+
+  // ---------- Sprungziele (z. B. „Zahlung erfassen“): erstes Feld fokussieren ----------
+  const focusTarget = () => {
+    const t = location.hash && document.getElementById(location.hash.slice(1));
+    const field = t && $('input:not([type="hidden"]), select, textarea', t);
+    if (field) { t.scrollIntoView({ block: 'center' }); field.focus({ preventScroll: true }); if (field.select) field.select(); }
+  };
+  window.addEventListener('hashchange', focusTarget);
+  focusTarget();
+
   // ---------- Ganztägig-Schalter im Terminformular ----------
   const allDay = $('[name="all_day"]');
   if (allDay) {

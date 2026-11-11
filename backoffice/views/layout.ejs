@@ -10,9 +10,10 @@
   <script src="/static/js/app.js" defer></script>
 </head>
 <body>
+<a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
 <%
   const nav = [
-    { perm: 'dashboard', href: '/', icon: 'home', label: 'Dashboard', exact: true },
+    { perm: 'dashboard', href: '/', icon: 'home', label: 'Übersicht', exact: true },
     { perm: 'leads', href: '/anfragen', icon: 'inbox', label: 'Anfragen', count: newLeads },
     { perm: 'customers', href: '/kunden', icon: 'users', label: 'Kunden' },
     { section: 'Sicherheitsdienst', perm: 'patrols.view' },
@@ -53,7 +54,7 @@
   const active = (n) => n.exact ? path === n.href : (path === n.href || path.startsWith(n.href + '/')) && !(n.href === '/ausgaben' && path.startsWith('/ausgaben/lieferanten')) && !(n.href === '/dienstplan' && path.startsWith('/dienstplan/auswertung'));
 %>
 <div class="app">
-  <aside class="sidebar" id="sidebar">
+  <aside class="sidebar" id="sidebar" aria-label="Hauptnavigation">
     <a class="brand" href="/">
       <% if (s.logo_file) { %><img src="/logo" alt="<%= s.company_name %>"><% } else { %><span class="brand-mark"><%= (s.company_name || 'B').slice(0, 1) %></span><% } %>
       <span><strong><%= s.company_name %></strong><small><%= s.app_title %></small></span>
@@ -61,7 +62,7 @@
     <nav>
       <% for (const n of nav) { if (!can(n.perm)) continue; %>
         <% if (n.section) { %><div class="nav-section"><%= n.section %></div><% } else { %>
-        <a href="<%= n.href %>" class="<%= active(n) ? 'active' : '' %>"><%- h.icon(n.icon) %><span><%= n.label %></span><% if (n.count) { %><em class="count"><%= n.count %></em><% } %></a>
+        <a href="<%= n.href %>" class="<%= active(n) ? 'active' : '' %>"<%= active(n) ? ' aria-current="page"' : '' %>><%- h.icon(n.icon) %><span><%= n.label %></span><% if (n.count) { %><em class="count"><%= n.count %></em><% } %></a>
         <% } %>
       <% } %>
     </nav>
@@ -71,7 +72,7 @@
       <button class="icon-btn mobile-only" data-toggle="sidebar" aria-label="Menü"><%- h.icon('menu') %></button>
       <form class="search" action="/suche" role="search">
         <%- h.icon('search') %>
-        <input type="search" name="q" placeholder="Suchen … (Strg + K)" autocomplete="off" data-live-search value="<%= query.q && path === '/suche' ? query.q : '' %>">
+        <input type="search" name="q" placeholder="Kunde, Beleg, Anfrage suchen" aria-label="Suche (Strg + K)" autocomplete="off" data-live-search value="<%= query.q && path === '/suche' ? query.q : '' %>">
         <div class="search-results" hidden></div>
       </form>
       <div class="topbar-right">
@@ -84,12 +85,12 @@
               <button class="btn sm danger">Stopp</button>
             </form>
           <% } else { %>
-            <a class="icon-btn" href="/zeiten" title="Zeiterfassung"><%- h.icon('clock') %></a>
+            <a class="icon-btn" href="/zeiten" title="Zeiterfassung" aria-label="Zeiterfassung"><%- h.icon('clock') %></a>
           <% } %>
         <% } %>
-        <a class="icon-btn" href="/benachrichtigungen" title="Benachrichtigungen"><%- h.icon('bell') %><% if (unread) { %><em class="count"><%= unread %></em><% } %></a>
+        <a class="icon-btn" href="/benachrichtigungen" title="Benachrichtigungen" aria-label="Benachrichtigungen<%= unread ? ' (' + unread + ' ungelesen)' : '' %>"><%- h.icon('bell') %><% if (unread) { %><em class="count"><%= unread %></em><% } %></a>
         <details class="menu">
-          <summary class="avatar" title="<%= user.name %>"><%= user.name.split(' ').map((x) => x[0]).join('').slice(0, 2).toUpperCase() %></summary>
+          <summary class="avatar" title="<%= user.name %>" aria-label="Benutzermenü <%= user.name %>"><%= user.name.split(' ').map((x) => x[0]).join('').slice(0, 2).toUpperCase() %></summary>
           <div class="menu-pop">
             <div class="menu-head"><strong><%= user.name %></strong><small><%= user.email %> · <%= ROLE_LABELS[user.role] %></small></div>
             <a href="/profil">Mein Profil & Sicherheit</a>
@@ -100,8 +101,8 @@
       </div>
     </header>
     <%- include('demo-banner') %>
-    <main class="content">
-      <% for (const fl of flash) { %><div class="alert <%= fl.type %>" role="status"><%= fl.msg %></div><% } %>
+    <main class="content" id="inhalt" tabindex="-1">
+      <% for (const fl of flash) { %><div class="alert <%= fl.type %>" role="<%= fl.type === 'error' ? 'alert' : 'status' %>" data-flash><span class="alert-icon" aria-hidden="true"><%= { success: '✓', error: '!', warning: '!', info: 'i' }[fl.type] || 'i' %></span><span><%= fl.msg %></span></div><% } %>
       <%- body %>
     </main>
     <footer class="footer"><%= s.company_name %> · <%= s.app_title %> v1.0</footer>
