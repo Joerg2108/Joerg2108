@@ -123,6 +123,9 @@ export default async function Home({ params }: LocaleParams) {
         </a>
       </section>
 
+      {/* ───── Kunst trifft Sneaker ───── */}
+      <SneakerSection locale={locale} />
+
       {/* ───── Laufband der Disziplinen ───── */}
       <div aria-hidden="true" className="relative overflow-hidden border-y border-line py-6">
         <div className="flex w-max animate-[nc-marquee_40s_linear_infinite] whitespace-nowrap font-display text-4xl italic text-muted sm:text-6xl">
@@ -207,9 +210,6 @@ export default async function Home({ params }: LocaleParams) {
           </div>
         </Container>
       </section>
-
-      {/* ───── Kunst trifft Sneaker ───── */}
-      <SneakerSection locale={locale} />
 
       {/* ───── Leistungen + Atelier-Film ───── */}
       <section id="leistungen" aria-labelledby="leistungen-titel" className="relative py-28 sm:py-40">

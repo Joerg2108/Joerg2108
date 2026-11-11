@@ -67,29 +67,27 @@ export function SneakerSection({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        <ul className="mt-20 grid gap-6 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_0.62fr]">
-          {s.videos.map((label, i) => (
-            <li key={label} data-reveal style={{ ["--i" as string]: i }}>
-              <figure>
-                <video
-                  controls
-                  playsInline
-                  preload="none"
-                  poster={`${IMG}/sneaker-poster-${i + 1}.webp`}
-                  aria-label={label}
-                  className="aspect-[10/7] w-full rounded-[1.5rem] border border-line bg-surface object-cover shadow-[var(--nc-shadow-float)]"
-                >
-                  <source src={`/media/sneaker/sneaker-${i + 1}.mp4`} type="video/mp4" />
-                </video>
-                <figcaption className="kicker mt-4">{label}</figcaption>
-              </figure>
-            </li>
-          ))}
-          <li data-reveal style={{ ["--i" as string]: 2 }} className="hidden lg:block">
-            <div className="relative aspect-[10/11.3] overflow-hidden rounded-[1.5rem] border border-line shadow-[var(--nc-shadow-float)]">
-              <Image src={`${IMG}/sneaker-marker.webp`} alt={s.markerAlt} fill sizes="20vw" className="object-cover" />
-            </div>
-          </li>
+        <ul className="mt-20 grid items-start gap-6 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_0.62fr]">
+          {s.videos.map((label, i) => {
+            const tall = i === 2 // Hochformat-Clip
+            return (
+              <li key={label} data-reveal style={{ ["--i" as string]: i }} className={tall ? "mx-auto w-full max-w-xs sm:col-span-2 lg:col-span-1 lg:max-w-none" : ""}>
+                <figure>
+                  <video
+                    controls
+                    playsInline
+                    preload="none"
+                    poster={`${IMG}/sneaker-poster-${i + 1}.webp`}
+                    aria-label={label}
+                    className={`${tall ? "aspect-[9/16]" : "aspect-[10/7]"} w-full rounded-[1.5rem] border border-line bg-surface object-cover shadow-[var(--nc-shadow-float)]`}
+                  >
+                    <source src={`/media/sneaker/sneaker-${i + 1}.mp4`} type="video/mp4" />
+                  </video>
+                  <figcaption className="kicker mt-4">{label}</figcaption>
+                </figure>
+              </li>
+            )
+          })}
         </ul>
       </Container>
     </section>

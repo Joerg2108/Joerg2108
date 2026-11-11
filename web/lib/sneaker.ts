@@ -19,12 +19,11 @@ export const sneaker: Record<
     whatsappText: string
     flyerAlt: string
     flyerOpen: string
-    videos: [string, string]
-    markerAlt: string
+    videos: string[]
   }
 > = {
   de: {
-    kicker: "Limitierte Edition",
+    kicker: "Zeha Berlin × Michael Fischer-Art · Limitierte Edition",
     title: "Kunst trifft Sneaker.",
     lead: "Handgezeichnetes Design von Michael Fischer-Art: Jeder Sneaker erzählt eine Geschichte und ist ein Unikat. Für alle, die ihren eigenen Weg gehen.",
     features: [
@@ -43,11 +42,10 @@ export const sneaker: Record<
     flyerAlt:
       "Flyer „Michael Fischer-Art – Kunst trifft Sneaker“: weißer High-Top-Sneaker mit handgezeichneten bunten Figuren, limitierte Edition, 599 € inkl. 19 % MwSt.",
     flyerOpen: "Flyer groß ansehen",
-    videos: ["Film: Die Sneaker im Detail", "Film: Die Sneaker getragen"],
-    markerAlt: "Nahaufnahme einer Stiftspitze mit bunten Farbtropfen",
+    videos: ["Film: Die Sneaker im Detail", "Film: Die Sneaker getragen", "Clip: Live bei Breuninger Leipzig, 25.–26.09.2026"],
   },
   en: {
-    kicker: "Limited edition",
+    kicker: "Zeha Berlin × Michael Fischer-Art · Limited edition",
     title: "Art meets sneaker.",
     lead: "Hand-drawn design by Michael Fischer-Art: every sneaker tells a story and is one of a kind. For everyone who goes their own way.",
     features: [
@@ -66,11 +64,10 @@ export const sneaker: Record<
     flyerAlt:
       "Flyer “Michael Fischer-Art – art meets sneaker”: white high-top sneaker with hand-drawn colourful figures, limited edition, €599 incl. 19% VAT.",
     flyerOpen: "View flyer full size",
-    videos: ["Film: the sneakers in detail", "Film: the sneakers worn"],
-    markerAlt: "Close-up of a marker tip with colourful drops of paint",
+    videos: ["Film: the sneakers in detail", "Film: the sneakers worn", "Clip: live at Breuninger Leipzig, 25–26 Sept 2026"],
   },
   zh: {
-    kicker: "限量版",
+    kicker: "Zeha Berlin × Michael Fischer-Art · 限量版",
     title: "艺术遇见球鞋。",
     lead: "Michael Fischer-Art 的手绘设计：每一双球鞋都讲述一个故事，独一无二。献给所有走自己路的人。",
     features: [
@@ -88,7 +85,6 @@ export const sneaker: Record<
     whatsappText: "您好，我对 Michael Fischer-Art 限量版球鞋感兴趣。",
     flyerAlt: "传单“Michael Fischer-Art——艺术遇见球鞋”：白色高帮球鞋，手绘彩色图案，限量版，599 欧元（含 19% 增值税）。",
     flyerOpen: "查看大图",
-    videos: ["影片：球鞋细节", "影片：上脚效果"],
-    markerAlt: "马克笔笔尖与彩色颜料滴的特写",
+    videos: ["影片：球鞋细节", "影片：上脚效果", "短片：莱比锡 Breuninger 现场活动，2026 年 9 月 25–26 日"],
   },
 }
