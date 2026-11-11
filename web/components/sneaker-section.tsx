@@ -67,11 +67,13 @@ export function SneakerSection({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        <ul className="mt-20 grid items-start gap-6 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_0.62fr]">
-          {s.videos.map((label, i) => {
+        <ul className="mt-20 grid items-start gap-6 sm:grid-cols-2 lg:grid-cols-[1fr_0.62fr_1fr]">
+          {/* Reihenfolge: Detailfilm · Breuninger-Clip (Hochformat, Mitte) · Tragefilm */}
+          {[0, 2, 1].map((i, pos) => {
+            const label = s.videos[i]
             const tall = i === 2 // Hochformat-Clip
             return (
-              <li key={label} data-reveal style={{ ["--i" as string]: i }} className={tall ? "mx-auto w-full max-w-xs sm:col-span-2 lg:col-span-1 lg:max-w-none" : ""}>
+              <li key={label} data-reveal style={{ ["--i" as string]: pos }} className={tall ? "mx-auto w-full max-w-xs sm:order-last sm:col-span-2 lg:order-none lg:col-span-1 lg:max-w-none" : ""}>
                 <figure>
                   <video
                     controls
