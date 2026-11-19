@@ -64,6 +64,18 @@ export ECC_DISABLED_HOOKS="pre:bash:tmux-reminder,post:edit:typecheck"
 ./install.sh --target claude --modules hooks-runtime --enable-hooks --dry-run
 ```
 
+## Audit, Teil 2: Installer, Python-Hook, MCP-Configs
+
+| Bereich | Befund |
+|---|---|
+| Offizieller Installer (`scripts/lib/install/*`) | Schreibt atomar mit Lock und Ownership-Guard und fasst nur ECC-eigene Einträge an. **Auffällig:** `apply.js` setzt in deiner `settings.json` die Commit-Attribution auf *deaktiviert*, wenn du noch keine explizite Einstellung hast. Das beeinflusst, ob Claude Co-Authored-By-Zeilen schreibt. Mein `install-lean.sh` umgeht den Installer und ist davon nicht betroffen. |
+| `insaits-security-monitor.py` | 269 Zeilen, nur Standardbibliothek (hashlib, json, os, sys, time, logging). Kein Netzwerk, kein subprocess, kein eval. Autor ist ein Dritter (InsAIts/YuyAI). |
+| Netzwerk in `scripts/` | Ausgehend nur `mcp-health-check.js` (prüft deine eigenen MCP-Server) und `nasiko-release.js` (festes Ziel `registry.nasiko.dev`, nur für `scripts/nasiko.js`, kein Hook). |
+| Meine 21 Skills | Einziger Treffer auf riskante Muster: `tdd-workflow/SKILL.md` erwähnt `curl ... \| sh` als Beispiel, das *abgelehnt* werden soll. Harmlos. |
+| `mcp-configs/mcp-servers.json` | **Nicht installiert**, aber als Vorlage dabei: 18 Server starten per `npx -y` (lädt und führt Pakete aus dem Netz aus), 2 per `uvx`. Nur einzeln und mit festgepinnter Version übernehmen. |
+
+Nicht geprüft: die Inhalte aller übrigen ~300 Skills, die Agents im Detail und die npm-Pakete `ecc-universal` und `ecc-agentshield`. Dein Setup nutzt davon nichts, solange du nur `install-lean.sh` verwendest.
+
 ## CLAUDE.md-Vorlage (global: `~/.claude/CLAUDE.md`)
 
 ```markdown
