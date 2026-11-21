@@ -1170,5 +1170,1608 @@
       "hinweis": "Zum Beitrag ↗",
       "projekt": ""
     }
+  },
+  {
+    "id": "B15",
+    "thema": "Rechnung in einer Minute",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office",
+        "headline": "Eine Rechnung.",
+        "akzent": "In einer Minute.",
+        "text": "Wie aus Ihrem Leistungskatalog eine fertige Rechnung mit XRechnung und GiroCode wird.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Heute",
+        "headline": "Vorlage öffnen, Preise suchen, abtippen.",
+        "akzent": "",
+        "text": "Dann noch Nummer prüfen, als PDF speichern, per Mail verschicken. Für jede einzelne Rechnung.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Im Back Office",
+        "headline": "Vier Schritte",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Kunde wählen",
+          "Leistungen aus dem Katalog anklicken",
+          "Festschreiben",
+          "PDF mit GiroCode und XRechnung versenden"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Alle Rechnungen im Blick",
+        "headline": "Entwurf, offen, bezahlt.",
+        "akzent": "",
+        "text": "Überfälliges sehen Sie sofort, mit offenem Betrag.",
+        "punkte": [],
+        "projekt": "bo-rechnungen"
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Schreiben Sie eine Rechnung.",
+        "akzent": "Ohne Anmeldung.",
+        "text": "Live-Demo ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Eine Rechnung in einer Minute. Klingt nach Werbung, ist aber einfach ein guter Ablauf.\n\nKunde wählen, Leistungen aus Ihrem eigenen Katalog anklicken, festschreiben. Das Back Office vergibt die Nummer, erzeugt das PDF mit GiroCode und die XRechnung dazu. Per E-Mail geht sie direkt raus.\n\nKein Abtippen von Preisen, keine Vorlage, die jemand aus Versehen überschrieben hat. Und in der Übersicht sehen Sie sofort, welche Rechnung offen, bezahlt oder überfällig ist.\n\nTesten Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#backoffice",
+      "#rechnungen",
+      "#buchhaltung",
+      "#kleinunternehmen",
+      "#selbstständig",
+      "#digitalisierung",
+      "#büroorganisation",
+      "#dienstleister",
+      "#rechnungschreiben",
+      "#erechnung",
+      "#xrechnung"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold: Eine Rechnung in einer Minute im Back Office, mit den vier Schritten und einem Screenshot der Rechnungsübersicht.",
+    "story": {
+      "typ": "tipp",
+      "eyebrow": "Back Office",
+      "headline": "Eine Rechnung. In einer Minute.",
+      "akzent": "",
+      "text": "Kunde wählen, Leistungen anklicken, festschreiben. Fertig mit XRechnung.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B16",
+    "thema": "Wiederkehrende Rechnungen für Wartung und Pauschalen",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office",
+        "headline": "Jeden Monat dieselbe Rechnung.",
+        "akzent": "Und jeden Monat von Hand?",
+        "text": "Wartungsverträge, Pflegepauschalen, Objektbetreuung: Was sich wiederholt, kann das Back Office selbst.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Das Problem",
+        "headline": "Wer denkt am Ersten daran?",
+        "akzent": "",
+        "text": "Wiederkehrende Rechnungen sind schnell vergessen. Dann fehlt das Geld, und der Kunde wundert sich über zwei Rechnungen im nächsten Monat.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Abos & Verträge",
+        "headline": "Einmal anlegen, Intervall wählen.",
+        "akzent": "",
+        "text": "Fällige Rechnungen entstehen automatisch.",
+        "punkte": [],
+        "projekt": "bo-wiederkehrend"
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Sie entscheiden",
+        "headline": "Automatisch, aber kontrolliert",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Monatlich, quartalsweise oder jährlich",
+          "Als Entwurf zur Prüfung oder direkt",
+          "Pausieren, wenn ein Vertrag ruht"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Legen Sie einen Vertrag an.",
+        "akzent": "Ohne Anmeldung.",
+        "text": "Live-Demo ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Jeden Monat dieselbe Rechnung schreiben. Und jeden Monat hoffen, dass niemand den Ersten vergisst.\n\nWartungsverträge, Pflegepauschalen, monatliche Objektbetreuung: Im Back Office legen Sie eine Rechnung einmal als Vorlage an und wählen das Intervall. Fällige Rechnungen erstellt das System dann von selbst, als Entwurf zur Prüfung oder direkt.\n\nRuht ein Vertrag, pausieren Sie ihn mit einem Klick. Und Sie sehen jederzeit, wann die nächste Rechnung fällig ist.\n\nTesten Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#backoffice",
+      "#rechnungen",
+      "#buchhaltung",
+      "#kleinunternehmen",
+      "#selbstständig",
+      "#digitalisierung",
+      "#büroorganisation",
+      "#dienstleister",
+      "#wartungsvertrag",
+      "#rechnungschreiben"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über wiederkehrende Rechnungen im Back Office, mit Screenshot der Übersicht Abos und Verträge.",
+    "story": {
+      "typ": "frage",
+      "eyebrow": "Kurze Frage",
+      "headline": "Wie viele Ihrer Rechnungen",
+      "akzent": "sind jeden Monat gleich?",
+      "text": "Die kann das Back Office selbst schreiben.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B17",
+    "thema": "Sicherheitsdienst: TÜV abgelaufen, Streifenwagen im Einsatz",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Für Sicherheitsdienste",
+        "headline": "TÜV abgelaufen.",
+        "akzent": "Und der Wagen fährt Streife.",
+        "text": "Wie Sie Fahrzeuge, Termine und Status an einem Ort im Blick behalten.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Im Alltag",
+        "headline": "Der Termin steht im Kalender von jemandem.",
+        "akzent": "",
+        "text": "Oder auf einem Zettel im Handschuhfach. Auffallen tut es dann bei der Kontrolle.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Fahrzeuge im Back Office",
+        "headline": "Abgelaufenes fällt sofort auf.",
+        "akzent": "",
+        "text": "Mit Kennzeichen, Fahrer, Kilometerstand und Status.",
+        "punkte": [],
+        "projekt": "bo-fahrzeuge"
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Auf einen Blick",
+        "headline": "Jedes Fahrzeug",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "TÜV/HU mit Warnung bei Ablauf",
+          "Versicherung",
+          "Im Einsatz, verfügbar oder in der Werkstatt",
+          "Zugeordneter Fahrer"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Schauen Sie in den Fuhrpark.",
+        "akzent": "Ohne Anmeldung.",
+        "text": "Live-Demo für Sicherheitsunternehmen: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "TÜV seit Wochen abgelaufen, und der Streifenwagen ist trotzdem im Einsatz. Wer merkt das zuerst?\n\nIm Alltag steht so ein Termin oft im Kalender von einem einzelnen Kollegen. Oder auf einem Zettel im Handschuhfach.\n\nIm Back Office für Sicherheitsunternehmen hat jedes Fahrzeug seinen Eintrag: Kennzeichen, Typ, Fahrer, Kilometerstand, TÜV/HU und Versicherung. Abgelaufene Termine erscheinen als Warnung ganz oben. Und Sie sehen sofort, welcher Wagen im Einsatz, verfügbar oder in der Werkstatt ist.\n\nTesten Sie die Live-Demo für Sicherheitsunternehmen ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#sicherheitsdienst",
+      "#wachdienst",
+      "#objektschutz",
+      "#34a",
+      "#sicherheitsunternehmen",
+      "#einsatzplanung",
+      "#digitalisierung",
+      "#backoffice",
+      "#fuhrpark",
+      "#streifendienst"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über die Fahrzeugverwaltung im Back Office für Sicherheitsdienste, mit Screenshot der Fahrzeugliste und TÜV-Warnung.",
+    "story": {
+      "typ": "projekt",
+      "eyebrow": "Für Sicherheitsdienste",
+      "headline": "TÜV abgelaufen?",
+      "akzent": "",
+      "text": "",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": "bo-fahrzeuge"
+    }
+  },
+  {
+    "id": "B18",
+    "thema": "Montagmorgen: Ihr Betrieb auf einen Blick",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office",
+        "headline": "Montag, 8 Uhr.",
+        "akzent": "Wie steht der Betrieb?",
+        "text": "Was die Startseite Ihres Back Office zeigt, bevor der erste Kaffee kalt ist.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Ohne System",
+        "headline": "Drei Programme öffnen, eine Liste suchen.",
+        "akzent": "",
+        "text": "Und am Ende ist es doch ein Bauchgefühl, wie der Monat läuft.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Das Dashboard",
+        "headline": "Alle wichtigen Zahlen auf einer Seite.",
+        "akzent": "",
+        "text": "Umsatz, offene Posten, Überfälliges, Anfragen.",
+        "punkte": [],
+        "projekt": "bo-dashboard"
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Was Sie sehen",
+        "headline": "Ein Blick statt drei Programme",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Umsatz im Monat und im Jahr",
+          "Offene und überfällige Rechnungen",
+          "Offene Angebote und neue Anfragen",
+          "Ausgaben und Ergebnis"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Starten Sie Ihre Woche.",
+        "akzent": "Ohne Anmeldung.",
+        "text": "Live-Demo ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Montag, 8 Uhr. Wie steht Ihr Betrieb gerade da? Wissen Sie es, oder ist es eher ein Gefühl?\n\nOhne zentrales System heißt die Antwort: Rechnungsprogramm öffnen, Excel-Liste suchen, im Postfach nach Anfragen schauen.\n\nIm Back Office zeigt die Startseite alles auf einen Blick: Umsatz im Monat und im Jahr, offene und überfällige Rechnungen, offene Angebote, neue Anfragen, Ausgaben und das Ergebnis. Mit einem Klick sind Sie dort, wo es etwas zu tun gibt.\n\nTesten Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#backoffice",
+      "#rechnungen",
+      "#buchhaltung",
+      "#kleinunternehmen",
+      "#selbstständig",
+      "#digitalisierung",
+      "#büroorganisation",
+      "#dienstleister",
+      "#unternehmensführung",
+      "#kennzahlen"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über das Dashboard im Back Office mit Umsatz, offenen Posten, Angeboten und Anfragen auf einen Blick.",
+    "story": {
+      "typ": "projekt",
+      "eyebrow": "Montag, 8 Uhr",
+      "headline": "Ihr Betrieb auf einen Blick.",
+      "akzent": "",
+      "text": "",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": "bo-dashboard"
+    }
+  },
+  {
+    "id": "B19",
+    "thema": "Teilzahlung: Der Kunde zahlt nur die Hälfte",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office",
+        "headline": "Der Kunde zahlt die Hälfte.",
+        "akzent": "Und dann?",
+        "text": "Warum Teilzahlungen in vielen Listen untergehen, und wie Sie den Rest nicht vergessen.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Typisch",
+        "headline": "Als bezahlt markiert. Ist sie aber nicht.",
+        "akzent": "",
+        "text": "Oder als offen, obwohl schon Geld da ist. Beides sorgt für Ärger, beim Kunden und beim Steuerberater.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Im Back Office",
+        "headline": "Jede Zahlung zählt",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Zahlungen einzeln erfassen",
+          "Status „teilbezahlt“ mit offenem Rest",
+          "Rest läuft ins Mahnwesen, wenn nötig"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Klarer Stand",
+        "headline": "Offen heißt wirklich offen.",
+        "akzent": "",
+        "text": "Mit Restbetrag in jeder Zeile.",
+        "punkte": [],
+        "projekt": "bo-rechnungen"
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Buchen Sie eine Teilzahlung.",
+        "akzent": "Ohne Anmeldung.",
+        "text": "Live-Demo ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Der Kunde überweist die Hälfte. Und Ihre Liste sagt entweder „bezahlt“ oder „offen“. Beides stimmt nicht.\n\nTeilzahlungen gehen in Tabellen schnell unter. Dann wird entweder zu früh gemahnt, oder der Rest wird nie eingefordert.\n\nIm Back Office erfassen Sie jede Zahlung einzeln. Die Rechnung steht dann auf „teilbezahlt“, mit dem offenen Restbetrag. Bleibt der Rest liegen, läuft er wie jede andere Forderung ins Mahnwesen.\n\nTesten Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#backoffice",
+      "#rechnungen",
+      "#buchhaltung",
+      "#kleinunternehmen",
+      "#selbstständig",
+      "#digitalisierung",
+      "#büroorganisation",
+      "#dienstleister",
+      "#forderungsmanagement",
+      "#liquidität"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über Teilzahlungen im Back Office: Status teilbezahlt mit offenem Restbetrag in der Rechnungsübersicht.",
+    "story": {
+      "typ": "tipp",
+      "eyebrow": "Kleiner Tipp",
+      "headline": "Teilzahlung ist nicht bezahlt.",
+      "akzent": "",
+      "text": "Im Back Office sehen Sie den offenen Rest in jeder Zeile.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B20",
+    "thema": "Projektbudget: Wann ist das Geld aufgebraucht?",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office",
+        "headline": "Budget aufgebraucht.",
+        "akzent": "Gemerkt bei der Schlussrechnung.",
+        "text": "Wie Sie bei jedem Projekt sehen, wie viel Budget schon in Stunden steckt.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Das Problem",
+        "headline": "Stunden auf Zetteln, Budget im Kopf.",
+        "akzent": "",
+        "text": "Und am Ende wird nachverhandelt oder verschenkt. Beides kostet.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Projekte im Back Office",
+        "headline": "Budget als Balken.",
+        "akzent": "",
+        "text": "Wie viel verbraucht ist, sehen Sie in jeder Zeile.",
+        "punkte": [],
+        "projekt": "bo-projekte"
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Pro Projekt",
+        "headline": "Alles an einem Ort",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Budget und verbrauchter Anteil",
+          "Erfasste Stunden",
+          "Offene und erledigte Aufgaben",
+          "Zeiten direkt abrechnen"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Legen Sie ein Projekt an.",
+        "akzent": "Ohne Anmeldung.",
+        "text": "Live-Demo ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Budget aufgebraucht. Gemerkt bei der Schlussrechnung. Dann ist es zu spät.\n\nWenn Stunden auf Zetteln und das Budget im Kopf stehen, merkt man erst am Ende, ob ein Projekt sich gelohnt hat.\n\nIm Back Office hat jedes Projekt sein Budget, und ein Balken zeigt, wie viel davon schon in erfassten Stunden steckt. Dazu die offenen Aufgaben. Und die erfassten Zeiten rechnen Sie mit einem Klick ab.\n\nSo sprechen Sie mit Ihrem Kunden über Mehraufwand, solange noch Zeit dafür ist.\n\nTesten Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#backoffice",
+      "#rechnungen",
+      "#buchhaltung",
+      "#kleinunternehmen",
+      "#selbstständig",
+      "#digitalisierung",
+      "#büroorganisation",
+      "#dienstleister",
+      "#projektmanagement",
+      "#zeiterfassung"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über Projekte im Back Office mit Budgetbalken, erfassten Stunden und Aufgaben.",
+    "story": {
+      "typ": "projekt",
+      "eyebrow": "Projekte",
+      "headline": "Wie viel Budget ist noch da?",
+      "akzent": "",
+      "text": "",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": "bo-projekte"
+    }
+  },
+  {
+    "id": "B21",
+    "thema": "Sicherheitsdienst: Soll, Ist und Minijob-Grenze",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Für Sicherheitsdienste",
+        "headline": "Minijobber zu viel eingeplant?",
+        "akzent": "Besser jetzt als bei der Lohnabrechnung.",
+        "text": "Wie die Stundenauswertung Soll, Ist und Grenzen je Mitarbeiter zeigt.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Im Alltag",
+        "headline": "Wer hat wie viel gearbeitet?",
+        "akzent": "",
+        "text": "Gerade mit Teilzeit, Vollzeit und Minijob im selben Team wird das am Monatsende zur Puzzlearbeit.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Stundenauswertung",
+        "headline": "Soll, Ist und Saldo je Mitarbeiter.",
+        "akzent": "",
+        "text": "Dazu Nacht-, Sonntags- und Feiertagsstunden.",
+        "punkte": [],
+        "projekt": "bo-auswertung"
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Was Sie sehen",
+        "headline": "Pro Mitarbeiter",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Schichten, Ist- und Soll-Stunden",
+          "Saldo im Zeitraum",
+          "Prüfung gegen die Minijob-Grenze aus Ihren Einstellungen",
+          "CSV für die Lohnbuchhaltung"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Wichtig",
+        "headline": "Werte zur Vorbereitung.",
+        "akzent": "",
+        "text": "Die Lohnabrechnung selbst macht weiter Ihr Lohnprogramm oder Ihre Steuerberatung.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Werten Sie einen Monat aus.",
+        "akzent": "Ohne Anmeldung.",
+        "text": "Live-Demo für Sicherheitsunternehmen: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Teilzeit, Vollzeit, Minijob. Wer hat diesen Monat wie viel gearbeitet, und passt das zum Vertrag?\n\nIm Sicherheitsdienst arbeiten oft alle Beschäftigungsarten im selben Team. Am Monatsende wird das schnell zur Puzzlearbeit.\n\nDie Stundenauswertung im Back Office zeigt je Mitarbeiter Schichten, Ist- und Soll-Stunden, den Saldo und die Nacht-, Sonntags- und Feiertagsstunden. Minijobs werden gegen die Grenze aus Ihren Einstellungen geprüft. Die Werte gehen als CSV an die Lohnbuchhaltung.\n\nDie Lohnabrechnung selbst macht weiterhin Ihr Lohnprogramm oder Ihre Steuerberatung.\n\nTesten Sie die Live-Demo für Sicherheitsunternehmen ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#sicherheitsdienst",
+      "#wachdienst",
+      "#objektschutz",
+      "#34a",
+      "#sicherheitsunternehmen",
+      "#einsatzplanung",
+      "#digitalisierung",
+      "#backoffice",
+      "#dienstplan",
+      "#minijob",
+      "#lohnbuchhaltung"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über die Stundenauswertung im Back Office für Sicherheitsdienste mit Soll, Ist, Saldo und Zuschlagsstunden je Mitarbeiter.",
+    "story": {
+      "typ": "fakt",
+      "eyebrow": "Für Sicherheitsdienste",
+      "headline": "Soll, Ist, Saldo.",
+      "akzent": "Je Mitarbeiter.",
+      "text": "Mit Prüfung gegen die Minijob-Grenze aus Ihren Einstellungen.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B22",
+    "thema": "Angebote nachfassen: Was liegt noch offen?",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office",
+        "headline": "Angebot geschickt.",
+        "akzent": "Und dann nie wieder nachgefragt.",
+        "text": "Wie viel Umsatz in offenen Angeboten steckt, und wie Sie dranbleiben.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Ehrlich gesagt",
+        "headline": "Nachfassen fühlt sich an wie Betteln.",
+        "akzent": "",
+        "text": "Ist es nicht. Viele Kunden warten auf genau diese eine Erinnerung, weil sie es selbst vergessen haben.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Auf dem Dashboard",
+        "headline": "Offene Angebote mit Summe.",
+        "akzent": "",
+        "text": "Sie sehen, was noch auf eine Antwort wartet.",
+        "punkte": [],
+        "projekt": "bo-dashboard"
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Vom Angebot zum Auftrag",
+        "headline": "Ohne Abtippen",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Angebot aus dem Leistungskatalog",
+          "Angenommen: als Auftrag übernehmen",
+          "Danach mit einem Klick zur Rechnung"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Schreiben Sie ein Angebot.",
+        "akzent": "Ohne Anmeldung.",
+        "text": "Live-Demo ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Angebot geschickt. Und dann nie wieder nachgefragt. Das passiert häufiger, als man denkt.\n\nNachfassen fühlt sich unangenehm an. Dabei warten viele Kunden genau auf diese eine Erinnerung, weil sie es im Alltag selbst vergessen haben.\n\nIm Back Office zeigt das Dashboard alle offenen Angebote mit ihrer Summe. Sie sehen auf einen Blick, was noch auf eine Antwort wartet. Sagt der Kunde ja, wird aus dem Angebot ein Auftrag und daraus die Rechnung, ohne etwas abzutippen.\n\nTesten Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#backoffice",
+      "#rechnungen",
+      "#buchhaltung",
+      "#kleinunternehmen",
+      "#selbstständig",
+      "#digitalisierung",
+      "#büroorganisation",
+      "#dienstleister",
+      "#angebot",
+      "#vertrieb"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über offene Angebote im Back Office-Dashboard und den Weg vom Angebot zum Auftrag zur Rechnung.",
+    "story": {
+      "typ": "frage",
+      "eyebrow": "Kurze Frage",
+      "headline": "Wie viele Angebote",
+      "akzent": "warten bei Ihnen auf Antwort?",
+      "text": "Im Back Office sehen Sie die Summe auf einen Blick.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B23",
+    "thema": "Was bleibt am Ende übrig? Ausgaben und Ergebnis",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office",
+        "headline": "Umsatz ist schön.",
+        "akzent": "Was bleibt übrig?",
+        "text": "Warum Ausgaben ins selbe System gehören wie Ihre Rechnungen.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Typisch",
+        "headline": "Einnahmen im Programm, Ausgaben im Ordner.",
+        "akzent": "",
+        "text": "Wie viel wirklich übrig bleibt, erfahren viele erst, wenn die Steuerberatung den Abschluss macht.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Im Back Office",
+        "headline": "Beide Seiten an einem Ort",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Ausgaben mit Beleg und Kategorie",
+          "Lieferanten gespeichert",
+          "Ergebnis direkt auf dem Dashboard",
+          "Einnahmen-Überschuss-Rechnung auf Abruf"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Berichte",
+        "headline": "Zahlen, wenn Sie sie brauchen.",
+        "akzent": "",
+        "text": "Nicht erst beim Jahresabschluss.",
+        "punkte": [],
+        "projekt": "bo-berichte"
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Erfassen Sie eine Ausgabe.",
+        "akzent": "Ohne Anmeldung.",
+        "text": "Live-Demo ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Umsatz ist schön. Aber was bleibt am Ende eigentlich übrig?\n\nIn vielen Betrieben stehen die Einnahmen im Rechnungsprogramm und die Ausgaben im Ordner. Das echte Ergebnis sieht man erst, wenn die Steuerberatung den Abschluss macht.\n\nIm Back Office erfassen Sie Ausgaben mit Beleg und Kategorie, Ihre Lieferanten sind gespeichert. Das Dashboard zeigt Ausgaben und Ergebnis neben dem Umsatz. Und die Einnahmen-Überschuss-Rechnung ist jederzeit auf Abruf da.\n\nTesten Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#backoffice",
+      "#rechnungen",
+      "#buchhaltung",
+      "#kleinunternehmen",
+      "#selbstständig",
+      "#digitalisierung",
+      "#büroorganisation",
+      "#dienstleister",
+      "#finanzen",
+      "#steuerberater"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über Ausgaben, Lieferanten und Berichte im Back Office, damit Umsatz und Ergebnis an einem Ort stehen.",
+    "story": {
+      "typ": "tipp",
+      "eyebrow": "Kleiner Tipp",
+      "headline": "Umsatz ist nicht Ergebnis.",
+      "akzent": "",
+      "text": "Erfassen Sie Ausgaben im selben System wie Ihre Rechnungen.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B24",
+    "thema": "Ihr Back Office trägt Ihren Namen",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office",
+        "headline": "Ihr Name. Ihre Farben.",
+        "akzent": "Ihre Domain.",
+        "text": "Warum Ihr Back Office aussieht wie Ihr Betrieb und nicht wie eine fremde Software.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Was angepasst wird",
+        "headline": "Ihr Auftritt",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Firmendaten und Logo",
+          "Farbe und Texte",
+          "Eigene Domain mit HTTPS",
+          "E-Mail-Versand mit Ihrem Absender"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Warum das zählt",
+        "headline": "Ihr Kunde sieht Ihren Betrieb.",
+        "akzent": "",
+        "text": "Auf jeder Rechnung, jedem Angebot und jeder E-Mail. Nicht den Namen eines Software-Anbieters.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "In der Demo",
+        "headline": "Einmal einstellen, überall sichtbar.",
+        "akzent": "",
+        "text": "Firmendaten, Farbe und Texte zentral gepflegt.",
+        "punkte": [],
+        "projekt": "bo-dashboard"
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Machen Sie es zu Ihrem.",
+        "akzent": "Ohne Anmeldung.",
+        "text": "Live-Demo ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Ihr Name, Ihre Farben, Ihre Domain. Ihr Back Office sieht aus wie Ihr Betrieb.\n\nFirmendaten, Logo, Farbe und Texte stellen Sie einmal ein. Danach tragen jede Rechnung, jedes Angebot und jede E-Mail Ihren Auftritt. Das Back Office läuft unter Ihrer eigenen Domain mit HTTPS, und E-Mails gehen mit Ihrem Absender raus.\n\nIhr Kunde sieht Ihren Betrieb und nicht den Namen eines Software-Anbieters.\n\nTesten Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#backoffice",
+      "#rechnungen",
+      "#buchhaltung",
+      "#kleinunternehmen",
+      "#selbstständig",
+      "#digitalisierung",
+      "#büroorganisation",
+      "#dienstleister",
+      "#corporatedesign",
+      "#branding"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold darüber, wie das Back Office mit Firmendaten, Logo, Farbe und eigener Domain den Auftritt des Betriebs trägt.",
+    "story": {
+      "typ": "teaser",
+      "eyebrow": "Neu im Feed",
+      "headline": "Ihr Name. Ihre Farben.",
+      "akzent": "Ihre Domain.",
+      "text": "Wie Ihr Back Office aussieht wie Ihr Betrieb.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B25",
+    "thema": "Umzug aus Excel: Kundendaten übernehmen",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office",
+        "headline": "400 Kunden in Excel.",
+        "akzent": "Alles neu eintippen?",
+        "text": "Nein. Wie Ihre vorhandenen Daten ins Back Office kommen.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Die Sorge",
+        "headline": "Der Umstieg frisst Wochen.",
+        "akzent": "",
+        "text": "Viele bleiben deshalb bei der alten Liste. Verständlich, aber unnötig.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "So läuft es",
+        "headline": "Umzug in drei Schritten",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Liste als CSV exportieren",
+          "Import ins Back Office",
+          "Kurz prüfen, fertig"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Im Business-Paket",
+        "headline": "Den Import mache ich für Sie.",
+        "akzent": "",
+        "text": "Ihre Kundendaten und Ihren Leistungskatalog richte ich ein. Sie starten mit einem fertigen System.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Erst testen, dann umziehen.",
+        "akzent": "Ohne Anmeldung.",
+        "text": "Live-Demo ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Ihre Kunden stehen in einer Excel-Liste? Dann müssen Sie nichts neu eintippen.\n\nViele bleiben bei der alten Liste, weil sie denken, der Umstieg frisst Wochen. Muss er nicht.\n\nDie Liste wird als CSV exportiert und ins Back Office importiert. Im Business-Paket übernehme ich das für Sie, zusammen mit Ihrem Leistungskatalog. Sie starten mit einem fertig eingerichteten System und Ihren eigenen Daten.\n\nTesten Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#backoffice",
+      "#rechnungen",
+      "#buchhaltung",
+      "#kleinunternehmen",
+      "#selbstständig",
+      "#digitalisierung",
+      "#büroorganisation",
+      "#dienstleister",
+      "#excel",
+      "#kundendaten"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über den Umzug von Kundendaten aus Excel per CSV-Import ins Back Office.",
+    "story": {
+      "typ": "fakt",
+      "eyebrow": "Back Office",
+      "headline": "Kein Neu-Eintippen.",
+      "akzent": "",
+      "text": "Ihre Kundenliste kommt per CSV-Import ins Back Office.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B26",
+    "thema": "Klartext: Monatsende ist kein Naturgesetz",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Klartext",
+        "headline": "Monatsende heißt Papierkram?",
+        "akzent": "Muss nicht sein.",
+        "text": "Warum das letzte Wochenende im Monat nicht der Buchhaltung gehören sollte.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Das kennen viele",
+        "headline": "Samstag, Küchentisch, Belege.",
+        "akzent": "",
+        "text": "Rechnungen schreiben, Stunden zusammenzählen, Mahnungen nachholen. Alles, was im Monat liegen geblieben ist.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Der Grund",
+        "headline": "Nicht Faulheit. Fehlende Abläufe.",
+        "akzent": "",
+        "text": "Wenn jede Aufgabe von Hand angestoßen werden muss, bleibt sie liegen, bis es nicht mehr anders geht.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Was ein Back Office abnimmt",
+        "headline": "Läuft nebenbei",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Wiederkehrende Rechnungen",
+          "Mahnstufen mit Gebühren",
+          "Stunden aus dem Dienstplan",
+          "DATEV-Export am Monatsende"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Feierabend statt Papierkram",
+        "headline": "Sehen Sie selbst.",
+        "akzent": "Ohne Anmeldung.",
+        "text": "Live-Demo ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Klartext: Das letzte Wochenende im Monat sollte nicht der Buchhaltung gehören.\n\nSamstag, Küchentisch, Belege. Rechnungen schreiben, Stunden zusammenzählen, Mahnungen nachholen. Das liegt selten an Faulheit, sondern an fehlenden Abläufen: Wenn jede Aufgabe von Hand angestoßen werden muss, bleibt sie liegen.\n\nIm Back Office laufen viele Dinge nebenbei: wiederkehrende Rechnungen, Mahnstufen mit Gebühren, Stunden aus dem Dienstplan und der DATEV-Export für die Steuerberatung.\n\nFeierabend statt Papierkram. Testen Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#backoffice",
+      "#rechnungen",
+      "#buchhaltung",
+      "#kleinunternehmen",
+      "#selbstständig",
+      "#digitalisierung",
+      "#büroorganisation",
+      "#dienstleister",
+      "#feierabend",
+      "#zeitsparen"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold mit dem Klartext, dass Monatsende kein Papierkram-Wochenende sein muss, und was ein Back Office automatisch erledigt.",
+    "story": {
+      "typ": "frage",
+      "eyebrow": "Ehrlich gefragt",
+      "headline": "Wem gehört Ihr letztes",
+      "akzent": "Wochenende im Monat?",
+      "text": "Feierabend statt Papierkram: Wie das geht, steht im Beitrag.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B27",
+    "thema": "Klartext: Excel ist kein Back Office",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Klartext",
+        "headline": "Excel ist ein gutes Werkzeug.",
+        "akzent": "Aber kein Back Office.",
+        "text": "Wo die Tabelle an ihre Grenzen kommt, sobald mehr als eine Person damit arbeitet.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Typische Grenzen",
+        "headline": "Woran es hakt",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Wer hat die Liste zuletzt geändert?",
+          "Welche Version ist die aktuelle?",
+          "Formel überschrieben, keiner merkt es",
+          "Rechnungsnummern doppelt vergeben"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Der Unterschied",
+        "headline": "Ein System merkt sich, was passiert.",
+        "akzent": "",
+        "text": "Festgeschriebene Rechnungen, lückenlose Nummern, ein Protokoll jeder Änderung und Rollen für jeden im Team.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Benutzer & Rollen",
+        "headline": "Jeder sieht, was er braucht.",
+        "akzent": "",
+        "text": "Mit Zwei-Faktor-Anmeldung für jeden Zugang.",
+        "punkte": [],
+        "projekt": "bo-benutzer"
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Vergleichen Sie selbst.",
+        "akzent": "Ohne Anmeldung.",
+        "text": "Live-Demo ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Klartext: Excel ist ein gutes Werkzeug. Aber kein Back Office.\n\nSolange eine Person damit arbeitet, geht es. Sobald zwei oder drei an derselben Liste sitzen, kommen die Fragen: Wer hat zuletzt geändert? Welche Version ist aktuell? Warum ist die Rechnungsnummer doppelt?\n\nEin Back Office merkt sich, was passiert: Rechnungen werden festgeschrieben, Nummern sind lückenlos, jede Änderung wird protokolliert. Und über Rollen sieht jeder im Team nur das, was er braucht.\n\nTesten Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#backoffice",
+      "#rechnungen",
+      "#buchhaltung",
+      "#kleinunternehmen",
+      "#selbstständig",
+      "#digitalisierung",
+      "#büroorganisation",
+      "#dienstleister",
+      "#excel",
+      "#teamarbeit"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold mit dem Klartext Excel ist kein Back Office, mit typischen Grenzen von Tabellen und einem Screenshot der Benutzer- und Rollenverwaltung.",
+    "story": {
+      "typ": "fakt",
+      "eyebrow": "Klartext",
+      "headline": "Excel ist ein Werkzeug.",
+      "akzent": "Kein Back Office.",
+      "text": "Spätestens, wenn drei Leute an derselben Liste arbeiten.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B28",
+    "thema": "Sicherheitsdienst: Vom Auftrag bis zur Rechnung in einem System",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Für Sicherheitsdienste",
+        "headline": "Vom Auftrag bis zur Rechnung.",
+        "akzent": "In einem System.",
+        "text": "Wie der Weg eines Objektauftrags im Back Office aussieht.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Der Weg",
+        "headline": "Fünf Stationen",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Anfrage von der Website",
+          "Angebot und Auftrag",
+          "Objekt mit Dienstanweisung",
+          "Dienstplan und Wachbuch",
+          "Abrechnung mit Zuschlägen"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Objekte",
+        "headline": "Alles zum Objekt an einem Ort.",
+        "akzent": "",
+        "text": "Ansprechpartner, Anweisungen, Kontrollpunkte.",
+        "punkte": [],
+        "projekt": "bo-objekte"
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Dienstplan",
+        "headline": "Planen mit Konfliktprüfung.",
+        "akzent": "",
+        "text": "Qualifikation, Urlaub und Ruhezeiten im Blick.",
+        "punkte": [],
+        "projekt": "bo-dienstplan"
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Der Unterschied",
+        "headline": "Keine Daten werden zweimal erfasst.",
+        "akzent": "",
+        "text": "Was beim Auftrag eingetragen wird, steht im Dienstplan und landet am Ende auf der Rechnung.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Gehen Sie den Weg selbst.",
+        "akzent": "Ohne Anmeldung.",
+        "text": "Live-Demo für Sicherheitsunternehmen: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Vom Auftrag bis zur Rechnung. Im Sicherheitsdienst sind das oft vier Programme und ein Ordner.\n\nIm Back Office für Sicherheitsunternehmen ist es ein Weg: Die Anfrage kommt von Ihrer Website, daraus werden Angebot und Auftrag. Das Objekt bekommt Ansprechpartner, Dienstanweisungen und Kontrollpunkte. Der Dienstplan prüft Qualifikationen, Urlaub und Ruhezeiten, die Wächter-App dokumentiert jeden Rundgang. Am Monatsende rechnen Sie die Einsätze mit Zuschlägen ab.\n\nWas einmal eingetragen ist, wird nicht noch einmal erfasst.\n\nTesten Sie die Live-Demo für Sicherheitsunternehmen ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#sicherheitsdienst",
+      "#wachdienst",
+      "#objektschutz",
+      "#34a",
+      "#sicherheitsunternehmen",
+      "#einsatzplanung",
+      "#digitalisierung",
+      "#backoffice",
+      "#dienstplan",
+      "#wachbuch"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über den Weg eines Objektauftrags im Back Office für Sicherheitsdienste, mit Screenshots der Objektverwaltung und des Dienstplans.",
+    "story": {
+      "typ": "projekt",
+      "eyebrow": "Für Sicherheitsdienste",
+      "headline": "Auftrag bis Rechnung.",
+      "akzent": "In einem System.",
+      "text": "",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": "bo-dienstplan"
+    }
+  },
+  {
+    "id": "B29",
+    "thema": "Rechenbeispiel: Fünf Jahre Back Office",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Rechenbeispiel",
+        "headline": "Fünf Jahre.",
+        "akzent": "Was kostet das wirklich?",
+        "text": "Einmalpreis plus Hosting gegen ein typisches Abo-Paket. Offen gerechnet.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "zahl",
+        "eyebrow": "Back Office Basis",
+        "headline": "2.640 €",
+        "akzent": "in fünf Jahren.",
+        "text": "1.500 € einmalig plus Hosting für 19 € im Monat. Beliebig viele Nutzer. Netto.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "zahl",
+        "eyebrow": "Typisches Abo-Paket",
+        "headline": "10.800 €",
+        "akzent": "in fünf Jahren.",
+        "text": "Fünf Abos für drei Nutzer, rund 2.160 € im Jahr. Rechenbeispiel mit üblichen Listenpreisen, netto.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Dazu kommt",
+        "headline": "Mehr Nutzer kosten nichts extra.",
+        "akzent": "",
+        "text": "Bei Abos wächst der Preis mit jedem neuen Kollegen. Beim Back Office nicht.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Rechnen Sie selbst",
+        "headline": "Was zahlen Sie heute?",
+        "akzent": "Ohne Anmeldung.",
+        "text": "Live-Demo ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Rechenbeispiel: Was kostet ein Back Office in fünf Jahren?\n\nBasis-Paket: 1.500 € einmalig, dazu Hosting in Deutschland für 19 € im Monat. Macht in fünf Jahren 2.640 €, für beliebig viele Nutzer.\n\nZum Vergleich ein typisches Abo-Paket aus Rechnung, CRM, Zeiterfassung, Projekten und Dienstplan für drei Nutzer: rund 2.160 € im Jahr, also 10.800 € in fünf Jahren. Und mit jedem neuen Kollegen wird es teurer.\n\nWas zahlen Sie heute? Rechnen Sie es einmal nach. Testen Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.\n\n(Rechenbeispiel mit üblichen Listenpreisen, netto. Optionale Wartung nicht eingerechnet.)",
+    "hashtags": [
+      "#backoffice",
+      "#rechnungen",
+      "#buchhaltung",
+      "#kleinunternehmen",
+      "#selbstständig",
+      "#digitalisierung",
+      "#büroorganisation",
+      "#dienstleister",
+      "#softwarekosten",
+      "#abofalle"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold mit einem Rechenbeispiel über fünf Jahre: Back Office für 2.640 Euro gegenüber einem typischen Abo-Paket für 10.800 Euro, netto.",
+    "story": {
+      "typ": "fakt",
+      "eyebrow": "Rechenbeispiel",
+      "headline": "2.640 € statt 10.800 €",
+      "akzent": "in fünf Jahren.",
+      "text": "Back Office Basis plus Hosting gegen ein typisches Abo-Paket. Netto.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B30",
+    "thema": "Nach dem Kauf: Hosting, Wartung, Updates",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office",
+        "headline": "Gekauft. Und dann?",
+        "akzent": "Was nach der Einrichtung passiert.",
+        "text": "Hosting, Wartung, Updates: was dabei ist und was Sie wählen können.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Bei jedem Paket",
+        "headline": "Startklar übergeben",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Installation auf Ihrem Server",
+          "Firmendaten, Logo, Nummernkreise",
+          "Einweisung oder Schulung"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Wenn Sie möchten",
+        "headline": "Optional dazu",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Hosting in Deutschland: 19–39 € im Monat",
+          "Wartung und Updates: 49–99 € im Monat",
+          "Anpassungen im Premium-Paket"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Ihre Wahl",
+        "headline": "Kein Abo-Zwang für die Software.",
+        "akzent": "",
+        "text": "Sie können das Back Office selbst betreiben oder Hosting und Wartung dazunehmen. Und Sie sprechen immer mit mir.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Erst testen, dann entscheiden.",
+        "akzent": "Ohne Anmeldung.",
+        "text": "Live-Demo ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Gekauft. Und dann? Eine berechtigte Frage, gerade bei Software ohne Abo.\n\nJedes Paket wird startklar übergeben: Installation auf Ihrem Server, Firmendaten, Logo, Nummernkreise und eine Einweisung oder Schulung.\n\nDanach entscheiden Sie: Sie betreiben das Back Office selbst, oder Sie nehmen Hosting in Deutschland für 19 bis 39 € im Monat und Wartung mit Updates für 49 bis 99 € im Monat dazu. Alle Preise netto. Die Software selbst bleibt ohne Abo.\n\nUnd bei Fragen sprechen Sie immer mit mir, nicht mit einer Hotline.\n\nTesten Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#backoffice",
+      "#rechnungen",
+      "#buchhaltung",
+      "#kleinunternehmen",
+      "#selbstständig",
+      "#digitalisierung",
+      "#büroorganisation",
+      "#dienstleister",
+      "#hosting",
+      "#software"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold darüber, was nach dem Kauf des Back Office passiert: Übergabe, optionales Hosting und optionale Wartung mit Preisen netto.",
+    "story": {
+      "typ": "frage",
+      "eyebrow": "Gute Frage",
+      "headline": "Gekauft. Und dann?",
+      "akzent": "",
+      "text": "Was nach der Einrichtung passiert, erkläre ich im Beitrag.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B31",
+    "thema": "Live-Demo: Neun Dinge zum Ausprobieren",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Live-Demo",
+        "headline": "Neun Dinge,",
+        "akzent": "die Sie heute ausprobieren können.",
+        "text": "Ein Rundgang durch die Live-Demo, ohne Anmeldung und ohne Verkaufsgespräch.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Verkauf",
+        "headline": "Teil 1",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Rechnung in einer Minute",
+          "Mahnwesen mit drei Stufen",
+          "Anfragen von der Website"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Planung",
+        "headline": "Teil 2",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Dienstplan mit Konfliktprüfung",
+          "Stundenauswertung mit Zuschlägen",
+          "Projekte mit Zeiten und Budget"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Rund ums Büro",
+        "headline": "Teil 3",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Berichte und DATEV-Export",
+          "Ihr Design: Firmendaten und Farbe",
+          "Website-Anbindung per Code-Schnipsel"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Der Startpunkt",
+        "headline": "Der Rundgang steht auf der Startseite.",
+        "akzent": "",
+        "text": "Einfach anklicken und loslegen.",
+        "punkte": [],
+        "projekt": "bo-dashboard"
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Ihr Rundgang",
+        "headline": "Fangen Sie irgendwo an.",
+        "akzent": "Ohne Anmeldung.",
+        "text": "Live-Demo ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Neun Dinge, die Sie heute in der Live-Demo ausprobieren können. Ohne Anmeldung, ohne Verkaufsgespräch.\n\n1. Eine Rechnung in einer Minute\n2. Mahnwesen mit drei Stufen\n3. Anfragen von der Website\n4. Dienstplan mit Konfliktprüfung\n5. Stundenauswertung mit Zuschlägen\n6. Projekte mit Zeiten und Budget\n7. Berichte und DATEV-Export\n8. Ihr Design: Firmendaten, Farbe, Texte\n9. Website-Anbindung per Code-Schnipsel\n\nDer Rundgang steht direkt auf der Startseite der Demo. Speichern Sie den Beitrag für später. Testen Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#backoffice",
+      "#rechnungen",
+      "#buchhaltung",
+      "#kleinunternehmen",
+      "#selbstständig",
+      "#digitalisierung",
+      "#büroorganisation",
+      "#dienstleister",
+      "#livedemo",
+      "#software"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold mit neun Funktionen, die man in der Live-Demo des Back Office ohne Anmeldung ausprobieren kann.",
+    "story": {
+      "typ": "teaser",
+      "eyebrow": "Live-Demo",
+      "headline": "Neun Dinge zum Ausprobieren.",
+      "akzent": "",
+      "text": "Ohne Anmeldung, ohne Verkaufsgespräch.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B32",
+    "thema": "Suchen statt Ordner wälzen",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office",
+        "headline": "„Wo war nochmal die Rechnung?“",
+        "akzent": "Ein Suchfeld statt fünf Ordner.",
+        "text": "Warum die schnellste Funktion im Back Office oft die unscheinbarste ist.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Ohne System",
+        "headline": "Ordner auf, Ordner zu.",
+        "akzent": "",
+        "text": "Rechnungen hier, Angebote dort, Kundendaten in der Mail. Jede Rückfrage am Telefon wird zur Suche.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Im Back Office",
+        "headline": "Strg + K, Name tippen, fertig.",
+        "akzent": "",
+        "text": "Kunden, Rechnungen, Angebote und Projekte über ein einziges Suchfeld. Auch während der Kunde noch am Telefon ist.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Immer oben",
+        "headline": "Die Suche ist auf jeder Seite.",
+        "akzent": "",
+        "text": "Ein Kürzel, und Sie sind da.",
+        "punkte": [],
+        "projekt": "bo-rechnungen"
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Suchen Sie etwas.",
+        "akzent": "Ohne Anmeldung.",
+        "text": "Live-Demo ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "„Wo war nochmal die Rechnung von letztem Monat?“ Eine Frage, die in vielen Büros fünf Minuten kostet.\n\nRechnungen im einen Ordner, Angebote im anderen, Kundendaten irgendwo in der Mail. Jede Rückfrage am Telefon wird zur Suche.\n\nIm Back Office gibt es oben auf jeder Seite ein Suchfeld. Strg + K, Namen tippen, und Sie finden Kunden, Rechnungen, Angebote und Projekte. Auch, während der Kunde noch am Telefon ist.\n\nTesten Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#backoffice",
+      "#rechnungen",
+      "#buchhaltung",
+      "#kleinunternehmen",
+      "#selbstständig",
+      "#digitalisierung",
+      "#büroorganisation",
+      "#dienstleister",
+      "#zeitsparen",
+      "#ordnung"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über die zentrale Suche im Back Office, mit der Kunden, Rechnungen und Projekte über ein Suchfeld gefunden werden.",
+    "story": {
+      "typ": "tipp",
+      "eyebrow": "Kleiner Tipp",
+      "headline": "Strg + K.",
+      "akzent": "Und Sie finden alles.",
+      "text": "Kunden, Rechnungen, Angebote und Projekte über ein Suchfeld.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B33",
+    "thema": "Einmal zahlen. Beliebig viele Nutzer. Ihre Daten.",
+    "format": "einzelbild",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office · Jörg Noack",
+        "headline": "Einmal zahlen.",
+        "akzent": "Beliebig viele Nutzer.",
+        "text": "Ihre Daten bleiben bei Ihnen. Rechnungen, Mahnwesen, Dienstplan und DATEV-Export in einem Back Office. Feierabend statt Papierkram.",
+        "punkte": [],
+        "projekt": ""
+      }
+    ],
+    "caption": "Einmal zahlen. Beliebig viele Nutzer. Und Ihre Daten bleiben bei Ihnen.\n\nDas sind die drei Grundsätze hinter meinem Back Office. Rechnungen mit XRechnung, Mahnwesen, Dienstplan mit Arbeitszeitprüfung und DATEV-Export, alles an einem Ort, ohne monatliches Abo für die Software.\n\nFeierabend statt Papierkram. Testen Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#backoffice",
+      "#rechnungen",
+      "#buchhaltung",
+      "#kleinunternehmen",
+      "#selbstständig",
+      "#digitalisierung",
+      "#büroorganisation",
+      "#dienstleister",
+      "#feierabendstattpapierkram",
+      "#ohneabo"
+    ],
+    "alt_text": "Schwarzes Bild mit goldener Schrift: Einmal zahlen. Beliebig viele Nutzer. Darunter ein kurzer Text zum Back Office von Jörg Noack.",
+    "story": {
+      "typ": "teaser",
+      "eyebrow": "Back Office",
+      "headline": "Einmal zahlen.",
+      "akzent": "Beliebig viele Nutzer.",
+      "text": "Ihre Daten bleiben bei Ihnen.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
+  },
+  {
+    "id": "B34",
+    "thema": "Vom Angebot zur Rechnung ohne Abtippen",
+    "format": "karussell",
+    "folien": [
+      {
+        "typ": "titel",
+        "eyebrow": "Back Office",
+        "headline": "Angebot, Auftrag, Rechnung.",
+        "akzent": "Dreimal dasselbe abtippen?",
+        "text": "Wie ein Vorgang im Back Office von Station zu Station wandert.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "inhalt",
+        "eyebrow": "Heute",
+        "headline": "Copy and Paste zwischen drei Dokumenten.",
+        "akzent": "",
+        "text": "Und bei jeder Kopie die Chance, dass sich ein Preis oder eine Menge verschiebt.",
+        "punkte": [],
+        "projekt": ""
+      },
+      {
+        "typ": "liste",
+        "eyebrow": "Im Back Office",
+        "headline": "Ein Vorgang, drei Stationen",
+        "akzent": "",
+        "text": "",
+        "punkte": [
+          "Angebot aus dem Leistungskatalog",
+          "Mit einem Klick zum Auftrag",
+          "Mit einem Klick zur Rechnung"
+        ],
+        "projekt": ""
+      },
+      {
+        "typ": "projekt",
+        "eyebrow": "Am Ende",
+        "headline": "Die Rechnung ist schon fertig.",
+        "akzent": "",
+        "text": "Mit XRechnung und GiroCode.",
+        "punkte": [],
+        "projekt": "bo-rechnungen"
+      },
+      {
+        "typ": "cta",
+        "eyebrow": "Selbst ausprobieren",
+        "headline": "Gehen Sie den Weg einmal.",
+        "akzent": "Ohne Anmeldung.",
+        "text": "Live-Demo ohne Anmeldung: Link in Bio. Oder „DEMO“ per DM.",
+        "punkte": [],
+        "projekt": "",
+        "hinweis": "Live-Demo · Link in Bio"
+      }
+    ],
+    "caption": "Angebot, Auftrag, Rechnung. Und dreimal dieselben Positionen abtippen?\n\nWer Dokumente von Hand kopiert, riskiert bei jeder Kopie einen Fehler: eine falsche Menge, ein alter Preis, ein vergessener Rabatt.\n\nIm Back Office ist es ein Vorgang. Das Angebot entsteht aus Ihrem Leistungskatalog, mit einem Klick wird es zum Auftrag und mit einem weiteren zur Rechnung, inklusive XRechnung und GiroCode. Alles bleibt verknüpft, Sie sehen jederzeit, woher eine Rechnung kommt.\n\nTesten Sie die Live-Demo ohne Anmeldung: Link in Bio. Oder schreiben Sie mir „DEMO“ per DM.",
+    "hashtags": [
+      "#backoffice",
+      "#rechnungen",
+      "#buchhaltung",
+      "#kleinunternehmen",
+      "#selbstständig",
+      "#digitalisierung",
+      "#büroorganisation",
+      "#dienstleister",
+      "#angebot",
+      "#rechnungschreiben"
+    ],
+    "alt_text": "Karussell in Schwarz und Gold über den Weg vom Angebot über den Auftrag zur Rechnung im Back Office ohne Abtippen.",
+    "story": {
+      "typ": "tipp",
+      "eyebrow": "Kleiner Tipp",
+      "headline": "Nie wieder dreimal abtippen.",
+      "akzent": "",
+      "text": "Angebot, Auftrag und Rechnung sind im Back Office ein Vorgang.",
+      "hinweis": "Zum Beitrag ↗",
+      "projekt": ""
+    }
   }
 ]
